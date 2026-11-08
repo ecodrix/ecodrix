@@ -57,7 +57,37 @@ const nextConfig: NextConfig = {
   // Old root-level policy URLs (and the sitemap's old /laie/audit) live under
   // /legal and /platform now. Permanent redirects keep links in app stores,
   // Meta / Google OAuth consent screens and old search results working.
+  /**
+   * ERIX Help lives on doc.ecodrix.com (files in app/(help)/help): the host
+   * serves those pages at its root. `doc.localhost` works the same in dev.
+   * Files (images, _next, anything with an extension) pass through.
+   */
+  async rewrites() {
+    const docHost = [{ type: "host" as const, value: "doc\\.(ecodrix\\.com|localhost)" }];
+    return {
+      beforeFiles: [
+        { source: "/", has: docHost, destination: "/help" },
+        { source: "/:path((?!help(?:/|$)|_next/|api/|.*\\.[a-z0-9]+$).*)", has: docHost, destination: "/help/:path" },
+      ],
+    };
+  },
+
   async redirects() {
+    const docHost = [{ type: "host" as const, value: "doc\\.(ecodrix\\.com|localhost)" }];
+    const brandHost = [{ type: "host" as const, value: "(www\\.)?ecodrix\\.com" }];
+    const help = [
+      // Clean addresses on the help host: /help/x → /x (files excluded).
+      { source: "/help", has: docHost, destination: "/", permanent: false },
+      { source: "/help/:path((?!.*\\.[a-z0-9]+$).*)", has: docHost, destination: "/:path", permanent: false },
+      // The brand site sends help readers to the help host.
+      { source: "/help", has: brandHost, destination: "https://doc.ecodrix.com", permanent: false },
+      {
+        source: "/help/:path((?!.*\\.[a-z0-9]+$).*)",
+        has: brandHost,
+        destination: "https://doc.ecodrix.com/:path",
+        permanent: false,
+      },
+    ];
     const legal = [
       "privacy",
       "terms",
@@ -71,6 +101,7 @@ const nextConfig: NextConfig = {
       "whatsapp-policy",
     ];
     return [
+      ...help,
       ...legal.map((slug) => ({
         source: `/${slug}`,
         destination: `/legal/${slug}`,

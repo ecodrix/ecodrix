@@ -24,7 +24,7 @@ const API_URL = process.env.NEXT_PUBLIC_ERIX_SOCKET_URL || "https://api.ecodrix.
  * used to beacon the production API from their own origin, which CORS
  * rejected (~1,600 "CORS blocked" warnings in the system logs on 26 Oct).
  */
-const TRACKED_HOSTS = new Set(["ecodrix.com", "www.ecodrix.com"]);
+const TRACKED_HOSTS = new Set(["ecodrix.com", "www.ecodrix.com", "doc.ecodrix.com"]);
 
 export function VisitorTracker() {
   const pathname = usePathname();

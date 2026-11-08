@@ -214,6 +214,12 @@ export const RESOURCE_NAV = [
       cta: "See all guides",
     },
   },
+  {
+    icon: "help-circle",
+    name: "Help center",
+    href: "https://doc.ecodrix.com",
+    summary: "How to do each job in ERIX, with real screens.",
+  },
 ] as const satisfies readonly {
   icon: IconName;
   name: string;

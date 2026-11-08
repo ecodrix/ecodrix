@@ -13,7 +13,7 @@ export const API_URL = process.env.NEXT_PUBLIC_ERIX_SOCKET_URL || "https://api.e
 
 // Same guards as VisitorTracker: only the live site beacons the production
 // API (other origins are CORS-blocked), and only after analytics consent.
-const TRACKED_HOSTS = new Set(["ecodrix.com", "www.ecodrix.com"]);
+const TRACKED_HOSTS = new Set(["ecodrix.com", "www.ecodrix.com", "doc.ecodrix.com"]);
 
 /** Per-session anonymous visitor id. Call only behind analytics consent. */
 export function getVisitorId(): string {
