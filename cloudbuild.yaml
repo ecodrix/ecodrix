@@ -1,10 +1,11 @@
 # ─── Cloud Build: ecodrix.com + doc.ecodrix.com (website, ERIX Help) image ───
-# Builds the image and pushes it. Nothing is rolled out from here: the web VM
-# pulls `:latest` when you run `bash release.sh site` in ECOD/infra/web (the
-# same way the jobs VM gets its image).
+# Builds the image and pushes it. Nothing is rolled out from here: the web VM's
+# release agent notices the new `:latest` within a minute and swaps the site
+# container (agent off: `bash release.sh site` in ECOD/infra/web). The repo
+# has no test suite; `next build` below stops on any type error.
 #
-# Run by a trigger on push to main, or by hand:
-#   gcloud builds submit --config cloudbuild.yaml --region us-central1 .
+# Run by the trigger marketing-trigger on push to main, or by hand:
+#   gcloud builds submit --config cloudbuild.yaml --region asia-south1 .
 #
 # Browser-visible env (NEXT_PUBLIC_*) is compiled into the bundle, so it is
 # needed at build time. It lives in Secret Manager as `${_IMAGE}-build-env`
