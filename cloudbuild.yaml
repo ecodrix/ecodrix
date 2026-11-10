@@ -1,0 +1,56 @@
+# ─── Cloud Build: ecodrix.com + doc.ecodrix.com (website, ERIX Help) image ───
+# Builds the image and pushes it. Nothing is rolled out from here: the web VM
+# pulls `:latest` when you run `bash release.sh site` in ECOD/infra/web (the
+# same way the jobs VM gets its image).
+#
+# Run by a trigger on push to main, or by hand:
+#   gcloud builds submit --config cloudbuild.yaml --region us-central1 .
+#
+# Browser-visible env (NEXT_PUBLIC_*) is compiled into the bundle, so it is
+# needed at build time. It lives in Secret Manager as `${_IMAGE}-build-env`
+# (KEY=VALUE lines, public values only; ECOD/infra/web/README.md, step 3) and
+# is written to `.env.production` before the build.
+#
+# Default build machine on purpose: Google's free build minutes apply to it.
+# ──────────────────────────────────────────────────────────────────────────────
+
+steps:
+  # ─── Browser-visible env for the build ──────────────────────────────────────
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'build-env'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        set -e
+        gcloud secrets versions access latest \
+          --secret="${_IMAGE}-build-env" --project="$PROJECT_ID" > .env.production
+        # Only NEXT_PUBLIC_* may reach the image: anything else stops the build.
+        if grep -vE '^(NEXT_PUBLIC_[A-Z0-9_]+=.*|#.*|[[:space:]]*)$$' .env.production >/dev/null; then
+          echo "${_IMAGE}-build-env holds a line that is not NEXT_PUBLIC_*. Server secrets go in the env file on the VM, not here."
+          exit 1
+        fi
+        echo "Build env: $$(grep -c '^NEXT_PUBLIC_' .env.production || true) NEXT_PUBLIC_* values."
+
+  # ─── Build ──────────────────────────────────────────────────────────────────
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/${_IMAGE}:$BUILD_ID'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/${_IMAGE}:latest'
+      - '.'
+    waitFor: ['build-env']
+
+substitutions:
+  _IMAGE: ecodrix-site
+
+# Pushed when every step passed.
+images:
+  - 'gcr.io/$PROJECT_ID/${_IMAGE}:$BUILD_ID'
+  - 'gcr.io/$PROJECT_ID/${_IMAGE}:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

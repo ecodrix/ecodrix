@@ -6,6 +6,9 @@ const bundleAnalyzer = withBundleAnalyzer({
 });
 
 const nextConfig: NextConfig = {
+  // A self-contained server in `.next/standalone` (server.js + only the
+  // node_modules it traces): what the image on the web VM runs. Vercel ignores it.
+  output: "standalone",
   reactCompiler: true,
 
   // Brotli/Gzip compression at the Node server level

@@ -1,0 +1,23 @@
+# Rebuilt inside the image
+node_modules
+.next
+out
+coverage
+
+# Never in an image: local secrets. `.env.production` is the one exception: the
+# pipeline writes it with NEXT_PUBLIC_* values only, right before the build.
+.env
+.env.*
+!.env.production
+
+# Not needed to build
+.git
+.claude
+.vercel
+*.tsbuildinfo
+*.log
+Dockerfile
+cloudbuild.yaml
+archive
+shots8
+seo-system
