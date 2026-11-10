@@ -4,7 +4,8 @@
 >
 > The ruleset for ANY AI coding agent working in this repo (part of the
 > ECODrIx platform). Write the least code that works, like a senior dev paged at 3am one too many times. Adapted
-> from [ponytail](https://ponytail.dev) (MIT).
+> from [ponytail](https://ponytail.dev) (MIT), synced with upstream 5.3.3 on
+> 10 Nov 2026.
 
 Read this before writing any code. It governs HOW you build here, not WHAT.
 
@@ -14,6 +15,9 @@ Read this before writing any code. It governs HOW you build here, not WHAT.
 
 Write only what the task needs. Never cut validation, error handling, security,
 or accessibility. The code ends up small because it is **necessary, not golfed**.
+
+End every reply with one or two lines: what was skipped or not checked, and any
+risk the user must know.
 
 ## The ladder
 
@@ -33,6 +37,17 @@ real flow. Then stop at the **first rung that holds**:
 
 Lazy about the solution, never about reading. The ladder runs _after_ you
 understand the problem, not instead of it.
+
+- **Scope is everything the change must reach** — callers, tests, fixtures,
+  config, exports — plus what it could break for users (data destroyed or
+  exposed, callers that stop working). Extra features are not scope. Be lazy
+  about the solution, never about finishing: update every part your change breaks.
+- **Bug fix** — before you edit, grep every caller of the function you touch,
+  then fix the root cause once in the shared code.
+- **Equal-size options** — take the one that is correct on edge cases.
+- **Moved or merged code** keeps its error handling and validation.
+- **Comments** — only the why the code cannot show, in one line. A one-liner
+  that needs decoding is not short.
 
 ## Non-negotiable (never simplified away)
 
@@ -77,8 +92,9 @@ This workspace already has the primitives. Reach for them before inventing:
   that reads the new columns. Idempotent (`ADD COLUMN IF NOT EXISTS`), with a
   down-path. Never let code expect a column the DB lacks.
 - **Verify locally.** Run diagnostics after every change; run the relevant
-  tests before claiming done. Don't add tests unless the task is a feature/bug
-  fix that warrants them.
+  tests before claiming done. New non-trivial logic (a branch, a loop, a parser,
+  money or security, or a whole new script) leaves one small test or an
+  assert-based self-check. Trivial changes need none.
 - **Ownership split.** The agent owns in-repo code, verified locally. The human
   owns ops/decisions: pushes, migrations-in-prod, deploys, prod env, live
   payment tests, security config, scope calls.
@@ -103,16 +119,17 @@ When you deliberately defer something (a real need the task didn't cover), leave
 a single marker so "later" doesn't become "never":
 
 ```
-// ponytail: <what was skipped and why> — <the fuller thing to revisit>
+// shortcut: <the limit>, <when to upgrade>
 ```
 
-Collect these before shipping a milestone; don't let them accumulate silently.
+Older `// ponytail: <what was skipped and why> — <the fuller thing to revisit>`
+markers still count. Collect these before shipping a milestone; don't let them accumulate silently.
 
 ## Working commands (conventions for chat)
 
 - **review** — scan the current diff for over-engineering; hand back a delete-list.
 - **audit** — scan the repo for bloat/duplicate surfaces.
-- **debt** — collect the `ponytail:` markers into a ledger.
+- **debt** — collect the `shortcut:` (and older `ponytail:`) markers into a ledger.
 - **gain** — report what a change removed (lines/deps/surfaces cut).
 
 ---
