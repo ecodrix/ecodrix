@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ecodrix.com
 
-## Getting Started
+The public website of ECODrIx and, from the same app, ERIX Help.
 
-First, run the development server:
+| Address | What it serves | Source |
+|---|---|---|
+| `ecodrix.com`, `www.ecodrix.com` | Home, platform, pricing, compare, guides, resources, blog, about, founder, legal pages | `src/app/(brand)` |
+| `ecodrix.com/docs`, `/changelog`, `/status` | Developer docs, release notes, platform status | `src/app/(docs)` |
+| `doc.ecodrix.com` | ERIX Help for customers | `src/app/(help)` |
+
+`next.config.ts` routes by host: `doc.ecodrix.com` serves the Help pages at its
+root, and `ecodrix.com/help/...` redirects there. Locally `doc.localhost`
+works the same way.
+
+The site reads two settings, both defaulting to `https://api.ecodrix.com`:
+
+| Variable | Used for |
+|---|---|
+| `API_URL` | Server-rendered pages (blog, pages regenerated in the background) |
+| `NEXT_PUBLIC_ERIX_SOCKET_URL` | The browser: visit tracking, waitlist, newsletter, status page, pricing. It is the REST API, despite the name. |
+
+## Run it locally
+
+Locally this app is a member of the pnpm workspace in the parent folder
+(`~/ecodrix`). Install there, run here:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd ~/ecodrix && pnpm install
+cd ECOD/ecodrix && pnpm dev     # http://localhost:3000, Help at http://doc.localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Copy `.env.example` to `.env.local` only to point at the local API
+(`http://localhost:4000`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Command | What it does |
+|---|---|
+| `pnpm dev` | Development server |
+| `pnpm build` | Production build (Next.js standalone server) |
+| `pnpm lint` | Biome lint |
+| `pnpm analyze` | Build with the bundle analyzer |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy
 
-## Learn More
+Push to `main`. That is the whole release:
 
-To learn more about Next.js, take a look at the following resources:
+1. The Cloud Build trigger `marketing-trigger` runs `cloudbuild.yaml`. It
+   writes the browser-visible values (`NEXT_PUBLIC_*`, kept in Secret Manager
+   as `ecodrix-site-build-env`) to `.env.production`, builds the `Dockerfile`
+   and pushes `gcr.io/<project>/ecodrix-site` as `:latest` and the build id.
+   About 6 minutes.
+2. The release agent on the `ecodrix-web` VM notices the new image within a
+   minute and swaps the `site` container. A container that is not healthy
+   within 5 minutes is put back on the previous image.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Server-side settings live in `/opt/ecodrix-web/web.env` on the VM. To change
+one, edit `ECOD/infra/web/web.env`, then `SYNC_ENV=1 bash release.sh site`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Build notes:
 
-## Deploy on Vercel
+- `next.config.ts` sets `output: "standalone"`; the image runs `server.js`.
+  Do not add `outputFileTracingRoot`: locally the app is a workspace member and
+  the build breaks.
+- No lockfile is committed, so the image installs without one (`npm install`).
+  Commit a lockfile and switch the Dockerfile to `npm ci` to pin installs.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Runbook and fix-it guide: `ECOD/infra/web/README.md`.
