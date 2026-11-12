@@ -154,6 +154,11 @@ export default function RootLayout({
           {GA_LOADER_SCRIPT}
         </Script>
 
+        <script
+          src="https://cdn.jsdelivr.net/npm/@ecodrix/chatbot@2/dist/index.global.js"
+          data-erix="ECODRIX_OWN"
+          async
+        ></script>
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
         {/* JSON-LD structured data — must be in <head> for crawler visibility */}
