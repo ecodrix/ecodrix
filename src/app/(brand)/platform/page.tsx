@@ -27,7 +27,7 @@ export const metadata = {
   ...pageMetadata({
     title: "ERIX platform: CRM, inbox, AI and automation",
     description:
-      "Every module in ERIX by ECODrIx: CRM, the WhatsApp and Instagram inbox, AI agents, automation and storage on one customer record, plus what's coming next.",
+      "Every module in ERIX by ECODrIx: CRM, the WhatsApp and phone inbox, AI agents and automation on one customer record, plus what's coming next.",
     path: "/platform",
   }),
   keywords: [
@@ -44,7 +44,7 @@ export const metadata = {
 const PLATFORM_FAQS = [
   {
     q: "What does ERIX include today?",
-    a: "ERIX 1.0 is live with four parts on one customer record. ERIX CRM: contacts, pipeline, forms, appointments, proposals, projects with documents, e-sign and a client portal, GST invoices and payment links. ERIX Connect: WhatsApp, Instagram DMs, email, website chat, Google Calendar and Meet, and Razorpay. ERIX Flow: automations, templates, approvals, Wait for a reply and AI reply. AI agents: the sales, channels and website agents. ERIX Storage keeps files inside projects.",
+    a: "ERIX 1.0 is live with four parts on one customer record. ERIX CRM: contacts, pipeline, forms and appointments. ERIX Connect: the WhatsApp inbox and phone calls, with Google Calendar and Meet for bookings. ERIX Flow: automations, templates, approvals, Wait for a reply and AI reply. AI agents: answer from your own business details and hand the rest to your team. Instagram, email, website chat, GST invoices and payment links are coming soon.",
   },
   {
     q: "Is there a public ERIX API?",
@@ -70,11 +70,11 @@ const chapters: Chapter[] = [
     module: "ERIX Connect",
     icon: "inbox",
     title: "Every channel lands in one inbox",
-    body: "WhatsApp, Instagram, email and your website chat arrive in one list, live, each on the right contact.",
+    body: "WhatsApp chats and phone calls arrive in one list, live, each on the right contact. Instagram, email and website chat are coming soon.",
     points: [
       "Official WhatsApp Business API on your own account: Meta bills you, no ERIX markup",
       "Templates, broadcasts and the 24-hour window handled",
-      "A chat widget for your website, with WhatsApp-style ticks",
+      "Phone calls logged on the same contact",
     ],
     link: { href: "/platform/erix-connect", label: "Explore ERIX Connect" },
     visual: <LazyScreen name="inbox" />,
@@ -103,7 +103,7 @@ const chapters: Chapter[] = [
     module: "ERIX CRM",
     icon: "square-kanban",
     title: "The enquiry becomes a deal with its whole story",
-    body: "Chats, bookings, proposals and invoices sit on one record, so anyone on the team can pick up where the last person stopped.",
+    body: "Chats, calls and bookings sit on one record, so anyone on the team can pick up where the last person stopped.",
     points: [
       "Pipeline stages made for your industry, totals in rupees",
       "Forms and booking pages that add contacts by themselves",
@@ -113,29 +113,8 @@ const chapters: Chapter[] = [
     visual: <LazyScreen name="pipeline" />,
   },
   {
-    id: "projects",
-    marker: "Step 4",
-    module: "ERIX CRM · Projects",
-    icon: "folder-open",
-    title: "The work runs in a project your client can follow",
-    body: "Tasks, documents and click-to-sign in one place, and a portal where your client signs, downloads and sees progress without a status call.",
-    link: { href: "/platform/erix-crm/client-portal", label: "Projects, e-sign and the client portal" },
-    visual: <LazyScreen name="documents" />,
-  },
-  {
-    id: "invoices",
-    marker: "Step 5",
-    module: "ERIX CRM · Invoices",
-    icon: "receipt",
-    title: "GST invoices that get paid",
-    body: "CGST and SGST in the same state, IGST across states, numbered by financial year, sent on WhatsApp or email with a Razorpay payment link.",
-    points: ["A proposal accepted on a phone becomes an advance invoice", "Marked Paid the moment the money lands"],
-    link: { href: "/platform/erix-crm/commerce", label: "Proposals, invoices and payment links" },
-    visual: <LazyScreen name="invoice" />,
-  },
-  {
     id: "flow",
-    marker: "Step 6",
+    marker: "Step 4",
     module: "ERIX Flow",
     ai: true,
     icon: "workflow",
@@ -161,21 +140,7 @@ const INCLUDED: { icon: GlyphName; title: string; ai?: boolean; items: string[] 
       "Contacts matched by phone and email across channels, with a full timeline",
       "Pipelines with stages, tags, notes, custom fields and saved views",
       "Forms and booking pages that create contacts, with consent recorded",
-      "Proposals your client accepts online, turning into a GST invoice",
-      "Projects with tasks, documents, e-sign and a client portal",
       "Analytics for your funnel, forecast, lead sources and revenue",
-    ],
-  },
-  {
-    icon: "receipt",
-    title: "GST invoices and payments",
-    items: [
-      "CGST and SGST or IGST by place of supply, with GSTIN, HSN and SAC",
-      "Numbering per Indian financial year, and a PDF for every invoice",
-      "Payment links on your own Razorpay, marked paid when the money lands",
-      "Part payments, and UPI, bank or cash payments recorded by hand",
-      "Overdue invoices flagged every morning",
-      "Export to Tally, Zoho or CSV",
     ],
   },
   {
@@ -183,7 +148,7 @@ const INCLUDED: { icon: GlyphName; title: string; ai?: boolean; items: string[] 
     title: "Inbox and channels",
     items: [
       "The WhatsApp Business API on your own number, with approved templates",
-      "Instagram DMs, email from your own domain and a website chat widget",
+      "Phone calls on the same contact",
       "One inbox with sent, delivered and read ticks, on the right contact",
       "Broadcasts to a segment, paced, with quiet hours from 9 pm to 9 am",
       "WhatsApp opt-in, the 24-hour window and STOP replies handled for you",
@@ -222,7 +187,7 @@ const INCLUDED: { icon: GlyphName; title: string; ai?: boolean; items: string[] 
       "Each workspace's data kept separate at the database level",
       "Connection keys encrypted at rest and never shown in full",
       "Owner, admin and agent roles, with an activity log",
-      "Export or erase a contact on request; GST invoices are kept",
+      "Export or erase a contact on request",
       "Export your whole workspace at any time",
       "Delete a workspace with 30 days to change your mind",
     ],
@@ -231,6 +196,9 @@ const INCLUDED: { icon: GlyphName; title: string; ai?: boolean; items: string[] 
 
 /** Built or planned but not in 1.0 for every workspace (VERSION_PLAN). */
 const LATER = [
+  { label: "Instagram DMs, email and website chat", when: "Coming soon" },
+  { label: "GST invoices, payment links and proposals", when: "Coming soon" },
+  { label: "Projects, e-sign and the client portal", when: "Coming soon" },
   { label: "Messenger and Telegram inboxes", when: "Version 1.2" },
   { label: "Webhooks, more schedules and connected apps", when: "Version 1.2" },
   { label: "Lead scoring, referrals, reviews and memberships", when: "Version 1.2" },
@@ -238,8 +206,7 @@ const LATER = [
 ];
 
 const moreCopy: Record<string, string> = {
-  storage:
-    "Files kept with the client and project they belong to: documents, secure share links and proposals signed online.",
+  storage: "Files kept with the client and project they belong to: documents and secure share links.",
 };
 
 // Which modules are listed (and which are Coming soon) follows admin › Catalog.
@@ -266,7 +233,7 @@ export default async function PlatformIndexPage() {
 
       <MkHero
         title="One customer record. Every tool around it."
-        lead="ERIX CRM, Connect, Flow and the AI agents share one contact, so a chat, a booking, an invoice and a follow-up all land on the same record. Start with what you need today; the rest is already connected."
+        lead="ERIX CRM, Connect, Flow and the AI agents share one contact, so a chat, a call, a booking and a follow-up all land on the same record. Start with what you need today; the rest is already connected."
         actions={
           <>
             <PrimaryCta lg />

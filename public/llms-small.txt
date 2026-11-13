@@ -1,7 +1,7 @@
-ECODrIx: Indian software company. Builds ERIX, one workspace for businesses that sell over WhatsApp, Instagram, email and their website. ERIX started August 2025, Tirupati, Andhra Pradesh. Founder: Dhanesh Mekalthuru (Dhanesh M, Erix). Early access via waitlist; pilots set up by the team.
+ECODrIx: Indian software company. Builds ERIX, one workspace for businesses that sell over WhatsApp and phone calls. ERIX started August 2025, Tirupati, Andhra Pradesh. Founder: Dhanesh Mekalthuru (Dhanesh M, Erix). Early access via waitlist; pilots set up by the team.
 
-ERIX 1.0 (live): ERIX CRM (contacts, pipeline, forms, appointments, proposals, projects with e-sign and client portal, GST invoices with Razorpay payment links), ERIX Connect (official WhatsApp API on your own account with no markup, Instagram DMs, email, website chat, one inbox), ERIX Flow (automations, approvals, "Wait for a reply", AI replies), AI agents (sales, channels, website), ERIX Storage (files).
+ERIX 1.0 (live): ERIX CRM (contacts, pipeline, forms, appointments), ERIX Connect (official WhatsApp API on your own account with no markup, phone calls, one inbox), ERIX Flow (automations, approvals, "Wait for a reply", AI replies), AI agents (answer from your business info). Coming soon: Instagram, email, website chat, proposals, GST invoices, payment links.
 
-Not live yet: voice agent (in development). Pricing not published during early access; billed in rupees with GST.
+Pricing not published during early access; billed in rupees with GST.
 
 Site: https://ecodrix.com · App: https://console.ecodrix.com · API docs: https://api.ecodrix.com/docs · Support: support@ecodrix.com · WhatsApp: +91 81439 63821

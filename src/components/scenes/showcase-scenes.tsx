@@ -305,7 +305,7 @@ export function FormScreen() {
             </li>
             <li className={cn(box, "p-2")}>
               <p className="font-semibold text-foreground">Ravi Kumar</p>
-              <p className="text-muted-foreground">From: Website chat</p>
+              <p className="text-muted-foreground">From: WhatsApp</p>
             </li>
           </ul>
         </div>

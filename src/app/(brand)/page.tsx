@@ -28,7 +28,7 @@ import { pageMetadata } from "@/lib/seo";
 const home = pageMetadata({
   title: "ECODrIx",
   description:
-    "ERIX by ECODrIx: one inbox for WhatsApp, Instagram, email and website chat, an AI agent that answers from your price list, a pipeline and GST invoices.",
+    "ERIX by ECODrIx: one inbox for WhatsApp and phone calls, an AI agent that answers from your price list, a pipeline, bookings and automatic follow-ups.",
   path: "/",
 });
 
@@ -42,7 +42,7 @@ export const metadata = {
 const faqs = [
   {
     q: "Do I need a website to use ERIX?",
-    a: "No. ERIX hosts your lead forms and booking page. Share the links on WhatsApp, in your Instagram bio or on your Google Business Profile. If you have a website, you can add the ERIX chat to it.",
+    a: "No. ERIX hosts your lead forms and booking page. Share the links on WhatsApp or on your Google Business Profile. If you have a website, you can add the ERIX chat to it.",
   },
   {
     q: "Is it the official WhatsApp Business API?",
@@ -51,10 +51,6 @@ const faqs = [
   {
     q: "Will the AI reply to my customers on its own?",
     a: "Only if you turn on auto-reply, and then only with answers backed by your own information. Everything else becomes a draft for you. Refunds, complaints and medical questions always go to a person.",
-  },
-  {
-    q: "Does ERIX work out GST on invoices?",
-    a: "Yes. CGST and SGST for buyers in your state, IGST across states, numbered by financial year, with your Razorpay payment link.",
   },
   {
     q: "Can my staff use it on a phone?",

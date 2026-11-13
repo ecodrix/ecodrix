@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 export const metadata = pageMetadata({
   title: "ERIX API docs",
   description:
-    "Build on ERIX: authentication, the TypeScript SDK, leads and pipelines, events and flows, the unified inbox, WhatsApp templates, Google Meet, storage, GST invoices and realtime.",
+    "Build on ERIX: authentication, the TypeScript SDK, leads and pipelines, events and flows, the unified inbox, WhatsApp templates, Google Meet, storage and realtime.",
   path: "/docs",
 });
 
@@ -229,8 +229,8 @@ export default function DocsPage() {
             <p className="text-[13px] font-semibold text-accent">Developers</p>
             <h1 className="mt-2 text-[clamp(36px,5vw,54px)] leading-[1.05] tracking-[-0.035em]">ERIX API docs</h1>
             <p className="mt-4 max-w-[62ch] text-[clamp(16px,1.5vw,18px)] leading-relaxed text-muted-foreground">
-              Everything in ERIX over the API: leads, events and flows, the inbox, WhatsApp templates, bookings, files,
-              GST invoices and live updates. Use the TypeScript SDK or plain HTTP.
+              Everything in ERIX over the API: leads, events and flows, the inbox, WhatsApp templates, bookings, files
+              and live updates. Use the TypeScript SDK or plain HTTP.
             </p>
             <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-3 text-[14px]">
               <div>

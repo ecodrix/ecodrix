@@ -9,7 +9,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "About ECODrIx, the team behind ERIX",
   description:
-    "ECODrIx is an Indian software company founded in August 2025. It builds ERIX: one workspace for CRM, WhatsApp, email, GST invoices, AI agents and automation.",
+    "ECODrIx is an Indian software company founded in August 2025. It builds ERIX: one workspace for CRM, WhatsApp, AI agents and automation.",
   path: "/about",
 });
 

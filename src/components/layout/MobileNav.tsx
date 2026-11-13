@@ -218,7 +218,7 @@ export default function MobileNav({
                           The ERIX story
                         </span>
                         <span className="relative mt-1 block max-w-[24ch] font-display text-[17px] leading-snug font-bold text-white">
-                          One enquiry, from a 9:42 pm message to a paid invoice.
+                          One enquiry, from a 9:42 pm message to a booked visit.
                         </span>
                         <span className="relative mt-3 inline-flex items-center gap-1.5 text-[14px] font-semibold text-white">
                           See the story

@@ -5,8 +5,8 @@ import { MkSection, TrustBar } from "@/components/marketing/kit";
 
 /**
  * Home: what ERIX connects to, and what it turns a message into. Only
- * integrations that are live today (design system product.md): Google
- * Sheets and Gmail are not, so they aren't here. No voice: it isn't launched.
+ * integrations that are live in v1: WhatsApp, phone calls and Google
+ * Calendar. Instagram, email, website chat and Razorpay are Coming soon.
  */
 export function WorksWith() {
   return (
@@ -15,11 +15,8 @@ export function WorksWith() {
         <TrustBar
           items={[
             { label: "WhatsApp", icon: "whatsapp" },
-            { label: "Instagram", icon: "instagram" },
+            { label: "Phone calls", icon: "phone" },
             { label: "Google Calendar and Meet", icon: "googlecalendar" },
-            { label: "Razorpay", icon: "razorpay" },
-            { label: "Email on your domain", icon: "mail" },
-            { label: "Website chat", icon: "message-square" },
           ]}
         />
       </div>
@@ -39,21 +36,19 @@ export function ChannelBeam({ tone }: { tone?: "plain" | "subtle" }) {
       id="channels"
       tone={tone}
       kicker="One place for every enquiry"
-      title="Every channel in. Every outcome out."
-      lead="WhatsApp, your website chat, Instagram DMs and email all land in ERIX, and the next step happens on its own: the lead is in your pipeline, the visit is booked, the payment link is sent and the follow-up is set."
+      title="Every message and call in. Every outcome out."
+      lead="WhatsApp messages and phone calls land in ERIX, and the next step happens on its own: the lead is in your pipeline, the visit is booked and the follow-up is set. More channels coming soon."
     >
       <IntegrationBeam
         mark={<ErixMarkSvg label="ERIX" />}
         inputs={[
           { label: "WhatsApp", icon: "whatsapp" as const },
-          { label: "Website chat", icon: "message-square" as const },
-          { label: "Instagram DMs", icon: "instagram" as const },
-          { label: "Email", icon: "mail" as const },
+          { label: "Phone calls", icon: "phone" as const },
         ].map(beam)}
         outputs={[
           { label: "Lead in your CRM", icon: "user-check" as const },
           { label: "Visit booked", icon: "calendar-check" as const },
-          { label: "Payment link sent", icon: "indian-rupee" as const },
+          { label: "AI answers from your price list", icon: "sparkles" as const },
           { label: "Follow-up scheduled", icon: "calendar-clock" as const },
         ].map(beam)}
       />

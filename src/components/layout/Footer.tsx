@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 const journey: { label: string; href: string; icon: GlyphName; ai?: boolean }[] = [
   { label: "Enquiry lands", href: "/platform/erix-connect", icon: "inbox" },
   { label: "AI replies", href: "/platform#agents", icon: "sparkles", ai: true },
-  { label: "Deal and invoice", href: "/platform/erix-crm", icon: "square-kanban" },
+  { label: "Deal and booking", href: "/platform/erix-crm", icon: "square-kanban" },
   { label: "Follow-ups run", href: "/platform/erix-flow", icon: "workflow", ai: true },
 ];
 
@@ -29,7 +29,7 @@ const product = [
 /** India-first facts, each true of ERIX today (DS product.md). */
 const facts: { icon: GlyphName; text: string }[] = [
   { icon: "indian-rupee", text: "Billed in rupees" },
-  { icon: "receipt", text: "GST invoices: CGST, SGST, IGST" },
+  { icon: "phone", text: "WhatsApp and phone calls" },
   { icon: "clock", text: "Runs on IST" },
   { icon: "message-circle", text: "Your own WhatsApp, no markup" },
 ];
@@ -96,8 +96,8 @@ export async function Footer() {
               Every enquiry answered. Every follow-up done.
             </p>
             <p className="mt-3 text-[14.5px] leading-relaxed text-muted-foreground">
-              One workspace for Indian businesses that sell on WhatsApp: one inbox, a CRM with GST invoices,
-              automations, and AI agents for the routine replies.
+              One workspace for Indian businesses that sell on WhatsApp: one inbox, a CRM, automations, and AI agents
+              for the routine replies.
             </p>
             <div className="mt-6 flex flex-wrap gap-2.5">
               <Link href={PRIMARY_CTA.href} className={cn(buttonVariants(), "group min-h-10! px-4! text-[14px]")}>

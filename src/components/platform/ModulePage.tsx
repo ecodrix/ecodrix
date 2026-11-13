@@ -13,7 +13,7 @@ import { StatusBadge } from "@/components/ui/status-badge";
 import { getModuleView } from "@/lib/catalog";
 import { getBreadcrumbSchema, getFAQSchema } from "@/lib/jsonld";
 import { getModuleBySlug, type PlatformModule } from "@/lib/platform-modules";
-import { getProductPages, type ScreenKey } from "@/lib/product-pages";
+import { getLivePages, getProductPages, type ScreenKey } from "@/lib/product-pages";
 import { pageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
@@ -129,7 +129,8 @@ export async function ModulePage({ slug }: { slug: string }) {
   const v = await getModuleView(slug, m.status);
   const soon = v.status === "soon";
   const Screen = SCREENS[HERO_SCREEN[m.slug]];
-  const pages = getProductPages(m.slug);
+  const pages = getLivePages(m.slug);
+  const soonPages = getProductPages(m.slug).filter((p) => p.soon);
   const tour = MODULE_TOURS[m.slug];
 
   return (
@@ -223,6 +224,18 @@ export async function ModulePage({ slug }: { slug: string }) {
       {pages.length > 0 && (
         <MkSection id="guides" title={`Guides for ${m.brand}`}>
           <GuideList module={m.slug} pages={pages} />
+        </MkSection>
+      )}
+
+      {soonPages.length > 0 && (
+        <MkSection id="coming-soon" title="Coming soon">
+          <ul className="grid gap-x-10 md:grid-cols-2">
+            {soonPages.map((p) => (
+              <li key={p.slug} className="border-t border-border-soft py-5 text-[17px] font-semibold text-foreground">
+                {p.title}
+              </li>
+            ))}
+          </ul>
         </MkSection>
       )}
 

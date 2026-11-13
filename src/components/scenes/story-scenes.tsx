@@ -7,7 +7,7 @@
  * Example data only.
  */
 
-import { CalendarDays, ClipboardCheck, IndianRupee, MessageCircle, UserPlus } from "@/components/icons";
+import { CalendarDays, ClipboardCheck, MessageCircle, UserPlus } from "@/components/icons";
 import { PhoneFrame } from "@/components/marketing/kit";
 import { Scene } from "@/components/motion/scene";
 import { LiveDot } from "@/components/motion/surface";
@@ -17,7 +17,7 @@ import { AppFrame, Avatar, at, Channel } from "./parts";
 const box = "rounded-[10px] bg-surface shadow-[var(--shadow-card)]";
 
 const arrivals = [
-  { name: "Website visitor", ch: "web", text: "Do you have 2BHKs near Wakad?", time: "9:47 pm", step: 2 },
+  { name: "Priya Nair", ch: "phone", text: "Call answered: asked about 2BHKs near Wakad", time: "9:47 pm", step: 2 },
   {
     name: "Rohan Mehta",
     ch: "whatsapp",
@@ -25,8 +25,8 @@ const arrivals = [
     time: "9:42 pm",
     step: 1,
   },
-  { name: "Anita Desai", ch: "email", text: "Re: Payment for INV/26-27/0039", time: "6:10 pm" },
-  { name: "Ananya Rao", ch: "instagram", text: "Thanks! See you on Saturday", time: "5:32 pm" },
+  { name: "Anita Desai", ch: "whatsapp", text: "Confirmed, 11 am on Saturday works", time: "6:10 pm" },
+  { name: "Ananya Rao", ch: "whatsapp", text: "Thanks! See you on Saturday", time: "5:32 pm" },
 ] as const;
 
 /** 9:42 pm: new chats land in the owner's inbox, live, while the shop is shut. */
@@ -36,7 +36,7 @@ export function ArrivalScene() {
       steps={3}
       timing={[0, 1300, 1500, 1300]}
       hold={3600}
-      label="The ERIX inbox on the owner's phone at night: a WhatsApp message from Rohan Mehta about a 3BHK at Baner arrives at 9:42 pm, then a website chat asking about 2BHKs near Wakad, each with an unread count, live without a refresh."
+      label="The ERIX inbox on the owner's phone at night: a WhatsApp message from Rohan Mehta about a 3BHK at Baner arrives at 9:42 pm, then a phone call about 2BHKs near Wakad that the agent answers, each with an unread count, live without a refresh."
       className="mx-auto w-fit"
     >
       <PhoneFrame
@@ -145,7 +145,7 @@ function Kpi({
 const agenda = [
   { when: "11:30 AM", icon: CalendarDays, title: "Isha Shah", text: "Site visit · Baner" },
   { when: "Today", icon: MessageCircle, title: "4 contacts need a follow-up", text: "Silent for 2+ days" },
-  { when: "Due", icon: IndianRupee, title: "₹54,280 waiting for payment", text: "3 invoices" },
+  { when: "3:00 PM", icon: CalendarDays, title: "Meera Iyer", text: "Site visit · Wakad" },
 ] as const;
 
 /** The owner's morning: the Overview, as the SaaS draws it. */
@@ -155,7 +155,7 @@ export function OverviewScreen() {
       steps={3}
       timing={[0, 1000, 1000, 1200]}
       hold={4200}
-      label="The ERIX Overview at 8:30 in the morning: Good morning, Priya. You have 3 unread conversations and 2 items waiting for approval. Pipeline value ₹18.4 lakh, 2 items waiting for approval, 3 unread conversations, 26 new contacts, and today's site visit, follow-ups and payments due."
+      label="The ERIX Overview at 8:30 in the morning: Good morning, Priya. You have 3 unread conversations and 2 items waiting for approval. Pipeline value ₹18.4 lakh, 2 items waiting for approval, 3 unread conversations, 26 new contacts, and today's site visits and follow-ups."
     >
       <AppFrame title="Overview" nav="overview" className="h-[25rem]">
         <div className="flex h-full flex-col gap-2.5 overflow-hidden p-3 sm:p-4">

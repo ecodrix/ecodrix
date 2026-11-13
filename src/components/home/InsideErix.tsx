@@ -31,7 +31,7 @@ const parts: {
     screen: "inbox",
     title: "Every channel in one inbox, live",
     points: [
-      "WhatsApp, Instagram DMs, email and website chat on the same contact",
+      "WhatsApp chats and phone calls on the same contact. Instagram, email and website chat: coming soon",
       "Ticks you know: ✓ sent, ✓✓ delivered, blue ✓✓ read",
       "AI drafts show their source. Send them, or edit first",
     ],
@@ -43,11 +43,11 @@ const parts: {
     label: "CRM",
     icon: "square-kanban",
     screen: "crm",
-    title: "From pipeline to paid, on one record",
+    title: "From pipeline to booked visit, on one record",
     points: [
       "Drag a deal to the next stage and the totals update in rupees",
-      "Every chat, booking and proposal on the contact's timeline",
-      "Proposal to GST invoice with a Razorpay link, marked Paid live",
+      "Every chat, call and booking on the contact's timeline",
+      "Forms and bookings that add contacts by themselves",
     ],
     href: "/platform/erix-crm",
     link: "Explore ERIX CRM",

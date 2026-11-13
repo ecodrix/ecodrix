@@ -5,7 +5,7 @@ import { AppFrame, at, Pill } from "./parts";
 
 const kinds = ["Agent", "Automation", "Conversation", "Campaign"];
 const agenda = [
-  "Answer Instagram DMs from your course list and fees",
+  "Answer WhatsApp messages from your course list and fees",
   "Offer open demo slots and book the call",
   "Hand refunds and complaints to your team",
 ];
@@ -24,7 +24,7 @@ export function AgentsScreen() {
       steps={7}
       timing={[1200, 1000, 900, 700, 700, 1200, 1300]}
       hold={4200}
-      label="Building an AI agent by chatting: the owner writes 'Answer Instagram DMs about our courses and book a demo call' and taps Plan it. ERIX shows the plan first: an agent that answers from the course list, books demo calls and hands refunds to the team, with one question. Build agent saves it as a draft at Suggest with no channels, so nothing goes live until it is published."
+      label="Building an AI agent by chatting: the owner writes 'Answer WhatsApp messages about our courses and book a demo call' and taps Plan it. ERIX shows the plan first: an agent that answers from the course list, books demo calls and hands refunds to the team, with one question. Build agent saves it as a draft at Suggest with no channels, so nothing goes live until it is published."
       className="w-full"
     >
       <AppFrame title="AI / Agents" nav="ai" className="h-[25rem]">
@@ -50,7 +50,7 @@ export function AgentsScreen() {
                 Describe it…
               </span>
               <span className="scene-in truncate text-foreground" style={at(1)}>
-                Answer Instagram DMs about our courses and book a demo call.
+                Answer WhatsApp messages about our courses and book a demo call.
               </span>
             </span>
             <span
@@ -85,7 +85,7 @@ export function AgentsScreen() {
                   </span>
                 ))}
               </div>
-              <p className="text-[12.5px] font-semibold text-foreground">Instagram course enquiries</p>
+              <p className="text-[12.5px] font-semibold text-foreground">WhatsApp course enquiries</p>
               <ol className="list-decimal space-y-1 pl-4 text-[11px] leading-4 text-foreground marker:text-subtle">
                 {agenda.map((line, i) => (
                   <li key={line} className="scene-in" style={at(3 + i)}>
@@ -122,7 +122,7 @@ export function AgentsScreen() {
                   <Bot aria-hidden="true" className="size-4" />
                 </span>
                 <div className="min-w-0">
-                  <p className="truncate text-[12.5px] font-semibold text-foreground">Instagram course agent</p>
+                  <p className="truncate text-[12.5px] font-semibold text-foreground">WhatsApp course agent</p>
                   <span className="mt-0.5 flex flex-wrap gap-1">
                     <Pill tone="neutral">Draft</Pill>
                     <Pill tone="ai">Suggest</Pill>

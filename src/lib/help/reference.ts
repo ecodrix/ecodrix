@@ -39,16 +39,8 @@ export const REFERENCE: HelpArticle[] = [
         a: "They've opted out. ERIX stops sending them WhatsApp messages until they write START again.",
       },
       {
-        q: "My website chat isn't showing.",
-        a: "The code must be on your published site, and the domain must be listed in **Channels › Website chat › Your websites**. Then select **Check my website**.",
-      },
-      {
         q: "My booking page shows no free times.",
         a: "Open **Bookings › Booking › Booking hours**: at least one day must be open and the appointment length must fit inside it.",
-      },
-      {
-        q: 'My invoice shows "Your business name".',
-        a: "Add your business name, address, GSTIN and logo once in **Payments › Settings**.",
       },
       {
         q: "An automation won't switch on.",
@@ -88,7 +80,7 @@ export const REFERENCE: HelpArticle[] = [
           ],
           ["Contact", "A person you deal with. Your workspace may call them a patient, buyer, student or member."],
           ["Pipeline", "The stages a deal moves through, from first enquiry to won or lost."],
-          ["Channel", "Where customers reach you: WhatsApp, Instagram, website chat, email, phone."],
+          ["Channel", "Where customers reach you: WhatsApp or phone. More channels are coming soon."],
           ["Agent", "An AI assistant that answers customers or works your contacts, at the level you allow."],
           ["Approval", "An action the agent or an automation held back for a person to confirm."],
           ["Knowledge", "The facts the agent answers from: FAQs, prices, timings, your website."],

@@ -19,7 +19,7 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
       {
         icon: "users",
         title: "Contacts",
-        text: "One record per customer, with every chat, booking and invoice on its timeline.",
+        text: "One record per customer, with every chat, call and booking on its timeline.",
       },
       {
         icon: "square-kanban",
@@ -29,7 +29,7 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
       {
         icon: "file-text",
         title: "Forms",
-        text: "Share a form link on WhatsApp or Instagram; every reply becomes a contact.",
+        text: "Share a form link on WhatsApp; every reply becomes a contact.",
       },
       {
         icon: "calendar-check",
@@ -37,19 +37,9 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
         text: "Booking pages in IST, Google Calendar and Meet, reminders, no double bookings.",
       },
       {
-        icon: "file-check",
-        title: "Proposals",
-        text: "Clients accept on their phone, and the advance invoice follows.",
-      },
-      {
-        icon: "folder-open",
-        title: "Projects and client portal",
-        text: "Tasks, documents and click-to-sign, with a portal your client logs into.",
-      },
-      {
         icon: "receipt",
         title: "GST invoices and payment links",
-        text: "CGST, SGST or IGST worked out, Razorpay links, marked Paid live.",
+        text: "Coming soon.",
       },
     ],
   },
@@ -63,22 +53,12 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
         title: "WhatsApp",
         text: "The official Business API on your own account: templates, broadcasts, the 24-hour window handled, no ERIX markup.",
       },
-      { icon: "image", title: "Instagram DMs", text: "In the same inbox, on the same contact." },
-      { icon: "mail", title: "Email", text: "Send from your own domain; replies thread into the inbox." },
-      {
-        icon: "message-square",
-        title: "Website chat",
-        text: "A widget for your site with ticks and typing; AI messages are labelled AI.",
-      },
+      { icon: "phone", title: "Phone calls", text: "Voice calls in the same inbox, on the same contact." },
+      { icon: "image", title: "More channels", text: "Coming soon: Instagram DMs, email and website chat." },
       {
         icon: "calendar",
         title: "Google Calendar and Meet",
         text: "Bookings land on your calendar, with a Meet link for online calls.",
-      },
-      {
-        icon: "indian-rupee",
-        title: "Razorpay",
-        text: "Payment links from your own Razorpay account, so the money comes straight to you.",
       },
     ],
   },
@@ -91,7 +71,7 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
       {
         icon: "zap",
         title: "Automations",
-        text: "Start on a new lead, a stage change, a form, a message, a payment or a booking.",
+        text: "Start on a new lead, a stage change, a form, a message or a booking.",
       },
       {
         icon: "layout-template",
@@ -101,7 +81,7 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
       {
         icon: "shield-check",
         title: "Approvals",
-        text: "Anything that touches money or messages a customer can wait for your OK.",
+        text: "Anything that messages a customer can wait for your OK.",
       },
       {
         icon: "split",
@@ -121,17 +101,12 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
       {
         icon: "user-check",
         title: "Sales agent",
-        text: "Works new leads: adds notes and drafts proposals that wait on Approvals.",
+        text: "Works new leads: adds notes and drafts follow-ups that wait on Approvals.",
       },
       {
         icon: "messages-square",
         title: "Channels agent",
-        text: "Answers WhatsApp, Instagram and email from your knowledge, in the customer's language.",
-      },
-      {
-        icon: "globe",
-        title: "Website agent",
-        text: "Chats with visitors on your site, asks for their details with consent, and can book.",
+        text: "Answers WhatsApp from your knowledge, in the customer's language.",
       },
       {
         icon: "book-open",
@@ -209,7 +184,7 @@ export function Capabilities() {
           },
           {
             icon: "indian-rupee" as GlyphName,
-            text: "Made for India: rupees with Indian grouping, GST on every invoice, IST for reminders, and replies in the customer's language.",
+            text: "Made for India: rupees with Indian grouping, IST for reminders, and replies in the customer's language.",
           },
         ].map((f) => (
           <li

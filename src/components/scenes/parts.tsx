@@ -50,6 +50,7 @@ const channels = {
   instagram: ["instagram", "Instagram"],
   email: ["mail", "Email"],
   web: ["globe", "Website chat"],
+  phone: ["phone", "Phone call"],
 } as const;
 
 /** Channel = mark plus the word. */

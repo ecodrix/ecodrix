@@ -204,7 +204,7 @@ export function humaniseFeatures(plan: PublicPlan): string[] {
     n(erix.agents, "team member"),
     `Up to ${fmtQuota(erix.contacts)} contacts`,
     n(f.workflows?.activeWorkflows, "active automation"),
-    connect.instagram ? "All channels, Instagram included" : connect.whatsapp ? "WhatsApp inbox" : null,
+    connect.whatsapp ? "WhatsApp inbox and phone calls" : null,
     erix.broadcasts ? "WhatsApp broadcasts" : null,
   ];
   // Tier extras, as in saas: Scale and up show white-label and priority
@@ -223,7 +223,7 @@ export function planDescription(slug: string): string {
     case "free":
       return "The AI agent, inbox and CRM, free for one person.";
     case "starter":
-      return "For small teams on every channel.";
+      return "For small teams.";
     case "growth":
       return "For growing businesses that need more power.";
     case "scale":

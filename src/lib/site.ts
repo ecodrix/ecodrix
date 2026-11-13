@@ -50,11 +50,11 @@ export const PLATFORM_NAV = [
     icon: "square-kanban",
     name: "ERIX CRM",
     href: "/platform/erix-crm",
-    summary: "Contacts, pipeline, bookings, proposals and GST invoices.",
+    summary: "Contacts, pipeline, forms and bookings.",
     status: "live",
     card: {
-      headline: "One record, from first message to paid invoice.",
-      text: "Pipeline, bookings, proposals and GST invoices with Razorpay payment links.",
+      headline: "One record, from first message to booked visit.",
+      text: "Pipeline, forms and bookings on one contact. GST invoices and payment links are coming soon.",
     },
   },
   {
@@ -62,11 +62,11 @@ export const PLATFORM_NAV = [
     icon: "graph-star",
     name: "ERIX Connect",
     href: "/platform/erix-connect",
-    summary: "One inbox for WhatsApp, Instagram, email and website chat.",
+    summary: "One inbox for WhatsApp and phone calls.",
     status: "live",
     card: {
-      headline: "Every channel in one inbox, on the right contact.",
-      text: "The official WhatsApp API on your own number, plus Instagram, email and website chat.",
+      headline: "WhatsApp and calls in one inbox, on the right contact.",
+      text: "The official WhatsApp API on your own number, plus phone calls. Instagram, email and website chat are coming soon.",
     },
   },
   {
@@ -127,7 +127,7 @@ export const INDUSTRY_NAV = [
     summary: "Night enquiries, weekend site visits, the token amount.",
     card: {
       headline: "Night enquiries answered, site visits booked.",
-      text: "The agent replies from your project details, books the weekend visit, and the token amount goes out as a GST invoice with a payment link.",
+      text: "The agent replies from your project details, books the weekend visit, and follow-ups go out on their own.",
     },
   },
   {
@@ -144,10 +144,10 @@ export const INDUSTRY_NAV = [
     icon: "graduation-cap",
     name: "Coaching institutes",
     href: "/platform/erix-crm/education",
-    summary: "Answers at 10:30 pm, counselling bookings, fee invoices.",
+    summary: "Answers at 10:30 pm, counselling bookings, follow-ups.",
     card: {
       headline: "Answers at 10:30 pm, while parents decide.",
-      text: "Course and fee questions answered from your own details, counselling booked, fee invoices sent with a payment link.",
+      text: "Course and fee questions answered from your own details, counselling booked, follow-ups sent on WhatsApp.",
     },
   },
   {
@@ -157,27 +157,7 @@ export const INDUSTRY_NAV = [
     summary: "Every DM in one list, festive offers on WhatsApp.",
     card: {
       headline: "Every DM in one list.",
-      text: "Instagram and WhatsApp messages on one contact, and festive offers sent as approved WhatsApp broadcasts.",
-    },
-  },
-  {
-    icon: "megaphone",
-    name: "Agencies",
-    href: "/platform/erix-crm/agencies",
-    summary: "Proposals, projects clients follow, GST invoices.",
-    card: {
-      headline: "Proposal, project, GST invoice.",
-      text: "Send the proposal, run the project with documents and e-sign, and give clients a portal to follow along.",
-    },
-  },
-  {
-    icon: "scale",
-    name: "CAs, lawyers and consultants",
-    href: "/platform/erix-crm/professional-services",
-    summary: "A portal per engagement, letters signed online.",
-    card: {
-      headline: "A portal per engagement.",
-      text: "Engagement letters signed online, documents in one place, invoices numbered per financial year.",
+      text: "WhatsApp messages and calls on one contact, and festive offers sent as approved WhatsApp broadcasts.",
     },
   },
 ] as const satisfies readonly {
@@ -252,36 +232,6 @@ export const GUIDE_NAV = [
     },
   },
   {
-    icon: "globe",
-    name: "Website chat",
-    href: "/platform/erix-connect/website-chat-guide",
-    summary: "One line of code on your site.",
-    card: {
-      headline: "Chat on your site, replies in your inbox.",
-      text: "Paste one line before </body>, check it, and set the colour, greeting and when to ask for details.",
-    },
-  },
-  {
-    icon: "at-sign",
-    name: "Email from your domain",
-    href: "/platform/erix-connect/email-domain-guide",
-    summary: "Send as you@yourcompany.com.",
-    card: {
-      headline: "Four DNS records, then send as yourself.",
-      text: "Verify your domain, keep your current mailbox, and pick the sender name customers see.",
-    },
-  },
-  {
-    icon: "mail-check",
-    name: "Email automations",
-    href: "/platform/erix-flow/email-automation-guide",
-    summary: "Emails that send themselves.",
-    card: {
-      headline: "Welcome, follow-up and thank-you emails on their own.",
-      text: "Pick the event, write the email with the contact's details, and add an approval step if you like.",
-    },
-  },
-  {
     icon: "calendar-days",
     name: "Google Calendar and Meet",
     href: "/platform/erix-crm/google-meet-guide",
@@ -289,16 +239,6 @@ export const GUIDE_NAV = [
     card: {
       headline: "Bookings on your calendar, with a Meet link.",
       text: "Connect Google, create appointment types, set your hours and share one booking link.",
-    },
-  },
-  {
-    icon: "indian-rupee",
-    name: "Razorpay payment links",
-    href: "/platform/erix-crm/razorpay-guide",
-    summary: "Get paid from the invoice.",
-    card: {
-      headline: "Invoices that get paid from a link.",
-      text: "Connect your own Razorpay account and the invoice turns paid the moment the customer pays.",
     },
   },
 ] as const satisfies readonly {
@@ -322,7 +262,7 @@ export const COMPANY_NAV = [
     summary: "The Indian company behind ERIX.",
     card: {
       headline: "Building ERIX in Andhra Pradesh since August 2025.",
-      text: "One workspace for Indian businesses that sell over WhatsApp, Instagram, email and their website.",
+      text: "One workspace for Indian businesses that sell over WhatsApp and phone calls.",
       cta: "About ECODrIx",
     },
   },

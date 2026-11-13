@@ -10,7 +10,7 @@ import { StatusBadge } from "@/components/ui/status-badge";
 import { getModuleView } from "@/lib/catalog";
 import { getBreadcrumbSchema, getFAQSchema } from "@/lib/jsonld";
 import { getModuleBySlug } from "@/lib/platform-modules";
-import { getProductPages } from "@/lib/product-pages";
+import { getLivePages, getProductPages } from "@/lib/product-pages";
 import { pageMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import { ClosingCta, Crumbs, GuideList, ModuleEyebrow, TYPE_LABEL } from "./ModulePage";
@@ -28,7 +28,12 @@ export function subPageParams(module: string) {
 export function subPageMetadata(module: string, slug: string): Metadata {
   const page = getProductPages(module).find((p) => p.slug === slug);
   if (!page) return { title: "Not found" };
-  return pageMetadata({ title: page.title, description: page.description, path: `/platform/${module}/${page.slug}` });
+  const meta = pageMetadata({
+    title: page.title,
+    description: page.description,
+    path: `/platform/${module}/${page.slug}`,
+  });
+  return page.soon ? { ...meta, robots: { index: false, follow: true } } : meta;
 }
 
 /** /platform/{module}/{slug}: a guide, use case, feature or comparison. */
@@ -37,9 +42,36 @@ export async function SubPageLayout({ module, slug }: { module: string; slug: st
   const pages = getProductPages(module);
   const page = pages.find((p) => p.slug === slug);
   if (!m || !page) notFound();
+  if (page.soon) {
+    return (
+      <section data-tone="subtle" className="py-section bg-background pt-10! md:pt-14!">
+        <div className="mx-auto w-full max-w-3xl px-gutter">
+          <Crumbs
+            items={[
+              { name: "Platform", href: "/platform" },
+              { name: m.brand, href: `/platform/${m.slug}` },
+              { name: page.title },
+            ]}
+          />
+          <h1 className="mt-6 text-[clamp(34px,4.6vw,52px)] leading-[1.06] tracking-[-0.035em]">{page.title}</h1>
+          <p className="mt-5 text-[clamp(16px,1.5vw,19px)] leading-relaxed text-muted-foreground">
+            Coming soon. This part of ERIX is not live yet. Request early access and we will tell you when it opens.
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <PrimaryCta />
+            <Link href={`/platform/${m.slug}`} className={buttonVariants({ variant: "ghost" })}>
+              About {m.brand}
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
   const v = await getModuleView(m.slug, m.status);
   const Screen = page.screen ? SCREENS[page.screen] : null;
-  const related = pages.filter((p) => p.slug !== page.slug).slice(0, 4);
+  const related = getLivePages(module)
+    .filter((p) => p.slug !== page.slug)
+    .slice(0, 4);
   const path = `/platform/${m.slug}/${page.slug}`;
   const toc = [
     ...(page.steps ? [{ id: "how-it-works", label: "How it works" }] : []),

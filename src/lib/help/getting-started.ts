@@ -42,7 +42,7 @@ export const GETTING_STARTED: HelpArticle[] = [
             },
           },
           {
-            text: "Connect WhatsApp or Instagram now, or select **Skip for now** and do it later from **Channels**. Then select **Finish setup**.",
+            text: "Connect WhatsApp now, or select **Skip for now** and do it later from **Channels**. Then select **Finish setup**.",
             shot: {
               src: "gs-4-channels",
               alt: "Step 3 of onboarding: Connect WhatsApp and Instagram, with Finish setup highlighted.",
@@ -101,13 +101,10 @@ export const GETTING_STARTED: HelpArticle[] = [
           ["**Home**", "The day at a glance: chats, bookings, money in the pipeline and anything waiting for you."],
           ["**Inbox**", "Every chat and call in one list, one row per person, whatever channel they used."],
           ["**Ask**", 'Ask about your business in plain words, such as "who hasn\'t paid this month?"'],
-          ["**Customers** (or Patients, Buyers…)", "Contacts, your pipeline, bookings, forms and invoices."],
+          ["**Customers** (or Patients, Buyers…)", "Contacts, your pipeline, bookings and forms."],
           ["**Agents**", "Your AI assistants, what they know, and what they held back for you to approve."],
           ["**Automations**", "Rules that run on their own, such as a reminder the day before a visit, and campaigns."],
-          [
-            "**Channels**",
-            "Connect WhatsApp, Instagram, email, website chat, your phone number and apps like Razorpay.",
-          ],
+          ["**Channels**", "Connect WhatsApp and your phone number. More channels are coming soon."],
           ["**Add-ons**", "Extra products your workspace has switched on, such as SEO. Hidden when there are none."],
           [
             "**Subscriptions**, **Help & support**, **Settings**",

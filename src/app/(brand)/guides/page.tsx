@@ -2,7 +2,7 @@ import { MkSection, PrimaryCta } from "@/components/marketing/kit";
 import { ClosingCta, GuideList } from "@/components/platform/ModulePage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getBreadcrumbSchema, getItemListSchema } from "@/lib/jsonld";
-import { getProductPages } from "@/lib/product-pages";
+import { getLivePages } from "@/lib/product-pages";
 import { pageMetadata } from "@/lib/seo";
 
 /* ──────────────────────────────────────────────────────────────────────
@@ -12,16 +12,15 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "ERIX setup guides",
-  description:
-    "Step-by-step guides to set up ERIX: the WhatsApp Business API, website chat, email from your own domain, email automations, Google Meet bookings and Razorpay links.",
+  description: "Step-by-step guides to set up ERIX: the WhatsApp Business API and Google Meet bookings.",
   path: "/guides",
 });
 
 const GROUPS = [
-  { module: "erix-connect", title: "WhatsApp, website chat and email" },
-  { module: "erix-crm", title: "Bookings and payments" },
+  { module: "erix-connect", title: "WhatsApp" },
+  { module: "erix-crm", title: "Bookings" },
   { module: "erix-flow", title: "Automations" },
-].map((g) => ({ ...g, pages: getProductPages(g.module).filter((p) => p.type === "guide") }));
+].map((g) => ({ ...g, pages: getLivePages(g.module).filter((p) => p.type === "guide") }));
 
 export default function GuidesPage() {
   return (
@@ -46,8 +45,8 @@ export default function GuidesPage() {
             Set up ERIX, one step at a time
           </h1>
           <p className="mt-5 max-w-[62ch] text-[clamp(16px,1.5vw,19px)] leading-relaxed text-muted-foreground">
-            Plain steps for connecting your WhatsApp number, putting chat on your website, sending email from your own
-            domain, taking bookings with Google Meet and getting paid through Razorpay.
+            Plain steps for connecting your WhatsApp number and taking bookings with Google Meet. Website chat, email
+            and payment guides are coming soon.
           </p>
           <div className="mt-8">
             <PrimaryCta />

@@ -1,6 +1,6 @@
 # ECODrIx: extended facts for AI systems
 
-> ECODrIx is an Indian software company that builds ERIX, one workspace for businesses that sell over WhatsApp, Instagram, email and their website. This file states what is live today, what is not, and how to reach us. Last updated: 27 October 2026.
+> ECODrIx is an Indian software company that builds ERIX, one workspace for businesses that sell over WhatsApp and phone calls. This file states what is live today, what is not, and how to reach us. Last updated: 27 October 2026.
 
 ## Company
 
@@ -14,25 +14,24 @@
 
 ## What ERIX does
 
-One job end to end: an enquiry comes in, gets answered, becomes a deal, a proposal, a GST invoice with a payment link, and a payment, with automations running the follow-ups. Every part writes to the same customer record and updates live.
+One job end to end: an enquiry comes in on WhatsApp or a call, gets answered, becomes a deal and a booking, with automations running the follow-ups. Every part writes to the same customer record and updates live.
 
 ### ERIX CRM (live)
 
-- Contacts: one record per person, matched by phone then email across channels, with a timeline of messages, runs, invoices and bookings.
+- Contacts: one record per person, matched by phone then email across channels, with a timeline of messages, runs and bookings.
 - Pipeline board, forms, and appointments with Google Calendar and Meet.
-- Proposals that turn into GST invoices: CGST and SGST in the same state, IGST across states, numbering per financial year, PDF, Razorpay payment links. Payment updates the invoice live.
-- Projects with documents, e-sign and a client portal.
+- Coming soon: proposals, GST invoices and Razorpay payment links.
 - Analytics: new contacts over time and open deal value by stage.
 
 ### ERIX Connect (live)
 
 - The official WhatsApp Business API on the business's own WhatsApp account, so Meta bills the business directly and ERIX adds no markup. Approved templates, broadcasts, and the 24-hour reply window handled.
-- Instagram DMs, email on the business's own domain, and a website chat widget.
-- One inbox for every channel, each message on the right contact, with sent, delivered and read ticks.
+- Phone calls on the same inbox. Coming soon: Instagram DMs, email on the business's own domain, and a website chat widget.
+- One inbox for WhatsApp and calls, each message on the right contact, with sent, delivered and read ticks.
 
 ### ERIX Flow (live)
 
-- Automations started by events such as a new lead, a stage change, a form, an inbound message, a paid invoice or a booking.
+- Automations started by events such as a new lead, a stage change, a form, an inbound message or a booking.
 - Steps: send on a channel, wait, "Wait for a reply" (replied or no reply), ask for approval, AI reply, update the contact.
 - Ready-made templates and live run history.
 
@@ -61,7 +60,7 @@ Indian small and growing businesses that sell over WhatsApp: real estate, clinic
 ## Frequently asked
 
 **Q: What is ECODrIx?**
-A: An Indian software company that builds ERIX, a workspace that takes an enquiry from the first message to a paid invoice: one inbox for WhatsApp, Instagram, email and website chat, a CRM with GST invoices and payment links, automations, and AI agents.
+A: An Indian software company that builds ERIX, a workspace that answers, books and follows up every WhatsApp message and call: one inbox, a CRM, automations, and AI agents. Instagram, email, website chat and GST invoices are coming soon.
 
 **Q: When did ERIX start?**
 A: In August 2025, when ECODrIx was founded.

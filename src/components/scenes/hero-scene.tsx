@@ -1,5 +1,5 @@
 import { HeroChat } from "@/components/demos/hero-chat";
-import { CalendarCheck, CheckCircle2, IndianRupee, Link2, Sparkles } from "@/components/icons";
+import { CalendarCheck, CheckCircle2, MessageCircle, Sparkles } from "@/components/icons";
 import { BrowserFrame, PhoneFrame } from "@/components/marketing/kit";
 import { Scene } from "@/components/motion/scene";
 import { AppFrame, Avatar, at, Channel, Pill } from "./parts";
@@ -11,9 +11,7 @@ import { AppFrame, Avatar, at, Channel, Pill } from "./parts";
  * It sits outside the Scene, whose content is one image to screen readers.
  * The window is the real app's Overview page (sidebar, top bar, greeting,
  * tiles, the Today card): the new enquiry ticks the count up, the site visit
- * lands on Today, and a GST invoice goes out with a payment link and turns
- * Paid. Amounts follow the real invoice maths (₹25,000 + 9% CGST + 9% SGST =
- * ₹29,500).
+ * lands on Today, and a WhatsApp follow-up is scheduled and goes out.
  */
 export function HeroScene() {
   return (
@@ -25,7 +23,7 @@ export function HeroScene() {
         hold={3600}
         // The phone overlaps the bottom-right corner, so the pause button goes left.
         toggleClassName="mr-auto"
-        label="ERIX at work: after a WhatsApp enquiry about a 3BHK flat, the Overview counts the new enquiry, a site visit is booked for 4 pm, and a GST invoice for ₹29,500 is sent with a payment link and marked paid."
+        label="ERIX at work: after a WhatsApp enquiry about a 3BHK flat, the Overview counts the new enquiry, a site visit is booked for 4 pm, and a WhatsApp follow-up is scheduled and sent."
       >
         <BrowserFrame className="max-[900px]:-mr-gutter max-[900px]:rounded-[12px_0_0_0]">
           {/* The real Overview page: greeting, tiles, Today. The phone overlaps the window's right edge on desktop, so the page keeps clear of it. */}
@@ -51,21 +49,21 @@ export function HeroScene() {
                   <p className="mt-0.5 truncate text-[10px] text-white/80">Answered in under a minute</p>
                 </div>
                 <div className="rounded-[10px] border border-border bg-surface p-2.5">
-                  <p className="text-[10.5px] font-medium text-muted-foreground">Collected today</p>
+                  <p className="text-[10.5px] font-medium text-muted-foreground">Answered today</p>
                   <p className="mt-1 inline-grid font-display text-[20px] leading-6 font-bold text-foreground tabular-nums *:[grid-area:1/1]">
                     <span className="scene-in" style={at(0, 8)}>
-                      ₹0
+                      0
                     </span>
                     <span className="scene-in scene-pop" style={at(8)}>
-                      ₹29,500
+                      1
                     </span>
                   </p>
                   <p className="mt-0.5 inline-grid truncate text-[10px] text-muted-foreground *:[grid-area:1/1]">
                     <span className="scene-in" style={at(0, 8)}>
-                      1 invoice waiting
+                      1 enquiry waiting
                     </span>
                     <span className="scene-in" style={at(8)}>
-                      Paid by Razorpay link
+                      Answered by the agent
                     </span>
                   </p>
                 </div>
@@ -95,18 +93,18 @@ export function HeroScene() {
                     </span>
                   </li>
                   <li style={at(7)} className="scene-in flex items-center gap-2.5 px-3 py-2">
-                    <span className="w-12 shrink-0 text-subtle">Due</span>
-                    <IndianRupee aria-hidden="true" className="size-3.5 shrink-0 text-accent" />
+                    <span className="w-12 shrink-0 text-subtle">Next</span>
+                    <MessageCircle aria-hidden="true" className="size-3.5 shrink-0 text-accent" />
                     <span className="min-w-0 flex-1 truncate">
-                      <span className="font-semibold text-foreground tabular-nums">₹29,500</span>
-                      <span className="text-muted-foreground"> · ₹25,000 + 18% GST</span>
+                      <span className="font-semibold text-foreground">Rohan Mehta</span>
+                      <span className="text-muted-foreground"> · WhatsApp follow-up</span>
                     </span>
                     <span className="inline-grid justify-items-end *:[grid-area:1/1]">
-                      <Pill tone="primary" icon={Link2} className="scene-in" style={at(7, 8)}>
-                        Link sent
+                      <Pill tone="primary" icon={CalendarCheck} className="scene-in" style={at(7, 8)}>
+                        Scheduled
                       </Pill>
                       <Pill tone="success" icon={CheckCircle2} className="scene-in scene-pop" style={at(8)}>
-                        Paid
+                        Sent
                       </Pill>
                     </span>
                   </li>

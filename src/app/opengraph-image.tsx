@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "ECODrIx: from first message to paid invoice";
+export const alt = "ECODrIx: every WhatsApp message and call answered, booked and followed up";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -71,10 +71,10 @@ export default async function Image() {
               letterSpacing: "-0.035em",
             }}
           >
-            From first message to paid invoice.
+            Every message and call answered, booked and followed up.
           </div>
           <div style={{ marginTop: "24px", fontSize: "26px", lineHeight: 1.45, color: "rgba(255,255,255,0.8)" }}>
-            WhatsApp, Instagram, email and website chat in one inbox, an AI agent, a pipeline and GST invoices.
+            WhatsApp and phone calls in one inbox, an AI agent, a pipeline and automatic follow-ups.
           </div>
         </div>
         <div style={{ fontSize: "22px", fontWeight: 600, color: "rgba(255,255,255,0.8)" }}>ecodrix.com</div>

@@ -41,15 +41,15 @@ export const PLATFORM_MODULES: PlatformModule[] = [
   {
     slug: "erix-crm",
     brand: "ERIX CRM",
-    name: "ERIX CRM: pipeline, bookings and GST invoices",
-    title: "ERIX CRM: pipeline, bookings and GST invoices",
-    tagline: "Every enquiry, from first chat to paid invoice",
+    name: "ERIX CRM: pipeline, forms and bookings",
+    title: "ERIX CRM: pipeline, forms and bookings",
+    tagline: "Every enquiry, from first chat to booked visit",
     category: "product",
     status: "live",
     description:
-      "ERIX CRM keeps every enquiry on one board: contacts, pipeline, forms, bookings, proposals, projects and GST invoices with Razorpay payment links, priced in INR.",
+      "ERIX CRM keeps every enquiry on one board: contacts, pipeline, forms and bookings, priced in INR. GST invoices and payment links are coming soon.",
     longDescription:
-      "Enquiries from your form links, booking page and chats land in your pipeline. Move deals in one drag, book appointments in Indian time, send proposals your client accepts on a phone, and send GST invoices with your own Razorpay payment link.",
+      "Enquiries from your form links, booking page and chats land in your pipeline. Move deals in one drag and book appointments in Indian time. Proposals, GST invoices and payment links are coming soon.",
     features: [
       {
         title: "A pipeline for your trade",
@@ -57,69 +57,50 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       },
       {
         title: "Form links that fill the pipeline",
-        body: "Share a hosted form link on WhatsApp or in your Instagram bio. Every answer becomes a contact in your first stage.",
+        body: "Share a hosted form link on WhatsApp or on your Google Business Profile. Every answer becomes a contact in your first stage.",
       },
       {
         title: "Bookings in IST",
         body: "Your hours, gaps and notice period. Two people can never book the same slot.",
       },
       {
-        title: "Proposals that become invoices",
-        body: "Your client accepts on a phone, and the proposal becomes an advance GST invoice.",
-      },
-      {
-        title: "GST invoices and payment links",
-        body: "CGST and SGST or IGST worked out for you, numbered by financial year, paid through your Razorpay.",
-      },
-      {
-        title: "Projects and a client portal",
-        body: "Tasks, documents your client signs first and you sign after, and a page where they follow the work.",
+        title: "Invoices and payment links",
+        body: "Coming soon: GST invoices and payment links through your own Razorpay.",
       },
     ],
     steps: [
       "Pick your business type. A real estate agent starts with Inquiry → Site Visit Scheduled → Site Visit Done → Shortlisted → Token Paid → Agreement Signed → Closed or Lost. Clinics, coaching institutes, online stores and agencies get their own stages.",
-      "Share your form and booking links on WhatsApp, in your Instagram bio or on your Google Business Profile. Each enquiry lands in the first stage of your pipeline.",
-      "Chat from the inbox, drag the card forward and send a proposal. Once it's accepted, it becomes a GST invoice with a payment link.",
-      "The invoice turns Paid by itself when the money lands in your Razorpay account.",
+      "Share your form and booking links on WhatsApp or on your Google Business Profile. Each enquiry lands in the first stage of your pipeline.",
+      "Chat from the inbox and drag the card forward as the enquiry moves on.",
     ],
     faqs: [
       {
         q: "Do I need a website to use ERIX CRM?",
-        a: "No. ERIX hosts your lead forms and booking page. Share the links on WhatsApp, in your Instagram bio or on your Google Business Profile, and every enquiry lands in your contacts.",
+        a: "No. ERIX hosts your lead forms and booking page. Share the links on WhatsApp or on your Google Business Profile, and every enquiry lands in your contacts.",
       },
       {
-        q: "Does ERIX work out GST for me?",
-        a: "Yes. Add your GSTIN once. A buyer in your state gets CGST and SGST, a buyer in another state gets IGST, based on the place of supply, and invoice numbers run per financial year, such as INV/26-27/0001.",
+        q: "Does ERIX send GST invoices?",
+        a: "Not yet. GST invoices and Razorpay payment links are coming soon.",
       },
       {
         q: "Can my staff use it on a phone?",
         a: "Yes. Contacts, the pipeline, forms, bookings and the inbox all fit a phone screen. Each person gets a role, so staff can work leads without touching your settings.",
       },
-      {
-        q: "Where does the money from a payment link go?",
-        a: "Into your own Razorpay account. You connect your keys under Connect → Payments, and ERIX marks the invoice paid when Razorpay confirms the payment.",
-      },
     ],
-    searchQueries: [
-      "ECODrIx CRM",
-      "ERIX CRM",
-      "WhatsApp CRM India",
-      "CRM with GST invoices",
-      "kanban CRM with WhatsApp",
-    ],
+    searchQueries: ["ECODrIx CRM", "ERIX CRM", "WhatsApp CRM India", "kanban CRM with WhatsApp"],
   },
   {
     slug: "erix-connect",
     brand: "ERIX Connect",
-    name: "ERIX Connect: WhatsApp, Instagram, email and chat",
-    title: "ERIX Connect: WhatsApp, Instagram, email and chat",
-    tagline: "One inbox for every channel your customers use",
+    name: "ERIX Connect: WhatsApp and phone calls",
+    title: "ERIX Connect: WhatsApp and phone calls",
+    tagline: "One inbox for WhatsApp and phone calls",
     category: "infrastructure",
     status: "live",
     description:
-      "ERIX Connect puts the official WhatsApp Business API, Instagram DMs, email and website chat in one live inbox. Meta bills you directly, with no ERIX markup.",
+      "ERIX Connect puts the official WhatsApp Business API and phone calls in one live inbox. Meta bills you directly, with no ERIX markup. Instagram, email and website chat are coming soon.",
     longDescription:
-      "Connect your own WhatsApp Business account through Meta's signup, link Instagram and email, and add the chat widget to your website with one line. Every conversation arrives live in one inbox, on the right contact, on your computer and your phone.",
+      "Connect your own WhatsApp Business account through Meta's signup. Every chat and call arrives live in one inbox, on the right contact, on your computer and your phone. Instagram, email and website chat are coming soon.",
     features: [
       {
         title: "Your own WhatsApp account",
@@ -130,25 +111,20 @@ export const PLATFORM_MODULES: PlatformModule[] = [
         body: "Approved templates, broadcasts and the 24-hour reply window handled for you.",
       },
       {
-        title: "Instagram DMs and email",
-        body: "Instagram DMs, and email sent from your own domain, all on the customer's contact.",
-      },
-      {
-        title: "Website chat with ticks",
-        body: "One line to embed, your colours and logo. ✓ sent, ✓✓ delivered and blue ✓✓ read, just like WhatsApp.",
+        title: "More channels",
+        body: "Coming soon: Instagram DMs, email from your own domain and website chat.",
       },
       {
         title: "An inbox that shows what needs you",
         body: "Unread counts, a Needs you list for handed-over chats, and AI drafts that show where the answer came from.",
       },
       {
-        title: "Calendar and payments",
-        body: "Google Calendar and Meet for bookings, and your own Razorpay for payment links.",
+        title: "Calendar",
+        body: "Google Calendar and Meet for bookings.",
       },
     ],
     steps: [
       "Connect WhatsApp with Meta's Embedded Signup, using your own WhatsApp Business account.",
-      "Link Instagram and your email domain, and paste the one-line chat snippet onto your website.",
       "Reply from one inbox. Your answer goes back on the channel the customer used.",
       "Send broadcasts with templates WhatsApp has approved.",
     ],
@@ -167,16 +143,10 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       },
       {
         q: "Can I put the chat on my own website?",
-        a: "Yes. Paste one line of code, then set the name, greeting, colour, position and logo in ERIX. Only the domains you list can show the chat; any other site is refused.",
+        a: "Not yet. Website chat is coming soon.",
       },
     ],
-    searchQueries: [
-      "ECODrIx connect",
-      "ERIX Connect",
-      "WhatsApp API India",
-      "WhatsApp shared inbox",
-      "Instagram DM automation India",
-    ],
+    searchQueries: ["ECODrIx connect", "ERIX Connect", "WhatsApp API India", "WhatsApp shared inbox"],
   },
   {
     slug: "erix-flow",

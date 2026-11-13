@@ -1,8 +1,8 @@
 # ECODrIx
 
-> ECODrIx is an Indian software company that builds ERIX: one workspace for businesses that sell over WhatsApp, Instagram, email and their website. ERIX started in August 2025 in Tirupati, Andhra Pradesh, founded by Dhanesh Mekalthuru (Dhanesh M, Erix). ERIX 1.0 is in early access: businesses join a waitlist and are set up by the ECODrIx team.
+> ECODrIx is an Indian software company that builds ERIX: one workspace for businesses that sell over WhatsApp and phone calls. ERIX started in August 2025 in Tirupati, Andhra Pradesh, founded by Dhanesh Mekalthuru (Dhanesh M, Erix). ERIX 1.0 is in early access: businesses join a waitlist and are set up by the ECODrIx team.
 
-ERIX does one job end to end: enquiry, chat, proposal, invoice, payment, with AI agents doing the routine replies.
+ERIX does one job end to end: every WhatsApp message and call answered, booked and followed up, with AI agents doing the routine replies.
 
 ## URLs
 
@@ -14,8 +14,8 @@ ERIX does one job end to end: enquiry, chat, proposal, invoice, payment, with AI
 
 ## ERIX 1.0 (live)
 
-- [ERIX CRM](https://ecodrix.com/platform/erix-crm): contacts matched across channels, sales pipeline, forms, appointments with Google Calendar and Meet, proposals, projects with documents, e-sign and a client portal, GST invoices (CGST/SGST or IGST) with Razorpay payment links.
-- [ERIX Connect](https://ecodrix.com/platform/erix-connect): the official WhatsApp Business API on the business's own account (Meta bills it directly, no ERIX markup), Instagram DMs, email on your own domain and a website chat widget, all in one inbox with live delivery ticks.
+- [ERIX CRM](https://ecodrix.com/platform/erix-crm): contacts matched across channels, sales pipeline, forms and appointments with Google Calendar and Meet. Coming soon: proposals, GST invoices and Razorpay payment links.
+- [ERIX Connect](https://ecodrix.com/platform/erix-connect): the official WhatsApp Business API on the business's own account (Meta bills it directly, no ERIX markup) and phone calls, in one inbox. Coming soon: Instagram DMs, email and a website chat widget.
 - [ERIX Flow](https://ecodrix.com/platform/erix-flow): automations with ready templates, approval steps, a two-branch "Wait for a reply" and AI replies.
 - [AI agents](https://ecodrix.com/platform#agents): sales, channels and website agents that answer from the business's own information, draft when unsure and wait for approval on anything risky.
 - [ERIX Storage](https://ecodrix.com/platform/erix-storage): file storage for documents and images inside the workspace.

@@ -13,7 +13,7 @@ import { readStatus } from "@/lib/status";
 export const metadata = pageMetadata({
   title: "ERIX system status",
   description:
-    "Live status of ERIX: the API, WhatsApp, Instagram, email, automations, payments and storage, with 90-day uptime and past incidents.",
+    "Live status of ERIX: the API, WhatsApp, automations and storage, with 90-day uptime and past incidents.",
   path: "/status",
 });
 
@@ -33,7 +33,7 @@ export default async function StatusPage() {
         <div className="mx-auto w-full max-w-6xl px-gutter">
           <h1 className="text-[clamp(36px,5vw,54px)] leading-[1.05] tracking-[-0.035em]">System status</h1>
           <p className="mt-4 mb-8 max-w-[60ch] text-[clamp(16px,1.5vw,18px)] leading-relaxed text-muted-foreground">
-            How ERIX is running right now: the API, messaging, automations, payments and storage. Checked every 30
+            How ERIX is running right now: the API, messaging, automations and storage. Checked every 30
             seconds.
           </p>
           <StatusBoard initial={initial} />

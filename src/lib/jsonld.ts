@@ -56,7 +56,7 @@ export function getOrganizationSchema() {
     },
     image: `${BASE_URL}/logo.png`,
     description:
-      "ECODrIx is a unified business infrastructure platform combining CRM, AI automation, WhatsApp messaging, email marketing, and cloud storage. It builds the ERIX suite (CRM, Connect, Flow and AI agents), started in August 2025 for growing businesses across India.",
+      "ECODrIx is a unified business infrastructure platform combining CRM, AI automation, WhatsApp messaging and cloud storage. It builds the ERIX suite (CRM, Connect, Flow and AI agents), started in August 2025 for growing businesses across India.",
     foundingDate: "2025-08",
     areaServed: "Worldwide",
     email: "contact@ecodrix.com",
@@ -111,7 +111,7 @@ export function getWebSiteSchema() {
     alternateName: "ECODrIx Platform",
     url: BASE_URL,
     description:
-      "Build Smarter. Grow Faster. Unified business infrastructure platform combining CRM, AI automation, WhatsApp, email marketing, and cloud storage.",
+      "Build Smarter. Grow Faster. Unified business infrastructure platform combining CRM, AI automation, WhatsApp and cloud storage.",
     inLanguage: "en",
     publisher: { "@id": ORG_ID },
     potentialAction: {
@@ -143,18 +143,15 @@ export function getSoftwareApplicationSchema() {
     operatingSystem: "Web",
     softwareVersion: "1.0",
     description:
-      "ERIX by ECODrIx: one workspace for Indian businesses that sell over WhatsApp, Instagram, email and their website. One inbox, AI agents, a CRM with GST invoices and payment links, and automations.",
+      "ERIX by ECODrIx: one workspace for Indian businesses that sell over WhatsApp and phone calls. One inbox, AI agents, a CRM with pipeline and bookings, and automations.",
     featureList: [
-      "One inbox for WhatsApp, Instagram, email and website chat",
+      "One inbox for WhatsApp and phone calls",
       "Official WhatsApp Business API with approved templates and broadcasts",
-      "CRM: contacts, pipeline, forms, bookings, proposals and projects",
-      "GST invoices (CGST and SGST or IGST, financial-year numbering) with payment links",
+      "CRM: contacts, pipeline, forms and bookings",
       "Automations with approvals, Wait for a reply and AI replies",
       "AI agents that answer from your own knowledge and hand off to your team",
       "Bookings with Google Calendar and Meet",
-      "Client portal with documents and e-sign",
-      "Email from your own domain, with open and click tracking",
-      "Analytics for pipeline, revenue and lead sources",
+      "Analytics for pipeline and lead sources",
     ],
     screenshot: `${BASE_URL}/logo.png`,
     author: { "@id": ORG_ID },

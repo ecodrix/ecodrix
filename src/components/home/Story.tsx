@@ -16,8 +16,11 @@ const chapters: Chapter[] = [
     module: "ERIX Connect",
     icon: "inbox",
     title: "A message arrives after you've closed",
-    body: "Rohan asks about a 3BHK on your WhatsApp. Minutes later, someone on your website chat wants a 2BHK near Wakad. Both land in one ERIX inbox, live, on your phone and on the office PC.",
-    points: ["WhatsApp, Instagram DMs, email and website chat in one list", "Unread counts and a chime, no refreshing"],
+    body: "Rohan asks about a 3BHK on your WhatsApp. Minutes later, a buyer calls about a 2BHK near Wakad. Both land in one ERIX inbox, live, on your phone and on the office PC.",
+    points: [
+      "WhatsApp chats and phone calls in one list. More channels coming soon",
+      "Unread counts and a chime, no refreshing",
+    ],
     visual: <ArrivalScene />,
   },
   {
@@ -42,7 +45,7 @@ const chapters: Chapter[] = [
     module: "ERIX Connect",
     icon: "users",
     title: "One customer, one record, every channel",
-    body: "Every chat lands on the right contact, matched by phone, then email, so one customer is one record across WhatsApp, Instagram, email and website chat. Your team replies from the inbox and watches the ticks turn from sent to delivered to read.",
+    body: "Every chat lands on the right contact, matched by phone, then email, so one customer is one record across WhatsApp and phone calls. Your team replies from the inbox and watches the ticks turn from sent to delivered to read.",
     visual: <LazyScreen name="inbox" />,
   },
   {
@@ -65,17 +68,6 @@ const chapters: Chapter[] = [
     title: "The visit is booked, without phone tag",
     body: "Rohan picks a free slot on your booking page, in IST, and two people can never take the same one. The visit lands on your Google Calendar and a WhatsApp reminder goes out before it. Online meetings get a Google Meet link.",
     visual: <LazyScreen name="booking" />,
-  },
-  {
-    id: "paid",
-    marker: "Mon, 11:31 am",
-    markerIcon: "indian-rupee",
-    module: "ERIX CRM",
-    icon: "receipt",
-    title: "Proposal, GST invoice, paid",
-    body: "Rohan accepts your proposal on his phone and it becomes an advance invoice: CGST and SGST worked out, numbered for the financial year, sent on WhatsApp with a Razorpay payment link. It turns Paid the moment the money lands.",
-    link: { href: "/platform/erix-crm/commerce", label: "Proposals, invoices and payment links" },
-    visual: <LazyScreen name="invoice" />,
   },
   {
     id: "follow-up",
@@ -106,7 +98,7 @@ export function HomeStory() {
     <Story
       id="story"
       kicker={<p className="text-sm/5 font-semibold text-accent on-dark:text-on-navy-link">A day with ERIX</p>}
-      title="One enquiry, from a 9:42 pm message to a paid invoice"
+      title="One enquiry, from a 9:42 pm message to a booked visit"
       lead="Follow Rohan's question about a flat through every part of ERIX. The screens are redrawn from the real app."
       chapters={chapters}
     />

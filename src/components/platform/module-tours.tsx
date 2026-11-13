@@ -11,8 +11,8 @@ import { TimelineScene } from "@/components/scenes/timeline-scene";
  */
 export const MODULE_TOURS: Record<string, { title: string; lead: string; chapters: Chapter[] }> = {
   "erix-connect": {
-    title: "Every channel, and what each one does for you",
-    lead: "One inbox for WhatsApp, Instagram, email and your website, plus the calendar and payments the conversation leads to.",
+    title: "Every chat and call, and what each one does for you",
+    lead: "One inbox for WhatsApp and phone calls, plus the calendar the conversation leads to. Instagram, email and website chat are coming soon.",
     chapters: [
       {
         id: "inbox",
@@ -20,9 +20,9 @@ export const MODULE_TOURS: Record<string, { title: string; lead: string; chapter
         module: "ERIX Connect",
         icon: "inbox",
         title: "Every chat in one list, on the right contact",
-        body: "WhatsApp, Instagram DMs, email and your website chat arrive in one inbox, live. Each lands on its contact, matched by phone, then email, so a customer is one record however they write.",
+        body: "WhatsApp chats and phone calls arrive in one inbox, live. Each lands on its contact, matched by phone, so a customer is one record however they reach you.",
         points: [
-          "Email goes out from your own domain, and replies thread into the inbox",
+          "Calls are answered by your phone agent or your team, and logged on the contact",
           "Unread counts, a chime, and “Needs you” on chats handed to your team",
           "AI drafts show where the answer came from: send them, or edit first",
         ],
@@ -43,20 +43,6 @@ export const MODULE_TOURS: Record<string, { title: string; lead: string; chapter
         visual: <LazyScreen name="broadcast" />,
       },
       {
-        id: "website-chat",
-        marker: "Website chat",
-        module: "ERIX Connect",
-        icon: "message-square",
-        title: "A chat widget for your website",
-        body: "Add it with one line. Set its name, greeting, colour, position and logo in ERIX, and only the domains you allow can show it.",
-        points: [
-          "Asks for the visitor's details before the chat, when needed or never, with consent",
-          "Replies appear live with typing and ticks",
-          "AI messages are labelled AI; your team replies with their first name",
-        ],
-        visual: <LazyScreen name="widget" />,
-      },
-      {
         id: "calendar",
         marker: "Google Calendar",
         module: "ERIX Connect",
@@ -65,21 +51,11 @@ export const MODULE_TOURS: Record<string, { title: string; lead: string; chapter
         body: "Bookings from your booking page, and the ones the agent makes, land on your Google Calendar. Online meetings get a Meet link, and a reminder goes out before.",
         visual: <LazyScreen name="booking" />,
       },
-      {
-        id: "razorpay",
-        marker: "Razorpay",
-        module: "ERIX Connect",
-        icon: "indian-rupee",
-        title: "Razorpay payment links",
-        body: "Connect your own Razorpay keys. ERIX puts the payment link on the GST invoice, the money goes to your account, and the invoice turns Paid the moment it lands.",
-        points: ["If Razorpay refuses your keys, ERIX says so plainly and creates no link"],
-        visual: <LazyScreen name="invoice" />,
-      },
     ],
   },
   "erix-crm": {
-    title: "Everything about a customer, from first chat to paid",
-    lead: "Contacts, pipeline, forms, bookings, proposals, invoices, projects and the numbers behind them, on one record.",
+    title: "Everything about a customer, from first chat to booked visit",
+    lead: "Contacts, pipeline, forms, bookings and the numbers behind them, on one record.",
     chapters: [
       {
         id: "contacts",
@@ -87,7 +63,7 @@ export const MODULE_TOURS: Record<string, { title: string; lead: string; chapter
         module: "ERIX CRM",
         icon: "users",
         title: "One customer, one record, every channel",
-        body: "Chats from every channel land on the same contact, matched by phone, then email. Custom fields, saved views and import, and a timeline of every message, run, invoice and booking.",
+        body: "Chats and calls land on the same contact, matched by phone. Custom fields, saved views and import, and a timeline of every message, call, run and booking.",
         visual: <TimelineScene />,
       },
       {
@@ -106,7 +82,7 @@ export const MODULE_TOURS: Record<string, { title: string; lead: string; chapter
         module: "ERIX CRM",
         icon: "file-text",
         title: "Forms you share as a link",
-        body: "ERIX hosts the form. Share the link on WhatsApp, in your Instagram bio or on your Google Business Profile, and every reply becomes a contact in your pipeline.",
+        body: "ERIX hosts the form. Share the link on WhatsApp or on your Google Business Profile, and every reply becomes a contact in your pipeline.",
         visual: <LazyScreen name="form" />,
       },
       {
@@ -117,25 +93,6 @@ export const MODULE_TOURS: Record<string, { title: string; lead: string; chapter
         title: "Bookings in IST, never double-booked",
         body: "Appointment types, open slots and a public booking page, with Google Calendar and Meet links and reminders. The AI agent can offer slots and book too.",
         visual: <LazyScreen name="booking" />,
-      },
-      {
-        id: "invoices",
-        marker: "Proposals and invoices",
-        module: "ERIX CRM",
-        icon: "receipt",
-        title: "Proposals that become GST invoices, and get paid",
-        body: "Clients sign proposals online. The invoice works out CGST and SGST in the same state or IGST across states from the GSTINs, is numbered by financial year, and goes out on WhatsApp or email with a Razorpay link.",
-        points: ["Marked Paid live, the moment the money lands"],
-        visual: <LazyScreen name="invoice" />,
-      },
-      {
-        id: "projects",
-        marker: "Projects",
-        module: "ERIX CRM",
-        icon: "folder-open",
-        title: "Projects your client can follow",
-        body: "Tasks, documents and click-to-sign with an audit seal, and a client portal where your client signs, downloads and checks progress without a status call.",
-        visual: <LazyScreen name="documents" />,
       },
       {
         id: "analytics",
@@ -169,7 +126,7 @@ export const MODULE_TOURS: Record<string, { title: string; lead: string; chapter
         ai: true,
         icon: "workflow",
         title: "Wait for a reply, then do the right thing",
-        body: "Start on a new lead, a stage change, a form, a message, a payment or a booking. Send on a channel, wait, or wait for a reply: Replied and No reply each take their own path.",
+        body: "Start on a new lead, a stage change, a form, a message or a booking. Send on a channel, wait, or wait for a reply: Replied and No reply each take their own path.",
         points: ["Every run shows step by step, live, on the contact"],
         visual: <LazyScreen name="flow" />,
       },

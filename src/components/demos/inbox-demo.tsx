@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { cn } from "@/lib/utils";
 import { type ChatMsg, Composer, MessageList, msg, reducedMotion, sleep } from "./chat";
 
-type Ch = "whatsapp" | "instagram" | "web" | "email";
+type Ch = "whatsapp";
 
 interface Draft {
   text: string;
@@ -60,7 +60,7 @@ const THREADS: Thread[] = [
   {
     id: "neha",
     name: "Neha Kapoor",
-    ch: "instagram",
+    ch: "whatsapp",
     history: [msg({ from: "customer", text: "Do you have anything under ₹1 Cr?", time: "11:48 am" })],
     turns: [
       {
@@ -85,24 +85,23 @@ const THREADS: Thread[] = [
   {
     id: "priya",
     name: "Priya Shah",
-    ch: "email",
-    history: [msg({ from: "customer", text: "Could you resend invoice INV/26-27/0042?", time: "10:15 am" })],
+    ch: "whatsapp",
+    history: [msg({ from: "customer", text: "Can I move my Saturday visit to Sunday?", time: "10:15 am" })],
     turns: [
       {
         draft: {
-          text: "Here's invoice INV/26-27/0042 again, with the payment link.",
-          source: "Invoices",
-          confidence: 96,
-          attach: "INV-26-27-0042.pdf",
+          text: "Sunday at 11 am is free. Shall I move your visit?",
+          source: "Visit slots",
+          confidence: 93,
         },
-        next: "Got it, paid just now.",
+        next: "Yes please, thanks.",
       },
     ],
   },
   {
     id: "arjun",
     name: "Arjun Rao",
-    ch: "web",
+    ch: "whatsapp",
     history: [
       msg({ from: "customer", text: "Is the office open on Sunday?", time: "9:20 am" }),
       msg({
@@ -357,7 +356,7 @@ export function InboxDemo() {
 
             <div className="border-t border-border bg-surface p-2.5">
               <Composer
-                placeholder={`Message via ${t.ch === "web" ? "website chat" : t.ch === "email" ? "email" : t.ch === "instagram" ? "Instagram" : "WhatsApp"}…`}
+                placeholder="Message via WhatsApp…"
                 value={text}
                 onChange={setText}
                 disabled={busy === open}

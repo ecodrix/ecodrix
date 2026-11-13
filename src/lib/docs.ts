@@ -955,7 +955,7 @@ export const DOC_SECTIONS: DocSection[] = [
     blocks: [
       {
         kind: "p",
-        text: "One inbox holds every channel’s conversations: WhatsApp, Instagram, Facebook, Telegram, email, web chat and the client portal. A reply goes out on the conversation’s own channel.",
+        text: "One inbox holds your WhatsApp and phone-call conversations; Instagram, email and web chat are coming soon. A reply goes out on the conversation’s own channel.",
       },
       {
         kind: "endpoint",
@@ -1505,13 +1505,13 @@ export const DOC_SECTIONS: DocSection[] = [
   {
     id: "invoices",
     group: "Platform",
-    title: "Invoices and payments",
+    title: "Invoices and payments (coming soon)",
     eyebrow: "Platform",
     ai: false,
     blocks: [
       {
         kind: "p",
-        text: "GST-ready invoices tied to a lead. Create one, attach a payment link from your connected payment gateway, and send it on WhatsApp or email. When the customer pays, the invoice is marked paid and flows can react.",
+        text: "Coming soon in the app. GST-ready invoices tied to a lead. Create one, attach a payment link from your connected payment gateway, and send it on WhatsApp or email. When the customer pays, the invoice is marked paid and flows can react.",
       },
       {
         kind: "endpoint",

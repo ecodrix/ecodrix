@@ -237,7 +237,7 @@ const platformSpots = (platform: readonly PlatformNavItem[]): readonly Spot[] =>
   {
     key: "story",
     kicker: "The ERIX story",
-    headline: "One enquiry, from a 9:42 pm message to a paid invoice.",
+    headline: "One enquiry, from a 9:42 pm message to a booked visit.",
     text: "Follow it through the inbox, the agent, the pipeline and Flow.",
     cta: { label: "See the story", href: "/#story" },
   },
@@ -255,8 +255,8 @@ const INDUSTRY_SPOTS: readonly Spot[] = [
   {
     key: "trades",
     kicker: "A day in each trade",
-    headline: "Six trades, one workspace.",
-    text: "Pick yours to see the enquiries, bookings and invoices ERIX takes care of.",
+    headline: "Four trades, one workspace.",
+    text: "Pick yours to see the enquiries and bookings ERIX takes care of.",
     cta: { label: "Ask about your trade", href: "/#contact" },
   },
   ...INDUSTRY_NAV.map((i) => ({

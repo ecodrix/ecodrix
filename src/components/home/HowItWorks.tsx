@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Icon } from "@/components/icons";
 import { FeatureSplit, MkSection } from "@/components/marketing/kit";
-import { CountUp } from "@/components/motion/motion";
 
 /**
  * The heart of the site: why ECODrIx exists, in the founder's voice (facts
@@ -57,7 +56,7 @@ export function Heart() {
               },
               {
                 title: "We set ERIX up with you",
-                text: "We connect your WhatsApp number, Instagram, email and website chat, shape the pipeline, teach the agent your price list and hours, and switch on the follow-ups you send by hand today.",
+                text: "We connect your WhatsApp number and phone line, shape the pipeline, teach the agent your price list and hours, and switch on the follow-ups you send by hand today.",
               },
               {
                 title: "You run it, we stay close",
@@ -92,29 +91,29 @@ export function BuiltForIndia() {
         headingLevel="h2"
         points={[
           "WhatsApp first: templates, broadcasts and the 24-hour reply window handled for you",
-          "GST-ready invoices: CGST and SGST in the same state, IGST across states, with your GSTIN",
-          "Rupees, not dollars: Indian number grouping, Razorpay payment links and pricing in INR",
+          "Rupees, not dollars: Indian number grouping and pricing in INR",
           "India's working day: reminders, reports and quiet hours run on Indian time",
         ]}
         visual={
           <div className="rounded-[16px] bg-surface p-5 shadow-[var(--shadow-card)] md:p-6">
-            <p className="text-[15px] font-semibold text-foreground">One booking advance, two places of supply</p>
+            <p className="text-[15px] font-semibold text-foreground">One site visit, booked in Indian time</p>
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               {[
                 {
-                  title: "Same state",
+                  title: "Saturday visit",
                   rows: [
-                    ["Amount", "₹25,000"],
-                    ["CGST 9%", "₹2,250"],
-                    ["SGST 9%", "₹2,250"],
+                    ["Date", "Sat, 17 Oct"],
+                    ["Time", "4:00 pm IST"],
                   ],
+                  foot: ["Reminder", "Fri, 10:00 am"],
                 },
                 {
-                  title: "Another state",
+                  title: "Weekday visit",
                   rows: [
-                    ["Amount", "₹25,000"],
-                    ["IGST 18%", "₹4,500"],
+                    ["Date", "Tue, 20 Oct"],
+                    ["Time", "11:30 am IST"],
                   ],
+                  foot: ["Reminder", "Mon, 10:00 am"],
                 },
               ].map((c) => (
                 <div key={c.title} className="flex flex-col rounded-[12px] bg-background p-4">
@@ -128,13 +127,15 @@ export function BuiltForIndia() {
                     ))}
                   </dl>
                   <p className="mt-auto flex justify-between border-t border-border pt-3 text-xl font-bold text-foreground">
-                    <span>Total</span>
-                    <CountUp value="₹29,500" />
+                    <span>{c.foot[0]}</span>
+                    <span>{c.foot[1]}</span>
                   </p>
                 </div>
               ))}
             </div>
-            <p className="mt-4 font-mono text-xs text-muted-foreground">INV/26-27/0042 · numbered per financial year</p>
+            <p className="mt-4 font-mono text-xs text-muted-foreground">
+              Reminders go out on WhatsApp, before every visit
+            </p>
           </div>
         }
       />

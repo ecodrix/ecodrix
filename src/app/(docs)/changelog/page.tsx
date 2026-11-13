@@ -15,7 +15,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "ERIX changelog",
   description:
-    "What changed in each ERIX release, from the first in August 2025 to 1.0: inbox, CRM, GST invoices, automations, AI agents and the API.",
+    "What changed in each ERIX release, from the first in August 2025 to 1.0: inbox, CRM, automations, AI agents and the API.",
   path: "/changelog",
 });
 

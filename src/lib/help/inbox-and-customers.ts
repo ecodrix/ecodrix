@@ -11,7 +11,7 @@ export const INBOX: HelpArticle[] = [
     kind: "how-to",
     updated: UPDATED,
     minutes: 2,
-    before: ["At least one channel connected, such as WhatsApp or website chat."],
+    before: ["At least one channel connected, such as WhatsApp."],
     blocks: [
       {
         kind: "p",
@@ -192,7 +192,7 @@ export const CUSTOMERS: HelpArticle[] = [
     slug: "take-bookings-online",
     collection: "customers",
     title: "Take bookings online",
-    summary: "Set your hours, create what people can book, and share one link on WhatsApp, Instagram or your website.",
+    summary: "Set your hours, create what people can book, and share one link on WhatsApp or your website.",
     kind: "tutorial",
     updated: UPDATED,
     minutes: 5,

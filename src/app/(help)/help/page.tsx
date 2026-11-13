@@ -17,7 +17,7 @@ import { SUPPORT_EMAIL } from "@/lib/site";
 export const metadata = helpMetadata({
   title: "ERIX Help",
   description:
-    "Step-by-step help for ERIX: set up your workspace, answer customers from one inbox, take bookings, send GST invoices, teach your AI agent and run automations.",
+    "Step-by-step help for ERIX: set up your workspace, answer customers from one inbox, take bookings, teach your AI agent and run automations.",
   path: "/",
 });
 

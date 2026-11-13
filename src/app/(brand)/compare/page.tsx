@@ -16,7 +16,7 @@ export const metadata = {
   ...pageMetadata({
     title: "WhatsApp CRM comparison: ECODrIx vs Wati and more",
     description:
-      "Compare ECODrIx (ERIX) with Wati, AiSensy and Interakt. All use Meta's official WhatsApp platform; ERIX adds a CRM, GST invoices, automation and an AI agent.",
+      "Compare ECODrIx (ERIX) with Wati, AiSensy and Interakt. All use Meta's official WhatsApp platform; ERIX adds a CRM, bookings, automation and an AI agent.",
     path: "/compare",
   }),
   keywords: [
@@ -33,11 +33,11 @@ export const metadata = {
 const HUB_FAQS = [
   {
     q: "What should a small business in India look for in a WhatsApp CRM?",
-    a: "Official WhatsApp API access, a shared inbox, broadcasts with approved templates, and a way to track each enquiry to a sale and an invoice. ERIX by ECODrIx covers these with a pipeline, GST invoices with payment links, automations and an AI agent, priced in rupees. Wati, AiSensy and Interakt are strong messaging-first alternatives.",
+    a: "Official WhatsApp API access, a shared inbox, broadcasts with approved templates, and a way to track each enquiry to a sale. ERIX by ECODrIx covers these with a pipeline, bookings, automations and an AI agent, priced in rupees. Wati, AiSensy and Interakt are strong messaging-first alternatives.",
   },
   {
     q: "How is ERIX different from Wati, AiSensy and Interakt?",
-    a: "All four use Meta's official WhatsApp platform, so the messaging itself is comparable. The difference is scope: Wati is messaging and support-led, AiSensy is broadcast-marketing-led, and Interakt leans toward commerce. ERIX adds a CRM, GST invoices, automation and an AI agent around the messaging.",
+    a: "All four use Meta's official WhatsApp platform, so the messaging itself is comparable. The difference is scope: Wati is messaging and support-led, AiSensy is broadcast-marketing-led, and Interakt leans toward commerce. ERIX adds a CRM, bookings, automation and an AI agent around the messaging.",
   },
   {
     q: "How should I compare WhatsApp CRM prices in India?",
@@ -72,8 +72,8 @@ export default function CompareHubPage() {
           </h1>
           <p className="mt-5 max-w-[62ch] text-[clamp(16px,1.5vw,19px)] leading-relaxed text-muted-foreground">
             Wati, AiSensy and Interakt all run on Meta&apos;s official WhatsApp platform, and so does ECODrIx. The
-            difference is what you get around the messaging: ERIX adds a CRM, GST invoices with payment links,
-            automation and an AI agent, in one platform priced in rupees.
+            difference is what you get around the messaging: ERIX adds a CRM, bookings, automation and an AI agent, in
+            one platform priced in rupees.
           </p>
           <div className="mt-8">
             <PrimaryCta />

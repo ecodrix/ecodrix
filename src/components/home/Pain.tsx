@@ -21,9 +21,9 @@ export function Pain() {
             text: "The second and third follow-up don't go out when the week gets busy, and nobody can see who spoke to the customer last.",
           },
           {
-            icon: "receipt",
-            title: "Payments chased by hand",
-            text: "The invoice is made in a spreadsheet, the payment link goes separately, and someone checks the bank app to see who paid.",
+            icon: "phone",
+            title: "Calls missed, messages left till morning",
+            text: "A call goes unanswered while you are with a customer, and the WhatsApp message that follows sits until the next day.",
           },
         ]}
       />

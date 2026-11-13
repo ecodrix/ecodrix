@@ -41,10 +41,9 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 
 /** What ERIX adds around the messaging: live v1.0 facts (design system product page), the same on every comparison. */
 const AROUND = [
-  "One inbox for WhatsApp, Instagram DMs, email and your website chat",
+  "One inbox for WhatsApp and phone calls",
   "An AI agent that answers from your own price list and hours; refunds, complaints and medical questions go to a person",
   "A pipeline with stages for your trade, and bookings in Indian time with no double bookings",
-  "GST invoices (CGST and SGST, or IGST) with your Razorpay payment link, marked Paid when the money lands",
   "Your own WhatsApp account, so Meta bills you directly and ERIX adds no markup",
   "Automations that wait for a reply, ask for approval before money or a customer message goes out, and keep a run history on each contact",
 ];

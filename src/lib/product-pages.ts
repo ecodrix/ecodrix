@@ -37,6 +37,8 @@ export interface SubPage {
   faqs?: { q: string; a: string }[];
   /** What isn't available, said plainly. */
   notice?: string;
+  /** Subject is Upcoming: noindex, out of the sitemap and lists; the URL shows a "Coming soon" page. Content kept. */
+  soon?: boolean;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -56,13 +58,13 @@ export const CRM_PAGES: SubPage[] = [
       "Pick your business type when you sign up. Your pipeline and contact fields are ready in about a minute.",
       "Your lead forms put new enquiries in the first stage by themselves, and bookings from your booking page add the person to your contacts. Add walk-ins and phone enquiries by hand.",
       "Drag a card to the next column when the deal moves. It saves at once, and your whole team sees it.",
-      "Tap a card to open the contact, with their chats, bookings, proposals and invoices in one place.",
+      "Tap a card to open the contact, with their chats, calls and bookings in one place.",
     ],
     sections: [
       {
         heading: "Stages made for your business",
         body: [
-          "A real estate agent starts with Inquiry → Site Visit Scheduled → Site Visit Done → Shortlisted → Token Paid → Agreement Signed → Closed or Lost. Healthcare and clinics, education and coaching, e-commerce and D2C, and marketing agencies each get their own stages. Any other business starts with a simple sales pipeline: New → Contacted → Qualified → Proposal → Won or Lost.",
+          "A real estate agent starts with Inquiry → Site Visit Scheduled → Site Visit Done → Shortlisted → Token Paid → Agreement Signed → Closed or Lost. Healthcare and clinics, education and coaching, and e-commerce and D2C each get their own stages. Any other business starts with a simple sales pipeline: New → Contacted → Qualified → Proposal → Won or Lost.",
           "You can change stages later. Need buyers and sellers apart? Add a second pipeline with New pipeline, and choose in each form's settings which pipeline it fills.",
         ],
       },
@@ -120,6 +122,7 @@ export const CRM_PAGES: SubPage[] = [
   },
   {
     slug: "client-portal",
+    soon: true,
     title: "Projects, e-sign and a client portal",
     description:
       "Run each client job as a project: tasks, documents your client signs first and you sign after, and a portal where the client follows progress and messages you.",
@@ -191,6 +194,7 @@ export const CRM_PAGES: SubPage[] = [
   },
   {
     slug: "commerce",
+    soon: true,
     title: "Proposals, GST invoices and payment links",
     description:
       "Send a proposal, turn it into a GST invoice with CGST, SGST or IGST worked out for you, and get paid through your own Razorpay link. Marked Paid by itself.",
@@ -268,13 +272,13 @@ export const CRM_PAGES: SubPage[] = [
       {
         heading: "Events from your CRM",
         body: [
-          "An automation can start when a lead is created, enters or leaves a stage, is won or lost, or is tagged; when a form is submitted; when an invoice is paid; or when a meeting is booked, rescheduled or cancelled. The Welcome Journey template starts when a new lead comes in, and Appointment Reminders starts on a booked meeting.",
+          "An automation can start when a lead is created, enters or leaves a stage, is won or lost, or is tagged; when a form is submitted; or when a meeting is booked, rescheduled or cancelled. The Welcome Journey template starts when a new lead comes in, and Appointment Reminders starts on a booked meeting.",
         ],
       },
       {
         heading: "Steps that act on the contact",
         body: [
-          "Steps can send a message on WhatsApp or email, wait, wait for a reply, ask for approval, write an AI reply or update the contact. Each run is saved on the contact's history.",
+          "Steps can send a message on WhatsApp, wait, wait for a reply, ask for approval, write an AI reply or update the contact. Each run is saved on the contact's history.",
         ],
       },
     ],
@@ -285,7 +289,7 @@ export const CRM_PAGES: SubPage[] = [
     slug: "real-estate",
     title: "ERIX for real estate agents and builders",
     description:
-      "For property consultants: portal and ad leads in one pipeline, site visits in IST, WhatsApp follow-ups, an agent that knows your listings, and token invoices.",
+      "For property consultants: portal and ad leads in one pipeline, site visits in IST, WhatsApp follow-ups and an agent that knows your listings.",
     type: "use-case",
     lead: "Built for how property is sold in India: enquiries at night, site visits at the weekend, follow-ups on WhatsApp and a token amount at the end.",
     screen: "pipeline",
@@ -311,7 +315,7 @@ export const CRM_PAGES: SubPage[] = [
       {
         heading: "Every enquiry in one place",
         body: [
-          "Put your form link or WhatsApp number on property portals, ads and your Instagram bio. Form answers and WhatsApp, Instagram or website chats all land on the right contact, matched by phone and then email, so a buyer who writes twice doesn't become two leads.",
+          "Put your form link or WhatsApp number on property portals and ads. Form answers, WhatsApp chats and phone calls all land on the right contact, matched by phone and then email, so a buyer who writes twice doesn't become two leads.",
         ],
       },
       {
@@ -323,7 +327,7 @@ export const CRM_PAGES: SubPage[] = [
       {
         heading: "Token amount and paperwork",
         body: [
-          "When the buyer is ready, send the token amount invoice, say ₹1,00,000, with your Razorpay payment link, and the deal moves to Token Paid. Quotations and work orders can be signed online with click-to-sign; a sale deed still needs registration through the official route.",
+          "When the buyer is ready, move the deal to Token Paid by hand. Invoices and payment links are coming soon. A sale deed still needs registration through the official route.",
         ],
       },
     ],
@@ -354,7 +358,7 @@ export const CRM_PAGES: SubPage[] = [
       {
         heading: "Enquiries with consent recorded",
         body: [
-          "Every lead form has a consent box patients must tick, with a link to your privacy policy. A second, optional box, Send me offers and updates, is never ticked for them. Wrong phone numbers and emails are stopped at the form, so your front desk isn't chasing junk.",
+          "Every lead form has a consent box patients must tick, with a link to your privacy policy. A second, optional box, Send me offers and updates, is never ticked for them. Wrong phone numbers are stopped at the form, so your front desk isn't chasing junk.",
         ],
       },
       {
@@ -375,18 +379,6 @@ export const CRM_PAGES: SubPage[] = [
           "If you turn on AI replies, it answers everyday questions such as timings, fees and location from the information you give it. Medical questions and symptoms are on the list of topics that always go to a person, switched on from the start, along with refunds and complaints. The chat moves to Needs you with the conversation attached, and the patient is told someone will reply.",
         ],
       },
-      {
-        heading: "Chat on your clinic's website",
-        body: [
-          "Add the chat to your clinic's website with one line. You choose whether it asks for a name and phone number before the chat, only when needed, or not at all, with consent. Patients see replies live, with typing and WhatsApp-style ticks. AI replies are labelled AI, and your staff's replies show their first name.",
-        ],
-      },
-      {
-        heading: "Invoices and payment links",
-        body: [
-          "Send an invoice with the tax rate that applies to your service, with 0% kept as 0%, and a Razorpay payment link the patient pays by phone.",
-        ],
-      },
     ],
     faqs: [
       {
@@ -405,6 +397,7 @@ export const CRM_PAGES: SubPage[] = [
   },
   {
     slug: "agencies",
+    soon: true,
     title: "ERIX for marketing agencies",
     description:
       "For agencies: a pipeline for new business, proposals clients accept on a phone, projects with tasks and e-sign, a client portal and GST invoices with links.",
@@ -459,7 +452,7 @@ export const CRM_PAGES: SubPage[] = [
     slug: "education",
     title: "ERIX for coaching institutes",
     description:
-      "For coaching institutes: admission forms, counselling bookings, AI answers on batch timings and fees, WhatsApp follow-ups, and GST invoices for course fees.",
+      "For coaching institutes: admission forms, counselling bookings, AI answers on batch timings and fees, and WhatsApp follow-ups.",
     type: "use-case",
     lead: "Parents enquire at night and decide over a week. ERIX answers the routine questions, books the counselling session and keeps the follow-up going.",
     screen: "inbox",
@@ -468,11 +461,11 @@ export const CRM_PAGES: SubPage[] = [
         heading: "A week from enquiry to admission",
         body: ["Here is a normal week for a coaching institute in Indore:"],
         points: [
-          "At 9:40 pm on 11 Oct, a parent fills in your admission form from the link in your Instagram bio and lands in the first stage of your pipeline.",
-          "The Welcome Journey emails them straight away and sends a WhatsApp message the next day.",
+          "At 9:40 pm on 11 Oct, a parent fills in your admission form from the link you shared on WhatsApp and lands in the first stage of your pipeline.",
+          "The Welcome Journey sends them a WhatsApp message straight away and another the next day.",
           "They book a counselling session for Sat, 17 Oct, 10:00 am on your booking page, and nobody else can take that time.",
           "They ask about batch timings on WhatsApp. Your counsellor answers from the inbox and drags their card forward.",
-          "You send a proposal for the ₹48,000 course. Once accepted, it becomes a GST invoice: ₹48,000 + CGST ₹4,320 + SGST ₹4,320 = ₹56,640, with a payment link.",
+          "You move the card to Admission confirmed and a WhatsApp confirmation goes out.",
         ],
       },
       {
@@ -507,11 +500,11 @@ export const CRM_PAGES: SubPage[] = [
       },
       {
         q: "Can parents pay the course fee online?",
-        a: "Yes. Send the GST invoice with a Razorpay payment link and the invoice turns Paid when the money lands.",
+        a: "Not yet. GST invoices and Razorpay payment links are coming soon.",
       },
       {
         q: "Is GST added to course fees?",
-        a: "ERIX applies the GST rate you set on the invoice and splits it into CGST and SGST, or IGST for another state. Check the right rate for your courses with your accountant.",
+        a: "Not yet. Invoices, with GST worked out, are coming soon.",
       },
     ],
   },
@@ -519,17 +512,17 @@ export const CRM_PAGES: SubPage[] = [
     slug: "d2c-ecommerce",
     title: "ERIX for D2C and local brands",
     description:
-      "For D2C and local brands: one inbox for order questions, WhatsApp broadcasts with approved templates, AI answers from your price list, and invoices with links.",
+      "For D2C and local brands: one inbox for order questions, WhatsApp broadcasts with approved templates, and AI answers from your price list.",
     type: "use-case",
-    lead: "Answer order questions from one inbox, send offers on WhatsApp with templates WhatsApp has approved, and take a chat all the way to a paid invoice.",
+    lead: "Answer order questions from one inbox, send offers on WhatsApp with templates WhatsApp has approved, and follow up with every enquiry.",
     screen: "inbox",
     notice:
-      "ERIX doesn't connect to Shopify or a store catalogue today, and storefront checkout is planned for later. Orders come in as chats, and you invoice them.",
+      "ERIX doesn't connect to Shopify or a store catalogue today, and storefront checkout is planned for later. Orders come in as chats.",
     sections: [
       {
         heading: "Every DM in one list",
         body: [
-          "A boutique in Jaipur posts its new kurta sets. Questions arrive on Instagram DMs, WhatsApp and the website chat, and they all land in one inbox, each on the right customer, matched by phone and then email. Unread counts and a Needs you list show what's waiting.",
+          "A boutique in Jaipur posts its new kurta sets. Questions arrive on WhatsApp and as phone calls, and they all land in one inbox, each on the right customer, matched by phone. Unread counts and a Needs you list show what's waiting.",
         ],
       },
       {
@@ -542,12 +535,6 @@ export const CRM_PAGES: SubPage[] = [
         heading: "Festive offers on WhatsApp",
         body: [
           "A saree shop in Coimbatore sends its Diwali offer to customers tagged diwali, using a template WhatsApp has approved. Because ERIX uses your own WhatsApp account, Meta bills you directly for the messages and ERIX adds no markup. Broadcasts wait out quiet hours in Indian time.",
-        ],
-      },
-      {
-        heading: "From chat to paid",
-        body: [
-          "Customers who reply “Is the red one available?” land in your inbox, where your team takes the chat to an invoice and a Razorpay payment link. The invoice turns Paid by itself when the money lands. Pick E-commerce / D2C at sign-up and your pipeline starts with stages made for selling online.",
         ],
       },
       {
@@ -568,12 +555,13 @@ export const CRM_PAGES: SubPage[] = [
       },
       {
         q: "Does ERIX connect to Shopify?",
-        a: "Not today. Orders come in through chats, and you send the invoice and payment link from ERIX. Storefront checkout is planned for later.",
+        a: "Not today. Orders come in through chats. Invoices, payment links and storefront checkout are coming later.",
       },
     ],
   },
   {
     slug: "professional-services",
+    soon: true,
     title: "ERIX for CAs, lawyers and consultants",
     description:
       "For CAs, lawyers and consultants: a portal for every engagement, click-to-sign engagement letters, deadline broadcasts on WhatsApp and GST invoices with links.",
@@ -635,7 +623,7 @@ export const CRM_PAGES: SubPage[] = [
       "Go to Connect → Apps → Google (Meet / Calendar) and click Connect. An owner or admin signs in with Google and allows access.",
       "Open Appointment types → New appointment type. Add a title and the length, and keep Google Meet as the location.",
       "Open Availability → Edit hours to set your weekly hours, the gap between meetings and your time zone (India by default).",
-      "Copy your booking link from Availability and share it on WhatsApp, by email or on your website.",
+      "Copy your booking link from Availability and share it on WhatsApp or on your website.",
     ],
     sections: [
       {
@@ -653,7 +641,7 @@ export const CRM_PAGES: SubPage[] = [
       {
         heading: "Send your own confirmation",
         body: [
-          "ERIX doesn't send a confirmation message on its own yet. Build one in ERIX Flow: start an automation on Meeting booked and send a WhatsApp template or an email.",
+          "ERIX doesn't send a confirmation message on its own yet. Build one in ERIX Flow: start an automation on Meeting booked and send a WhatsApp template.",
         ],
       },
       {
@@ -682,6 +670,7 @@ export const CRM_PAGES: SubPage[] = [
   },
   {
     slug: "razorpay-guide",
+    soon: true,
     title: "Collect payments with Razorpay links",
     description:
       "Connect your own Razorpay account to ERIX, send a payment link with each GST invoice on WhatsApp or email, and see the invoice turn paid when the customer pays.",
@@ -747,7 +736,7 @@ export const FLOW_PAGES: SubPage[] = [
       {
         heading: "Send a message",
         body: [
-          "Send a WhatsApp message or an email to the contact the run is about. Inside WhatsApp's 24-hour window you can send a normal message; outside it, use a template WhatsApp has approved. The message can use the contact's details, such as their first name.",
+          "Send a WhatsApp message to the contact the run is about. Inside WhatsApp's 24-hour window you can send a normal message; outside it, use a template WhatsApp has approved. The message can use the contact's details, such as their first name.",
         ],
       },
       {
@@ -807,7 +796,7 @@ export const FLOW_PAGES: SubPage[] = [
     slug: "triggers",
     title: "What starts an ERIX automation",
     description:
-      "ERIX automations start when something happens: a new lead, a stage change, a won or lost deal, a tag, a form, an inbound message, a payment or a booking.",
+      "ERIX automations start when something happens: a new lead, a stage change, a won or lost deal, a tag, a form, an inbound message or a booking.",
     type: "capability",
     lead: "Every automation begins with one event. Pick it when you build the automation, and ERIX starts a run each time it happens.",
     screen: "flow",
@@ -823,13 +812,9 @@ export const FLOW_PAGES: SubPage[] = [
         ],
       },
       {
-        heading: "Forms, messages and payments",
+        heading: "Forms and messages",
         body: ["Others start from something a customer does:"],
-        points: [
-          "A form is submitted",
-          "A message comes in on any channel: WhatsApp, Instagram, email or website chat",
-          "An invoice is paid or a payment is captured",
-        ],
+        points: ["A form is submitted", "A message comes in on WhatsApp"],
       },
       {
         heading: "Bookings",
@@ -844,7 +829,7 @@ export const FLOW_PAGES: SubPage[] = [
           "A clinic: a meeting is booked, and WhatsApp reminders go out before the appointment",
           "A property consultant: a lead enters Site Visit Done, a message asks how the visit went, and No reply sends a nudge two days later",
           "A coaching institute: an admission form is submitted, and a welcome message goes out at once",
-          "Any business: an invoice is paid, a thank-you message goes out and the contact is updated",
+          "Any business: a booking is made, a thank-you message goes out and the contact is updated",
         ],
       },
       {
@@ -888,7 +873,7 @@ export const FLOW_PAGES: SubPage[] = [
       {
         heading: "What you can do now",
         body: [
-          "The built-in steps cover sending on WhatsApp or email, waiting, waiting for a reply, a yes-or-no condition, approvals, AI replies and updating the contact. Webhooks, multi-path branches, loops and connected apps are coming soon, in version 1.2.",
+          "The built-in steps cover sending on WhatsApp, waiting, waiting for a reply, a yes-or-no condition, approvals, AI replies and updating the contact. Webhooks, multi-path branches, loops and connected apps are coming soon, in version 1.2.",
         ],
       },
     ],
@@ -906,7 +891,7 @@ export const FLOW_PAGES: SubPage[] = [
       {
         heading: "The short answer",
         body: [
-          "Pick Zapier when your work hops between many different apps. Pick ERIX Flow when the work lives in your customer conversations: WhatsApp, Instagram, email, your pipeline and your invoices, all on one contact record.",
+          "Pick Zapier when your work hops between many different apps. Pick ERIX Flow when the work lives in your customer conversations: WhatsApp, phone calls and your pipeline, all on one contact record.",
         ],
       },
       {
@@ -919,7 +904,7 @@ export const FLOW_PAGES: SubPage[] = [
         heading: "Where ERIX Flow is stronger",
         body: ["ERIX Flow already knows your customers and WhatsApp's rules, so you don't rebuild them:"],
         points: [
-          "Starts on what happens in ERIX: new leads, stage changes, forms, messages, payments and bookings",
+          "Starts on what happens in ERIX: new leads, stage changes, forms, messages and bookings",
           "WhatsApp's 24-hour window and approved templates handled for you",
           "Wait for a reply, with a Replied path and a No reply path",
           "AI replies from your own knowledge, as drafts by default",
@@ -954,6 +939,7 @@ export const FLOW_PAGES: SubPage[] = [
   },
   {
     slug: "email-automation-guide",
+    soon: true,
     title: "Automate emails from your business address",
     description:
       "Send emails automatically from your own domain with ERIX Flow: pick a trigger like a new contact or a paid invoice, write the email, and add an approval step.",
@@ -1026,7 +1012,7 @@ export const CONNECT_PAGES: SubPage[] = [
     slug: "channels",
     title: "Channels in ERIX Connect: what's live today",
     description:
-      "WhatsApp Business API, Instagram DMs, email, website chat, Google Calendar and Meet, and Razorpay: what ERIX Connect supports today, and what's coming soon.",
+      "WhatsApp Business API, phone calls and Google Calendar and Meet: what ERIX Connect supports today, and what's coming soon.",
     type: "capability",
     lead: "Every channel lands in the same inbox and on the same contact, so your team answers from one place.",
     screen: "inbox",
@@ -1038,38 +1024,22 @@ export const CONNECT_PAGES: SubPage[] = [
         ],
       },
       {
-        heading: "Instagram",
-        body: [
-          "Instagram DMs land in the same inbox, on the same contact as the customer's WhatsApp chats and emails.",
-        ],
-      },
-      {
-        heading: "Email",
-        body: [
-          "Send from your own domain. Customer emails arrive in the inbox as threads next to their chats, and your replies stay in the same thread.",
-        ],
-      },
-      {
-        heading: "Website chat",
-        body: [
-          "Paste one line onto your website and visitors' messages arrive in your inbox, marked Website chat. Set the name, greeting, colour, position and logo in ERIX, and list the domains allowed to show it; any other site is refused. You choose whether it asks for details before the chat, only when needed, or not at all, with consent. Visitors see replies live, with typing and WhatsApp-style ticks. AI replies are labelled AI, and your team's replies show the person's first name.",
-        ],
-      },
-      {
         heading: "One inbox for all of it",
         body: [
           "Every channel lands in one list, with unread counts. Chats the AI handed over sit under Needs you, and AI drafts show where the answer came from, such as “From: Baner listing”, with Send or Edit. When the tab is in the background, a chime and a count in the tab title tell you a customer wrote; you can switch that off.",
         ],
       },
       {
-        heading: "Google Calendar and Meet, and Razorpay",
+        heading: "Google Calendar and Meet",
         body: [
-          "Connect Google once and bookings get Meet links. Bookings still work without Google, just without a meeting link. Connect your own Razorpay keys for payment links; the money goes to your account and the invoice marks itself paid.",
+          "Connect Google once and bookings get Meet links. Bookings still work without Google, just without a meeting link.",
         ],
       },
       {
         heading: "Coming soon",
-        body: ["Facebook Messenger and Telegram inboxes arrive in version 1.2."],
+        body: [
+          "Instagram DMs, email and website chat are coming soon. Facebook Messenger and Telegram inboxes arrive in version 1.2.",
+        ],
       },
     ],
     faqs: [
@@ -1087,7 +1057,7 @@ export const CONNECT_PAGES: SubPage[] = [
     slug: "unified-send-api",
     title: "Send API for developers",
     description:
-      "Developers can send WhatsApp and email messages from their own software through ERIX Connect's send endpoint, with scoped keys and the same rules as the app.",
+      "Developers can send WhatsApp messages from their own software through ERIX Connect's send endpoint, with scoped keys and the same rules as the app.",
     type: "capability",
     lead: "Your own software can send a message on a connected channel through one endpoint per channel.",
     sections: [
@@ -1142,7 +1112,7 @@ export const CONNECT_PAGES: SubPage[] = [
       {
         heading: "Every chat on the right contact",
         body: [
-          "Messages are matched to contacts by phone number, so a customer's WhatsApp chat sits next to their emails, bookings and invoices, and ticks update live: sent, delivered, read.",
+          "Messages are matched to contacts by phone number, so a customer's WhatsApp chat sits next to their calls and bookings, and ticks update live: sent, delivered, read.",
         ],
       },
     ],
@@ -1231,6 +1201,7 @@ export const CONNECT_PAGES: SubPage[] = [
   },
   {
     slug: "website-chat-guide",
+    soon: true,
     title: "Add ERIX chat to your website",
     description:
       "Put the ERIX chat on your website with one line of code: register your domain, paste the code before </body>, check it, and answer visitors from your inbox.",
@@ -1292,6 +1263,7 @@ export const CONNECT_PAGES: SubPage[] = [
   },
   {
     slug: "email-domain-guide",
+    soon: true,
     title: "Send email from your own domain",
     description:
       "Set up ERIX to send email as you@yourcompany.com: add your domain, copy four DNS records, verify, and choose the sender name and address customers see.",
@@ -1400,7 +1372,12 @@ export const STORAGE_PAGES: SubPage[] = [
   },
 ];
 
-/** All sub-pages for a module slug. */
+/** Sub-pages that are live in v1: what lists, the sitemap and related links show. */
+export function getLivePages(product: string): SubPage[] {
+  return getProductPages(product).filter((p) => !p.soon);
+}
+
+/** All sub-pages for a module slug (Upcoming ones included, so their URLs still answer). */
 export function getProductPages(product: string): SubPage[] {
   switch (product) {
     case "erix-crm":

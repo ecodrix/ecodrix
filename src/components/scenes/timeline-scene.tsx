@@ -1,4 +1,4 @@
-import { CheckCircle2, type IconComponent, Inbox, KanbanSquare, Sparkles, Workflow } from "@/components/icons";
+import { type IconComponent, Inbox, KanbanSquare, Sparkles, Workflow } from "@/components/icons";
 import { Scene } from "@/components/motion/scene";
 import { Avatar, at, Pill } from "./parts";
 
@@ -13,8 +13,8 @@ const events: { tool: string; icon: IconComponent; tone: "primary" | "ai"; text:
   { tool: "AI agent", icon: Sparkles, tone: "ai", text: "Answered from the Baner listing", time: "9:42 pm" },
   { tool: "CRM", icon: KanbanSquare, tone: "primary", text: "Site visit booked for Saturday, 4 pm", time: "9:44 pm" },
   { tool: "Flow", icon: Workflow, tone: "ai", text: "Reminder sent on WhatsApp", time: "Fri, 10:00 am" },
-  { tool: "CRM", icon: KanbanSquare, tone: "primary", text: "Proposal accepted on a phone", time: "Mon, 11:20 am" },
-  { tool: "Paid", icon: CheckCircle2, tone: "primary", text: "INV/26-27/0042 paid · ₹29,500", time: "Mon, 11:31 am" },
+  { tool: "CRM", icon: KanbanSquare, tone: "primary", text: "Moved to Site visit done", time: "Sat, 5:10 pm" },
+  { tool: "Flow", icon: Workflow, tone: "ai", text: "Follow-up sent on WhatsApp", time: "Mon, 11:31 am" },
 ];
 
 /** /platform hero: one contact, every tool writing to the same timeline. */
@@ -24,7 +24,7 @@ export function TimelineScene() {
       steps={events.length}
       timing={1100}
       hold={3800}
-      label="One contact record for Rohan Mehta. Events from every ERIX tool land on the same timeline: a WhatsApp enquiry, the AI agent's answer, a booked site visit, an automated reminder, an accepted proposal and a paid invoice of ₹29,500."
+      label="One contact record for Rohan Mehta. Events from every ERIX tool land on the same timeline: a WhatsApp enquiry, the AI agent's answer, a booked site visit, an automated reminder, a stage move and a follow-up on WhatsApp."
       className="motion-safe:animate-rise motion-safe:[animation-delay:var(--d,200ms)] mx-auto w-full max-w-[34rem] lg:max-w-none"
     >
       <div className="surface-light overflow-hidden rounded-[12px] bg-surface shadow-[var(--shadow-lg)]">

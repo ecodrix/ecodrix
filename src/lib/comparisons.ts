@@ -64,7 +64,7 @@ const ERIX_PRICING =
   "During the pilot, our team sets up each workspace and agrees pricing with you. Meta bills WhatsApp messages to you directly, with no ERIX markup.";
 const ERIX_AI =
   "Answers from your own price list and hours, drafts what it isn't sure of, and hands refunds and complaints to a person.";
-const ERIX_CRM = "Built in: pipeline board, GST invoices with payment links, projects with e-sign and a client portal.";
+const ERIX_CRM = "Built in: contacts, pipeline board, forms and bookings. GST invoices and projects are coming soon.";
 // Verified on Meta's WhatsApp Business Platform pricing page, 27 Oct 2026.
 const META_NOTE =
   "Since 1 July 2025, Meta charges per delivered template message, by category (marketing, utility or authentication) and by the recipient's country. Replies inside the 24-hour customer service window are free, and so are utility templates sent while that window is open. Meta changes India's rates (marketing went up on 1 January 2026), so check Meta's current rate card. With ERIX you connect your own WhatsApp Business account, so Meta bills you directly and ERIX adds no markup. With any provider, ask how Meta's charges reach your bill.";
@@ -75,7 +75,7 @@ const META_ROW = (competitor: string): ComparisonRow => ({
   ecodrixWins: false,
 });
 const FLOW_ROW =
-  "ERIX Flow: starts on leads, stages, forms, messages, payments and bookings, with Wait for a reply, approvals and AI replies.";
+  "ERIX Flow: starts on leads, stages, forms, messages and bookings, with Wait for a reply, approvals and AI replies.";
 const MOVE_ANSWER = (competitor: string) =>
   `Yes. Import your contacts into ERIX CRM, and connect your own WhatsApp Business account in ERIX Connect through Meta's signup. A number works with one provider at a time, so plan the move with ${competitor}. ERIX is letting businesses in from its early-access list.`;
 
@@ -87,12 +87,12 @@ export const COMPARISONS: Comparison[] = [
     slug: "ecodrix-vs-wati",
     competitor: "Wati",
     description:
-      "ECODrIx (ERIX) vs Wati for Indian SMBs: both use the official WhatsApp API. Wati leads on AI agents and calling; ERIX builds in the CRM, GST invoices and automation.",
-    tldr: "Wati (by Clare.ai) is a mature WhatsApp Business API platform: a shared team inbox, broadcasts and drip campaigns, no-code chatbots, its Astra AI agent across chat and voice, WhatsApp Business Calling, and Instagram, Messenger and TikTok in the same inbox. For deals and pipeline it syncs with HubSpot, Zoho CRM or Salesforce. ERIX matches the official-API messaging and builds in the system around it: a pipeline, GST invoices with payment links, projects, automations and an AI agent that answers from your own information, in one platform priced in rupees.",
+      "ECODrIx (ERIX) vs Wati for Indian SMBs: both use the official WhatsApp API. Wati leads on AI agents and calling; ERIX builds in the CRM, bookings and automation.",
+    tldr: "Wati (by Clare.ai) is a mature WhatsApp Business API platform: a shared team inbox, broadcasts and drip campaigns, no-code chatbots, its Astra AI agent across chat and voice, WhatsApp Business Calling, and Instagram, Messenger and TikTok in the same inbox. For deals and pipeline it syncs with HubSpot, Zoho CRM or Salesforce. ERIX matches the official-API messaging and builds in the system around it: a pipeline, bookings, automations and an AI agent that answers from your own information, in one platform priced in rupees.",
     competitorBestFor:
       "Teams that want the broadest WhatsApp toolkit (AI agents across chat and voice, WhatsApp calling, Instagram and TikTok in one inbox) and already run a CRM such as HubSpot, Zoho or Salesforce.",
     ecodrixBestFor:
-      "Indian SMBs that want WhatsApp and the system of record (pipeline, invoices, bookings and automation) in one login, priced in rupees.",
+      "Indian SMBs that want WhatsApp and the system of record (pipeline, bookings and automation) in one login, priced in rupees.",
     rows: [
       {
         dimension: "WhatsApp API",
@@ -101,7 +101,7 @@ export const COMPARISONS: Comparison[] = [
         ecodrixWins: false,
       },
       {
-        dimension: "Built-in CRM (pipeline, deals, invoices, projects)",
+        dimension: "Built-in CRM (pipeline, deals, bookings)",
         ecodrix: ERIX_CRM,
         competitor:
           "No built-in deal pipeline yet: its sales page lists funnel and deal-stage tracking as coming soon, and it syncs leads with HubSpot, Zoho CRM and Salesforce.",
@@ -131,15 +131,15 @@ export const COMPARISONS: Comparison[] = [
     faqs: [
       {
         q: "Is ECODrIx a good Wati alternative in India?",
-        a: `ERIX uses the same official Meta WhatsApp platform as Wati, and adds a pipeline, GST invoices with payment links, automations and an AI agent that answers from your own information. ${ERIX_PRICING}`,
+        a: `ERIX uses the same official Meta WhatsApp platform as Wati, and adds a pipeline, bookings, automations and an AI agent that answers from your own information. ${ERIX_PRICING}`,
       },
       {
         q: "Does Wati have a built-in CRM?",
-        a: "Wati covers the conversation side well: team inbox, broadcasts, chatbots and AI agents. For deals and pipeline it connects to HubSpot, Zoho CRM or Salesforce, and its sales page lists funnel tracking as coming soon. ERIX includes the pipeline, GST invoices and projects in the same platform.",
+        a: "Wati covers the conversation side well: team inbox, broadcasts, chatbots and AI agents. For deals and pipeline it connects to HubSpot, Zoho CRM or Salesforce, and its sales page lists funnel tracking as coming soon. ERIX includes the pipeline and bookings in the same platform.",
       },
       {
         q: "Do ECODrIx and Wati use the same WhatsApp API?",
-        a: "Both use Meta's official WhatsApp platform, so the messaging itself and Meta's charges are comparable. The difference is what's built around it: ERIX includes the CRM, invoices and automation.",
+        a: "Both use Meta's official WhatsApp platform, so the messaging itself and Meta's charges are comparable. The difference is what's built around it: ERIX includes the CRM and automation.",
       },
       { q: "How does WhatsApp pricing work with either tool?", a: META_NOTE },
       { q: "Can I move from Wati to ECODrIx?", a: MOVE_ANSWER("Wati") },
@@ -164,12 +164,12 @@ export const COMPARISONS: Comparison[] = [
     slug: "ecodrix-vs-aisensy",
     competitor: "AiSensy",
     description:
-      "ECODrIx (ERIX) vs AiSensy for Indian SMBs: AiSensy leads on broadcasts, retargeting and click-to-WhatsApp ads; ERIX adds a CRM, GST invoices and automation.",
+      "ECODrIx (ERIX) vs AiSensy for Indian SMBs: AiSensy leads on broadcasts, retargeting and click-to-WhatsApp ads; ERIX adds a CRM, bookings and automation.",
     tldr: "AiSensy is a WhatsApp marketing platform that says it serves over 2 lakh businesses. Its strengths are unlimited broadcasts, retargeting by who opened or clicked, Click-to-WhatsApp ads with an AI Ads Manager, a drag-and-drop chatbot builder, WhatsApp Forms, payments inside WhatsApp and AI agents. Its Chat CRM keeps tags, attributes and history on each contact. ERIX is for teams whose WhatsApp marketing has turned into a sales pipeline: deals, GST invoices, projects and automation in the same place you message customers.",
     competitorBestFor:
       "Marketing-led businesses running high-volume broadcasts, retargeting and Click-to-WhatsApp ads, with simple chatbot flows.",
     ecodrixBestFor:
-      "SMBs whose WhatsApp marketing has turned into a real sales pipeline that needs a CRM, invoices and automation alongside messaging.",
+      "SMBs whose WhatsApp marketing has turned into a real sales pipeline that needs a CRM and automation alongside messaging.",
     rows: [
       {
         dimension: "WhatsApp API",
@@ -185,7 +185,7 @@ export const COMPARISONS: Comparison[] = [
         ecodrixWins: false,
       },
       {
-        dimension: "Built-in CRM (pipeline, deals, invoices, projects)",
+        dimension: "Built-in CRM (pipeline, deals, bookings)",
         ecodrix: ERIX_CRM,
         competitor:
           "Chat CRM: tags, attributes and history on each contact. No deal pipeline on its features page; it connects to HubSpot, Salesforce and LeadSquared.",
@@ -200,7 +200,7 @@ export const COMPARISONS: Comparison[] = [
       },
       {
         dimension: "Payments",
-        ecodrix: "GST invoices with payment links.",
+        ecodrix: "Coming soon: GST invoices with payment links.",
         competitor: "Payments inside WhatsApp by UPI, card or net banking through Razorpay or PayU.",
         ecodrixWins: false,
       },
@@ -221,7 +221,7 @@ export const COMPARISONS: Comparison[] = [
     faqs: [
       {
         q: "Is ECODrIx an AiSensy alternative?",
-        a: `Both run on Meta's official WhatsApp platform. AiSensy is marketing and broadcast-led, while ERIX adds a pipeline, GST invoices, automations and an AI agent on your chats. ${ERIX_PRICING}`,
+        a: `Both run on Meta's official WhatsApp platform. AiSensy is marketing and broadcast-led, while ERIX adds a pipeline, bookings, automations and an AI agent on your chats. ${ERIX_PRICING}`,
       },
       {
         q: "What does ERIX cost?",
@@ -230,7 +230,7 @@ export const COMPARISONS: Comparison[] = [
       { q: "How does WhatsApp message pricing work?", a: META_NOTE },
       {
         q: "When should I choose ERIX over AiSensy?",
-        a: "Choose ERIX when WhatsApp is no longer just marketing: when you need to track deals, invoices and projects, and automate follow-ups from the same place you message customers. If your work is mostly broadcasts, retargeting and ads, AiSensy is built for that.",
+        a: "Choose ERIX when WhatsApp is no longer just marketing: when you need to track deals and bookings, and automate follow-ups from the same place you message customers. If your work is mostly broadcasts, retargeting and ads, AiSensy is built for that.",
       },
       { q: "Can I move from AiSensy to ECODrIx?", a: MOVE_ANSWER("AiSensy") },
     ],
@@ -253,12 +253,12 @@ export const COMPARISONS: Comparison[] = [
     slug: "ecodrix-vs-interakt",
     competitor: "Interakt",
     description:
-      "ECODrIx (ERIX) vs Interakt for Indian SMBs: Interakt (Jio Haptik) leads on Shopify commerce; ERIX builds GST invoices, bookings and projects into the CRM.",
-    tldr: "Interakt is a Jio Haptik product built on the official WhatsApp API. Its deepest work is Shopify commerce: catalogue sync, WhatsApp carts turned into checkouts, COD confirmation, and AI agents for orders and sales, including a voice agent. It also sells a Sales CRM with a visual pipeline and lead auto-assignment. ERIX is built for service businesses: a pipeline plus bookings, GST invoices and projects, for real estate, clinics, coaching institutes and agencies.",
+      "ECODrIx (ERIX) vs Interakt for Indian SMBs: Interakt (Jio Haptik) leads on Shopify commerce; ERIX builds bookings into the CRM.",
+    tldr: "Interakt is a Jio Haptik product built on the official WhatsApp API. Its deepest work is Shopify commerce: catalogue sync, WhatsApp carts turned into checkouts, COD confirmation, and AI agents for orders and sales, including a voice agent. It also sells a Sales CRM with a visual pipeline and lead auto-assignment. ERIX is built for service businesses: a pipeline plus bookings, for real estate, clinics and coaching institutes.",
     competitorBestFor:
       "Shopify and D2C brands selling from a WhatsApp catalogue, recovering carts and confirming COD orders.",
     ecodrixBestFor:
-      "Service businesses (real estate, clinics, consultants) that need bookings, GST invoices, projects and automation alongside the pipeline.",
+      "Service businesses (real estate, clinics, consultants) that need bookings and automation alongside the pipeline.",
     rows: [
       {
         dimension: "WhatsApp API",
@@ -269,7 +269,7 @@ export const COMPARISONS: Comparison[] = [
       {
         dimension: "Commerce / catalog selling",
         ecodrix:
-          "Orders come in as chats and are invoiced with payment links. No catalogue or Shopify sync; storefront checkout is planned for later.",
+          "Orders come in as chats. No catalogue or Shopify sync; invoices, payment links and storefront checkout are coming later.",
         competitor:
           "Strength: Shopify catalogue auto-sync, WhatsApp carts turned into Shopify checkouts, COD-to-prepaid conversion and AI order agents.",
         ecodrixWins: false,
@@ -281,8 +281,8 @@ export const COMPARISONS: Comparison[] = [
         ecodrixWins: false,
       },
       {
-        dimension: "GST invoices, bookings and projects",
-        ecodrix: "Built in: bookings, GST invoices with payment links, and projects with e-sign and a client portal.",
+        dimension: "Bookings",
+        ecodrix: "Built in: bookings in IST on your booking page. GST invoices and projects are coming soon.",
         competitor: "Not among its listed CRM features; payments are collected in chat with reminders.",
         ecodrixWins: true,
       },
@@ -301,7 +301,7 @@ export const COMPARISONS: Comparison[] = [
       META_ROW("Interakt"),
       {
         dimension: "Best-fit user",
-        ecodrix: "Service businesses: real estate, clinics, coaching, agencies.",
+        ecodrix: "Service businesses: real estate, clinics, coaching.",
         competitor: "Shopify and D2C brands selling on WhatsApp.",
         ecodrixWins: false,
       },
@@ -309,16 +309,16 @@ export const COMPARISONS: Comparison[] = [
     faqs: [
       {
         q: "Is ECODrIx an Interakt alternative?",
-        a: `Both use Meta's official WhatsApp platform. Interakt is strongest in Shopify commerce, while ERIX is a CRM, inbox and automation platform for service businesses, with bookings, GST invoices and projects built in. ${ERIX_PRICING}`,
+        a: `Both use Meta's official WhatsApp platform. Interakt is strongest in Shopify commerce, while ERIX is a CRM, inbox and automation platform for service businesses, with bookings built in. ${ERIX_PRICING}`,
       },
       {
         q: "Which is better for real estate or clinics?",
-        a: "Interakt covers these trades with its Sales CRM and chatbots. ERIX is built for service businesses: pipelines with stages for your trade, bookings in IST, appointment reminders, GST invoices and projects in one place. If you sell mainly through a Shopify store, Interakt fits better.",
+        a: "Interakt covers these trades with its Sales CRM and chatbots. ERIX is built for service businesses: pipelines with stages for your trade, bookings in IST, and appointment reminders in one place. If you sell mainly through a Shopify store, Interakt fits better.",
       },
       { q: "How does WhatsApp pricing compare?", a: META_NOTE },
       {
         q: "Does ERIX support online selling too?",
-        a: "Partly: orders arrive as chats, and you invoice them with a payment link. ERIX has no catalogue or Shopify sync today, and storefront checkout is planned for later, so if you sell mainly from a WhatsApp catalogue, compare both against your workflow.",
+        a: "Partly: orders arrive as chats. ERIX has no catalogue or Shopify sync today, and invoices, payment links and storefront checkout are coming later, so if you sell mainly from a WhatsApp catalogue, compare both against your workflow.",
       },
     ],
     searchQueries: [
@@ -340,12 +340,11 @@ export const COMPARISONS: Comparison[] = [
     slug: "ecodrix-vs-gallabox",
     competitor: "Gallabox",
     description:
-      "ECODrIx (ERIX) vs Gallabox for Indian SMBs: Gallabox brings AI agents on WhatsApp, Instagram and web chat; ERIX builds in the CRM, GST invoices and automation.",
-    tldr: "Gallabox, founded in Chennai, runs on the official WhatsApp API with a shared inbox for WhatsApp and Instagram, bot flows, AI reply drafts, and a Chat AI Agent that answers on WhatsApp, Instagram and web chat from your own documents and websites. Deals and pipeline sit in a connected CRM such as HubSpot, Zoho, Pipedrive or LeadSquared. ERIX keeps the pipeline, GST invoices, projects and automation in the same platform as your WhatsApp.",
+      "ECODrIx (ERIX) vs Gallabox for Indian SMBs: Gallabox brings AI agents on WhatsApp, Instagram and web chat; ERIX builds in the CRM, bookings and automation.",
+    tldr: "Gallabox, founded in Chennai, runs on the official WhatsApp API with a shared inbox for WhatsApp and Instagram, bot flows, AI reply drafts, and a Chat AI Agent that answers on WhatsApp, Instagram and web chat from your own documents and websites. Deals and pipeline sit in a connected CRM such as HubSpot, Zoho, Pipedrive or LeadSquared. ERIX keeps the pipeline, bookings and automation in the same platform as your WhatsApp.",
     competitorBestFor:
       "Teams that want one AI agent across WhatsApp, Instagram and their website, and already keep deals in a CRM like HubSpot, Zoho or Pipedrive.",
-    ecodrixBestFor:
-      "SMBs without a separate CRM that want WhatsApp, pipeline, GST invoices and automation in one login.",
+    ecodrixBestFor: "SMBs without a separate CRM that want WhatsApp, pipeline and automation in one login.",
     rows: [
       {
         dimension: "WhatsApp API",
@@ -354,7 +353,7 @@ export const COMPARISONS: Comparison[] = [
         ecodrixWins: false,
       },
       {
-        dimension: "Built-in CRM (pipeline, deals, invoices, projects)",
+        dimension: "Built-in CRM (pipeline, deals, bookings)",
         ecodrix: ERIX_CRM,
         competitor:
           "Connects to HubSpot, Zoho CRM, Zoho Bigin, Pipedrive, LeadSquared and others; bot flows create leads and update deals there.",
@@ -368,7 +367,7 @@ export const COMPARISONS: Comparison[] = [
       },
       {
         dimension: "Payments",
-        ecodrix: "GST invoices with payment links.",
+        ecodrix: "Coming soon: GST invoices with payment links.",
         competitor: "Payment links and WhatsApp Pay through connected payment gateways.",
         ecodrixWins: false,
       },
@@ -390,11 +389,11 @@ export const COMPARISONS: Comparison[] = [
     faqs: [
       {
         q: "Is ECODrIx a Gallabox alternative?",
-        a: `Both use Meta's official WhatsApp platform. Gallabox focuses on the inbox, bots and AI agents across WhatsApp, Instagram and web chat, and connects to your CRM for deals. ERIX builds the pipeline, GST invoices, projects and automation in. ${ERIX_PRICING}`,
+        a: `Both use Meta's official WhatsApp platform. Gallabox focuses on the inbox, bots and AI agents across WhatsApp, Instagram and web chat, and connects to your CRM for deals. ERIX builds the pipeline, bookings and automation in. ${ERIX_PRICING}`,
       },
       {
         q: "Does Gallabox have a built-in CRM?",
-        a: "Gallabox keeps contacts and conversations, and its docs point you to a connected CRM (HubSpot, Zoho, Pipedrive, LeadSquared and others) for leads, deals and pipeline. ERIX includes the pipeline, GST invoices and projects in the same platform.",
+        a: "Gallabox keeps contacts and conversations, and its docs point you to a connected CRM (HubSpot, Zoho, Pipedrive, LeadSquared and others) for leads, deals and pipeline. ERIX includes the pipeline and bookings in the same platform.",
       },
       { q: "How does WhatsApp pricing work with either tool?", a: META_NOTE },
       { q: "Can I move from Gallabox to ECODrIx?", a: MOVE_ANSWER("Gallabox") },
@@ -420,11 +419,11 @@ export const COMPARISONS: Comparison[] = [
     competitor: "DoubleTick",
     description:
       "ECODrIx (ERIX) vs DoubleTick: DoubleTick leads on multi-number inboxes and governance for large sales teams; ERIX is one platform with the CRM built in for SMBs.",
-    tldr: "DoubleTick (by QuickSell, Mumbai) is a mobile-first WhatsApp platform for large sales and support teams: one inbox across hundreds of WhatsApp numbers, team hierarchy, AI agents, SLA tracking, masking of sensitive data, and embedding inside CRMs such as Salesforce, Bitrix24, HubSpot and Zoho with two-way sync. ERIX is aimed at SMBs that don't have a CRM to embed into: the pipeline, GST invoices, projects and automation come built in.",
+    tldr: "DoubleTick (by QuickSell, Mumbai) is a mobile-first WhatsApp platform for large sales and support teams: one inbox across hundreds of WhatsApp numbers, team hierarchy, AI agents, SLA tracking, masking of sensitive data, and embedding inside CRMs such as Salesforce, Bitrix24, HubSpot and Zoho with two-way sync. ERIX is aimed at SMBs that don't have a CRM to embed into: the pipeline, bookings and automation come built in.",
     competitorBestFor:
       "Enterprises and large sales teams running many WhatsApp numbers, with an existing CRM and strict governance needs.",
     ecodrixBestFor:
-      "SMBs that want the CRM, invoices and automation built in, rather than a WhatsApp layer on top of another CRM.",
+      "SMBs that want the CRM and automation built in, rather than a WhatsApp layer on top of another CRM.",
     rows: [
       {
         dimension: "WhatsApp API",
@@ -433,7 +432,7 @@ export const COMPARISONS: Comparison[] = [
         ecodrixWins: false,
       },
       {
-        dimension: "Built-in CRM (pipeline, deals, invoices, projects)",
+        dimension: "Built-in CRM (pipeline, deals, bookings)",
         ecodrix: ERIX_CRM,
         competitor:
           "Works inside your existing CRM: embedded inbox, deep links and two-way sync with Salesforce, Bitrix24, HubSpot, Zoho and LeadSquared.",
@@ -463,7 +462,7 @@ export const COMPARISONS: Comparison[] = [
     faqs: [
       {
         q: "Is ECODrIx a DoubleTick alternative?",
-        a: `For SMBs, yes. Both use Meta's official WhatsApp platform. DoubleTick is built for large teams that run many WhatsApp numbers and keep deals in a CRM like Salesforce or Bitrix24. ERIX builds the pipeline, GST invoices, projects and automation in. ${ERIX_PRICING}`,
+        a: `For SMBs, yes. Both use Meta's official WhatsApp platform. DoubleTick is built for large teams that run many WhatsApp numbers and keep deals in a CRM like Salesforce or Bitrix24. ERIX builds the pipeline, bookings and automation in. ${ERIX_PRICING}`,
       },
       {
         q: "When is DoubleTick the better pick?",

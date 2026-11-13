@@ -55,12 +55,11 @@ export const metadata: Metadata = {
     template: "%s | ECODrIx",
   },
   description:
-    "ERIX by ECODrIx: one workspace for Indian businesses that sell on WhatsApp. Inbox, AI agents, CRM, GST invoices, payment links and automation.",
+    "ERIX by ECODrIx: one workspace for Indian businesses that sell on WhatsApp. Inbox, AI agents, CRM and automation.",
   keywords: [
     "CRM software",
     "business automation",
     "WhatsApp Business API",
-    "email marketing platform",
     "lead management system",
     "sales pipeline software",
     "workflow automation",
@@ -73,7 +72,6 @@ export const metadata: Metadata = {
     "ERIX-FLOW",
     "Socket.io chat",
     "custom node marketplace",
-    "payment link generation",
   ],
   authors: [{ name: "ECODrIx", url: BASE_URL }],
   creator: "ECODrIx",
@@ -95,7 +93,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ECODrIx | Unified Business Infrastructure Platform",
     description:
-      "ERIX by ECODrIx: one workspace for Indian businesses that sell on WhatsApp. Inbox, AI agents, CRM, GST invoices, payment links and automation.",
+      "ERIX by ECODrIx: one workspace for Indian businesses that sell on WhatsApp. Inbox, AI agents, CRM and automation.",
     siteName: "ECODrIx",
     type: "website",
     locale: "en_IN",
@@ -106,7 +104,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ECODrIx | Unified Business Infrastructure Platform",
-    description: "One inbox, AI agents, CRM, GST invoices and automation for Indian businesses that sell on WhatsApp.",
+    description: "One inbox, AI agents, CRM and automation for Indian businesses that sell on WhatsApp.",
     site: "@ecodrix",
     creator: "@ecodrix",
   },

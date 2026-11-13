@@ -15,8 +15,8 @@ export function Hero() {
           Early access is opening soon
         </p>
       }
-      title="From first message to paid invoice."
-      lead="One inbox for WhatsApp, Instagram, email and website chat. An AI agent that answers from your own price list and hands the rest to your team. A pipeline, GST invoices and payment links behind it."
+      title="Every WhatsApp message and call answered, booked and followed up."
+      lead="One inbox for WhatsApp and phone calls. An AI agent that answers from your own price list and hands the rest to your team. A pipeline, bookings and automatic follow-ups behind it. More channels coming."
       actions={
         <>
           <PrimaryCta lg />
@@ -25,7 +25,7 @@ export function Hero() {
       }
       facts={[
         { icon: "message-circle", label: "Official WhatsApp Business API" },
-        { icon: "receipt", label: "GST-ready invoices" },
+        { icon: "phone", label: "WhatsApp and phone calls" },
         { icon: "indian-rupee", label: "Priced in rupees" },
       ]}
       visual={<HeroScene />}

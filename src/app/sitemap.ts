@@ -4,7 +4,7 @@ import { COMPARISONS } from "@/lib/comparisons";
 import { SEO_CONSTANTS } from "@/lib/jsonld";
 import { LEGAL_DOCS, legalHref } from "@/lib/legal/documents";
 import { PLATFORM_MODULES } from "@/lib/platform-modules";
-import { getProductPages } from "@/lib/product-pages";
+import { getLivePages } from "@/lib/product-pages";
 
 /**
  * Generates /sitemap.xml via Next.js App Router convention.
@@ -83,7 +83,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Product sub-pages (capabilities, use-cases, guides) — auto-derived.
   const subPageRoutes: MetadataRoute.Sitemap = PLATFORM_MODULES.flatMap((m) =>
-    getProductPages(m.slug).map((p) => ({
+    getLivePages(m.slug).map((p) => ({
       url: `${BASE_URL}/platform/${m.slug}/${p.slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,

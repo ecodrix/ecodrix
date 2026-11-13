@@ -48,11 +48,11 @@ const FOUNDER_FAQS = [
   },
   {
     q: "What does ERIX do for a business?",
-    a: "Every enquiry from WhatsApp, Instagram, email or the website lands in one inbox on the right contact. AI agents answer from the business's own information, the pipeline tracks each deal, proposals turn into GST invoices with payment links, and automations run the follow-ups.",
+    a: "Every WhatsApp message and call lands in one inbox on the right contact. AI agents answer from the business's own information, the pipeline tracks each deal, and automations run the follow-ups.",
   },
   {
     q: "Where is Dhanesh based?",
-    a: "Andhra Pradesh, India. ECODrIx builds for Indian businesses first: rupee billing, GST invoices and IST everywhere.",
+    a: "Andhra Pradesh, India. ECODrIx builds for Indian businesses first: rupee billing and IST everywhere.",
   },
   {
     q: "Is Dhanesh M the same person as Erix or erix.dhanesh?",
@@ -102,7 +102,7 @@ export default function FounderPage() {
               </p>
               <p>
                 Today that is one product: ERIX CRM, ERIX Connect, ERIX Flow and AI agents that take care of enquiries
-                from the first message to the paid invoice.
+                from the first message to the booked visit.
               </p>
             </div>
             <ul className="mt-6 flex flex-wrap gap-2">

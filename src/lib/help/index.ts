@@ -43,7 +43,7 @@ export const HELP_COLLECTIONS: HelpCollection[] = [
   {
     slug: "customers",
     title: "Customers",
-    summary: "Contacts, your pipeline, online bookings and GST invoices.",
+    summary: "Contacts, your pipeline and online bookings.",
     icon: "users",
   },
   {
@@ -58,7 +58,12 @@ export const HELP_COLLECTIONS: HelpCollection[] = [
     summary: "Reminders and follow-ups that run on their own.",
     icon: "workflow",
   },
-  { slug: "channels", title: "Channels", summary: "Connect WhatsApp, website chat and your other apps.", icon: "plug" },
+  {
+    slug: "channels",
+    title: "Channels",
+    summary: "Connect WhatsApp, your phone number and your other apps.",
+    icon: "plug",
+  },
   {
     slug: "account",
     title: "Plan and data",
@@ -67,6 +72,9 @@ export const HELP_COLLECTIONS: HelpCollection[] = [
   },
   { slug: "reference", title: "Reference", summary: "Common questions and the words ERIX uses.", icon: "book-open" },
 ];
+
+/** Articles about Upcoming features: content kept, not listed or served until the feature is live. */
+const NOT_LIVE = new Set(["customers/send-an-invoice", "channels/add-website-chat"]);
 
 export const HELP_ARTICLES: HelpArticle[] = [
   ...GETTING_STARTED,
@@ -77,7 +85,7 @@ export const HELP_ARTICLES: HelpArticle[] = [
   ...CHANNELS,
   ...ACCOUNT,
   ...REFERENCE,
-];
+].filter((a) => !NOT_LIVE.has(`${a.collection}/${a.slug}`));
 
 export function collection(slug: string): HelpCollection | undefined {
   return HELP_COLLECTIONS.find((c) => c.slug === slug);
