@@ -11,8 +11,10 @@
 import { createContext, type ReactNode, useContext } from "react";
 import { type ModuleStatus, PLATFORM_NAV } from "@/lib/site";
 
-export type PlatformNavItem = Omit<(typeof PLATFORM_NAV)[number], "status"> & {
+export type PlatformNavItem = Omit<(typeof PLATFORM_NAV)[number], "status" | "summary"> & {
   status: ModuleStatus;
+  summary: string;
+  isNew?: boolean;
 };
 
 const PlatformNavContext = createContext<readonly PlatformNavItem[]>(PLATFORM_NAV);

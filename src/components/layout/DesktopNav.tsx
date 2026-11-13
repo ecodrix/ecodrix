@@ -12,6 +12,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import { SoonControl } from "@/components/ui/soon";
 import { StatusBadge } from "@/components/ui/status-badge";
 import {
   COMPANY_NAV,
@@ -40,15 +41,26 @@ function PanelLink({
   path,
   className,
   onSpotlight,
+  disabled,
   children,
 }: {
   href: string;
   path: string | null;
   className?: string;
+  /** Item not available yet: shown, announced as disabled, no link. */
+  disabled?: boolean;
   /** Pointer or keyboard landed on this row (drives the platform spotlight card). */
   onSpotlight?: () => void;
   children: ReactNode;
 }) {
+  if (disabled)
+    return (
+      <m.li variants={row}>
+        <SoonControl role="link" className={cn("flex gap-3 rounded-[10px] p-2.5", className)}>
+          {children}
+        </SoonControl>
+      </m.li>
+    );
   return (
     <m.li variants={row}>
       <NavigationMenuLink asChild active={isCurrent(path, href)}>
@@ -346,14 +358,20 @@ function Panel({ section, path }: { section: NavSection; path: string | null }) 
           <>
             <m.ul variants={list} className="grid grid-cols-3 gap-1">
               {platform.map((mod) => (
-                <PanelLink key={mod.key} href={mod.href} path={path} onSpotlight={spotlight(mod.key)}>
+                <PanelLink
+                  key={mod.key}
+                  href={mod.href}
+                  path={path}
+                  onSpotlight={spotlight(mod.key)}
+                  disabled={mod.status === "soon"}
+                >
                   <Glyph ai={"ai" in mod}>
                     <Icon name={mod.icon} size={16} variant="line" />
                   </Glyph>
                   <RowText
                     title={mod.name}
                     text={mod.summary}
-                    badge={mod.status !== "live" && <StatusBadge status={mod.status} />}
+                    badge={<StatusBadge status={mod.status} isNew={mod.isNew} />}
                   />
                 </PanelLink>
               ))}

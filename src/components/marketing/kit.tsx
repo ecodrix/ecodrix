@@ -24,12 +24,24 @@ import { Spotlight } from "@/components/motion/spotlight";
 import { Marquee } from "@/components/motion/surface";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { buttonVariants } from "@/components/ui/button";
+import { SOON_BUTTON, SoonControl } from "@/components/ui/soon";
 import { PRIMARY_CTA, WHATSAPP_CTA } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /* ── Calls to action ─────────────────────────────────────────────────── */
 
-export function PrimaryCta({ lg, className }: { lg?: boolean; className?: string }) {
+/** `disabled`: the item this button is about is not available yet (see ui/soon). */
+export function PrimaryCta({ lg, className, disabled }: { lg?: boolean; className?: string; disabled?: boolean }) {
+  if (disabled)
+    return (
+      <SoonControl
+        role="button"
+        hint
+        className={cn(buttonVariants({ size: lg ? "lg" : "default" }), SOON_BUTTON, className)}
+      >
+        {PRIMARY_CTA.label}
+      </SoonControl>
+    );
   return (
     <Link href={PRIMARY_CTA.href} className={cn(buttonVariants({ size: lg ? "lg" : "default" }), "group", className)}>
       {PRIMARY_CTA.label}
@@ -44,7 +56,18 @@ export function PrimaryCta({ lg, className }: { lg?: boolean; className?: string
   );
 }
 
-export function WhatsAppCta({ lg, className }: { lg?: boolean; className?: string }) {
+export function WhatsAppCta({ lg, className, disabled }: { lg?: boolean; className?: string; disabled?: boolean }) {
+  if (disabled)
+    return (
+      <SoonControl
+        role="button"
+        hint
+        className={cn(buttonVariants({ variant: "ghost", size: lg ? "lg" : "default" }), SOON_BUTTON, className)}
+      >
+        <Icon name="whatsapp" size={16} />
+        {WHATSAPP_CTA.label}
+      </SoonControl>
+    );
   return (
     <Link
       role="button"

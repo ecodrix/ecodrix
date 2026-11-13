@@ -222,7 +222,7 @@ export default function FounderPage() {
 
       <ClosingCta
         title="See what Dhanesh is building"
-        body="Join the waitlist for ERIX, or message him directly on WhatsApp."
+        body="Request early access to ERIX, or message him directly on WhatsApp."
       />
     </div>
   );

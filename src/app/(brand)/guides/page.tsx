@@ -63,7 +63,7 @@ export default function GuidesPage() {
 
       <ClosingCta
         title="Want a hand setting it up?"
-        body="Join the waitlist and our team sets up your pilot workspace with you."
+        body="Request early access and our team sets up your pilot workspace with you."
       />
     </div>
   );

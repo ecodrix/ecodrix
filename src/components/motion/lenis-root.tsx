@@ -5,7 +5,7 @@ import { ReactLenis, useLenis } from "lenis/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
-/** Fast start, long soft landing: used for anchor jumps ("Join the waitlist"). */
+/** Fast start, long soft landing: used for anchor jumps ("Request early access"). */
 const easeOutExpo = (t: number) => (t >= 1 ? 1 : 1 - 2 ** (-10 * t));
 
 /**
@@ -45,7 +45,7 @@ function Bridge() {
 
   // After a route change: measure the new page (Lenis would otherwise clamp
   // to the old page's height until its resize observer fires). With a #hash
-  // (e.g. "Join the waitlist" → /#contact from another page), land on the
+  // (e.g. "Request early access" → /#contact from another page), land on the
   // target; its scroll-margin (scroll-mt-20) keeps it clear of the fixed
   // header. Without one, adopt wherever the browser put the page (top for a
   // new page, the old position on Back/Forward), so Lenis never glides from

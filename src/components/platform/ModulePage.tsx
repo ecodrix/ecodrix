@@ -5,10 +5,12 @@ import type { ReactNode } from "react";
 import { Icon } from "@/components/icons";
 import { BrowserFrame, CtaBand, Faq, MkHero, MkSection, PrimaryCta, WhatsAppCta } from "@/components/marketing/kit";
 import { Story } from "@/components/marketing/story";
+import { MarketingBody } from "@/components/platform/MarketingBody";
 import { MODULE_TOURS } from "@/components/platform/module-tours";
 import { SCREENS } from "@/components/scenes/screens";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { getModuleView } from "@/lib/catalog";
 import { getBreadcrumbSchema, getFAQSchema } from "@/lib/jsonld";
 import { getModuleBySlug, type PlatformModule } from "@/lib/platform-modules";
 import { getProductPages, type ScreenKey } from "@/lib/product-pages";
@@ -103,8 +105,8 @@ export function GuideList({ module, pages }: { module: string; pages: ReturnType
   );
 }
 
-/** Closing navy band with the two calls to action. */
-export function ClosingCta({ title, body }: { title: string; body: ReactNode }) {
+/** Closing navy band with the two calls to action. `disabled` only dims WhatsApp: early access stays open. */
+export function ClosingCta({ title, body, disabled }: { title: string; body: ReactNode; disabled?: boolean }) {
   return (
     <CtaBand
       title={title}
@@ -112,7 +114,7 @@ export function ClosingCta({ title, body }: { title: string; body: ReactNode }) 
       actions={
         <>
           <PrimaryCta lg />
-          <WhatsAppCta lg />
+          <WhatsAppCta lg disabled={disabled} />
         </>
       }
     />
@@ -120,9 +122,12 @@ export function ClosingCta({ title, body }: { title: string; body: ReactNode }) 
 }
 
 /** /platform/{module}: navy hero with the module's own coded screen, then detail. */
-export function ModulePage({ slug }: { slug: string }) {
+export async function ModulePage({ slug }: { slug: string }) {
   const m = getModuleBySlug(slug);
   if (!m) notFound();
+  // Badge, availability and the admin-managed copy come from the catalog (static copy when it has none).
+  const v = await getModuleView(slug, m.status);
+  const soon = v.status === "soon";
   const Screen = SCREENS[HERO_SCREEN[m.slug]];
   const pages = getProductPages(m.slug);
   const tour = MODULE_TOURS[m.slug];
@@ -144,16 +149,16 @@ export function ModulePage({ slug }: { slug: string }) {
             <Crumbs onNavy items={[{ name: "Platform", href: "/platform" }, { name: m.brand }]} />
             <p className="flex flex-wrap items-center gap-2">
               <ModuleEyebrow m={m} onNavy />
-              <StatusBadge status={m.status} />
+              <StatusBadge status={v.status} isNew={v.isNew} />
             </p>
           </div>
         }
         title={m.tagline}
-        lead={m.longDescription}
+        lead={v.marketing?.summary?.trim() || m.longDescription}
         actions={
           <>
             <PrimaryCta lg />
-            <WhatsAppCta lg />
+            <WhatsAppCta lg disabled={soon} />
           </>
         }
         visual={
@@ -162,6 +167,12 @@ export function ModulePage({ slug }: { slug: string }) {
           </BrowserFrame>
         }
       />
+
+      {v.marketing && (v.marketing.body || v.marketing.image) && (
+        <MkSection id="about" title={`About ${m.brand}`}>
+          <MarketingBody marketing={v.marketing} />
+        </MkSection>
+      )}
 
       {/* Live modules: one chapter per feature, each with its screen. */}
       {tour && <Story id="features" title={tour.title} lead={tour.lead} chapters={tour.chapters} />}
@@ -222,8 +233,9 @@ export function ModulePage({ slug }: { slug: string }) {
       )}
 
       <ClosingCta
-        title={m.status === "live" ? `Try ${m.brand} with your own business` : `Hear first when ${m.brand} opens`}
-        body="Join the waitlist and tell us how you sell today. We'll set ERIX up around it."
+        title={soon ? `Hear first when ${m.brand} opens` : `Try ${m.brand} with your own business`}
+        body="Request early access and tell us how you sell today. We'll set ERIX up around it."
+        disabled={soon}
       />
     </div>
   );

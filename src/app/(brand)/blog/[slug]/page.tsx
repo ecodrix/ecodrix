@@ -280,7 +280,7 @@ export default async function BlogPostPage({ params }: Props) {
 
       <ClosingCta
         title="Put what you just read to work"
-        body="ERIX brings WhatsApp, your pipeline, GST invoices and automation into one workspace. Join the waitlist."
+        body="ERIX brings WhatsApp, your pipeline, GST invoices and automation into one workspace. Request early access."
       />
     </>
   );

@@ -129,7 +129,7 @@ export default async function PricingPage() {
 
       <ClosingCta
         title="Not sure which plan fits?"
-        body="Join the waitlist and tell us how you sell today. We'll suggest a plan when your turn comes."
+        body="Request early access and tell us how you sell today. We'll suggest a plan when your turn comes."
       />
     </div>
   );

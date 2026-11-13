@@ -4,6 +4,7 @@ import { LogoMark } from "@/components/layout/LogoMark";
 import { CookiePrefsButton } from "@/components/legal/CookiePrefsButton";
 import { Wordmark } from "@/components/marketing/wordmark";
 import { buttonVariants } from "@/components/ui/button";
+import { SoonControl } from "@/components/ui/soon";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { getPlatformNav } from "@/lib/catalog";
 import { COMPANY_NAV, INDUSTRY_NAV, PRIMARY_CTA, RESOURCE_NAV, SOCIALS, SUPPORT_EMAIL, WHATSAPP_CTA } from "@/lib/site";
@@ -38,6 +39,7 @@ const developer: { label: string; href: string; live?: boolean }[] = [
   { label: "API docs", href: "/docs" },
   { label: "System status", href: "/status", live: true },
   { label: "Changelog", href: "/changelog" },
+  { label: "What's new", href: "/whats-new" },
 ];
 
 const legal = [
@@ -154,10 +156,16 @@ export async function Footer() {
               ))}
               {also.map((m) => (
                 <li key={m.key} className="flex flex-wrap items-center gap-x-2">
-                  <Link href={m.href} className={linkCls}>
-                    {m.name}
-                  </Link>
-                  <StatusBadge status={m.status} plain />
+                  {m.status === "soon" ? (
+                    <SoonControl role="link" className={linkCls}>
+                      {m.name}
+                    </SoonControl>
+                  ) : (
+                    <Link href={m.href} className={linkCls}>
+                      {m.name}
+                    </Link>
+                  )}
+                  <StatusBadge status={m.status} isNew={m.isNew} plain />
                 </li>
               ))}
             </Column>

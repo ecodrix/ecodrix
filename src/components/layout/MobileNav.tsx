@@ -6,6 +6,7 @@ import { Icon, type IconName } from "@/components/icons";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
+import { SoonControl } from "@/components/ui/soon";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { COMPANY_NAV, COMPARE_NAV, CONTACT_CTA, GUIDE_NAV, INDUSTRY_NAV, RESOURCE_NAV } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -13,7 +14,15 @@ import { LogoMark } from "./LogoMark";
 import { isCurrent, NAV_SECTIONS, type NavSection } from "./nav-data";
 import { type PlatformNavItem, usePlatformNav } from "./platform-nav";
 
-type Row = { href: string; label: string; text?: string; icon: IconName; ai?: boolean; badge?: ReactNode };
+type Row = {
+  href: string;
+  label: string;
+  text?: string;
+  icon: IconName;
+  ai?: boolean;
+  badge?: ReactNode;
+  disabled?: boolean;
+};
 
 /** Two-line rows (name and what it's for), the same words as the desktop panels. */
 const rowsFor = (platform: readonly PlatformNavItem[]): Record<NavSection, Row[]> => ({
@@ -23,7 +32,8 @@ const rowsFor = (platform: readonly PlatformNavItem[]): Record<NavSection, Row[]
     text: m.summary,
     icon: m.icon,
     ai: "ai" in m,
-    badge: m.status !== "live" ? <StatusBadge status={m.status} /> : undefined,
+    badge: <StatusBadge status={m.status} isNew={m.isNew} />,
+    disabled: m.status === "soon",
   })),
   industries: INDUSTRY_NAV.map((i) => ({ href: i.href, label: i.name, text: i.summary, icon: i.icon })),
   resources: RESOURCE_NAV.map((r) => ({ href: r.href, label: r.name, text: r.summary, icon: r.icon })),
@@ -42,6 +52,28 @@ const rowsFor = (platform: readonly PlatformNavItem[]): Record<NavSection, Row[]
     },
   ],
 });
+
+function RowBody({ r }: { r: Row }) {
+  return (
+    <>
+      <span
+        className={cn(
+          "mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-[8px]",
+          r.ai ? "bg-ai-subtle text-ai" : "bg-accent-muted text-accent",
+        )}
+      >
+        <Icon name={r.icon} size={16} variant="line" />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[15px] font-semibold text-foreground group-aria-[current=page]:text-accent">
+          {r.label}
+          {r.badge}
+        </span>
+        {r.text && <span className="mt-0.5 block text-[13px] leading-snug text-muted-foreground">{r.text}</span>}
+      </span>
+    </>
+  );
+}
 
 /** A compact single-line link list under a small heading (guides, comparisons). */
 function SubList({
@@ -131,32 +163,20 @@ export default function MobileNav({
                   <ul className="grid gap-0.5">
                     {rows[s.key].map((r) => (
                       <li key={r.href}>
-                        <Link
-                          href={r.href}
-                          onClick={close}
-                          aria-current={isCurrent(path, r.href) ? "page" : undefined}
-                          className="group flex min-h-14 items-start gap-3 rounded-[10px] p-2 hover:bg-hover aria-[current=page]:bg-accent-muted"
-                        >
-                          <span
-                            className={cn(
-                              "mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-[8px]",
-                              r.ai ? "bg-ai-subtle text-ai" : "bg-accent-muted text-accent",
-                            )}
+                        {r.disabled ? (
+                          <SoonControl role="link" className="flex min-h-14 items-start gap-3 rounded-[10px] p-2">
+                            <RowBody r={r} />
+                          </SoonControl>
+                        ) : (
+                          <Link
+                            href={r.href}
+                            onClick={close}
+                            aria-current={isCurrent(path, r.href) ? "page" : undefined}
+                            className="group flex min-h-14 items-start gap-3 rounded-[10px] p-2 hover:bg-hover aria-[current=page]:bg-accent-muted"
                           >
-                            <Icon name={r.icon} size={16} variant="line" />
-                          </span>
-                          <span className="min-w-0 flex-1">
-                            <span className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[15px] font-semibold text-foreground group-aria-[current=page]:text-accent">
-                              {r.label}
-                              {r.badge}
-                            </span>
-                            {r.text && (
-                              <span className="mt-0.5 block text-[13px] leading-snug text-muted-foreground">
-                                {r.text}
-                              </span>
-                            )}
-                          </span>
-                        </Link>
+                            <RowBody r={r} />
+                          </Link>
+                        )}
                       </li>
                     ))}
                   </ul>

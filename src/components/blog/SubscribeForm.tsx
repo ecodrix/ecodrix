@@ -43,7 +43,7 @@ export function SubscribeForm({
           source,
           path: window.location.pathname,
           website: String(form.get("website") ?? ""),
-          // First-touch attribution, only with analytics consent (same as the waitlist).
+          // First-touch attribution, only with analytics consent (same as the early-access form).
           attribution: analyticsConsented() ? { ...getLanding(), visitorId: getVisitorId() } : undefined,
         }),
       });

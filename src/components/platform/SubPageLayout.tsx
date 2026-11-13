@@ -7,6 +7,7 @@ import { SCREENS } from "@/components/scenes/screens";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { buttonVariants } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { getModuleView } from "@/lib/catalog";
 import { getBreadcrumbSchema, getFAQSchema } from "@/lib/jsonld";
 import { getModuleBySlug } from "@/lib/platform-modules";
 import { getProductPages } from "@/lib/product-pages";
@@ -31,11 +32,12 @@ export function subPageMetadata(module: string, slug: string): Metadata {
 }
 
 /** /platform/{module}/{slug}: a guide, use case, feature or comparison. */
-export function SubPageLayout({ module, slug }: { module: string; slug: string }) {
+export async function SubPageLayout({ module, slug }: { module: string; slug: string }) {
   const m = getModuleBySlug(module);
   const pages = getProductPages(module);
   const page = pages.find((p) => p.slug === slug);
   if (!m || !page) notFound();
+  const v = await getModuleView(m.slug, m.status);
   const Screen = page.screen ? SCREENS[page.screen] : null;
   const related = pages.filter((p) => p.slug !== page.slug).slice(0, 4);
   const path = `/platform/${m.slug}/${page.slug}`;
@@ -75,7 +77,7 @@ export function SubPageLayout({ module, slug }: { module: string; slug: string }
             />
             <p className="mt-6 flex flex-wrap items-center gap-3">
               <ModuleEyebrow m={m} />
-              <StatusBadge status={m.status} />
+              <StatusBadge status={v.status} isNew={v.isNew} />
               <span className="rounded-[6px] bg-sunken px-2 py-0.5 text-[12px] font-semibold text-muted-foreground">
                 {TYPE_LABEL[page.type]}
               </span>
@@ -203,7 +205,8 @@ export function SubPageLayout({ module, slug }: { module: string; slug: string }
 
       <ClosingCta
         title="See it with your own business"
-        body="Join the waitlist and tell us how you sell today. We'll set ERIX up around it."
+        body="Request early access and tell us how you sell today. We'll set ERIX up around it."
+        disabled={v.status === "soon"}
       />
     </div>
   );

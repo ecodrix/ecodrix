@@ -31,7 +31,7 @@ export const privacyDoc: LegalDoc = {
       body: [
         {
           list: [
-            "For people who deal with us directly (account holders, website visitors, waitlist and newsletter subscribers), we are the data fiduciary: we decide why and how that data is used.",
+            "For people who deal with us directly (account holders, website visitors, early-access and newsletter subscribers), we are the data fiduciary: we decide why and how that data is used.",
             "For data a business keeps in its ERIX workspace (its contacts, leads, conversations and files), that business is the data fiduciary and we are its data processor. We use that data only to run the service for that business, under our Terms of Service and Data Processing Agreement.",
           ],
         },
@@ -75,7 +75,7 @@ export const privacyDoc: LegalDoc = {
         { subheading: "Forms and messages to us" },
         {
           list: [
-            "Waitlist: name, email address, business name, what you are interested in and, if you add it, your WhatsApp number. Newsletter: your email address.",
+            "Early access: name, email address, business name, what you are interested in and, if you add it, your WhatsApp number. Newsletter: your email address.",
             "Support: whatever you send us by email, phone or WhatsApp.",
           ],
         },
@@ -121,7 +121,7 @@ export const privacyDoc: LegalDoc = {
       body: [
         {
           list: [
-            "Consent: when you sign up, join the waitlist or newsletter, or allow analytics. You can withdraw it at any time (see “Your Rights and How to Use Them”).",
+            "Consent: when you sign up, request early access, or join the newsletter, or allow analytics. You can withdraw it at any time (see “Your Rights and How to Use Them”).",
             "Legitimate uses the DPDP Act allows without separate consent: data you give us yourself for a stated purpose (for example, your email address to run your account) and data the law requires us to keep, such as tax records.",
           ],
         },
@@ -179,7 +179,7 @@ export const privacyDoc: LegalDoc = {
               ],
               ["Website analytics events", "180 days"],
               ["Server logs", "180 days"],
-              ["Waitlist and newsletter entries", "Until you ask us to remove them, or you unsubscribe"],
+              ["Early-access and newsletter entries", "Until you ask us to remove them, or you unsubscribe"],
               ["Invoices and payment records", "As long as tax law requires"],
             ],
           },

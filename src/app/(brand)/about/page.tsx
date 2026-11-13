@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { Icon } from "@/components/icons";
 import { CtaBand, MkSection, WhatsAppCta } from "@/components/marketing/kit";
+import { ModuleRow } from "@/components/platform/ModuleRow";
 import { buttonVariants } from "@/components/ui/button";
-import { StatusBadge } from "@/components/ui/status-badge";
 import { getPlatformNav } from "@/lib/catalog";
 import { pageMetadata } from "@/lib/seo";
-import { cn } from "@/lib/utils";
 
 export const metadata = pageMetadata({
   title: "About ECODrIx, the team behind ERIX",
@@ -99,27 +98,7 @@ export default async function AboutPage() {
         <ul className="grid gap-x-10 md:grid-cols-2">
           {nav.map((m) => (
             <li key={m.key} className="border-t border-border">
-              <Link
-                href={m.href}
-                className="group -mx-3 flex items-start gap-4 rounded-[12px] px-3 py-5 hover:bg-hover"
-              >
-                <span
-                  className={cn(
-                    "grid size-10 shrink-0 place-items-center rounded-[11px]",
-                    "ai" in m ? "bg-ai-subtle text-ai" : "bg-accent-muted text-accent",
-                  )}
-                >
-                  <Icon name={m.icon} size={20} variant="duo" />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="flex flex-wrap items-center gap-2 text-[17px] font-semibold text-foreground">
-                    {m.name}
-                    {m.status !== "live" && <StatusBadge status={m.status} />}
-                  </span>
-                  <span className="mt-1 block text-[15px] text-muted-foreground">{m.summary}</span>
-                </span>
-                <Icon name="arrow-right" size={16} variant="line" className="mt-3 shrink-0 text-accent" />
-              </Link>
+              <ModuleRow m={m} />
             </li>
           ))}
         </ul>

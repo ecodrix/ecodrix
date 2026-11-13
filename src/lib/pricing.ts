@@ -237,7 +237,7 @@ export function planDescription(slug: string): string {
 
 // ─── CTA helpers ───────────────────────────────────────────────────────────
 
-// Self-serve plans use the site's one main call to action (the waitlist
+// Self-serve plans use the site's one main call to action (the early-access form
 // until signups open; see PRIMARY_CTA). Enterprise talks to us directly.
 export function planCtaLabel(slug: string): string {
   return slug === "enterprise" ? "Talk to sales" : PRIMARY_CTA.label;

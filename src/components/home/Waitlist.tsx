@@ -120,7 +120,7 @@ export function WaitlistForm() {
       ) : state === "sent" && outcome === "waitlisted" ? (
         <div role="status" className="py-6 text-center">
           <CheckCircle2 aria-hidden="true" className="mx-auto size-10 text-success" />
-          <h3 className="mt-4 text-2xl">You&apos;re already on the list</h3>
+          <h3 className="mt-4 text-2xl">You&apos;re already on the early-access list</h3>
           <p className="mt-2 text-muted-foreground">
             We&apos;ll email you as soon as your turn comes. Your place in the queue and your invite link are in your
             inbox.
@@ -129,7 +129,7 @@ export function WaitlistForm() {
       ) : state === "sent" ? (
         <div role="status" className="py-6 text-center">
           <CheckCircle2 aria-hidden="true" className="mx-auto size-10 text-success" />
-          <h3 className="mt-4 text-2xl">You’re on the list</h3>
+          <h3 className="mt-4 text-2xl">You’re on the early-access list</h3>
           <p className="mt-2 text-muted-foreground">
             {position
               ? `You're number ${position.toLocaleString("en-IN")}. We'll be in touch soon.`
@@ -246,7 +246,7 @@ export function WaitlistForm() {
             className={cn(buttonVariants(), "w-full disabled:cursor-not-allowed disabled:opacity-60")}
           >
             {state === "sending" && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
-            {state === "sending" ? "Joining…" : "Join the waitlist"}
+            {state === "sending" ? "Sending…" : "Request early access"}
           </button>
           <p className="text-center text-xs text-muted-foreground">
             We only use your details to contact you about early access. See our{" "}

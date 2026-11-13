@@ -77,7 +77,7 @@ const META_ROW = (competitor: string): ComparisonRow => ({
 const FLOW_ROW =
   "ERIX Flow: starts on leads, stages, forms, messages, payments and bookings, with Wait for a reply, approvals and AI replies.";
 const MOVE_ANSWER = (competitor: string) =>
-  `Yes. Import your contacts into ERIX CRM, and connect your own WhatsApp Business account in ERIX Connect through Meta's signup. A number works with one provider at a time, so plan the move with ${competitor}. ERIX is letting businesses in from its waitlist.`;
+  `Yes. Import your contacts into ERIX CRM, and connect your own WhatsApp Business account in ERIX Connect through Meta's signup. A number works with one provider at a time, so plan the move with ${competitor}. ERIX is letting businesses in from its early-access list.`;
 
 const VERIFIED = "2026-10-27";
 

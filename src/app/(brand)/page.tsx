@@ -62,7 +62,7 @@ const faqs = [
   },
   {
     q: "When can I start?",
-    a: "We're letting businesses in a few at a time. Join the waitlist and we'll reach out on WhatsApp or email when your turn comes.",
+    a: "We're letting businesses in a few at a time. Request early access and we'll reach out on WhatsApp or email when your turn comes.",
   },
 ];
 

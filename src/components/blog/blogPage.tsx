@@ -115,7 +115,7 @@ export function BlogPage({ posts }: { posts: BlogSummary[] }) {
             <Icon name="file-text" size={24} variant="duo" className="mx-auto text-accent" />
             <h2 className="mt-4 font-sans text-[19px] font-semibold tracking-normal">No posts yet</h2>
             <p className="mt-2 text-muted-foreground">
-              The first articles are on their way. Join the waitlist to hear when ERIX opens.
+              The first articles are on their way. Request early access to hear when ERIX opens.
             </p>
             <div className="mt-6 flex justify-center">
               <PrimaryCta />

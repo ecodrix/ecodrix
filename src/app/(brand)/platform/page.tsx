@@ -4,14 +4,17 @@ import { type GlyphName, Icon } from "@/components/icons";
 import { BrowserFrame, Faq, MkHero, MkSection, PrimaryCta, WhatsAppCta } from "@/components/marketing/kit";
 import { type Chapter, Story } from "@/components/marketing/story";
 import { ClosingCta } from "@/components/platform/ModulePage";
+import { ModuleRow } from "@/components/platform/ModuleRow";
 import { LazyScreen } from "@/components/scenes/lazy-screen";
 import { TimelineScene } from "@/components/scenes/timeline-scene";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { SoonControl } from "@/components/ui/soon";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { getPlatformNav } from "@/lib/catalog";
 import { getBreadcrumbSchema, getFAQSchema, getItemListSchema } from "@/lib/jsonld";
 import { PLATFORM_MODULES } from "@/lib/platform-modules";
 import { pageMetadata } from "@/lib/seo";
+import { PLATFORM_NAV } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /* ──────────────────────────────────────────────────────────────────────
@@ -286,24 +289,7 @@ export default async function PlatformIndexPage() {
         <ul className="grid gap-x-10 md:grid-cols-2">
           {nav.map((m) => (
             <li key={m.key} className="border-t border-border-soft">
-              <Link href={m.href} className="group -mx-3 flex items-start gap-4 rounded-lg px-3 py-5 hover:bg-hover">
-                <span
-                  className={cn(
-                    "grid size-10 shrink-0 place-items-center rounded-[11px]",
-                    "ai" in m ? "bg-ai-subtle text-ai" : "bg-accent-muted text-accent",
-                  )}
-                >
-                  <Icon name={m.icon} size={20} variant="duo" />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="flex flex-wrap items-center gap-2 text-[17px] font-semibold text-foreground">
-                    {m.name}
-                    <StatusBadge status={m.status} />
-                  </span>
-                  <span className="mt-1 block text-[15px] text-muted-foreground">{m.summary}</span>
-                </span>
-                <Icon name="arrow-right" size={16} variant="line" className="mt-3 shrink-0 text-accent" />
-              </Link>
+              <ModuleRow m={m} />
             </li>
           ))}
         </ul>
@@ -386,17 +372,28 @@ export default async function PlatformIndexPage() {
                 >
                   <Icon name={m.icon} size={20} variant="duo" />
                 </span>
-                <StatusBadge status={m.status} />
+                <StatusBadge status={m.status} isNew={m.isNew} />
               </span>
               <h3 className="mt-4 font-sans text-[18px] font-semibold tracking-normal">{m.name}</h3>
-              <p className="mt-1.5 text-[15px] text-muted-foreground">{moreCopy[m.key]}</p>
-              <Link
-                href={m.href}
-                className="inline-flex items-center gap-1.5 font-sans text-[15px]/5 font-[650] text-accent hover:underline hover:underline-offset-3 motion-safe:focus-visible:animate-focus group mt-4"
-              >
-                About {m.name}
-                <Icon name="arrow-right" size={14} variant="line" />
-              </Link>
+              <p className="mt-1.5 text-[15px] text-muted-foreground">
+                {m.summary === PLATFORM_NAV.find((n) => n.key === m.key)?.summary ? moreCopy[m.key] : m.summary}
+              </p>
+              {m.status === "soon" ? (
+                <SoonControl
+                  role="link"
+                  className="mt-4 inline-flex items-center gap-1.5 font-sans text-[15px]/5 font-[650] text-muted-foreground"
+                >
+                  About {m.name}
+                </SoonControl>
+              ) : (
+                <Link
+                  href={m.href}
+                  className="inline-flex items-center gap-1.5 font-sans text-[15px]/5 font-[650] text-accent hover:underline hover:underline-offset-3 motion-safe:focus-visible:animate-focus group mt-4"
+                >
+                  About {m.name}
+                  <Icon name="arrow-right" size={14} variant="line" />
+                </Link>
+              )}
             </li>
           ))}
         </ul>
@@ -419,7 +416,7 @@ export default async function PlatformIndexPage() {
 
       <ClosingCta
         title="Not sure where to start?"
-        body="Join the waitlist and tell us how you sell today. We'll set ERIX up around it."
+        body="Request early access and tell us how you sell today. We'll set ERIX up around it."
       />
     </div>
   );

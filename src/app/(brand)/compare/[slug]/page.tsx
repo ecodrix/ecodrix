@@ -224,7 +224,7 @@ export default async function ComparePage({ params }: { params: Promise<Params> 
 
       <ClosingCta
         title="See ERIX on your own business"
-        body="Join the waitlist and tell us how you sell today. We'll set ERIX up around it."
+        body="Request early access and tell us how you sell today. We'll set ERIX up around it."
       />
     </div>
   );

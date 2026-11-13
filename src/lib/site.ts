@@ -10,11 +10,11 @@ import type { IconName } from "@/components/icons";
 
 /**
  * The main call to action, everywhere on the site. Signups aren't open yet,
- * so it leads to the waitlist. When the founder opens signups, change it to:
+ * so it leads to the early-access form. When the founder opens signups, change it to:
  *   { label: "Start free", href: "https://console.ecodrix.com/auth/register" }
  */
 export const PRIMARY_CTA = {
-  label: "Join the waitlist",
+  label: "Request early access",
   href: "/#contact",
 } as const;
 

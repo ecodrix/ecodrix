@@ -57,7 +57,12 @@ export function AutoEventTracker() {
 
       // 3. Waitlist CTA (implicit)
       const label = el.textContent?.toLowerCase() || "";
-      if (label.includes("waitlist") || label.includes("get started") || label.includes("join")) {
+      if (
+        label.includes("waitlist") ||
+        label.includes("early access") ||
+        label.includes("get started") ||
+        label.includes("join")
+      ) {
         trackEvent("cta_click", "cta", {
           label: el.textContent?.trim().slice(0, 80),
         });

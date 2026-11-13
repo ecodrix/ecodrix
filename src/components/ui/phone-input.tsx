@@ -101,7 +101,7 @@ export function StyledPhoneInput({
   error,
   placeholder = "Enter phone number",
 }: StyledPhoneProps) {
-  // Client-only (the waitlist form loads with ssr: false), so reading the
+  // Client-only (the early-access form loads with ssr: false), so reading the
   // browser's locale here can't mismatch hydration.
   const [defaultCountry] = React.useState(detectCountry);
 
