@@ -41,8 +41,8 @@ export const STATUS_LABEL: Record<ModuleStatus, string> = {
 /**
  * The Platform menu. `ai` marks AI/automation (purple, brand rule). Status
  * follows ECOD/docs/VERSION_PLAN.md: v1.0 is live, ERIX Store is coming
- * soon. LAIE stays private until it proves itself (founder, 3 Nov 2026) and
- * voice isn't launched, so neither is here.
+ * soon. LAIE stays private until it proves itself (founder, 3 Nov 2026), so
+ * it isn't here. Voice is open by request only ("invite"): staff switch it on.
  */
 export const PLATFORM_NAV = [
   {
@@ -79,6 +79,19 @@ export const PLATFORM_NAV = [
     card: {
       headline: "Replies at 9:42 pm, from your own price list.",
       text: "Answers from your FAQs and pages, drafts when unsure, and asks you before anything about money.",
+    },
+    ai: true,
+  },
+  {
+    key: "voice",
+    icon: "phone-call",
+    name: "ERIX Voice",
+    href: "/platform/erix-voice",
+    summary: "An AI assistant that answers your business calls.",
+    status: "invite",
+    card: {
+      headline: "Calls answered, even after hours.",
+      text: "Answers on your own number in English, Hindi or Telugu, books the visit and puts the transcript in your inbox.",
     },
     ai: true,
   },

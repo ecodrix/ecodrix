@@ -8,7 +8,8 @@
  *
  * Copy follows the design system's product page (what is live in v1.0 and
  * what comes in which version) and ECOD/docs/VERSION_PLAN.md. Anything not
- * live carries its status word. Status matches PLATFORM_NAV in lib/site.ts:
+ * live carries its status word. Status matches PLATFORM_NAV in lib/site.ts
+ * (Voice is open by request; its claims come from ECOD/docs/voice/):
  * Store is coming soon. LAIE is private (founder, 3 Nov 2026), so it isn't here.
  */
 
@@ -213,6 +214,85 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       "WhatsApp automation India",
       "follow-up automation",
       "no-code automation India",
+    ],
+  },
+  {
+    slug: "erix-voice",
+    brand: "ERIX Voice",
+    name: "ERIX Voice: an AI assistant that answers your calls",
+    title: "ERIX Voice: an AI assistant for your calls",
+    tagline: "Every call answered, even when you can't pick up",
+    category: "product",
+    status: "invite",
+    ai: true,
+    description:
+      "ERIX Voice answers calls on your own Indian number in English, Hindi or Telugu, books appointments, takes messages and puts every call in your inbox.",
+    longDescription:
+      "The assistant picks up on your own business number, tells the caller it is an AI assistant, and gets on with the job: booking a visit, taking a message or a callback request, or passing the call to your team during business hours. Every call lands in your Inbox with a transcript and a summary. ERIX Voice is open by request.",
+    features: [
+      {
+        title: "Answers on your own number",
+        body: "Callers ring the Indian number you already use. The assistant picks up, in English, Hindi or Telugu.",
+      },
+      {
+        title: "Books appointments",
+        body: "It books the slot during the call, so a clinic visit or a site visit is fixed before the caller hangs up.",
+      },
+      {
+        title: "Messages and callback requests",
+        body: "When it can't settle something, it takes the details and leaves a callback request for your team.",
+      },
+      {
+        title: "Hands over in business hours",
+        body: "During your business hours it can pass the call to your team. If nobody picks up, the caller is promised a callback.",
+      },
+      {
+        title: "After hours, it still answers",
+        body: "Outside your hours it answers and books, but never transfers. Anything that needs a person becomes a callback request.",
+      },
+      {
+        title: "Every call in your Inbox",
+        body: "Each call shows on the contact with a transcript and a summary, next to their WhatsApp chats.",
+      },
+      {
+        title: "Says it is an AI",
+        body: "The first thing a caller hears is that an AI assistant is speaking. The business can't switch this off.",
+      },
+    ],
+    steps: [
+      "Request access and tell us about your business and your calls.",
+      "We switch ERIX Voice on for your workspace.",
+      "Set your number, language, greeting, business hours and where to hand over.",
+      "Make a test call to your own phone, then switch the assistant on.",
+    ],
+    faqs: [
+      {
+        q: "Which languages does it speak?",
+        a: "English, Hindi and Telugu are live. Tamil, Kannada, Malayalam and more are coming soon.",
+      },
+      {
+        q: "Will callers know it is an AI?",
+        a: "Yes. Every call begins by saying an AI assistant is speaking, and that the call may be recorded.",
+      },
+      {
+        q: "What happens outside business hours?",
+        a: "The assistant still answers and can book appointments. It does not transfer calls after hours; it takes a callback request instead.",
+      },
+      {
+        q: "Whose voices are these?",
+        a: "The voices on customer calls are Bulbul voices from Sarvam AI.",
+      },
+      {
+        q: "How much does it cost?",
+        a: "Contact us and we will talk through your call volume and set it up around your business.",
+      },
+    ],
+    searchQueries: [
+      "AI receptionist India",
+      "AI phone answering for clinics",
+      "ERIX Voice",
+      "Hindi Telugu voice agent",
+      "AI voice agent for small business India",
     ],
   },
   {

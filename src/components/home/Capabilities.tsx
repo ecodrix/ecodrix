@@ -8,7 +8,7 @@ type Item = { icon: GlyphName; title: string; text: string };
 /**
  * Everything live in ERIX 1.0, each as what it does for the owner. Source:
  * DS product.md ("1.0 (live)") and ECOD/docs/modules/*.md. Nothing from 1.1+
- * (no voice), no Google Sheets or Gmail, no prices.
+ * (voice is the one by-request part), no Google Sheets or Gmail, no prices.
  */
 const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items: Item[] }[] = [
   {
@@ -120,6 +120,26 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
       },
     ],
   },
+  {
+    name: "ERIX Voice",
+    href: "/platform/erix-voice",
+    icon: "phone-call",
+    ai: true,
+    items: [
+      {
+        icon: "phone-call",
+        title: "Answers your calls",
+        text: "On your own Indian number, in English, Hindi or Telugu.",
+      },
+      {
+        icon: "calendar-check",
+        title: "Books and takes messages",
+        text: "Fixes the appointment or leaves a callback request.",
+      },
+      { icon: "inbox", title: "Every call in your inbox", text: "A transcript and a summary on the contact." },
+      { icon: "shield-check", title: "Open by request", text: "Tell us about your calls and we switch it on for you." },
+    ],
+  },
 ];
 
 export function Capabilities() {
@@ -127,7 +147,7 @@ export function Capabilities() {
     <MkSection
       id="everything"
       title="Everything in ERIX 1.0, in plain words"
-      lead="Four parts, one customer record. All of it is live today, and it all updates without a refresh."
+      lead="Four parts, one customer record, all live today. The voice assistant is open by request."
     >
       <div className="grid gap-4 md:grid-cols-2">
         {groups.map((g) => (

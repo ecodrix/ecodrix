@@ -7,6 +7,7 @@ import { BrowserFrame, CtaBand, Faq, MkHero, MkSection, PrimaryCta, WhatsAppCta 
 import { Story } from "@/components/marketing/story";
 import { MarketingBody } from "@/components/platform/MarketingBody";
 import { MODULE_TOURS } from "@/components/platform/module-tours";
+import { VoiceSamples } from "@/components/platform/VoiceSamples";
 import { SCREENS } from "@/components/scenes/screens";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -23,6 +24,7 @@ const HERO_SCREEN: Record<string, ScreenKey> = {
   "erix-connect": "inbox",
   "erix-flow": "flowCanvas",
   "erix-storage": "documents",
+  "erix-voice": "inbox",
 };
 
 export const TYPE_LABEL = {
@@ -200,6 +202,8 @@ export async function ModulePage({ slug }: { slug: string }) {
           </ul>
         </MkSection>
       )}
+
+      {m.slug === "erix-voice" && <VoiceSamples />}
 
       {m.steps.length > 0 && (
         <MkSection id="steps" tone="subtle">

@@ -206,6 +206,8 @@ const LATER = [
 ];
 
 const moreCopy: Record<string, string> = {
+  voice:
+    "An AI assistant that answers your calls, books appointments and puts each call in your inbox. Open by request.",
   storage: "Files kept with the client and project they belong to: documents and secure share links.",
 };
 
@@ -214,7 +216,7 @@ export const revalidate = 300;
 
 export default async function PlatformIndexPage() {
   const nav = await getPlatformNav();
-  const more = nav.filter((m) => m.key === "storage");
+  const more = nav.filter((m) => m.key === "storage" || m.key === "voice");
   return (
     <div className="w-full">
       {/* JSON-LD: ItemList + FAQ + Breadcrumb */}
@@ -326,7 +328,7 @@ export default async function PlatformIndexPage() {
       </MkSection>
 
       {/* ── Also in ERIX ── */}
-      <MkSection id="more" tone="subtle" title="Storage and the API">
+      <MkSection id="more" tone="subtle" title="Voice, Storage and the API">
         <ul className="grid gap-x-10 md:grid-cols-3">
           {more.map((m) => (
             <li key={m.key} className="border-t border-border-soft pt-6 pb-2">

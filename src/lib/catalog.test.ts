@@ -29,6 +29,7 @@ describe("applyCatalog", () => {
       [
         ["crm", "live"],
         ["connect", "live"],
+        ["voice", "invite"],
         ["flow", "soon"],
       ],
     );
@@ -47,6 +48,7 @@ describe("live flag", () => {
       [
         ["crm", "soon"],
         ["agents", "live"],
+        ["voice", "invite"],
         ["flow", "soon"],
       ].sort((a, b) => out.findIndex((m) => m.key === a[0]) - out.findIndex((m) => m.key === b[0])),
     );
@@ -72,7 +74,10 @@ describe("getPlatformNav fallback", () => {
     const nav = await getPlatformNav();
     assert.deepEqual(
       nav.map((m) => [m.key, m.status]),
-      [["agents", "soon"]],
+      [
+        ["agents", "soon"],
+        ["voice", "invite"],
+      ],
     );
   });
 });

@@ -22,6 +22,7 @@ const product = [
   { name: "ERIX Connect", href: "/platform/erix-connect" },
   { name: "ERIX CRM", href: "/platform/erix-crm" },
   { name: "ERIX Flow", href: "/platform/erix-flow" },
+  { name: "ERIX Voice", href: "/platform/erix-voice" },
   { name: "AI agents", href: "/platform#agents" },
   { name: "How it fits together", href: "/platform" },
 ];
@@ -275,6 +276,8 @@ export async function Footer() {
         <div className="mt-10 flex flex-col gap-4 border-t border-border py-6 text-[13px] text-subtle lg:flex-row lg:items-center lg:justify-between">
           <p className="text-[13px] text-subtle">
             © {new Date().getFullYear()} ECODrIx. An Indian company, made in India.
+            <br />
+            Supported by the startup programs of Sarvam AI and Cartesia.
           </p>
           <ul aria-label="Legal" className="flex flex-wrap gap-x-4 gap-y-2">
             {legal.map((l) => (
