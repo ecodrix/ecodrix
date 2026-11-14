@@ -79,6 +79,12 @@ function Column({ title, children }: { title: string; children: React.ReactNode 
  * four link columns; the v1.0 job as one slim journey bar ending in the logo's
  * red dot ("Paid"); India-first facts; the legal bar; the wordmark.
  */
+/** Startup programs that support ECODrIx (credits), linked to each program's page. */
+const PROGRAMS = [
+  { name: "Sarvam AI", tag: "", href: "https://www.sarvam.ai/startup-program" },
+  { name: "Cartesia", tag: "Startups", href: "https://cartesia.ai/startups" },
+] as const;
+
 export async function Footer() {
   const also = (await getPlatformNav()).filter((m) => m.key === "storage");
   return (
@@ -276,8 +282,6 @@ export async function Footer() {
         <div className="mt-10 flex flex-col gap-4 border-t border-border py-6 text-[13px] text-subtle lg:flex-row lg:items-center lg:justify-between">
           <p className="text-[13px] text-subtle">
             © {new Date().getFullYear()} ECODrIx. An Indian company, made in India.
-            <br />
-            Supported by the startup programs of Sarvam AI and Cartesia.
           </p>
           <ul aria-label="Legal" className="flex flex-wrap gap-x-4 gap-y-2">
             {legal.map((l) => (
@@ -310,6 +314,24 @@ export async function Footer() {
               </li>
             ))}
           </ul>
+        </div>
+
+        {/* Startup programs: names as text; their logos need each program's approval (brand rules, 14 Nov 2026). */}
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pb-6 lg:justify-end">
+          <span className="text-[12.5px] text-subtle">Supported by</span>
+          {PROGRAMS.map(({ name, tag, href }) => (
+            <a
+              key={href}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center gap-2 text-[16px] font-semibold tracking-[-0.01em] text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {name}
+              {tag && <span className="border-l border-border pl-2 text-[14px] font-medium text-subtle">{tag}</span>}
+              <span className="sr-only"> startup program (opens in a new tab)</span>
+            </a>
+          ))}
         </div>
       </nav>
 
