@@ -64,11 +64,15 @@ const nextConfig: NextConfig = {
    * ERIX Help lives on doc.ecodrix.com (files in app/(help)/help): the host
    * serves those pages at its root. `doc.localhost` works the same in dev.
    * Files (images, _next, anything with an extension) pass through.
+   * status.ecodrix.com (and status.localhost) serves app/(statushost)/status-host at its root.
    */
   async rewrites() {
     const docHost = [{ type: "host" as const, value: "doc\\.(ecodrix\\.com|localhost)" }];
+    const statusHost = [{ type: "host" as const, value: "status\\.(ecodrix\\.com|localhost)" }];
     return {
       beforeFiles: [
+        // status.ecodrix.com: its root is the status page (app/(statushost)/status-host).
+        { source: "/", has: statusHost, destination: "/status-host" },
         { source: "/", has: docHost, destination: "/help" },
         { source: "/:path((?!help(?:/|$)|_next/|api/|.*\\.[a-z0-9]+$).*)", has: docHost, destination: "/help/:path" },
       ],
@@ -105,6 +109,8 @@ const nextConfig: NextConfig = {
     ];
     return [
       ...help,
+      // The status page moved to its own host; old links and the SLA redirects land there.
+      { source: "/status", has: brandHost, destination: "https://status.ecodrix.com", permanent: false },
       ...legal.map((slug) => ({
         source: `/${slug}`,
         destination: `/legal/${slug}`,

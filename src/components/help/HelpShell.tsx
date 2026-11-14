@@ -4,7 +4,7 @@ import { HelpHeader } from "@/components/help/HelpHeader";
 const FOOT = [
   { href: "https://ecodrix.com", label: "ecodrix.com" },
   { href: "https://ecodrix.com/docs", label: "Developers" },
-  { href: "https://ecodrix.com/status", label: "Status" },
+  { href: "https://status.ecodrix.com", label: "Status" },
   { href: "https://ecodrix.com/legal/privacy", label: "Privacy" },
   { href: "https://ecodrix.com/legal/terms", label: "Terms" },
 ];

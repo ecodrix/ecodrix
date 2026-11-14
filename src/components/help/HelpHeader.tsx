@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 /** Pages that live on ecodrix.com: absolute, because doc.ecodrix.com serves only help. */
 const OUT = [
   { href: "https://ecodrix.com/docs", label: "Developers" },
-  { href: "https://ecodrix.com/status", label: "Status" },
+  { href: "https://status.ecodrix.com", label: "Status" },
 ];
 
 /**
