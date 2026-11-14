@@ -92,7 +92,14 @@ export function SubscribeButton({ className }: { className?: string }) {
                 className="h-11 bg-surface"
               />
               {/* Honeypot: people never see or fill it. */}
-              <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+              />
               <p id="status-email-note" className="mt-2 text-[13px] text-muted-foreground">
                 {ERROR[state] ? (
                   <span role="alert" className="text-error">
@@ -102,12 +109,10 @@ export function SubscribeButton({ className }: { className?: string }) {
                   CONSENT
                 )}
               </p>
-              <button
-                type="submit"
-                disabled={state === "sending"}
-                className={cn(buttonVariants(), "mt-4 h-11 w-full")}
-              >
-                {state === "sending" ? <Icon name="loader-circle" size={16} variant="line" className="animate-spin" /> : null}
+              <button type="submit" disabled={state === "sending"} className={cn(buttonVariants(), "mt-4 h-11 w-full")}>
+                {state === "sending" ? (
+                  <Icon name="loader-circle" size={16} variant="line" className="animate-spin" />
+                ) : null}
                 {state === "sending" ? "Subscribing" : "Subscribe"}
               </button>
             </form>

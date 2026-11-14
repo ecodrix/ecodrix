@@ -7,7 +7,8 @@ import { readStatusPage } from "@/lib/status-page";
 
 export const metadata = pageMetadata({
   title: "ERIX status",
-  description: "Live status of ERIX: console, API, inbox, calls, automations, email and AI agents, with incidents and planned maintenance.",
+  description:
+    "Live status of ERIX: console, API, inbox, calls, automations, email and AI agents, with incidents and planned maintenance.",
   path: "/status-host",
 });
 

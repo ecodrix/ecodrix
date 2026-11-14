@@ -30,6 +30,9 @@ export const WHATSAPP_CTA = {
   href: "https://wa.me/918143963821",
 } as const;
 
+/** Where "Report a problem" on the status page sends mail (one place to change it). */
+export const REPORT_EMAIL = "report@ecodrix.com";
+
 export type ModuleStatus = "live" | "soon" | "invite";
 
 export const STATUS_LABEL: Record<ModuleStatus, string> = {

@@ -16,7 +16,13 @@ export interface StatusSystem {
   name: string;
   status: Tick;
   uptimePct: number | null;
-  components: { id: string; name: string; status: Tick; uptimePct: number | null }[];
+  components: {
+    id: string;
+    name: string;
+    status: Tick;
+    uptimePct: number | null;
+    days: { date: string; state: Tick }[];
+  }[];
   days: { date: string; state: Tick }[];
 }
 export interface StatusIncident {
@@ -52,7 +58,11 @@ const BASE = `${API_URL}/v1/api/platform/public/status`;
 /** The feed, or null when the API couldn't be read. Server and browser use the same call. */
 export async function readStatusPage(init?: RequestInit): Promise<StatusPayload | null> {
   try {
-    const res = await fetch(BASE, { ...init, headers: { Accept: "application/json" }, signal: AbortSignal.timeout(8000) });
+    const res = await fetch(BASE, {
+      ...init,
+      headers: { Accept: "application/json" },
+      signal: AbortSignal.timeout(8000),
+    });
     if (!res.ok) return null;
     return ((await res.json()) as { data?: StatusPayload }).data ?? null;
   } catch {
@@ -61,7 +71,10 @@ export async function readStatusPage(init?: RequestInit): Promise<StatusPayload 
 }
 
 /** "ok" for any 202; "limited" for 429; "invalid" for 400; "failed" for the rest. */
-export async function subscribeToStatus(email: string, website: string): Promise<"ok" | "limited" | "invalid" | "failed"> {
+export async function subscribeToStatus(
+  email: string,
+  website: string,
+): Promise<"ok" | "limited" | "invalid" | "failed"> {
   try {
     const res = await fetch(`${BASE}/subscribe`, {
       method: "POST",

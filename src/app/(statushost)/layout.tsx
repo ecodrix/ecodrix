@@ -11,7 +11,9 @@ export default function StatusHostLayout({ children }: { children: ReactNode }) 
           <a href="/" className="flex items-center gap-2">
             <LogoMark priority className="size-7" />
             <span className="font-display text-[18px] font-bold tracking-[-0.02em] text-foreground">ERIX</span>
-            <span className="rounded-[6px] bg-accent-muted px-1.5 py-0.5 text-[12px] font-semibold text-accent">Status</span>
+            <span className="rounded-[6px] bg-accent-muted px-1.5 py-0.5 text-[12px] font-semibold text-accent">
+              Status
+            </span>
             <span className="sr-only">, status home</span>
           </a>
           <a
@@ -29,7 +31,10 @@ export default function StatusHostLayout({ children }: { children: ReactNode }) 
       </main>
       <footer className="border-t border-border-soft">
         <p className="mx-auto w-full max-w-3xl px-4 py-4 text-[13px] text-subtle sm:px-6">
-          © {new Date().getFullYear()} ECODrIx. <a href="https://ecodrix.com" className="hover:text-foreground">ecodrix.com</a>
+          © {new Date().getFullYear()} ECODrIx.{" "}
+          <a href="https://ecodrix.com" className="hover:text-foreground">
+            ecodrix.com
+          </a>
         </p>
       </footer>
     </>
