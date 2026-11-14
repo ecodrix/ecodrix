@@ -21,7 +21,8 @@ export interface StatusSystem {
     name: string;
     status: Tick;
     uptimePct: number | null;
-    days: { date: string; state: Tick }[];
+    /** Missing from servers older than 14 Nov 2026: render it as no history, never crash. */
+    days?: { date: string; state: Tick }[];
   }[];
   days: { date: string; state: Tick }[];
 }

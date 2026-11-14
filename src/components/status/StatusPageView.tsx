@@ -157,7 +157,7 @@ function SystemGroup({ system, range }: { system: StatusPayload["systems"][numbe
                 <span className="shrink-0 text-muted-foreground">{fmtPct(c.uptimePct) ?? "No data"}</span>
               </div>
               <div className="mt-1.5">
-                <Ticks name={c.name} days={c.days} range={range} />
+                <Ticks name={c.name} days={c.days ?? []} range={range} />
               </div>
             </li>
           ))}
