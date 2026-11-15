@@ -1,11 +1,13 @@
 "use client";
 
 import { type CSSProperties, type ReactNode, useLayoutEffect, useRef, useState } from "react";
+import { StatusBadge } from "@/components/ui/status-badge";
 import { cn } from "@/lib/utils";
 
 /** `glyph` is drawn by the server (ChannelBeam), so no icon data ships with
- *  the beam; `brand` marks a third-party mark (white chip). */
-export type BeamItem = { label: string; brand?: boolean; glyph: ReactNode };
+ *  the beam; `brand` marks a third-party mark (white chip); `soon` adds the
+ *  "Coming soon" badge. */
+export type BeamItem = { label: string; brand?: boolean; glyph: ReactNode; soon?: boolean };
 /** One wire: which side of ERIX it is on and its row (0 = top), for the wave's timing. */
 type Wire = { k: string; d: string; side: "in" | "out"; r: number };
 const row = (r: number) => ({ "--r": r }) as CSSProperties;
@@ -129,6 +131,7 @@ export function IntegrationBeam({
         {it.glyph}
       </span>
       <span>{it.label}</span>
+      {it.soon && <StatusBadge status="soon" plain />}
     </span>
   );
 

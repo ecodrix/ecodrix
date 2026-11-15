@@ -50,6 +50,21 @@ function view(hit: CatalogItem, now: number) {
   };
 }
 
+/**
+ * One catalog item's website state by id: "live", "soon", or null when staff hid it.
+ * A failed read returns `fallback`, so the site never breaks.
+ */
+export function itemStatus(
+  items: readonly CatalogItem[] | null,
+  id: string,
+  fallback: ModuleStatus | null,
+  now = Date.now(),
+): ModuleStatus | null {
+  if (!items?.length) return fallback;
+  const hit = items.find((i) => i.id === id);
+  return hit ? view(hit, now).status : null;
+}
+
 /** Platform menu key → catalog item id (Connect's card is the Inbox item). */
 const ITEM_OF: Record<string, string> = {
   crm: "crm",

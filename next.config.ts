@@ -1,9 +1,19 @@
+import { realpathSync } from "node:fs";
+import path from "node:path";
 import withBundleAnalyzer from "@next/bundle-analyzer";
 import type { NextConfig } from "next";
 
 const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
+
+// In the local pnpm workspace `next` is installed in the workspace root's store, outside this
+// repo, and Turbopack resolves packages only inside its root. A standalone clone (Vercel, the
+// VM image) has it inside the project, so the default root stays.
+const nextDir = realpathSync(path.join(__dirname, "node_modules/next"));
+const workspaceRoot = nextDir.startsWith(`${__dirname}${path.sep}`)
+  ? undefined
+  : nextDir.slice(0, nextDir.indexOf(`${path.sep}node_modules${path.sep}`));
 
 const nextConfig: NextConfig = {
   // A self-contained server in `.next/standalone` (server.js + only the
@@ -134,7 +144,9 @@ const nextConfig: NextConfig = {
 
   // Turbopack configuration (Next.js 16+ default)
   // Empty config to acknowledge Turbopack usage and silence webpack warning
-  turbopack: {},
+  // File tracing must use the same root as Turbopack, or `.next/standalone` misses packages.
+  ...(workspaceRoot && { outputFileTracingRoot: workspaceRoot }),
+  turbopack: workspaceRoot ? { root: workspaceRoot } : {},
 
   // Webpack configuration for advanced bundle optimization
   // Only used when explicitly running with --webpack flag
