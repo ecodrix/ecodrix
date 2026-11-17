@@ -3,6 +3,8 @@
  * Used by Server Components and generateStaticParams/generateMetadata.
  */
 
+import { ECODrIxAPI } from "@ecodrix/erix-api";
+
 const API_BASE = process.env.API_URL || "https://api.ecodrix.com";
 
 /**
@@ -48,4 +50,20 @@ export const blogs = {
 /** What ERIX offers, as staff set it for the website (admin › Catalog). Null when the API fails. */
 export async function fetchCatalog(): Promise<import("@/lib/catalog").CatalogItem[] | null> {
   return getData("/v1/api/platform/public/catalog", 300);
+}
+
+/**
+ * The pricing catalogue through the SDK (`plans.listPublic()`, anonymous): plans
+ * staff Show on the website, prices in paise, GST rate and trial from settings.
+ * Null when the API fails, so the page never shows a stale copy.
+ */
+export async function fetchPublicCatalogue(): Promise<import("@/lib/pricing").PublicCatalogue | null> {
+  try {
+    // The route is anonymous; proxy mode is the SDK's no-key mode, pointed at the API itself.
+    const ecod = new ECODrIxAPI({ proxy: { url: API_BASE }, timeout: 5000 });
+    const data = await ecod.platform.billing.plans.listPublic<import("@/lib/pricing").PublicCatalogue>();
+    return Array.isArray(data?.plans) ? data : null;
+  } catch {
+    return null;
+  }
 }
