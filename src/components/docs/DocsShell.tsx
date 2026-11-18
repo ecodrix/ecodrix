@@ -11,7 +11,7 @@ const FOOT = [
 ];
 
 /**
- * The developer area's chrome (docs, changelog, status): one-row header and a
+ * The developer area's chrome (docs, changelog): one-row header and a
  * one-line footer, same theme as the brand site. Marketing pages use BrandShell.
  */
 export function DocsShell({ children }: { children: ReactNode }) {

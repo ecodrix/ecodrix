@@ -42,7 +42,7 @@ export const CONSOLE_URL = "https://console.ecodrix.com";
 export const DEV_NAV = [
   { href: "/docs", label: "Docs" },
   { href: "/changelog", label: "Changelog" },
-  { href: "/status", label: "Status" },
+  { href: "https://status.ecodrix.com", label: "Status" },
 ];
 
 export const DOC_SECTIONS: DocSection[] = [
