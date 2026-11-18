@@ -2,10 +2,10 @@
 
 /**
  * Plan cards with a monthly / yearly switch. Plans come from the server page
- * (live API, static fallback). Prices are GST-exclusive (founder decision):
- * every paid price says "+ 18% GST". The AI agent is on every plan, so no
- * card is singled out for AI; Growth is the recommended plan and the one
- * every new workspace trials for 7 days.
+ * (live catalogue, whole paise, no static fallback). Prices are GST-exclusive
+ * (founder decision): paid prices say "+ GST", with the rate when the API
+ * sends it. The trial line is passed in from the catalogue; nothing here
+ * holds a price, a GST rate or a trial length. Growth is the recommended plan.
  */
 
 import { RadioGroup } from "radix-ui";
@@ -13,45 +13,43 @@ import { useState } from "react";
 import { Icon } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { segClass, segItemClass } from "@/components/ui/tabs";
-import {
-  formatMoney,
-  humaniseFeatures,
-  type PublicPlan,
-  planCtaHref,
-  planCtaLabel,
-  planDescription,
-  yearlyDiscountPct,
-} from "@/lib/pricing";
+import { formatInr, humaniseFeatures, type PublicPlan, planDescription, yearlyDiscountPct } from "@/lib/pricing";
+import { PRIMARY_CTA } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type Billing = "monthly" | "yearly";
 
 function priceFor(plan: PublicPlan, billing: Billing) {
-  if (plan.priceMonthlyUsd == null || plan.priceYearlyUsd == null) return null;
-  if (plan.priceMonthlyUsd === 0) return { amount: formatMoney(0, plan.currency), note: "Free, always" };
+  const { priceMonthlyPaise: monthly, priceYearlyPaise: yearly } = plan;
+  if (monthly == null || yearly == null) return null;
   if (billing === "yearly") {
     return {
-      amount: formatMoney(Math.round(plan.priceYearlyUsd / 12), plan.currency),
-      note: `a month, billed ${formatMoney(plan.priceYearlyUsd, plan.currency)} a year`,
+      amount: formatInr(Math.round(yearly / 12 / 100) * 100),
+      note: `a month, billed ${formatInr(yearly)} a year`,
     };
   }
-  return { amount: formatMoney(plan.priceMonthlyUsd, plan.currency), note: "a month" };
+  return { amount: formatInr(monthly), note: "a month" };
 }
 
 export default function PricingPlansSection({
   plans,
   pricesHidden,
+  gstPercent,
+  trial,
 }: {
   plans: PublicPlan[];
   /** Prices aren't public yet (or the live catalogue couldn't load): plans and features show, no amounts, no billing switch. */
   pricesHidden?: boolean;
+  /** GST rate from the catalogue; absent until the API sends it, then copy says plain "GST". */
+  gstPercent?: number;
+  /** Trial sentence from the catalogue (`trialLine`); null renders nothing. */
+  trial?: string | null;
 }) {
+  const gst = gstPercent != null ? `${gstPercent}% GST` : "GST";
   const [billing, setBilling] = useState<Billing>("monthly");
-  const sorted = [...plans].sort((a, b) => a.tier - b.tier);
-  const enterprise = sorted.find((p) => p.slug === "enterprise");
-  const grid = sorted.filter((p) => p.slug !== "enterprise");
-  const ref = sorted.find((p) => (p.priceMonthlyUsd ?? 0) > 0);
-  const yearlyPct = ref ? yearlyDiscountPct(ref.priceMonthlyUsd, ref.priceYearlyUsd) : 0;
+  const grid = [...plans].sort((a, b) => a.sortOrder - b.sortOrder || a.tier - b.tier);
+  const ref = grid.find((p) => (p.priceMonthlyPaise ?? 0) > 0);
+  const yearlyPct = ref ? yearlyDiscountPct(ref.priceMonthlyPaise, ref.priceYearlyPaise) : 0;
 
   return (
     <section aria-label="Plans" className="py-section pt-10! md:pt-12!">
@@ -61,7 +59,9 @@ export default function PricingPlansSection({
             role="status"
             className="mx-auto mb-8 max-w-3xl rounded-[12px] bg-sunken px-4 py-3 text-center text-sm text-foreground"
           >
-            Pricing is agreed with you before you start. Pick the plan that fits and talk to us for a quote.
+            {plans.length > 0
+              ? "Pricing is agreed with you before you start. Pick the plan that fits and talk to us for a quote."
+              : "Pricing is agreed with you before you start. Talk to us for a quote."}
           </p>
         )}
 
@@ -85,9 +85,7 @@ export default function PricingPlansSection({
             </span>
           )}
         </div>
-        <p className="mt-5 text-center text-[15px] font-semibold text-foreground">
-          Every new workspace starts with 7 days of Growth.
-        </p>
+        {trial && <p className="mt-5 text-center text-[15px] font-semibold text-foreground">{trial}</p>}
 
         <ul className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4 xl:items-stretch">
           {grid.map((plan) => {
@@ -115,23 +113,23 @@ export default function PricingPlansSection({
                       {price.amount}
                     </p>
                     <p className="mt-2 text-sm text-subtle">{price.note}</p>
-                    {plan.priceMonthlyUsd ? (
+                    {plan.priceMonthlyPaise ? (
                       <p
                         className={cn(
                           "mt-2 w-fit rounded-[6px] px-2 py-0.5 text-[12px] font-semibold",
                           featured ? "bg-white/15 text-white" : "bg-accent-muted text-accent",
                         )}
                       >
-                        + 18% GST
+                        + {gst}
                       </p>
                     ) : null}
                   </div>
                 )}
                 <a
-                  href={planCtaHref(plan.slug)}
+                  href={PRIMARY_CTA.href}
                   className={cn("group w-full", buttonVariants({ variant: featured ? "primary" : "ghost" }))}
                 >
-                  {planCtaLabel(plan.slug)}
+                  {PRIMARY_CTA.label}
                   <Icon name="arrow-right" size={16} variant="line" />
                 </a>
                 <ul className="space-y-2.5 border-t border-border-soft pt-5">
@@ -153,22 +151,10 @@ export default function PricingPlansSection({
           })}
         </ul>
 
-        {enterprise && (
-          <div className="mt-6 flex flex-col items-start justify-between gap-5 rounded-[20px] bg-surface p-6 shadow-[var(--shadow-card)] md:flex-row md:items-center">
-            <div>
-              <h2 className="font-display text-xl font-bold text-foreground">{enterprise.name}</h2>
-              <p className="mt-1 text-muted-foreground">{planDescription("enterprise")} Priced with you.</p>
-            </div>
-            <a href={planCtaHref("enterprise")} className={cn(buttonVariants({ variant: "ghost" }), "group shrink-0")}>
-              {planCtaLabel("enterprise")}
-              <Icon name="arrow-right" size={16} variant="line" />
-            </a>
-          </div>
-        )}
         <p className="mx-auto mt-8 max-w-[64ch] text-center text-[13.5px] text-subtle">
           {pricesHidden
-            ? "Plans are billed in rupees, plus 18% GST on your invoice."
-            : "Prices exclude 18% GST, which is added on your invoice."}{" "}
+            ? `Plans are billed in rupees, plus ${gst} on your invoice.`
+            : `Prices exclude ${gst}, which is added on your invoice.`}{" "}
           WhatsApp messages go out on your own WhatsApp account, so Meta bills you directly and ERIX adds no markup.
         </p>
       </div>
