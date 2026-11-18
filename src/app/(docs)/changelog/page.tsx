@@ -41,7 +41,7 @@ export default function ChangelogPage() {
           <h1 className="text-[clamp(36px,5vw,54px)] leading-[1.05] tracking-[-0.035em]">Changelog</h1>
           <p className="mt-4 max-w-[60ch] text-[clamp(16px,1.5vw,18px)] leading-relaxed text-muted-foreground">
             What changed in each release, from the first in August 2025 to 1.0. See what's running right now on the{" "}
-            <Link href="/status" className="font-semibold text-accent hover:underline">
+            <Link href="https://status.ecodrix.com" className="font-semibold text-accent hover:underline">
               status page
             </Link>
             .

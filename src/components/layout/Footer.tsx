@@ -38,7 +38,7 @@ const facts: { icon: GlyphName; text: string }[] = [
 /** Developer pages, on this site (the API serves JSON only). */
 const developer: { label: string; href: string; live?: boolean }[] = [
   { label: "API docs", href: "/docs" },
-  { label: "System status", href: "/status", live: true },
+  { label: "System status", href: "https://status.ecodrix.com", live: true },
   { label: "Changelog", href: "/changelog" },
   { label: "What's new", href: "/whats-new" },
 ];

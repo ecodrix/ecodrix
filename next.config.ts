@@ -119,16 +119,16 @@ const nextConfig: NextConfig = {
     ];
     return [
       ...help,
-      // The status page moved to its own host; old links and the SLA redirects land there.
-      { source: "/status", has: brandHost, destination: "https://status.ecodrix.com", permanent: false },
+      // The status page lives only on its own host; old links land there.
+      { source: "/status", destination: "https://status.ecodrix.com", permanent: false },
       ...legal.map((slug) => ({
         source: `/${slug}`,
         destination: `/legal/${slug}`,
         permanent: true,
       })),
       // No SLA until paid plans (founder, 28 Oct 2026): the status page shows real uptime.
-      { source: "/sla", destination: "/status", permanent: false },
-      { source: "/legal/sla", destination: "/status", permanent: false },
+      { source: "/sla", destination: "https://status.ecodrix.com", permanent: false },
+      { source: "/legal/sla", destination: "https://status.ecodrix.com", permanent: false },
       // LAIE stays private until it solves a real problem (founder, 3 Nov 2026).
       // Temporary redirects, so its pages can come back when it goes public.
       { source: "/laie/:path*", destination: "/platform", permanent: false },
