@@ -324,6 +324,22 @@ const ICON = {
   nodata: "circle-dashed",
 } as const;
 
+/** A component in plain words, then its last-24-hour figures, when the API sends them. */
+function About({ c, className }: { c: StatusSystem["components"][number]; className?: string }) {
+  const perf = (c.performance ?? []).map((p) => `${p.unit === "%" ? fmtPct(p.value) : fmtMs(p.value)} ${p.label}`);
+  if (!c.description && !perf.length) return null;
+  return (
+    <p className={cn("text-[12.5px] leading-snug text-muted-foreground", className)}>
+      {c.description}
+      {perf.length ? (
+        <span className="text-subtle">
+          {c.description ? " · " : ""}Last 24 h: {perf.join(" · ")}
+        </span>
+      ) : null}
+    </p>
+  );
+}
+
 /**
  * One system. Folded, it shows one bar per day for all its components together;
  * open, a row per component. Starts open (and opens by itself) while it's hurting.
@@ -377,6 +393,7 @@ function SystemGroup({ data, system, range }: { data: StatusPayload; system: Sta
           {summary}
         </div>
       )}
+      {n === 1 && system.components[0] ? <About c={system.components[0]} className="pl-6" /> : null}
       {n > 1 && open ? (
         <ul id={bodyId} className="mt-2 ml-[7px] space-y-4 border-l-2 border-border-soft pl-4">
           {system.components.map((c) => (
@@ -402,6 +419,7 @@ function SystemGroup({ data, system, range }: { data: StatusPayload; system: Sta
                   {fmtPct(c.uptimePct) ?? "No data"}
                 </span>
               </div>
+              <About c={c} className="mt-0.5 pl-[22px]" />
               <div className="mt-1">
                 <Pipes name={c.name} days={c.days ?? []} range={range} lines={(d) => dayLines(data, system, d, c.id)} />
               </div>
@@ -534,7 +552,7 @@ export function StatusPageView({ initial }: { initial: StatusPayload | null }) {
       </section>
 
       <div className="relative mx-auto -mt-20 w-full max-w-3xl px-4 pb-6 sm:px-6 sm:pb-8">
-        <section className="rounded-[16px] bg-surface-white p-5 shadow-lg ring-1 ring-border sm:p-6">
+        <section className="rounded-[16px] bg-surface-white p-5 shadow-[var(--shadow-card)] sm:p-6">
           <div aria-live="polite" className="flex items-center gap-4">
             <span className={cn("relative grid size-14 shrink-0 place-items-center rounded-full", banner.tone)}>
               <span

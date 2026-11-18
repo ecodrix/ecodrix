@@ -41,6 +41,10 @@ export interface StatusSystem {
     days?: StatusDay[];
     /** Last 24 h; null for outcome-only components, missing before 18 Nov 2026. */
     latencyMs?: { last: number | null; p50: number | null; p95: number | null } | null;
+    /** What it is, in plain words. Missing before 18 Nov 2026. */
+    description?: string;
+    /** Last 24 h, e.g. 98.5 % "of AI requests answered"; empty when too few attempts. Missing before 18 Nov 2026. */
+    performance?: { value: number; unit: "%" | "ms"; label: string }[];
   }[];
   days: StatusDay[];
   /** Missing from servers older than 18 Nov 2026. */
