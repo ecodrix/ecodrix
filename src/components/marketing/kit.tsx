@@ -86,7 +86,7 @@ export function WhatsAppCta({ lg, className, disabled }: { lg?: boolean; classNa
 /* ── Hero ────────────────────────────────────────────────────────────── */
 
 /** The navy band's one brand flourish: the logo's swoosh and red dot. */
-function HeroMotif() {
+export function HeroMotif() {
   return (
     <svg
       className="pointer-events-none absolute inset-0 size-full"

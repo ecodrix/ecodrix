@@ -1,28 +1,23 @@
 import type { ReactNode } from "react";
 import { LogoMark } from "@/components/layout/LogoMark";
-import { WHATSAPP_CTA } from "@/lib/site";
 
-/** status.ecodrix.com's own chrome: logo, one help link, slim footer. Not the brand site's header. */
+/**
+ * status.ecodrix.com's own chrome: logo and a slim footer. Not the brand site's header.
+ * The header floats, in white, over the page's navy band; help links live there (StatusPageView).
+ */
 export default function StatusHostLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <header className="border-b border-border-soft bg-surface">
-        <div className="mx-auto flex h-14 w-full max-w-3xl items-center justify-between px-4 sm:px-6">
-          <a href="/" className="flex items-center gap-2">
-            <LogoMark priority className="size-7" />
-            <span className="font-display text-[18px] font-bold tracking-[-0.02em] text-foreground">ERIX</span>
-            <span className="rounded-[6px] bg-accent-muted px-1.5 py-0.5 text-[12px] font-semibold text-accent">
-              Status
-            </span>
-            <span className="sr-only">, status home</span>
-          </a>
+      <header className="absolute inset-x-0 top-0 z-10">
+        <div className="mx-auto flex h-14 w-full max-w-3xl items-center px-4 sm:px-6">
           <a
-            href={WHATSAPP_CTA.href}
-            target="_blank"
-            rel="noopener"
-            className="rounded-[8px] px-3 py-2 text-[14.5px] font-medium text-muted-foreground hover:bg-sunken hover:text-foreground focus-visible:outline-2 focus-visible:outline-accent"
+            href="/"
+            className="flex items-center gap-2 rounded-[8px] focus-visible:outline-2 focus-visible:outline-white"
           >
-            Get help<span className="sr-only"> (opens WhatsApp in a new tab)</span>
+            <LogoMark priority className="size-7" />
+            <span className="font-display text-[18px] font-bold tracking-[-0.02em] text-white">ERIX</span>
+            <span className="rounded-[6px] bg-white/12 px-1.5 py-0.5 text-[12px] font-semibold text-white">Status</span>
+            <span className="sr-only">, status home</span>
           </a>
         </div>
       </header>
