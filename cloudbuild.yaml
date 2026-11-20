@@ -42,16 +42,23 @@ steps:
       - 'gcr.io/$PROJECT_ID/${_IMAGE}:$BUILD_ID'
       - '-t'
       - 'gcr.io/$PROJECT_ID/${_IMAGE}:latest'
+      - '-t'
+      - 'asia-south1-docker.pkg.dev/$PROJECT_ID/erix/${_IMAGE}:$BUILD_ID'
+      - '-t'
+      - 'asia-south1-docker.pkg.dev/$PROJECT_ID/erix/${_IMAGE}:latest'
       - '.'
     waitFor: ['build-env']
 
 substitutions:
   _IMAGE: ecodrix-site
 
-# Pushed when every step passed.
+# Pushed when every step passed. Every image goes to gcr.io (the VMs still pull
+# it) and to the asia-south1 `erix` repo (registry move, step A: dual push).
 images:
   - 'gcr.io/$PROJECT_ID/${_IMAGE}:$BUILD_ID'
   - 'gcr.io/$PROJECT_ID/${_IMAGE}:latest'
+  - 'asia-south1-docker.pkg.dev/$PROJECT_ID/erix/${_IMAGE}:$BUILD_ID'
+  - 'asia-south1-docker.pkg.dev/$PROJECT_ID/erix/${_IMAGE}:latest'
 
 options:
   logging: CLOUD_LOGGING_ONLY
