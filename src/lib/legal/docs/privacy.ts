@@ -259,6 +259,27 @@ export const privacyDoc: LegalDoc = {
       ],
     },
     {
+      id: "instagram-data",
+      title: "Instagram Data and How to Delete It",
+      icon: Share2,
+      body: [
+        "When a workspace connects its Instagram professional account, ERIX receives from Meta: the account's ID, username, profile picture and list of posts; the direct messages people send to that account and the replies sent from ERIX; and the comments on that account's posts and the replies sent from ERIX.",
+        "We use this only to show the workspace its conversations and comments in ERIX and to send the replies and automations the workspace sets up. We do not sell it and we do not use it for advertising. If the workspace switches on an AI agent, messages are handled as “AI Features” above describes.",
+        "Instagram messages and comments stay in the workspace until the workspace deletes them or the workspace is deleted (see “How Long We Keep It”).",
+        {
+          list: [
+            "Disconnect: a workspace can disconnect Instagram at any time in the console under Channels → Instagram → Accounts → Disconnect. We delete our access to the account.",
+            "Remove our app in Instagram: open Settings → Apps and websites in Instagram and remove the app. We delete our access to the account.",
+            "Ask for deletion: when you ask Meta to delete the data ERIX holds (Instagram offers this for a removed app), we delete the access token, the account details and that workspace's Instagram conversations and their messages. Meta shows you a confirmation code and a link to a page with the status of your request.",
+            `Anything else: email ${LEGAL.emails.privacy}.`,
+          ],
+        },
+        {
+          note: "Contacts that a business saved in its own customer list, with the Instagram ID on them, are not removed by a deletion request. The business can erase a contact from that contact's page in ERIX; if you write to us, we forward your request to the business.",
+        },
+      ],
+    },
+    {
       id: "security",
       title: "Security and Breaches",
       icon: Lock,
