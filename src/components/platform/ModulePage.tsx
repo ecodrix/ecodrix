@@ -171,6 +171,8 @@ export async function ModulePage({ slug }: { slug: string }) {
         }
       />
 
+      {m.slug === "erix-voice" && <VoiceSamples />}
+
       {v.marketing && (v.marketing.body || v.marketing.image) && (
         <MkSection id="about" title={`About ${m.brand}`}>
           <MarketingBody marketing={v.marketing} />
@@ -202,8 +204,6 @@ export async function ModulePage({ slug }: { slug: string }) {
           </ul>
         </MkSection>
       )}
-
-      {m.slug === "erix-voice" && <VoiceSamples />}
 
       {m.steps.length > 0 && (
         <MkSection id="steps" tone="subtle">

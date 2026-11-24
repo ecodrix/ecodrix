@@ -1,0 +1,11 @@
+{
+  "_about": "The ERIX voice library on the ERIX Voice page: every Sarvam bulbul:v3 speaker a customer can pick (voice-runtime config/voices.py V3_SPEAKERS). Each voice introduces itself by name. The Hindi line avoids gendered verbs so every voice can say it. Rendered by scripts/voice-samples.py --set library.",
+  "model": "bulbul:v3",
+  "langs": ["en", "hi", "te"],
+  "lines": {
+    "en": "Hello, my name is {name}. Whether you want to book an appointment or ask a question, just tell me. How can I help you today?",
+    "hi": "नमस्ते, मेरा नाम {name} है। Appointment book करनी हो या कोई सवाल पूछना हो, बताइए। आज आपकी क्या मदद करूँ?",
+    "te": "నమస్కారం, నా పేరు {name}. Appointment book చేయాలన్నా, ఏదైనా అడగాలన్నా చెప్పండి. ఈరోజు మీకు ఎలా సహాయం చేయగలను?"
+  },
+  "voices": ["aayan", "aditya", "advait", "amit", "anand", "ashutosh", "dev", "gokul", "ishita", "kabir", "kavitha", "kavya", "manan", "mani", "mohit", "neha", "pooja", "priya", "rahul", "ratan", "rehan", "ritu", "rohan", "roopa", "rupali", "shreya", "shruti", "shubh", "simran", "soham", "suhani", "sumit", "sunny", "tanya", "tarun", "varun", "vijay"]
+}

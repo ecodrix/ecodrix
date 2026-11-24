@@ -1,0 +1,87 @@
+{
+  "_about": "Sample calls for the ERIX Voice page. Single source for the transcripts, the voices used and the audio render (scripts/voice-samples.py). who: r = the assistant, c = the caller, h = a person on the business's team, e = what happened (not spoken). Voices are Sarvam bulbul:v3 speakers; the assistant's display name is its voice name.",
+  "model": "bulbul:v3",
+  "langs": ["en", "hi", "te"],
+  "calls": [
+    {
+      "id": "clinic", "ind": "Dental clinic", "title": "Answers a patient and books a cleaning", "dir": "Inbound call", "tag": ["book", "Booked"],
+      "caller": "Priya",
+      "voices": { "r": { "en": "ishita", "hi": "priya", "te": "neha" }, "c": { "en": "shreya", "hi": "shreya", "te": "kavitha" } },
+      "lines": {
+        "en": [["c", "Hi, I want a teeth cleaning this week. Is there a free slot?"], ["r", "Yes, Thursday at 11 am is free with Dr. Rao. Shall I book it for you?"], ["c", "Yes, please."], ["r", "Done, Thursday 11 am. I've sent the details to your WhatsApp."]],
+        "hi": [["c", "Hello, इस week teeth cleaning करवानी है। कोई slot free है?"], ["r", "जी, Thursday सुबह 11 बजे Dr. Rao free हैं। Book कर दूँ?"], ["c", "हाँ, कर दीजिए।"], ["r", "हो गया, Thursday 11 बजे। Details आपके WhatsApp पर भेज दी हैं।"]],
+        "te": [["c", "Hello, ఈ week teeth cleaning చేయించుకోవాలి. ఏదైనా slot free గా ఉందా?"], ["r", "ఉందండి, Thursday ఉదయం 11 గంటలకు Dr. Rao free గా ఉన్నారు. Book చేయమంటారా?"], ["c", "సరే, చేయండి."], ["r", "అయిపోయింది, Thursday 11 గంటలకు. Details మీ WhatsApp కి పంపించాను."]]
+      }
+    },
+    {
+      "id": "realty", "ind": "Real estate", "title": "Answers a flat enquiry and books a site visit", "dir": "Inbound call", "tag": ["book", "Booked"],
+      "caller": "Suresh",
+      "voices": { "r": { "en": "ratan", "hi": "shubh", "te": "shubh" }, "c": { "en": "rahul", "hi": "rahul", "te": "tarun" } },
+      "lines": {
+        "en": [["c", "Is the 2BHK in Kokapet still available? What's the price?"], ["r", "Yes, two are left, starting at ₹78 lakh. Would you like to see it this weekend?"], ["c", "Saturday morning works for me."], ["r", "Site visit booked for Saturday at 11 am. Our team will meet you at the gate."]],
+        "hi": [["c", "Kokapet वाला 2BHK अभी available है? Price क्या है?"], ["r", "जी, दो flats बचे हैं, ₹78 lakh से शुरू। इस weekend देखना चाहेंगे?"], ["c", "Saturday सुबह ठीक रहेगा।"], ["r", "Saturday सुबह 11 बजे site visit book हो गई। हमारी team gate पर मिलेगी।"]],
+        "te": [["c", "Kokapet లో 2BHK ఇంకా available గా ఉందా? Price ఎంత?"], ["r", "ఉందండి, రెండు flats మిగిలాయి, ₹78 lakh నుంచి. ఈ weekend చూస్తారా?"], ["c", "Saturday ఉదయం అయితే ఓకే."], ["r", "Saturday ఉదయం 11 గంటలకు site visit book అయ్యింది. మా team gate దగ్గర కలుస్తారు."]]
+      }
+    },
+    {
+      "id": "coach", "ind": "Coaching centre", "title": "Explains batches and fees, books a demo class", "dir": "Inbound call", "tag": ["book", "Booked"],
+      "caller": "Lakshmi",
+      "voices": { "r": { "en": "ritu", "hi": "ritu", "te": "pooja" }, "c": { "en": "roopa", "hi": "roopa", "te": "suhani" } },
+      "lines": {
+        "en": [["c", "My son is in class 9. Do you have an evening maths batch?"], ["r", "Yes, the 6 pm batch has seats. The fee is ₹2,500 a month. Shall I book a free demo class?"], ["c", "Yes, this week if possible."], ["r", "Booked for Wednesday at 6 pm. See you both then."]],
+        "hi": [["c", "मेरा बेटा 9th में है। Evening में maths का batch है?"], ["r", "जी, 6 बजे वाले batch में seats हैं। Fee ₹2,500 महीना है। Free demo class book कर दूँ?"], ["c", "हाँ, हो सके तो इसी week।"], ["r", "Wednesday शाम 6 बजे demo class book हो गई।"]],
+        "te": [["c", "మా అబ్బాయి 9th class. Evening maths batch ఉందా?"], ["r", "ఉందండి, 6 గంటల batch లో seats ఉన్నాయి. Fee నెలకి ₹2,500. Free demo class book చేయమంటారా?"], ["c", "సరే, వీలైతే ఈ week లోనే."], ["r", "Wednesday సాయంత్రం 6 గంటలకు demo class book అయ్యింది."]]
+      }
+    },
+    {
+      "id": "gym", "ind": "Fitness studio", "title": "Answers a membership enquiry and books a trial", "dir": "Inbound call", "tag": ["book", "Booked"],
+      "caller": "Sneha",
+      "voices": { "r": { "en": "amit", "hi": "kabir", "te": "rahul" }, "c": { "en": "tanya", "hi": "tanya", "te": "shruti" } },
+      "lines": {
+        "en": [["c", "Hi, what's the monthly fee for the gym? Is there a trial?"], ["r", "It's ₹1,800 a month, and the first session is free. Shall I book a trial for tomorrow at 7 am?"], ["c", "Yes, 7 am works."], ["r", "Booked. Bring sports shoes and a towel. See you tomorrow."]],
+        "hi": [["c", "Hello, gym की monthly fee कितनी है? कोई trial है?"], ["r", "₹1,800 महीना है, और पहला session free है। कल सुबह 7 बजे trial रख दूँ?"], ["c", "हाँ, 7 बजे ठीक है।"], ["r", "Book हो गया। Sports shoes और towel साथ लाइए। कल मिलते हैं।"]],
+        "te": [["c", "Hello, gym monthly fee ఎంత? Trial ఉందా?"], ["r", "నెలకి ₹1,800, మొదటి session free. రేపు ఉదయం 7 కి trial పెట్టమంటారా?"], ["c", "సరే, 7 కి ఓకే."], ["r", "Book అయ్యింది. Sports shoes, towel తెచ్చుకోండి. రేపు కలుద్దాం."]]
+      }
+    },
+    {
+      "id": "salon", "ind": "Salon", "title": "Moves a booking when the customer runs late", "dir": "Inbound call", "tag": ["book", "Moved"],
+      "caller": "Ravi",
+      "voices": { "r": { "en": "kavya", "hi": "kavya", "te": "kavitha" }, "c": { "en": "sumit", "hi": "sumit", "te": "aayan" } },
+      "lines": {
+        "en": [["c", "I have a haircut at 5, but I'm stuck in traffic. Can I come later?"], ["r", "No problem. The next free slot with Anil is 6:30. Shall I move it?"], ["c", "Yes, please."], ["r", "Moved to 6:30 pm with Anil. I've sent the new time on WhatsApp."]],
+        "hi": [["c", "मेरा 5 बजे haircut है, पर traffic में फँसा हूँ। थोड़ा late आ सकता हूँ?"], ["r", "कोई बात नहीं। Anil के साथ अगला free slot 6:30 का है। Shift कर दूँ?"], ["c", "हाँ, कर दीजिए।"], ["r", "6:30 पर Anil के साथ shift हो गया। नया time WhatsApp पर भेज दिया है।"]],
+        "te": [["c", "నాకు 5 కి haircut ఉంది, కానీ traffic లో ఇరుక్కుపోయాను. కొంచెం late గా రావచ్చా?"], ["r", "పర్వాలేదండి. Anil దగ్గర next free slot 6:30 కి ఉంది. మార్చమంటారా?"], ["c", "సరే, మార్చండి."], ["r", "6:30 కి Anil దగ్గర మార్చాను. కొత్త time WhatsApp లో పంపించాను."]]
+      }
+    },
+    {
+      "id": "restaurant", "ind": "Restaurant", "title": "Takes a table booking for a family dinner", "dir": "Inbound call", "tag": ["book", "Booked"],
+      "caller": "Venkat",
+      "voices": { "r": { "en": "aditya", "hi": "amit", "te": "vijay" }, "c": { "en": "varun", "hi": "varun", "te": "mani" } },
+      "lines": {
+        "en": [["c", "Do you have a table for six tonight, around 8?"], ["r", "Yes, 8:15 pm is free for six. What name shall I book it under?"], ["c", "Venkat."], ["r", "Table for six at 8:15 pm, under Venkat. We'll hold it for 15 minutes."]],
+        "hi": [["c", "आज रात 8 बजे के आस-पास छह लोगों का table मिलेगा?"], ["r", "जी, 8:15 पर छह लोगों का table free है। Booking किस नाम से करूँ?"], ["c", "Venkat."], ["r", "8:15 पर छह लोगों का table, Venkat के नाम से। हम 15 मिनट तक रखेंगे।"]],
+        "te": [["c", "ఈరోజు రాత్రి 8 గంటలకి ఆరుగురికి table దొరుకుతుందా?"], ["r", "దొరుకుతుందండి, 8:15 కి ఆరుగురికి table free గా ఉంది. Booking ఏ పేరు మీద చేయాలి?"], ["c", "Venkat."], ["r", "8:15 కి ఆరుగురికి table, Venkat పేరు మీద. 15 నిమిషాలు hold చేస్తాం."]]
+      }
+    },
+    {
+      "id": "late", "ind": "Clinic, 11:40 pm", "title": "After hours, takes a callback request", "dir": "After hours", "tag": ["back", "Callback"],
+      "caller": "Arjun",
+      "voices": { "r": { "en": "simran", "hi": "suhani", "te": "neha" }, "c": { "en": "tarun", "hi": "aayan", "te": "kabir" } },
+      "lines": {
+        "en": [["c", "Hello? I want to talk to Dr. Rao about my X-ray report."], ["r", "The clinic is closed now and opens at 9 am. I'll ask the team to call you first thing. Is this number okay?"], ["c", "Yes, this number is fine."], ["r", "Done. You'll get a call tomorrow morning."]],
+        "hi": [["c", "Hello, मुझे Dr. Rao से अपनी X-ray report के बारे में बात करनी है।"], ["r", "Clinic अभी बंद है, सुबह 9 बजे खुलेगा। मैं team को बोल दूँगी, सुबह सबसे पहले आपको call करेंगे। यही number ठीक है?"], ["c", "हाँ, यही number ठीक है।"], ["r", "ठीक है, कल सुबह आपको call आ जाएगा।"]],
+        "te": [["c", "Hello, నా X-ray report గురించి Dr. Rao గారితో మాట్లాడాలి."], ["r", "Clinic ఇప్పుడు మూసేశారండి, ఉదయం 9 కి తెరుస్తారు. ఉదయాన్నే మీకు call చేయమని team కి చెప్తాను. ఈ number ఓకేనా?"], ["c", "అవును, ఇదే number."], ["r", "సరే, రేపు ఉదయం మీకు call వస్తుంది."]]
+      }
+    },
+    {
+      "id": "hand", "ind": "Wholesale shop", "title": "Passes a bulk order call to your team", "dir": "Business hours", "tag": ["hand", "Handed over"],
+      "caller": "Imran", "human": "Kiran",
+      "voices": { "r": { "en": "shruti", "hi": "simran", "te": "rupali" }, "c": { "en": "rehan", "hi": "rehan", "te": "gokul" }, "h": { "en": "kabir", "hi": "mani", "te": "advait" } },
+      "lines": {
+        "en": [["c", "I need to talk to someone about a bulk order."], ["r", "Sure. I'm connecting you to Kiran from our team now."], ["e", "Passed to Kiran · picked up in 6 s"], ["h", "Hi, Kiran here. Tell me how many pieces you need."]],
+        "hi": [["c", "Bulk order के बारे में किसी से बात करनी है।"], ["r", "ज़रूर, मैं अभी आपको हमारी team के Kiran से जोड़ रही हूँ।"], ["e", "Passed to Kiran · picked up in 6 s"], ["h", "Hello, Kiran बोल रहा हूँ। बताइए, कितने pieces चाहिए?"]],
+        "te": [["c", "Bulk order గురించి ఎవరితో అయినా మాట్లాడాలి."], ["r", "తప్పకుండా, ఇప్పుడే మా team లో Kiran కి connect చేస్తున్నాను."], ["e", "Passed to Kiran · picked up in 6 s"], ["h", "Hello, Kiran మాట్లాడుతున్నాను. ఎన్ని pieces కావాలో చెప్పండి."]]
+      }
+    }
+  ]
+}
