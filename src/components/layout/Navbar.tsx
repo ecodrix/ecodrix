@@ -101,8 +101,8 @@ export function Navbar() {
             "relative mx-auto flex h-13 w-full max-w-[1180px] items-center gap-3 rounded-[32px] border border-border bg-surface pr-2.5 pl-5 lg:gap-6 lg:pl-6",
             "has-[[data-slot=navigation-menu-trigger][data-state=open]]:rounded-[28px_28px_0_0]",
             // Deep navy tint reads on both light pages and the navy hero band.
-            "shadow-[0_12px_32px_-12px_rgba(4,13,66,0.30),0_2px_6px_-2px_rgba(4,13,66,0.10)]",
-            "group-data-[scrolled]:shadow-[0_18px_44px_-14px_rgba(4,13,66,0.42),0_3px_8px_-3px_rgba(4,13,66,0.14)]",
+            "shadow-[0_6px_18px_-10px_rgba(4,13,66,0.16),0_1px_3px_-1px_rgba(4,13,66,0.06)]",
+            "group-data-[scrolled]:shadow-[0_8px_22px_-12px_rgba(4,13,66,0.22),0_1px_4px_-1px_rgba(4,13,66,0.08)]",
             "transition-[border-radius,box-shadow] duration-200 ease-out motion-reduce:transition-none",
           )}
         >
