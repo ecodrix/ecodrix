@@ -12,7 +12,7 @@ import { TimelineScene } from "@/components/product-screens/timeline-scene";
 export const MODULE_TOURS: Record<string, { title: string; lead: string; chapters: Chapter[] }> = {
   "erix-connect": {
     title: "Every chat and call, and what each one does for you",
-    lead: "One inbox for WhatsApp and phone calls, plus the calendar the conversation leads to. Instagram, email and website chat are coming soon.",
+    lead: "One inbox for WhatsApp and phone calls, plus the calendar the conversation leads to. Instagram DMs and email land in the same inbox. Website chat is coming soon.",
     chapters: [
       {
         id: "inbox",

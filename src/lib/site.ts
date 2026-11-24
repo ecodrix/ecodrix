@@ -75,7 +75,7 @@ export const PLATFORM_NAV = [
     status: "live",
     card: {
       headline: "WhatsApp and calls in one inbox, on the right contact.",
-      text: "The official WhatsApp API on your own number, plus phone calls. Instagram, email and website chat are coming soon.",
+      text: "The official WhatsApp API on your own number, plus phone calls, Instagram DMs and email. Website chat is coming soon.",
     },
   },
   {

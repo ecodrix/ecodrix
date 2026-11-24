@@ -99,9 +99,9 @@ export const PLATFORM_MODULES: PlatformModule[] = [
     category: "infrastructure",
     status: "live",
     description:
-      "ERIX Connect puts the official WhatsApp Business API and phone calls in one live inbox. Meta bills you directly, with no ERIX markup. Instagram, email and website chat are coming soon.",
+      "ERIX Connect puts the official WhatsApp Business API and phone calls in one live inbox. Meta bills you directly, with no ERIX markup. Instagram DMs and email land in the same inbox. Website chat is coming soon.",
     longDescription:
-      "Connect your own WhatsApp Business account through Meta's signup. Every chat and call arrives live in one inbox, on the right contact, on your computer and your phone. Instagram, email and website chat are coming soon.",
+      "Connect your own WhatsApp Business account through Meta's signup. Every chat and call arrives live in one inbox, on the right contact, on your computer and your phone. Instagram DMs and email land in the same inbox. Website chat is coming soon.",
     features: [
       {
         title: "Your own WhatsApp account",

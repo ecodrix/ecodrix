@@ -27,7 +27,7 @@ export const metadata = {
   ...pageMetadata({
     title: "ERIX platform: CRM, inbox, AI and automation",
     description:
-      "Every module in ERIX by ECODrIx: CRM, the WhatsApp and phone inbox, AI agents and automation on one customer record, plus what's coming next.",
+      "Every module in ERIX by ECODrIx: CRM, the WhatsApp and phone inbox, the AI Employee and automation on one customer record, plus what's coming next.",
     path: "/platform",
   }),
   keywords: [
@@ -44,7 +44,7 @@ export const metadata = {
 const PLATFORM_FAQS = [
   {
     q: "What does ERIX include today?",
-    a: "ERIX 1.0 is live with four parts on one customer record. ERIX CRM: contacts, pipeline, forms and appointments. ERIX Connect: the WhatsApp inbox and phone calls, with Google Calendar and Meet for bookings. ERIX Flow: automations, templates, approvals, Wait for a reply and AI reply. AI agents: answer from your own business details and hand the rest to your team. Instagram, email, website chat, GST invoices and payment links are coming soon.",
+    a: "ERIX 1.0 is live with four parts on one customer record. ERIX CRM: contacts, pipeline, forms and appointments. ERIX Connect: the WhatsApp, Instagram and email inbox and phone calls, with Google Calendar and Meet for bookings. ERIX Flow: automations, templates, approvals, Wait for a reply and AI reply. AI Employee: answers from your own business details and hands the rest to your team. Website chat, GST invoices and payment links are coming soon.",
   },
   {
     q: "Is there a public ERIX API?",
@@ -70,7 +70,7 @@ const chapters: Chapter[] = [
     module: "ERIX Connect",
     icon: "inbox",
     title: "Every channel lands in one inbox",
-    body: "WhatsApp chats and phone calls arrive in one list, live, each on the right contact. Instagram, email and website chat are coming soon.",
+    body: "WhatsApp chats, Instagram DMs, email and phone calls arrive in one list, live, each on the right contact. Website chat is coming soon.",
     points: [
       "Official WhatsApp Business API on your own account: Meta bills you, no ERIX markup",
       "Templates, broadcasts and the 24-hour window handled",
@@ -83,18 +83,18 @@ const chapters: Chapter[] = [
     id: "agents",
     anchor: "agents",
     marker: "Step 2",
-    module: "AI agents",
+    module: "AI Employee",
     ai: true,
-    title: "Agents answer from your knowledge and ask before they act",
-    body: "Give the agent your price list, hours, FAQs and listings. It answers what it knows, drafts the rest, and anything that touches money waits on Approvals.",
+    title: "Your AI employee answers from your knowledge and asks before it acts",
+    body: "Give your AI employee your price list, hours, FAQs and listings. It answers what it knows, drafts the rest, and anything that touches money waits on Approvals.",
     points: [
-      "Sales, channels and website agents, replying in the customer's language",
-      "Describe a new agent in a sentence: ERIX shows the plan first, then saves a draft",
+      "An AI employee for each channel, replying in the customer's language",
+      "Describe the job in a sentence: ERIX shows the plan first, then saves a draft",
       "Starts in Suggest: it drafts and a person sends, until you raise its autonomy",
       "Refunds, complaints and medical questions always go to a person",
       "Monthly limits, a pause button and usage you can see",
     ],
-    link: { href: "/#story-agent", label: "See the agent in the story" },
+    link: { href: "/#story-agent", label: "See the AI employee in the story" },
     visual: <LazyScreen name="ai" />,
   },
   {
@@ -149,6 +149,7 @@ const INCLUDED: { icon: GlyphName; title: string; ai?: boolean; items: string[] 
     items: [
       "The WhatsApp Business API on your own number, with approved templates",
       "Phone calls on the same contact",
+      "Instagram DMs and email in the same inbox",
       "One inbox with sent, delivered and read ticks, on the right contact",
       "Broadcasts to a segment, paced, with quiet hours from 9 pm to 9 am",
       "WhatsApp opt-in, the 24-hour window and STOP replies handled for you",
@@ -169,14 +170,14 @@ const INCLUDED: { icon: GlyphName; title: string; ai?: boolean; items: string[] 
   },
   {
     icon: "sparkles",
-    title: "AI agents",
+    title: "AI Employee",
     ai: true,
     items: [
       "Answers from your own text, web pages, PDFs and documents",
       "Sends only when it's confident and backed by your knowledge; otherwise it drafts for you",
       "Refunds, complaints, medical and legal questions go to a person, in English, Hindi, Hinglish, Telugu or Tamil",
       "Books slots and finds contacts using only the tools you allow",
-      "Sales and channels agents with an autonomy level and a monthly budget",
+      "An autonomy level and a monthly budget for each AI employee",
       "Mark replies correct, wrong or risky to see how it's doing",
     ],
   },
@@ -196,7 +197,7 @@ const INCLUDED: { icon: GlyphName; title: string; ai?: boolean; items: string[] 
 
 /** Built or planned but not in 1.0 for every workspace (VERSION_PLAN). */
 const LATER = [
-  { label: "Instagram DMs, email and website chat", when: "Coming soon" },
+  { label: "Website chat", when: "Coming soon" },
   { label: "GST invoices, payment links and proposals", when: "Coming soon" },
   { label: "Projects, e-sign and the client portal", when: "Coming soon" },
   { label: "Messenger and Telegram inboxes", when: "Version 1.2" },
@@ -234,7 +235,7 @@ export default async function PlatformIndexPage() {
 
       <MkHero
         title="One customer record. Every tool around it."
-        lead="ERIX CRM, Connect, Flow and the AI agents share one contact, so a chat, a call, a booking and a follow-up all land on the same record. Start with what you need today; the rest is already connected."
+        lead="ERIX CRM, Connect, Flow and the AI Employee share one contact, so a chat, a call, a booking and a follow-up all land on the same record. Start with what you need today; the rest is already connected."
         actions={
           <>
             <PrimaryCta lg />
@@ -327,7 +328,7 @@ export default async function PlatformIndexPage() {
       </MkSection>
 
       {/* ── Also in ERIX ── */}
-      <MkSection id="more" tone="subtle" title="Voice, Storage and the API">
+      <MkSection id="more" tone="subtle" title="Voice and the API">
         <ul className="grid gap-x-10 md:grid-cols-3">
           {more.map((m) => (
             <li key={m.key} className="border-t border-border-soft pt-6 pb-2">

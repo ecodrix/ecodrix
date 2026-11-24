@@ -31,7 +31,7 @@ const parts: {
     screen: "inbox",
     title: "Every channel in one inbox, live",
     points: [
-      "WhatsApp chats and phone calls on the same contact. Instagram, email and website chat: coming soon",
+      "WhatsApp chats, Instagram DMs, email and phone calls on the same contact. Website chat: coming soon",
       "Ticks you know: ✓ sent, ✓✓ delivered, blue ✓✓ read",
       "AI drafts show their source. Send them, or edit first",
     ],
