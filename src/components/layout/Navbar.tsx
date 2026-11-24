@@ -101,7 +101,8 @@ export function Navbar() {
         <div
           className={cn(
             "relative mx-auto flex h-13 w-full max-w-[1180px] items-center gap-3 rounded-[32px] border border-border bg-surface pr-2.5 pl-5 lg:gap-6 lg:pl-6",
-            "has-[[data-slot=navigation-menu-trigger][data-state=open]]:rounded-[28px_28px_0_0]",
+            // Open: flat card, the bar's bottom border is the only separator (no shadow falls on the panel).
+            "has-[[data-slot=navigation-menu-trigger][data-state=open]]:rounded-[28px_28px_0_0] has-[[data-slot=navigation-menu-trigger][data-state=open]]:shadow-none",
             // Deep navy tint reads on both light pages and the navy hero band.
             "shadow-[0_6px_18px_-10px_rgba(4,13,66,0.16),0_1px_3px_-1px_rgba(4,13,66,0.06)]",
             "group-data-[scrolled]:shadow-[0_8px_22px_-12px_rgba(4,13,66,0.22),0_1px_4px_-1px_rgba(4,13,66,0.08)]",

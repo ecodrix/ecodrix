@@ -1,9 +1,10 @@
 "use client";
 
-import { AnimatePresence, m, useReducedMotion, type Variants } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { type ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowRight, Icon, type IconName } from "@/components/icons";
+import { buttonVariants } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,427 +15,370 @@ import {
 } from "@/components/ui/navigation-menu";
 import { SoonControl } from "@/components/ui/soon";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { COMPANY_NAV, COMPARE_NAV, CONTACT_EMAIL, GUIDE_NAV, INDUSTRY_NAV, RESOURCE_NAV } from "@/lib/site";
+import {
+  COMPANY_NAV,
+  COMPARE_NAV,
+  CONTACT_EMAIL,
+  GUIDE_NAV,
+  INDUSTRY_NAV,
+  type ModuleStatus,
+  RESOURCE_NAV,
+} from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { isCurrent, NAV_SECTIONS, type NavSection } from "./nav-data";
 import { type PlatformNavItem, usePlatformNav } from "./platform-nav";
 
-/* ── Panels ──────────────────────────────────────────────────────────── */
+/* ── Panels: a list on the left, a preview of the active row on the right ── */
 
-const list: Variants = { open: { transition: { staggerChildren: 0.025, delayChildren: 0.04 } } };
-const row: Variants = {
-  closed: { opacity: 0, y: -4 },
-  open: { opacity: 1, y: 0, transition: { duration: 0.26, ease: [0.22, 1, 0.36, 1] } },
+type Row = {
+  href: string;
+  name: string;
+  summary: string;
+  icon?: IconName;
+  ai?: boolean;
+  status?: ModuleStatus;
 };
 
-/** A menu row: Radix link (closes the menu, arrow-key focus) around a Next link. */
-function PanelLink({
-  href,
-  path,
-  className,
-  onSpotlight,
-  disabled,
-  children,
-}: {
-  href: string;
-  path: string | null;
-  className?: string;
-  /** Item not available yet: shown, announced as disabled, no link. */
-  disabled?: boolean;
-  /** Pointer or keyboard landed on this row (drives the platform spotlight card). */
-  onSpotlight?: () => void;
-  children: ReactNode;
-}) {
-  if (disabled)
-    return (
-      <m.li variants={row}>
-        <SoonControl role="link" className={cn("flex gap-3 rounded-[10px] p-2.5", className)}>
-          {children}
-        </SoonControl>
-      </m.li>
-    );
-  return (
-    <m.li variants={row}>
-      <NavigationMenuLink asChild active={isCurrent(path, href)}>
-        <Link
-          href={href}
-          aria-current={isCurrent(path, href) ? "page" : undefined}
-          onPointerEnter={onSpotlight}
-          onFocus={onSpotlight}
-          className={cn(
-            "group/row flex gap-3 rounded-[10px] p-2.5 hover:bg-hover focus-visible:bg-hover data-[active]:bg-accent-muted",
-            className,
-          )}
-        >
-          {children}
-        </Link>
-      </NavigationMenuLink>
-    </m.li>
-  );
-}
-
-function Glyph({ ai, children }: { ai?: boolean; children: ReactNode }) {
-  return (
-    <span
-      className={cn(
-        "flex size-9 shrink-0 items-center justify-center rounded-[8px]",
-        ai ? "bg-ai-subtle text-ai" : "bg-accent-muted text-accent",
-      )}
-    >
-      {children}
-    </span>
-  );
-}
-
-function RowText({ title, text, badge }: { title: string; text: string; badge?: ReactNode }) {
-  return (
-    <span className="min-w-0">
-      <span className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[14.5px] font-semibold text-foreground">
-        {title}
-        {badge}
-      </span>
-      <span className="mt-0.5 block text-[13px] leading-snug text-muted-foreground">{text}</span>
-    </span>
-  );
-}
-
-/* ── Spotlight card: the navy card beside every panel's rows ─────────── */
-
 type Spot = {
+  /** The href of the row it describes; the first spot of a panel is its default (no CTA of its own). */
   key: string;
   kicker: string;
   icon?: IconName;
   headline: string;
   text?: string;
-  /** Internal links close the menu (Radix); `external` opens a new tab or mail app. */
-  links?: readonly { label: string; href: string; icon?: ReactNode; external?: boolean }[];
+  /** The default spot's links, always shown in the strip under the preview. */
+  links?: readonly { label: string; href: string }[];
   cta?: { label: string; href: string };
 };
 
-/**
- * The band's swoosh and red dot, small. Every card of a panel is stacked in one grid cell, so the
- * panel keeps the tallest card's height and never jumps; the active one fades in, the rest are
- * inert (not focusable, hidden from screen readers).
- */
-function SpotlightCard({ spots, active, path }: { spots: readonly Spot[]; active: string; path: string | null }) {
+type PanelData = { rows: readonly Row[]; spots: readonly Spot[]; foot?: { label: string; href: string } };
+
+const LINK_ARROW =
+  "group inline-flex items-center gap-1.5 font-sans text-[15px]/5 font-[650] text-accent hover:underline hover:underline-offset-3 motion-safe:focus-visible:animate-focus";
+
+/** One row of the list. A Coming soon row is shown but is not a link. */
+function PanelRow({
+  row,
+  path,
+  on,
+  plain,
+  onActive,
+}: {
+  row: Row;
+  path: string | null;
+  on: boolean;
+  plain: boolean;
+  onActive: () => void;
+}) {
+  const soon = row.status === "soon";
+  const current = isCurrent(path, row.href);
+  const cls = cn(
+    "flex items-center gap-3 rounded-[10px] pr-3 pl-1.5 transition-colors duration-150 motion-reduce:transition-none",
+    plain ? "h-13 pl-3.5" : "h-11",
+    on && "bg-hover",
+  );
+  const body = (
+    <>
+      {row.icon && (
+        <span
+          className={cn(
+            "flex size-8 shrink-0 items-center justify-center rounded-[8px]",
+            row.ai ? "bg-ai-subtle text-ai" : "bg-accent-muted text-accent",
+            on && "bg-surface",
+          )}
+        >
+          <Icon name={row.icon} size={16} variant="line" />
+        </span>
+      )}
+      <span className={cn("min-w-0 text-[15px]/5 font-semibold", current ? "text-accent" : "text-foreground")}>
+        {row.name}
+      </span>
+      {current && <span aria-hidden="true" className="-ml-1 size-1.5 shrink-0 rounded-full bg-[var(--hero-dot)]" />}
+      {(row.status === "invite" || soon) && <StatusBadge status={row.status as ModuleStatus} className="shrink-0" />}
+    </>
+  );
   return (
-    <m.div variants={row} className="band-navy grid rounded-[12px] p-5">
-      <svg
-        className="pointer-events-none absolute inset-0 size-full"
-        viewBox="0 0 260 300"
-        preserveAspectRatio="xMaxYMax slice"
-        aria-hidden="true"
-      >
-        <path
-          d="M-30 330 C 70 250 160 222 290 226"
-          fill="none"
-          stroke="var(--hero-swoosh)"
-          strokeWidth="26"
-          strokeLinecap="round"
-          opacity="0.3"
-        />
-        <circle cx="236" cy="268" r="8" fill="var(--hero-dot)" />
-      </svg>
-      {spots.map((s) => {
-        const on = s.key === active;
-        return (
-          <div
-            key={s.key}
-            inert={!on}
-            className={cn(
-              "relative flex flex-col [grid-area:1/1] transition-[opacity,translate] duration-200 ease-out",
-              on ? "opacity-100" : "translate-y-1.5 opacity-0",
-            )}
-          >
-            <span className="flex items-center gap-1.5 text-[13px] font-semibold text-[var(--on-navy-link)]">
-              {s.icon && <Icon name={s.icon} size={14} variant="line" />}
-              {s.kicker}
-            </span>
-            <p className="mt-2 font-display text-[19px] leading-snug font-bold text-white">{s.headline}</p>
-            {s.text && <p className="mt-2 text-[13.5px] text-white/75">{s.text}</p>}
-            {s.links && (
-              <ul className="mt-3 grid gap-0.5">
-                {s.links.map((l) => {
-                  const cls =
-                    "flex items-center gap-2 rounded-[8px] py-1.5 text-[14px] font-semibold text-white hover:underline";
-                  return (
-                    <li key={l.href}>
-                      {l.external ? (
-                        <a
-                          href={l.href}
-                          className={cls}
-                          {...(l.href.startsWith("http") && { target: "_blank", rel: "noopener noreferrer" })}
-                        >
-                          {l.icon}
-                          {l.label}
-                          {l.href.startsWith("http") && <span className="sr-only"> (opens in a new tab)</span>}
-                        </a>
-                      ) : (
-                        <NavigationMenuLink asChild active={isCurrent(path, l.href)}>
-                          <Link href={l.href} className={cls}>
-                            {l.icon}
-                            {l.label}
-                          </Link>
-                        </NavigationMenuLink>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-            {s.cta && (
-              <NavigationMenuLink asChild active={isCurrent(path, s.cta.href)}>
-                <Link
-                  href={s.cta.href}
-                  className="mt-auto inline-flex items-center gap-1.5 pt-5 text-[14px] font-semibold text-white hover:underline"
-                >
-                  {s.cta.label}
-                  <ArrowRight aria-hidden="true" className="size-4" />
-                </Link>
-              </NavigationMenuLink>
-            )}
-          </div>
-        );
-      })}
-    </m.div>
+    <li onPointerEnter={onActive} onFocus={onActive}>
+      {soon ? (
+        <SoonControl role="link" className={cls}>
+          {body}
+        </SoonControl>
+      ) : (
+        <NavigationMenuLink asChild active={current}>
+          <Link href={row.href} className={cls}>
+            {body}
+            <ArrowRight
+              aria-hidden="true"
+              className={cn(
+                "ml-auto size-4 shrink-0 text-accent transition-[opacity,translate] duration-150 motion-reduce:transition-none",
+                on ? "opacity-100" : "-translate-x-1 opacity-0",
+              )}
+            />
+          </Link>
+        </NavigationMenuLink>
+      )}
+    </li>
   );
 }
 
 /**
- * A panel: rows on the left, the spotlight card on the right. The card follows the row under the
- * pointer or keyboard focus, keeps it while the pointer crosses to the card (so its links can be
- * clicked) and goes back to the first spot when the pointer leaves the panel.
+ * A panel: the list (and the section's foot link) on the left, the preview pane on the right. The
+ * top of the pane follows the active row (pointer or keyboard focus) and shows the section's default
+ * spot when the pointer leaves the panel; the strip under it never changes. Every state is stacked
+ * in one grid cell, so the pane keeps the tallest height and nothing jumps; inactive ones are inert.
  */
-function SpotPanel({
-  className,
-  spots,
-  path,
-  children,
-}: {
-  className: string;
-  spots: readonly Spot[];
-  path: string | null;
-  children: (spotlight: (key: string) => () => void) => ReactNode;
-}) {
-  const [active, setActive] = useState(spots[0].key);
+function SpotPanel({ data, path }: { data: PanelData; path: string | null }) {
+  const { rows, spots, foot } = data;
+  const [active, setActive] = useState<string | null>(null);
+  const def = spots[0];
+  const wide = rows.length > 5;
+  const plain = rows.every((r) => !r.icon);
+  const activeRow = rows.find((r) => r.href === active);
+
+  const previewOf = (r?: Row): Partial<Spot> & Pick<Spot, "kicker" | "headline"> & { ai?: boolean } => {
+    const spot = r && spots.find((s) => s.key === r.href);
+    if (!r) return { kicker: def.kicker, headline: def.headline, text: def.text };
+    // A row without a spot of its own says what it is, in its own words.
+    if (!spot) return { icon: r.icon, kicker: r.name, headline: r.summary, ai: r.ai };
+    return { ...spot, ai: r.ai, cta: spot === def ? undefined : spot.cta };
+  };
+  const strip = def.links ?? (def.cta ? [def.cta] : []);
+
+  // A keyboard user's focused element is never removed from under them.
+  const leave = (e: React.PointerEvent<HTMLDivElement>) => {
+    const f = document.activeElement;
+    if (f instanceof HTMLElement && e.currentTarget.contains(f) && f.matches(":focus-visible")) return;
+    setActive(null);
+  };
+
   return (
-    <div className={cn("grid gap-2", className)} onPointerLeave={() => setActive(spots[0].key)}>
-      <div>{children((key) => () => setActive(key))}</div>
-      <SpotlightCard spots={spots} active={active} path={path} />
+    <div
+      onPointerLeave={leave}
+      className={cn(
+        "grid grid-rows-[auto_1fr] gap-x-6",
+        wide
+          ? "grid-cols-[minmax(0,3fr)_minmax(0,2fr)] min-[1280px]:grid-cols-[608px_minmax(0,1fr)]"
+          : "grid-cols-[minmax(0,340px)_minmax(0,1fr)]",
+      )}
+    >
+      <ul
+        className={cn(
+          "col-start-1 row-start-1 grid content-start gap-0.5",
+          wide && "grid-flow-col grid-cols-2 grid-rows-[repeat(5,auto)] gap-x-2",
+        )}
+      >
+        {rows.map((r) => (
+          <PanelRow
+            key={r.href}
+            row={r}
+            path={path}
+            on={r.href === active}
+            plain={plain}
+            onActive={() => setActive(r.href)}
+          />
+        ))}
+      </ul>
+      {foot && (
+        <div className="col-start-1 row-start-2 mt-2 self-start border-t border-border-soft px-1.5 pt-2.5">
+          <NavigationMenuLink asChild>
+            <Link href={foot.href} className={LINK_ARROW}>
+              {foot.label}
+              <ArrowRight aria-hidden="true" className="size-4" />
+            </Link>
+          </NavigationMenuLink>
+        </div>
+      )}
+      <div
+        className={cn(
+          "col-start-2 row-span-2 row-start-1 flex min-w-0 flex-col rounded-2xl border p-7 transition-colors duration-150 motion-reduce:transition-none",
+          activeRow?.ai ? "border-transparent bg-ai-subtle" : "border-border-soft bg-blue-50",
+        )}
+      >
+        <div className="grid flex-1">
+          {[undefined, ...rows].map((r) => {
+            const p = previewOf(r);
+            const on = r?.href === active || (!r && !activeRow);
+            return (
+              <div
+                key={r?.href ?? "default"}
+                inert={!on}
+                className={cn(
+                  "flex flex-col items-start [grid-area:1/1] transition-opacity duration-150 motion-reduce:transition-none",
+                  on ? "opacity-100" : "opacity-0",
+                )}
+              >
+                <span
+                  className={cn(
+                    "flex items-center gap-2 text-[13px]/5 font-semibold",
+                    p.ai ? "text-ai" : "text-accent",
+                  )}
+                >
+                  {p.icon && <Icon name={p.icon} size={16} variant="line" />}
+                  {p.kicker}
+                </span>
+                <p className="mt-3 max-w-[470px] font-display text-[24px]/[30px] font-bold tracking-[-0.4px] text-balance text-navy">
+                  {p.headline}
+                </p>
+                {p.text && <p className="mt-2 max-w-[52ch] text-[15px]/6 text-muted-foreground">{p.text}</p>}
+                {p.cta && (
+                  <div className="mt-auto pt-4">
+                    <NavigationMenuLink asChild>
+                      <Link href={p.cta.href} className={cn(buttonVariants({ size: "sm" }), "shadow-none!")}>
+                        {p.cta.label}
+                        <ArrowRight aria-hidden="true" className="size-4" />
+                      </Link>
+                    </NavigationMenuLink>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+        <div className="mt-4 flex min-h-10 w-full flex-wrap items-center gap-x-6 gap-y-2 border-t border-accent-border pt-3.5">
+          <span className="text-[13px]/5 font-semibold text-subtle">{def.kicker}</span>
+          {strip.map((l) =>
+            l.href.startsWith("mailto:") ? (
+              <a
+                key={l.href}
+                href={l.href}
+                className="inline-flex items-center gap-2 text-[15px]/5 font-[650] text-foreground hover:underline hover:underline-offset-3 motion-safe:focus-visible:animate-focus"
+              >
+                <Icon name="mail" size={16} variant="line" className="text-accent" />
+                {l.label}
+              </a>
+            ) : (
+              <NavigationMenuLink asChild key={l.href}>
+                <Link href={l.href} className={LINK_ARROW}>
+                  {l.label}
+                  <ArrowRight aria-hidden="true" className="size-4" />
+                </Link>
+              </NavigationMenuLink>
+            ),
+          )}
+        </div>
+      </div>
     </div>
   );
 }
 
-const platformSpots = (platform: readonly PlatformNavItem[]): readonly Spot[] => [
-  {
-    key: "story",
-    kicker: "The ERIX story",
-    headline: "One enquiry, from a 9:42 pm message to a booked visit.",
-    text: "Follow it through the inbox, the agent, the pipeline and Flow.",
-    cta: { label: "See the story", href: "/#story" },
-  },
-  ...platform.map((mod) => ({
-    key: mod.key,
-    kicker: mod.name,
-    icon: mod.icon,
-    headline: mod.card.headline,
-    text: mod.card.text,
-    cta: { label: `Explore ${mod.name}`, href: mod.href },
-  })),
-];
-
-const INDUSTRY_SPOTS: readonly Spot[] = [
-  {
-    key: "trades",
-    kicker: "A day in each trade",
-    headline: "Four trades, one workspace.",
-    text: "Pick yours to see the enquiries and bookings ERIX takes care of.",
-    cta: { label: "Ask about your trade", href: "/#contact" },
-  },
-  ...INDUSTRY_NAV.map((i) => ({
-    key: i.href,
-    kicker: i.name,
-    icon: i.icon,
-    headline: i.card.headline,
-    text: i.card.text,
-    cta: { label: "See how it works", href: i.href },
-  })),
-];
-
-const RESOURCE_SPOTS: readonly Spot[] = [
-  {
-    key: "/compare",
-    kicker: "Side by side",
-    headline: "How ERIX compares with the tools you know.",
-    links: [
-      ...COMPARE_NAV.map((c) => ({ label: c.name, href: c.href })),
-      { label: "All comparisons", href: "/compare" },
-    ],
-  },
-  ...RESOURCE_NAV.flatMap((r) =>
-    "card" in r
-      ? [
-          {
-            key: r.href,
-            kicker: r.name,
-            icon: r.icon,
-            headline: r.card.headline,
-            text: r.card.text,
-            cta: { label: r.card.cta, href: r.href },
-          },
-        ]
-      : [],
-  ),
-  ...GUIDE_NAV.map((g) => ({
-    key: g.href,
-    kicker: g.name,
-    icon: g.icon,
-    headline: g.card.headline,
-    text: g.card.text,
-    cta: { label: "Read the guide", href: g.href },
-  })),
-];
-
 /** Resources rows: the blog and comparisons, then every guide (the hub is the panel's foot link). */
 const RESOURCE_ROWS = [...RESOURCE_NAV.filter((r) => r.href !== "/guides"), ...GUIDE_NAV];
 
-const COMPANY_SPOTS: readonly Spot[] = [
-  {
-    key: "contact",
-    kicker: "Contact",
-    headline: "Talk to a person, not a ticket queue.",
-    text: "Email us; a person replies on IST working hours.",
-    links: [
-      {
-        label: CONTACT_EMAIL,
-        href: `mailto:${CONTACT_EMAIL}`,
-        icon: <Icon name="mail" size={16} variant="line" />,
-        external: true,
-      },
-    ],
-  },
-  ...COMPANY_NAV.map((c) => ({
-    key: c.href,
-    kicker: c.name,
-    headline: c.card.headline,
-    text: c.card.text,
-    cta: { label: c.card.cta, href: c.href },
+const platformData = (platform: readonly PlatformNavItem[]): PanelData => ({
+  rows: platform.map((m) => ({
+    href: m.href,
+    name: m.name,
+    summary: m.summary,
+    icon: m.icon,
+    ai: "ai" in m,
+    status: m.status,
   })),
-];
+  foot: { label: "See how it all fits together", href: "/platform" },
+  spots: [
+    {
+      key: "/#story",
+      kicker: "The ERIX story",
+      headline: "One enquiry, from a 9:42 pm message to a booked visit.",
+      text: "Follow it through the inbox, the agent, the pipeline and Flow.",
+      cta: { label: "See the story", href: "/#story" },
+    },
+    ...platform.map((mod) => ({
+      key: mod.href,
+      kicker: mod.name,
+      icon: mod.icon,
+      headline: mod.card.headline,
+      text: mod.card.text,
+      cta: { label: `Explore ${mod.name}`, href: mod.href },
+    })),
+  ],
+});
 
-function PanelFoot({ href, label, onSpotlight }: { href: string; label: string; onSpotlight?: () => void }) {
-  return (
-    <m.div variants={row} className="mt-1 border-t border-border-soft px-2.5 pt-2.5">
-      <NavigationMenuLink asChild>
-        <Link
-          href={href}
-          onPointerEnter={onSpotlight}
-          onFocus={onSpotlight}
-          className="group inline-flex items-center gap-1.5 font-sans text-[15px]/5 font-[650] text-accent hover:underline hover:underline-offset-3 motion-safe:focus-visible:animate-focus"
-        >
-          {label}
-          <ArrowRight aria-hidden="true" className="size-4" />
-        </Link>
-      </NavigationMenuLink>
-    </m.div>
-  );
-}
+const INDUSTRY_DATA: PanelData = {
+  rows: INDUSTRY_NAV,
+  foot: { label: "See a day in each trade", href: "/#verticals" },
+  spots: [
+    {
+      key: "/#contact",
+      kicker: "A day in each trade",
+      headline: "Four trades, one workspace.",
+      text: "Pick yours to see the enquiries and bookings ERIX takes care of.",
+      cta: { label: "Ask about your trade", href: "/#contact" },
+    },
+    ...INDUSTRY_NAV.map((i) => ({
+      key: i.href,
+      kicker: i.name,
+      icon: i.icon,
+      headline: i.card.headline,
+      text: i.card.text,
+      cta: { label: "See how it works", href: i.href },
+    })),
+  ],
+};
+
+const RESOURCE_DATA: PanelData = {
+  rows: RESOURCE_ROWS,
+  foot: { label: "See all guides", href: "/guides" },
+  spots: [
+    {
+      key: "/compare",
+      kicker: "Side by side",
+      headline: "How ERIX compares with the tools you know.",
+      links: [
+        ...COMPARE_NAV.map((c) => ({ label: c.name, href: c.href })),
+        { label: "All comparisons", href: "/compare" },
+      ],
+    },
+    ...RESOURCE_ROWS.flatMap((r) =>
+      "card" in r
+        ? [
+            {
+              key: r.href,
+              kicker: r.name,
+              icon: r.icon,
+              headline: r.card.headline,
+              text: r.card.text,
+              cta: { label: "cta" in r.card ? r.card.cta : "Read the guide", href: r.href },
+            },
+          ]
+        : [],
+    ),
+  ],
+};
+
+const COMPANY_DATA: PanelData = {
+  rows: [
+    ...COMPANY_NAV,
+    { name: "Contact us", href: "/#contact", summary: "Join the list or ask a question; a person replies." },
+  ],
+  spots: [
+    {
+      key: "/#contact",
+      kicker: "Contact",
+      headline: "Talk to a person, not a ticket queue.",
+      text: "Email us; a person replies on IST working hours.",
+      links: [{ label: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` }],
+    },
+    ...COMPANY_NAV.map((c) => ({
+      key: c.href,
+      kicker: c.name,
+      headline: c.card.headline,
+      text: c.card.text,
+      cta: { label: c.card.cta, href: c.href },
+    })),
+  ],
+};
 
 function Panel({ section, path }: { section: NavSection; path: string | null }) {
   const platform = usePlatformNav();
-  if (section === "platform")
-    return (
-      <SpotPanel className="grid-cols-[minmax(0,1fr)_18rem] gap-6" spots={platformSpots(platform)} path={path}>
-        {(spotlight) => (
-          <>
-            <m.ul
-              variants={list}
-              // Six columns: rows of three tiles, and a short last row (two tiles) splits evenly, no hole.
-              className={cn(
-                "grid grid-cols-6 gap-1 [&>li]:col-span-2",
-                platform.length % 3 === 2 && "[&>li:nth-last-child(-n+2)]:col-span-3",
-              )}
-            >
-              {platform.map((mod) => (
-                <PanelLink
-                  key={mod.key}
-                  href={mod.href}
-                  path={path}
-                  onSpotlight={spotlight(mod.key)}
-                  disabled={mod.status === "soon"}
-                >
-                  <Glyph ai={"ai" in mod}>
-                    <Icon name={mod.icon} size={16} variant="line" />
-                  </Glyph>
-                  <RowText
-                    title={mod.name}
-                    text={mod.summary}
-                    badge={<StatusBadge status={mod.status} isNew={mod.isNew} />}
-                  />
-                </PanelLink>
-              ))}
-            </m.ul>
-            <PanelFoot href="/platform" label="See how it all fits together" />
-          </>
-        )}
-      </SpotPanel>
-    );
-  if (section === "industries")
-    return (
-      <SpotPanel className="grid-cols-[minmax(0,1fr)_18rem] gap-6" spots={INDUSTRY_SPOTS} path={path}>
-        {(spotlight) => (
-          <>
-            <m.ul variants={list} className="grid grid-cols-3 gap-1">
-              {INDUSTRY_NAV.map((i) => (
-                <PanelLink key={i.href} href={i.href} path={path} onSpotlight={spotlight(i.href)}>
-                  <Glyph>
-                    <Icon name={i.icon} size={16} variant="duo" />
-                  </Glyph>
-                  <RowText title={i.name} text={i.summary} />
-                </PanelLink>
-              ))}
-            </m.ul>
-            <PanelFoot href="/#verticals" label="See a day in each trade" />
-          </>
-        )}
-      </SpotPanel>
-    );
-  if (section === "resources")
-    return (
-      <SpotPanel className="grid-cols-[minmax(0,1fr)_18rem] gap-6" spots={RESOURCE_SPOTS} path={path}>
-        {(spotlight) => (
-          <>
-            <m.ul variants={list} className="grid grid-cols-3 gap-1">
-              {RESOURCE_ROWS.map((r) => (
-                <PanelLink key={r.href} href={r.href} path={path} onSpotlight={spotlight(r.href)}>
-                  <Glyph>
-                    <Icon name={r.icon} size={16} variant="line" />
-                  </Glyph>
-                  <RowText title={r.name} text={r.summary} />
-                </PanelLink>
-              ))}
-            </m.ul>
-            <PanelFoot href="/guides" label="See all guides" onSpotlight={spotlight("/guides")} />
-          </>
-        )}
-      </SpotPanel>
-    );
-  return (
-    <SpotPanel className="grid-cols-[minmax(0,1fr)_18rem] gap-6" spots={COMPANY_SPOTS} path={path}>
-      {(spotlight) => (
-        <m.ul variants={list} className="grid grid-cols-3 content-start gap-1">
-          {COMPANY_NAV.map((c) => (
-            <PanelLink key={c.href} href={c.href} path={path} onSpotlight={spotlight(c.href)}>
-              <RowText title={c.name} text={c.summary} />
-            </PanelLink>
-          ))}
-          <PanelLink href="/#contact" path={path} onSpotlight={spotlight("contact")}>
-            <RowText title="Contact us" text="Join the list or ask a question; a person replies." />
-          </PanelLink>
-        </m.ul>
-      )}
-    </SpotPanel>
-  );
+  const data =
+    section === "platform"
+      ? platformData(platform)
+      : section === "industries"
+        ? INDUSTRY_DATA
+        : section === "resources"
+          ? RESOURCE_DATA
+          : COMPANY_DATA;
+  return <SpotPanel data={data} path={path} />;
 }
 
 /**
@@ -504,7 +448,7 @@ export default function DesktopNav({
                     <m.div
                       // The pill's own width and edges (-1px = its border), attached under the bar: one surface that
                       // grows down; the bar squares its bottom corners meanwhile (Navbar). Height 0 > auto, no transform.
-                      className="absolute inset-x-[-1px] top-full overflow-hidden rounded-b-[28px] border-x border-b border-border bg-surface text-foreground"
+                      className="absolute inset-x-[-1px] top-full overflow-hidden rounded-b-[28px] border border-border bg-surface text-foreground"
                       initial={reduce ? false : { height: 0, opacity: 0.6 }}
                       animate={{
                         height: "auto",
