@@ -13,8 +13,8 @@ import { LogoMark } from "./LogoMark";
 import { NAV_SECTIONS, type NavSection, sectionOf } from "./nav-data";
 
 // Both menus load on demand, so neither costs a phone anything on first
-// load: the phone sheet (Radix Dialog + Accordion) on the first touch of its
-// button, the desktop NavigationMenu once a wide screen is idle.
+// load: the side panel (Radix Dialog) on the first touch of its button,
+// the desktop NavigationMenu once a wide screen is idle.
 const MobileNav = dynamic(() => import("./MobileNav"), { ssr: false });
 const DesktopNav = dynamic(() => import("./DesktopNav"), { ssr: false });
 
@@ -25,8 +25,8 @@ const DesktopNav = dynamic(() => import("./DesktopNav"), { ssr: false });
  * panel that enters with framer-motion. A pill glides to the open section
  * and the logo's red dot marks the current one (both `layoutId`). A floating
  * rounded bar, fixed, one height always (a spacer holds it), with a soft shadow that deepens on scroll (the one
- * shadow on the otherwise flat site, founder 24 Nov). Phones get a Sheet with an
- * Accordion. Without JavaScript the menus become plain links and the menu
+ * shadow on the otherwise flat site, founder 24 Nov). Below 1024px a side panel lists
+ * every section. Without JavaScript the menus become plain links and the menu
  * button jumps to the footer's site map (globals.css, `scripting`).
  */
 export function Navbar() {
@@ -76,6 +76,8 @@ export function Navbar() {
     setLastPath(path);
     setMenuOpen(false);
   }
+  // Widening past 1024px unmounts the panel. Close it too, or it comes back open when the window narrows.
+  if (menuOpen && !isMobile) setMenuOpen(false);
 
   // The sheet is opened by our own button (not a Radix Trigger), so say
   // where focus goes when it closes: back to the button, or, after a link
@@ -203,7 +205,6 @@ export function Navbar() {
           onNavigate={() => (closedByNav.current = true)}
           onCloseAutoFocus={onMenuClosed}
           path={path}
-          current={current}
         />
       )}
     </>

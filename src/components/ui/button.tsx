@@ -12,8 +12,9 @@ import { cn } from "@/lib/utils";
  * featured tile: the main action turns white, the second one glass.
  */
 // Press: a 2% squeeze in 90ms, then a soft spring back.
+// forced-colors:border: fills and shadows vanish in Windows high contrast, so the pill gets a drawn edge.
 const solid =
-  "inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full px-5 text-[15px] font-[650] transition-[color,background-color,box-shadow,scale] duration-[var(--dur-fast),var(--dur-fast),var(--dur-fast),360ms] ease-[ease-out,ease-out,ease-out,var(--ease-soft-spring)] active:[scale:0.98] active:duration-[var(--dur-fast),var(--dur-fast),var(--dur-fast),90ms] motion-safe:focus-visible:animate-focus";
+  "inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full px-5 text-[15px] font-[650] transition-[color,background-color,box-shadow,scale] duration-[var(--dur-fast),var(--dur-fast),var(--dur-fast),360ms] ease-[ease-out,ease-out,ease-out,var(--ease-soft-spring)] active:[scale:0.98] active:duration-[var(--dur-fast),var(--dur-fast),var(--dur-fast),90ms] motion-safe:focus-visible:animate-focus forced-colors:border";
 
 const variants = cva("[&_svg]:pointer-events-none [&_svg]:shrink-0", {
   variants: {

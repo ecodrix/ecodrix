@@ -2,119 +2,111 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Icon, type IconName } from "@/components/icons";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Icon } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
 import { SoonControl } from "@/components/ui/soon";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { COMPANY_NAV, COMPARE_NAV, CONTACT_CTA, GUIDE_NAV, INDUSTRY_NAV, RESOURCE_NAV } from "@/lib/site";
+import { COMPANY_NAV, COMPARE_NAV, CONTACT_CTA, EMAIL_CTA, GUIDE_NAV, INDUSTRY_NAV, RESOURCE_NAV } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { LogoMark } from "./LogoMark";
-import { isCurrent, NAV_SECTIONS, type NavSection } from "./nav-data";
+import { isCurrent } from "./nav-data";
 import { type PlatformNavItem, usePlatformNav } from "./platform-nav";
 
-type Row = {
-  href: string;
-  label: string;
-  text?: string;
-  icon: IconName;
-  ai?: boolean;
-  badge?: ReactNode;
-  disabled?: boolean;
-};
+type Row = { href: string; label: string; badge?: ReactNode; disabled?: boolean };
+/** `small`: a secondary list (guides, comparisons) in quieter, smaller type. */
+type Group = { key: string; label: string; rows: Row[]; small?: boolean };
 
-/** Two-line rows (name and what it's for), the same words as the desktop panels. */
-const rowsFor = (platform: readonly PlatformNavItem[]): Record<NavSection, Row[]> => ({
-  platform: platform.map((m) => ({
-    href: m.href,
-    label: m.name,
-    text: m.summary,
-    icon: m.icon,
-    ai: "ai" in m,
-    badge: <StatusBadge status={m.status} isNew={m.isNew} />,
-    disabled: m.status === "soon",
-  })),
-  industries: INDUSTRY_NAV.map((i) => ({ href: i.href, label: i.name, text: i.summary, icon: i.icon })),
-  resources: RESOURCE_NAV.map((r) => ({ href: r.href, label: r.name, text: r.summary, icon: r.icon })),
-  company: [
-    ...COMPANY_NAV.map((c, n) => ({
-      href: c.href,
-      label: c.name,
-      text: c.summary,
-      icon: (n === 0 ? "building-2" : "user-round") as IconName,
-    })),
-    {
-      href: CONTACT_CTA.href,
-      label: "Contact us",
-      text: "Join the list or ask a question; a person replies.",
-      icon: "message-circle",
-    },
-  ],
-});
+/** Every header section as one flat list of groups, so nothing needs opening. */
+const groupsFor = (platform: readonly PlatformNavItem[]): Group[] => [
+  {
+    key: "platform",
+    label: "Platform",
+    rows: [
+      ...platform.map((m) => ({
+        href: m.href,
+        label: m.name,
+        // "New" is left out here: the list is names only; Invite only and Coming soon still show.
+        badge: <StatusBadge status={m.status} />,
+        disabled: m.status === "soon",
+      })),
+      { href: "/platform", label: "How it all fits together" },
+    ],
+  },
+  { key: "industries", label: "Industries", rows: INDUSTRY_NAV.map((i) => ({ href: i.href, label: i.name })) },
+  { key: "resources", label: "Resources", rows: RESOURCE_NAV.map((r) => ({ href: r.href, label: r.name })) },
+  { key: "company", label: "Company", rows: COMPANY_NAV.map((c) => ({ href: c.href, label: c.name })) },
+  { key: "guides", label: "Guides", small: true, rows: GUIDE_NAV.map((g) => ({ href: g.href, label: g.name })) },
+  {
+    key: "compare",
+    label: "Side by side",
+    small: true,
+    rows: COMPARE_NAV.map((c) => ({ href: c.href, label: c.name })),
+  },
+];
 
-function RowBody({ r }: { r: Row }) {
-  return (
-    <>
-      <span
-        className={cn(
-          "mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-[8px]",
-          r.ai ? "bg-ai-subtle text-ai" : "bg-accent-muted text-accent",
-        )}
-      >
-        <Icon name={r.icon} size={16} variant="line" />
-      </span>
-      <span className="min-w-0 flex-1">
-        <span className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[15px] font-semibold text-foreground group-aria-[current=page]:text-accent">
-          {r.label}
-          {r.badge}
-        </span>
-        {r.text && <span className="mt-0.5 block text-[13px] leading-snug text-muted-foreground">{r.text}</span>}
-      </span>
-    </>
-  );
-}
-
-/** A compact single-line link list under a small heading (guides, comparisons). */
-function SubList({
-  title,
-  items,
+function Item({
+  r,
+  small,
   path,
   onNavigate,
 }: {
-  title: string;
-  items: { href: string; label: string; icon?: IconName }[];
+  r: Row;
+  small?: boolean;
   path: string | null;
   onNavigate: () => void;
 }) {
+  const cls = cn(
+    "flex min-h-11 items-center gap-2.5 rounded-[10px] px-3 text-navy",
+    small ? "text-[15px] font-medium text-navy/85" : "font-display text-[21px]/[1.15] font-semibold tracking-[-0.01em]",
+  );
+  if (r.disabled)
+    return (
+      <SoonControl role="link" className={cn(cls, "text-navy/60")}>
+        {r.label}
+        {r.badge}
+      </SoonControl>
+    );
+  // Help, API docs, the changelog and status live on their own hosts.
+  const external = r.href.startsWith("http");
+  const current = !external && isCurrent(path, r.href);
   return (
-    <div className="mt-3 border-t border-border-soft pt-3">
-      <p className="px-2 text-[13px] font-semibold text-muted-foreground">{title}</p>
-      <ul className="mt-1 grid gap-0.5">
-        {items.map((l) => (
-          <li key={l.href}>
-            <Link
-              href={l.href}
-              onClick={onNavigate}
-              aria-current={isCurrent(path, l.href) ? "page" : undefined}
-              className="flex min-h-11 items-center gap-2.5 rounded-[8px] px-2 text-[15px] font-medium text-foreground hover:bg-hover aria-[current=page]:text-accent"
-            >
-              {l.icon && <Icon name={l.icon} size={16} variant="line" className="shrink-0 text-muted-foreground" />}
-              {l.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Link
+      href={r.href}
+      onClick={onNavigate}
+      aria-current={current ? "page" : undefined}
+      // Row fills as in the desktop menu. A blue label means "you are here" only, so hover keeps the navy label.
+      // forced-colors (Windows high contrast) drops fills, so an outline marks the row there.
+      className={cn(
+        cls,
+        current
+          ? "bg-accent-muted text-accent forced-colors:outline-2 forced-colors:-outline-offset-2"
+          : "hover:bg-hover focus-visible:bg-hover active:bg-hover forced-colors:hover:outline-2 forced-colors:hover:-outline-offset-2",
+      )}
+    >
+      {/* The logo's red dot marks the current page too, as in the desktop header. */}
+      {current && (
+        <span
+          aria-hidden="true"
+          className="size-1.5 shrink-0 rounded-full bg-[var(--hero-dot)] forced-colors:bg-[CanvasText]"
+        />
+      )}
+      {r.label}
+      {r.badge}
+      {external && <Icon name="arrow-up-right" size={small ? 13 : 15} variant="line" className="text-navy/55" />}
+    </Link>
   );
 }
 
 /**
- * The phone menu: a shadcn Sheet (Radix Dialog: focus trap, Esc, outside
- * tap, scroll lock, focus back to the button) holding a shadcn Accordion of
- * the four header sections. Full width on phones; the current section starts
- * open and the current page is marked on its own row. Loaded on demand by the
- * Navbar.
+ * The menu below 1024px: a white side panel with dark-blue text (shadcn Sheet
+ * on Radix Dialog: focus trap, Esc, outside tap, scroll lock, focus back to
+ * the button). It slides in from the right, lists every section at once in
+ * large type (no accordions) and scrolls inside; the two actions stay pinned
+ * under the list: "Access" in blue, "Contact us" in purple. The row under the
+ * pointer and the current page's row are filled across the full row. A side
+ * panel, not a bottom sheet: the founder tried the sheet and found it
+ * unsuitable (24 Nov 2026). Loaded on demand by the Navbar.
  */
 export default function MobileNav({
   open,
@@ -122,7 +114,6 @@ export default function MobileNav({
   onNavigate,
   onCloseAutoFocus,
   path,
-  current,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -130,130 +121,67 @@ export default function MobileNav({
   onNavigate: () => void;
   onCloseAutoFocus: (e: Event) => void;
   path: string | null;
-  current?: NavSection;
 }) {
-  const rows = rowsFor(usePlatformNav());
+  const groups = groupsFor(usePlatformNav());
   const close = () => {
     onNavigate();
     onOpenChange(false);
   };
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent open={open} onCloseAutoFocus={onCloseAutoFocus} className="w-full sm:w-[min(420px,90vw)]">
-        <div className="flex h-[3.75rem] shrink-0 items-center gap-2 border-b border-border-soft px-5">
+      <SheetContent
+        open={open}
+        onCloseAutoFocus={onCloseAutoFocus}
+        className="bg-surface-white text-navy"
+        closeClassName="text-navy/70 hover:bg-hover hover:text-navy"
+      >
+        <div className="flex h-16 shrink-0 items-center gap-2 border-b border-border-soft px-5">
           <LogoMark className="size-7" />
-          <span aria-hidden="true" className="font-display text-[19px] font-bold tracking-[-0.02em] text-foreground">
+          <span aria-hidden="true" className="font-display text-[19px] font-bold tracking-[-0.02em]">
             ERIX
           </span>
           <SheetTitle className="sr-only">Menu</SheetTitle>
           <SheetDescription className="sr-only">Pages on the ECODrIx site</SheetDescription>
         </div>
-        <nav aria-label="Main" className="min-h-0 flex-1 overflow-y-auto px-4 pb-6">
-          <Accordion type="single" collapsible defaultValue={current ?? "platform"}>
-            {NAV_SECTIONS.map((s) => (
-              <AccordionItem key={s.key} value={s.key} className="border-border-soft">
-                <AccordionTrigger
-                  icon={<Icon name="chevron-down" size={18} variant="line" />}
-                  turn="chevron"
-                  className="px-1 py-4 font-display text-[19px]"
-                >
-                  {s.label}
-                </AccordionTrigger>
-                <AccordionContent className="pb-4">
-                  <ul className="grid gap-0.5">
-                    {rows[s.key].map((r) => (
-                      <li key={r.href}>
-                        {r.disabled ? (
-                          <SoonControl role="link" className="flex min-h-14 items-start gap-3 rounded-[10px] p-2">
-                            <RowBody r={r} />
-                          </SoonControl>
-                        ) : (
-                          <Link
-                            href={r.href}
-                            onClick={close}
-                            aria-current={isCurrent(path, r.href) ? "page" : undefined}
-                            className="group flex min-h-14 items-start gap-3 rounded-[10px] p-2 hover:bg-hover aria-[current=page]:bg-accent-muted"
-                          >
-                            <RowBody r={r} />
-                          </Link>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {s.key === "platform" && (
-                    <>
-                      <Link
-                        href="/platform"
-                        onClick={close}
-                        className="mt-2 inline-flex min-h-11 items-center gap-1.5 px-2 text-[15px] font-[650] group text-accent hover:underline hover:underline-offset-3"
-                      >
-                        See how it all fits together
-                        <Icon
-                          name="arrow-right"
-                          size={14}
-                          variant="line"
-                          className="group-hover:translate-x-1 transition-transform transform ease-in-out duration-150"
-                        />
-                      </Link>
-                      {/* The navy story card, small: the band's swoosh and red dot. */}
-                      <Link href="/#story" onClick={close} className="band-navy mt-2 block rounded-[12px] p-4">
-                        <svg
-                          className="pointer-events-none absolute inset-0 size-full"
-                          viewBox="0 0 260 140"
-                          preserveAspectRatio="xMaxYMax slice"
-                          aria-hidden="true"
-                        >
-                          <path
-                            d="M-30 170 C 70 110 160 96 290 100"
-                            fill="none"
-                            stroke="var(--hero-swoosh)"
-                            strokeWidth="22"
-                            strokeLinecap="round"
-                            opacity="0.3"
-                          />
-                          <circle cx="238" cy="118" r="7" fill="var(--hero-dot)" />
-                        </svg>
-                        <span className="relative block text-[13px] font-semibold text-[var(--on-navy-link)]">
-                          The ERIX story
-                        </span>
-                        <span className="relative mt-1 block max-w-[24ch] font-display text-[17px] leading-snug font-bold text-white">
-                          One enquiry, from a 9:42 pm message to a booked visit.
-                        </span>
-                        <span className="relative mt-3 inline-flex items-center gap-1.5 text-[14px] font-semibold text-white">
-                          See the story
-                          <Icon name="arrow-right" size={14} variant="line" />
-                        </span>
-                      </Link>
-                    </>
-                  )}
-
-                  {s.key === "resources" && (
-                    <>
-                      <SubList
-                        title="Guides"
-                        items={GUIDE_NAV.map((g) => ({ href: g.href, label: g.name, icon: g.icon }))}
-                        path={path}
-                        onNavigate={close}
-                      />
-                      <SubList
-                        title="Side by side"
-                        items={COMPARE_NAV.map((c) => ({ href: c.href, label: c.name }))}
-                        path={path}
-                        onNavigate={close}
-                      />
-                    </>
-                  )}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+        <nav
+          aria-label="Main"
+          // px-2 here plus px-3 on each row keeps text 20px from the edge, with the row fill wider than the label.
+          // scroll-py-2: a row that Tab scrolls into view keeps its focus ring clear of the list edge.
+          className="min-h-0 flex-1 scroll-py-2 overflow-y-auto overscroll-contain px-2 pt-4 pb-3"
+        >
+          {groups.map((g) => (
+            <div key={g.key} className="mb-5">
+              <p id={`mnav-${g.key}`} className="mb-1 px-3 font-sans text-[12.5px]/4 font-semibold text-navy/70">
+                {g.label}
+              </p>
+              <ul aria-labelledby={`mnav-${g.key}`} className="grid gap-0.5">
+                {g.rows.map((r) => (
+                  <li key={r.href}>
+                    <Item r={r} small={g.small} path={path} onNavigate={close} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </nav>
-        <div className="shrink-0 border-t border-border-soft p-4">
-          <Link href={CONTACT_CTA.href} onClick={close} className={cn(buttonVariants({ size: "lg" }), "w-full")}>
+        {/* The basis makes the two buttons sit side by side where the panel is wide enough and stack on narrow phones. */}
+        <div className="flex shrink-0 flex-wrap gap-2.5 border-t border-border-soft px-4 pt-3 pb-[max(0.875rem,env(safe-area-inset-bottom))]">
+          <Link
+            href={CONTACT_CTA.href}
+            onClick={close}
+            className={cn(buttonVariants({ size: "lg" }), "flex-[1_1_9.5rem]")}
+          >
             {CONTACT_CTA.label}
             <Icon name="arrow-right" size={16} variant="line" />
           </Link>
+          {/* Purple here is the founder's choice for this one button; elsewhere purple marks AI. */}
+          <a
+            href={EMAIL_CTA.href}
+            className={cn(buttonVariants({ size: "lg" }), "flex-[1_1_9.5rem] bg-brand-purple hover:bg-(--purple-700)")}
+          >
+            <Icon name="mail" size={16} variant="line" />
+            {EMAIL_CTA.label}
+          </a>
         </div>
       </SheetContent>
     </Sheet>
