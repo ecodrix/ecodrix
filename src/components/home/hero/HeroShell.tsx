@@ -110,7 +110,7 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
           <div className="hx-type-in">
             <h1 id="hero-title">
               {TITLE.split(" ").map((w, i) => (
-                // index in the key: the title repeats a word ("Every")
+                // biome-ignore lint/suspicious/noArrayIndexKey: a fixed title that repeats a word ("Every"); never reordered
                 <span key={`${i}-${w}`}>
                   <span className="w" style={{ animationDelay: `${i * 70}ms` }}>
                     {w}
