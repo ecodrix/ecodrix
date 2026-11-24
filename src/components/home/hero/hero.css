@@ -214,8 +214,7 @@
 }
 .hx[data-vb="answer"] .vb[data-k="answer"],
 .hx[data-vb="book"] .vb[data-k="book"],
-.hx[data-vb="follow"] .vb[data-k="follow"],
-.hx[data-vb="pay"] .vb[data-k="pay"] {
+.hx[data-vb="follow"] .vb[data-k="follow"] {
   color: var(--hx-ai);
   background-size: 100% 1.5px;
 }
@@ -788,10 +787,6 @@
   background: var(--hx-blue-soft);
   color: var(--hx-blue-ink);
 }
-.hx-m.ev.paid {
-  background: var(--hx-ok-soft);
-  color: var(--hx-ok);
-}
 .hx-m.ev.hand {
   background: var(--hx-danger-soft);
   color: var(--hx-danger);
@@ -1028,61 +1023,6 @@
   color: var(--hx-ink);
 }
 
-/* Payments */
-.hx-pay {
-  height: 100%;
-  padding: 16px;
-  background: var(--hx-bg);
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.hx-pay .total {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  padding: 16px;
-  border-radius: 14px;
-  background: var(--hx-surface);
-  border: 1px solid var(--hx-line);
-}
-.hx-pay .total strong {
-  font: 600 32px / 1 var(--font-display);
-  font-variant-numeric: tabular-nums;
-}
-.hx-pay .total span {
-  color: var(--hx-ink3);
-  font-size: 14px;
-}
-.txn {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  border-radius: 12px;
-  background: var(--hx-surface);
-  border: 1px solid var(--hx-line);
-  font-size: 14px;
-}
-.txn .what {
-  font-size: 12.5px;
-  color: var(--hx-ink3);
-}
-.txn .amt {
-  margin-left: auto;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
-.txn .tag {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--hx-ok);
-  background: var(--hx-ok-soft);
-  padding: 2px 8px;
-  border-radius: 8px;
-}
-
 /* Automations */
 .hx-flows {
   height: 100%;
@@ -1296,8 +1236,7 @@
 }
 .hx[data-vb="answer"] .vb[data-k="answer"],
 .hx[data-vb="book"] .vb[data-k="book"],
-.hx[data-vb="follow"] .vb[data-k="follow"],
-.hx[data-vb="pay"] .vb[data-k="pay"] {
+.hx[data-vb="follow"] .vb[data-k="follow"] {
   color: #e7b6f7;
 }
 .hx[data-vb="you"] .vb[data-k="you"] {
@@ -1408,8 +1347,7 @@
   }
   .hx[data-vb="answer"] .vb[data-k="answer"],
   .hx[data-vb="book"] .vb[data-k="book"],
-  .hx[data-vb="follow"] .vb[data-k="follow"],
-  .hx[data-vb="pay"] .vb[data-k="pay"] {
+  .hx[data-vb="follow"] .vb[data-k="follow"] {
     color: #e7b6f7;
   }
   .hx[data-vb="you"] .vb[data-k="you"] {

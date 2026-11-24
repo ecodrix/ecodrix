@@ -158,17 +158,6 @@ function apply(s: DemoState, a: Act, at: number, quiet: boolean): void {
     case "unseen":
       s.unseen[a.k]++;
       return;
-    case "paid": {
-      const c = conv(s, a.id);
-      if (!c) return;
-      pushMsg(s, c, { f: "ev", k: "paid", t: "₹35,000 paid · UPI" });
-      c.tl.push("Paid ₹35,000 · UPI");
-      touch(s, a.id, "9:18 pm");
-      c.stage = "Paid";
-      s.txns.push({ name: "Ananya Reddy", amt: a.amt, what: a.what });
-      if (s.view !== "pay") s.unseen.pay++;
-      return;
-    }
     case "toast":
       if (quiet) return; // reduced motion: no transient toasts
       s.toasts.push({ id: s.toastSeq++, text: a.text, color: a.color, go: a.go, at, out: false });

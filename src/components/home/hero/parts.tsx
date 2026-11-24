@@ -48,7 +48,7 @@ export function spotProps(s: DemoState, kind: "row" | "tab" | "thread", key: str
   if (!k) return {};
   const hit =
     kind === "tab"
-      ? (k === "book" && key === "cal") || (k === "follow" && key === "flow") || (k === "pay" && key === "pay")
+      ? (k === "book" && key === "cal") || (k === "follow" && key === "flow")
       : (k === "answer" || (k === "you" && kind === "row")) && id === key;
   return hit ? { "data-spot": n % 2 ? "a" : "b", "data-spot-k": k === "you" ? "you" : "ai" } : {};
 }
