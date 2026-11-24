@@ -6,9 +6,9 @@ import { ChevronDown } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
 /**
- * shadcn NavigationMenu (radix-nova) on ERIX tokens, used without the shared
- * viewport so each panel can enter and leave with framer-motion (the header
- * wraps NavigationMenuContent in AnimatePresence). Radix keeps the keyboard
+ * shadcn NavigationMenu (radix-nova) on ERIX tokens, with the shared viewport:
+ * one surface that eases to the open section's height while the content swaps
+ * (CSS in globals.css, desktop-nav-morph). Radix keeps the keyboard
  * model: Tab between items, Enter/Space/↓ to open, Esc to close, arrow keys
  * inside, and hover intent with open/close delays.
  */
@@ -52,7 +52,23 @@ function NavigationMenuTrigger({
   );
 }
 
-const NavigationMenuContent = NavigationMenuPrimitive.Content;
+function NavigationMenuContent(props: React.ComponentProps<typeof NavigationMenuPrimitive.Content>) {
+  return <NavigationMenuPrimitive.Content data-slot="navigation-menu-content" {...props} />;
+}
+
+// +2px: the border-box carries the panel's own top and bottom border.
+function NavigationMenuViewport({
+  className,
+  ...props
+}: React.ComponentProps<typeof NavigationMenuPrimitive.Viewport>) {
+  return (
+    <NavigationMenuPrimitive.Viewport
+      data-slot="navigation-menu-viewport"
+      className={cn("h-[calc(var(--radix-navigation-menu-viewport-height)+2px)]", className)}
+      {...props}
+    />
+  );
+}
 const NavigationMenuLink = NavigationMenuPrimitive.Link;
 
 export {
@@ -62,4 +78,5 @@ export {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  NavigationMenuViewport,
 };

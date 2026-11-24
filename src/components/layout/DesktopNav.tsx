@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, m, useReducedMotion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowRight, Icon, type IconName } from "@/components/icons";
@@ -12,6 +12,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
+  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { SoonControl } from "@/components/ui/soon";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -383,7 +384,7 @@ function Panel({ section, path }: { section: NavSection; path: string | null }) 
 
 /**
  * The desktop header menu on the shadcn NavigationMenu (Radix): four
- * sections, each a panel that enters with framer-motion. A pill glides to
+ * sections sharing one panel that eases between them. A pill glides to
  * the open section and the logo's red dot marks the current one (both
  * `layoutId`). Loaded by the Navbar on wide screens only (see Navbar), so
  * phones never download it. `focusKey`: the section whose placeholder had
@@ -399,7 +400,6 @@ export default function DesktopNav({
   focusKey?: NavSection;
 }) {
   const [value, setValue] = useState("");
-  const reduce = useReducedMotion();
 
   // Navigating closes the menu.
   const [lastPath, setLastPath] = useState(path);
@@ -423,6 +423,15 @@ export default function DesktopNav({
               <NavigationMenuTrigger
                 data-nav-key={s.key}
                 data-current={current === s.key || undefined}
+                // Arrow keys only move focus in Radix; with a menu open, focus arriving from another trigger
+                // (not back from the panel after Esc) brings that section's panel.
+                onFocus={(e) =>
+                  value &&
+                  e.relatedTarget instanceof HTMLElement &&
+                  e.relatedTarget.dataset.navKey &&
+                  e.currentTarget.matches(":focus-visible") &&
+                  setValue(s.key)
+                }
                 className="data-[current]:text-foreground"
               >
                 {value === s.key && (
@@ -442,40 +451,14 @@ export default function DesktopNav({
                   />
                 )}
               </NavigationMenuTrigger>
-              <AnimatePresence>
-                {value === s.key && (
-                  <NavigationMenuContent forceMount asChild>
-                    <m.div
-                      // The pill's own width and edges (-1px = its border), attached under the bar: one surface that
-                      // grows down; the bar squares its bottom corners meanwhile (Navbar). Height 0 > auto, no transform.
-                      className="absolute inset-x-[-1px] top-full overflow-hidden rounded-b-[28px] border border-border bg-surface text-foreground"
-                      initial={reduce ? false : { height: 0, opacity: 0.6 }}
-                      animate={{
-                        height: "auto",
-                        opacity: 1,
-                        transition: { duration: reduce ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] },
-                      }}
-                      exit={{ height: reduce ? "auto" : 0, opacity: 0, transition: { duration: reduce ? 0 : 0.18 } }}
-                    >
-                      <m.div
-                        data-lenis-prevent
-                        initial={reduce ? false : { opacity: 0, y: -8 }}
-                        animate={{
-                          opacity: 1,
-                          y: 0,
-                          transition: { duration: reduce ? 0 : 0.26, delay: reduce ? 0 : 0.05 },
-                        }}
-                        className="px-6 py-5"
-                      >
-                        <Panel section={s.key} path={path} />
-                      </m.div>
-                    </m.div>
-                  </NavigationMenuContent>
-                )}
-              </AnimatePresence>
+              <NavigationMenuContent data-lenis-prevent className="absolute inset-x-0 top-0 px-6 py-5">
+                <Panel section={s.key} path={path} />
+              </NavigationMenuContent>
             </NavigationMenuItem>
           ))}
         </NavigationMenuList>
+        {/* The pill's own width and edges (-1px = its border), attached under the bar; the bar squares its bottom corners meanwhile (Navbar). */}
+        <NavigationMenuViewport className="absolute inset-x-[-1px] top-full overflow-hidden rounded-b-[28px] border border-border bg-surface text-foreground" />
       </NavigationMenu>
     </>
   );

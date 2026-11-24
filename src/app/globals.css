@@ -925,3 +925,88 @@ html[data-consent="ask"] [data-cookie-banner] {
     transform: scaleX(1);
   }
 }
+
+/* desktop-nav-morph: one panel surface (the Radix viewport) eases to the open section's height. */
+[data-slot="navigation-menu"] > [data-slot="navigation-menu-viewport"] {
+  position: absolute !important;
+  transition: height 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-slot="navigation-menu-viewport"][data-state="open"] {
+  animation: nav-vp-in 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-slot="navigation-menu-viewport"][data-state="closed"] {
+  animation: nav-vp-out 180ms ease-in forwards;
+}
+[data-slot="navigation-menu-content"][data-motion^="from-"] {
+  animation: nav-in-from-end 170ms 100ms ease-out both;
+}
+[data-slot="navigation-menu-content"][data-motion="from-start"] {
+  animation-name: nav-in-from-start;
+}
+[data-slot="navigation-menu-content"][data-motion^="to-"] {
+  pointer-events: none;
+  animation: nav-out-to-start 100ms ease-in forwards;
+}
+[data-slot="navigation-menu-content"][data-motion="to-end"] {
+  animation-name: nav-out-to-end;
+}
+/* The surface stays opaque while it grows and shrinks (a see-through panel shows the page headline through
+   the menu); only the content fades. A fresh open has no data-motion, so this runs once, on mount. */
+[data-slot="navigation-menu-viewport"][data-state="open"] [data-slot="navigation-menu-content"]:not([data-motion]) {
+  animation: nav-fade-in 200ms 60ms ease-out both;
+}
+/* Radix leaves no data-state on viewport content, so the closing viewport drives the fade. */
+[data-slot="navigation-menu-viewport"][data-state="closed"] [data-slot="navigation-menu-content"] {
+  animation: nav-fade-out 110ms ease-in forwards;
+}
+@keyframes nav-vp-in {
+  from {
+    height: 0;
+  }
+}
+@keyframes nav-vp-out {
+  to {
+    height: 0;
+  }
+}
+@keyframes nav-in-from-end {
+  from {
+    opacity: 0;
+    translate: 10px;
+  }
+}
+@keyframes nav-in-from-start {
+  from {
+    opacity: 0;
+    translate: -10px;
+  }
+}
+@keyframes nav-out-to-start {
+  to {
+    opacity: 0;
+    translate: -10px;
+  }
+}
+@keyframes nav-out-to-end {
+  to {
+    opacity: 0;
+    translate: 10px;
+  }
+}
+@keyframes nav-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes nav-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-slot="navigation-menu-viewport"],
+  [data-slot="navigation-menu-content"] {
+    animation: none !important;
+    transition: none !important;
+  }
+}
