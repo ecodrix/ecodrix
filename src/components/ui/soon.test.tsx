@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { renderToStaticMarkup } from "react-dom/server";
 import { EmailCta, PrimaryCta } from "@/components/marketing/kit";
+import { EMAIL_CTA } from "@/lib/site";
 import { StatusBadge } from "./status-badge";
 
 describe("disabled CTA for a not-available item", () => {
@@ -39,7 +40,8 @@ describe("Coming-soon module page CTAs", () => {
     assert.match(html, /<a [^>]*href="\/#contact"[^>]*>Request early access/);
   });
   it("keeps the other CTA disabled", () => {
-    assert.match(html, /aria-disabled="true"[^>]*>.*Email us/);
+    // The label comes from site.ts, so a rename there cannot leave this test stale again.
+    assert.match(html, new RegExp(`aria-disabled="true"[^>]*>.*${EMAIL_CTA.label}`));
     assert.equal((html.match(/aria-disabled/g) ?? []).length, 1);
   });
 });
