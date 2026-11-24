@@ -134,7 +134,7 @@ export default async function AboutPage() {
         }
         actions={
           <Link href={EMAIL_CTA.href} className={buttonVariants({ size: "lg" })}>
-            <Icon name="mail" size={16} variant="line" /> Email us
+            <Icon name="mail" size={16} variant="line" /> {EMAIL_CTA.label}
           </Link>
         }
       />

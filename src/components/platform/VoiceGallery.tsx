@@ -210,7 +210,7 @@ export function VoiceGallery({ limit = CALLS.length }: { limit?: number }) {
         id={GRID_ID}
         role="tabpanel"
         aria-labelledby={`tab-${lang}`}
-        className="mt-6 grid grid-cols-1 gap-4 min-[640px]:grid-cols-2 min-[1200px]:grid-cols-4"
+        className="mt-6 grid grid-cols-1 gap-4 min-[600px]:grid-cols-2 min-[900px]:grid-cols-3 min-[1120px]:grid-cols-4"
       >
         {CALLS.slice(0, limit).map((c) => {
           const a = AUDIO[c.id][lang];

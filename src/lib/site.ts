@@ -30,7 +30,7 @@ export const CONTACT_EMAIL = "contact@ecodrix.com";
 export const SUPPORT_EMAIL = "support@ecodrix.com";
 
 /** The second action: an email to the contact address. */
-export const EMAIL_CTA = { label: "Email us", href: `mailto:${CONTACT_EMAIL}` } as const;
+export const EMAIL_CTA = { label: "Contact", href: `mailto:${CONTACT_EMAIL}` } as const;
 
 /** Where "Report a problem" on the status page sends mail (one place to change it). */
 export const REPORT_EMAIL = SUPPORT_EMAIL;

@@ -1,13 +1,11 @@
-import Link from "next/link";
 import type { GlyphName } from "@/components/icons";
 import { Icon } from "@/components/icons";
-import { CtaBand, MkSection, PrimaryCta } from "@/components/marketing/kit";
+import { CtaBand, EmailCta, MkSection, PrimaryCta } from "@/components/marketing/kit";
 import { Crumbs } from "@/components/platform/ModulePage";
 import { VoiceGallery } from "@/components/platform/VoiceGallery";
 import { VoiceLibrary } from "@/components/platform/VoiceLibrary";
 import { CallsNote, ListenChip } from "@/components/platform/VoiceSamples";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { buttonVariants } from "@/components/ui/button";
 import { getBreadcrumbSchema } from "@/lib/jsonld";
 import { pageMetadata } from "@/lib/seo";
 
@@ -124,9 +122,7 @@ export default function Page() {
         actions={
           <>
             <PrimaryCta lg />
-            <Link href="mailto:contact@ecodrix.com" className={buttonVariants({ size: "lg", variant: "ghost" })}>
-              <Icon name="mail" size={16} variant="line" /> Email us
-            </Link>
+            <EmailCta lg />
           </>
         }
       />
