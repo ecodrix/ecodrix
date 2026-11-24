@@ -23,8 +23,8 @@ const DesktopNav = dynamic(() => import("./DesktopNav"), { ssr: false });
 /**
  * Site header on the shadcn NavigationMenu (Radix): four sections, each a
  * panel that enters with framer-motion. A pill glides to the open section
- * and the logo's red dot marks the current one (both `layoutId`). Fixed,
- * translucent, and 8px tighter once the page scrolls; a spacer holds its
+ * and the logo's red dot marks the current one (both `layoutId`). A floating
+ * rounded bar, fixed, 8px tighter once the page scrolls; a spacer holds its
  * height, so compacting never shifts the page. Phones get a Sheet with an
  * Accordion. Without JavaScript the menus become plain links and the menu
  * button jumps to the footer's site map (globals.css, `scripting`).
@@ -93,19 +93,15 @@ export function Navbar() {
 
   return (
     <>
-      <div ref={sentinel} aria-hidden="true" className="h-[3.75rem]" />
-      <header
-        data-scrolled={scrolled || undefined}
-        className={cn(
-          "fixed inset-x-0 top-0 z-50 border-b border-transparent bg-surface/80 backdrop-blur-md backdrop-saturate-150",
-          "transition-[background-color,border-color,box-shadow] duration-150 ease-in-out",
-          "data-[scrolled]:border-border-soft data-[scrolled]:bg-surface/88 data-[scrolled]:shadow-[0_1px_12px_-4px_rgba(11,27,100,0.12)]",
-        )}
-      >
+      {/* Spacer = pill (64px) + its 14px top gap. */}
+      <div ref={sentinel} aria-hidden="true" className="h-[4.875rem]" />
+      <header data-scrolled={scrolled || undefined} className="group fixed inset-x-0 top-0 z-50 px-gutter pt-3.5">
         <div
           className={cn(
-            "mx-auto w-full max-w-7xl px-gutter flex items-center gap-3 transition-[height] duration-150 ease-in-out lg:gap-6",
-            scrolled ? "h-[3.25rem]" : "h-[3.75rem]",
+            "mx-auto flex w-full max-w-[1180px] items-center gap-3 rounded-full border border-border bg-surface pr-2.5 pl-5 lg:gap-6 lg:pl-6",
+            "shadow-[0_8px_24px_-14px_rgba(11,27,100,0.2)] group-data-[scrolled]:shadow-[0_12px_32px_-14px_rgba(11,27,100,0.32)]",
+            "transition-[height,box-shadow] duration-300 ease-in-out",
+            scrolled ? "h-14" : "h-16",
           )}
         >
           <Link href="/" className="flex shrink-0 items-center gap-2">
