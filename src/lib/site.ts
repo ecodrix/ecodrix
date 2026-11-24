@@ -113,18 +113,6 @@ export const PLATFORM_NAV = [
     },
     ai: true,
   },
-  {
-    key: "storage",
-    icon: "folder-open",
-    name: "ERIX Storage",
-    href: "/platform/erix-storage",
-    summary: "Files kept with the client and project they belong to.",
-    status: "live",
-    card: {
-      headline: "Files that stay with the deal.",
-      text: "Documents and images kept on the client and project they belong to, inside your workspace.",
-    },
-  },
 ] as const satisfies readonly {
   key: string;
   icon: IconName;

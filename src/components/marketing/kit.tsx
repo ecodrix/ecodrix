@@ -96,7 +96,17 @@ export function HeroMotif() {
         className="fill-none stroke-hero-swoosh opacity-[0.28] [stroke-linecap:round] [stroke-width:56]"
         d="M180 760 C 520 300 900 220 1320 250"
       />
-      <circle className="fill-hero-dot max-[900px]:hidden" cx="1010" cy="438" r="26" />
+      {/* A ball rolls in along the arch (same path, reversed), down the slope and out the bottom, then rests ~5 s (globals.css .mk-ball). */}
+      <clipPath id="mk-ball-clip">
+        <circle r="26" />
+      </clipPath>
+      <g className="mk-ball max-[900px]:hidden">
+        <g className="mk-spin">
+          <circle r="26" className="fill-hero-dot" />
+          <rect x="-26" y="-4" width="52" height="7" clipPath="url(#mk-ball-clip)" fill="#a8423f" />
+          <path d="M-17 -11 A20 20 0 0 1 3 -20" fill="none" stroke="#e8a09c" strokeWidth="4.5" strokeLinecap="round" />
+        </g>
+      </g>
     </svg>
   );
 }

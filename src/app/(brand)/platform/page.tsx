@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ChannelBeam } from "@/components/home/Integrations";
 import { type GlyphName, Icon } from "@/components/icons";
-import { BrowserFrame, Faq, MkHero, MkSection, PrimaryCta, EmailCta } from "@/components/marketing/kit";
+import { BrowserFrame, EmailCta, Faq, MkHero, MkSection, PrimaryCta } from "@/components/marketing/kit";
 import { type Chapter, Story } from "@/components/marketing/story";
 import { ClosingCta } from "@/components/platform/ModulePage";
 import { ModuleRow } from "@/components/platform/ModuleRow";
@@ -208,7 +208,6 @@ const LATER = [
 const moreCopy: Record<string, string> = {
   voice:
     "An AI assistant that answers your calls, books appointments and puts each call in your inbox. Open by request.",
-  storage: "Files kept with the client and project they belong to: documents and secure share links.",
 };
 
 // Which modules are listed (and which are Coming soon) follows admin › Catalog.
@@ -216,7 +215,7 @@ export const revalidate = 300;
 
 export default async function PlatformIndexPage() {
   const nav = await getPlatformNav();
-  const more = nav.filter((m) => m.key === "storage" || m.key === "voice");
+  const more = nav.filter((m) => m.key === "voice");
   return (
     <div className="w-full">
       {/* JSON-LD: ItemList + FAQ + Breadcrumb */}

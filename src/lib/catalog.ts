@@ -71,7 +71,6 @@ const ITEM_OF: Record<string, string> = {
   connect: "inbox",
   agents: "agents",
   flow: "flow",
-  storage: "storage",
 };
 
 /**

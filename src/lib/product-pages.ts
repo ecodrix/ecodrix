@@ -1315,63 +1315,6 @@ export const CONNECT_PAGES: SubPage[] = [
   },
 ];
 
-/* ═══════════════════════════════════════════════════════════════════════
- * ERIX Storage: technical notes, kept short
- * ═════════════════════════════════════════════════════════════════════ */
-
-export const STORAGE_PAGES: SubPage[] = [
-  {
-    slug: "presigned-uploads",
-    title: "Direct uploads to ERIX Storage",
-    description:
-      "Files uploaded to ERIX go straight to storage through short-lived signed links, kept in each workspace's own folder, with its storage checked first.",
-    type: "capability",
-    lead: "Uploads go directly from the browser to storage, not through ERIX's servers.",
-    screen: "documents",
-    sections: [
-      {
-        heading: "Signed, short-lived links",
-        body: [
-          "ERIX hands the browser a time-limited upload link, and the file goes straight to storage. Every file sits under its workspace's own folder, and the workspace's storage is checked before the upload starts.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "ai-image-processing",
-    title: "Images and photos in ERIX Storage",
-    description:
-      "Photos and images in ERIX Storage live inside the project they belong to, next to the client's documents. Image tools and a Storage page are coming soon.",
-    type: "capability",
-    lead: "Site photos, floor plans and design images sit in the project they belong to.",
-    sections: [
-      {
-        heading: "Kept with the project",
-        body: [
-          "Upload PNG and JPG files up to 100 MB each to a project, and your client sees them in their portal next to the documents. Send any file as a share link instead of another WhatsApp attachment. There are no AI image tools in ERIX today.",
-        ],
-      },
-    ],
-    notice: "The standalone Storage page is coming soon. Today, files live inside projects.",
-  },
-  {
-    slug: "quota-metering",
-    title: "Storage quotas in ERIX",
-    description:
-      "Each ERIX workspace has a storage allowance. Every upload checks it first, and when it's full ERIX says so plainly and suggests what to do next.",
-    type: "capability",
-    lead: "Each workspace has a storage allowance, and ERIX keeps the count honest.",
-    sections: [
-      {
-        heading: "Checked before every upload",
-        body: [
-          "Uploads check the workspace's storage first. When it's full, the upload says so and suggests deleting files you no longer need. Talk to us if your workspace needs more.",
-        ],
-      },
-    ],
-  },
-];
-
 /** Sub-pages that are live in v1: what lists, the sitemap and related links show. */
 export function getLivePages(product: string): SubPage[] {
   return getProductPages(product).filter((p) => !p.soon);
@@ -1386,8 +1329,6 @@ export function getProductPages(product: string): SubPage[] {
       return FLOW_PAGES;
     case "erix-connect":
       return CONNECT_PAGES;
-    case "erix-storage":
-      return STORAGE_PAGES;
     default:
       return [];
   }

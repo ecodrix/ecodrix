@@ -4,8 +4,6 @@ import { LogoMark } from "@/components/layout/LogoMark";
 import { CookiePrefsButton } from "@/components/legal/CookiePrefsButton";
 import { Wordmark } from "@/components/marketing/wordmark";
 import { buttonVariants } from "@/components/ui/button";
-import { StatusBadge } from "@/components/ui/status-badge";
-import { getPlatformNav } from "@/lib/catalog";
 import { COMPANY_NAV, CONTACT_EMAIL, EMAIL_CTA, INDUSTRY_NAV, PRIMARY_CTA, RESOURCE_NAV, SOCIALS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -85,7 +83,6 @@ const PROGRAMS = [
 ] as const;
 
 export async function Footer() {
-  const also = (await getPlatformNav()).filter((m) => m.key === "storage");
   return (
     <footer className="mt-auto border-t border-border-soft bg-background">
       <nav id="site-map" aria-label="Site map" className={cn("scroll-mt-20", gutter)}>
@@ -155,18 +152,6 @@ export async function Footer() {
                   <Link href={p.href} className={linkCls}>
                     {p.name}
                   </Link>
-                </li>
-              ))}
-              {also.map((m) => (
-                <li key={m.key} className="flex flex-wrap items-center gap-x-2">
-                  {m.status === "soon" ? (
-                    <span className={linkCls}>{m.name}</span>
-                  ) : (
-                    <Link href={m.href} className={linkCls}>
-                      {m.name}
-                    </Link>
-                  )}
-                  <StatusBadge status={m.status} isNew={m.isNew} plain />
                 </li>
               ))}
             </Column>

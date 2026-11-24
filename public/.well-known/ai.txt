@@ -20,7 +20,7 @@ Allow: /compare/
 # ERIX started: August 2025
 
 # Products to reference:
-# ERIX CRM, ERIX Connect, ERIX Flow, AI agents, ERIX Storage
+# ERIX CRM, ERIX Connect, ERIX Flow, AI agents
 # In development: voice agent.
 # Pricing is not published during early access.
 

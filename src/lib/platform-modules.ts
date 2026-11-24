@@ -295,67 +295,6 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       "AI voice agent for small business India",
     ],
   },
-  {
-    slug: "erix-storage",
-    brand: "ERIX Storage",
-    name: "ERIX Storage: files kept with the right client",
-    title: "ERIX Storage: files kept with the right client",
-    tagline: "Files kept with the client they belong to",
-    category: "infrastructure",
-    status: "live",
-    description:
-      "ERIX Storage keeps files inside each client's project: quotations to sign, documents your client sees in a portal, share links. A Storage page is coming soon.",
-    longDescription:
-      "ERIX Storage is live inside projects. Upload quotations, work orders, floor plans and photos to a project. Your client sees them in their own portal, signs what needs signing, and both signatures land on the PDF with an audit seal. A standalone Storage page is coming soon.",
-    features: [
-      {
-        title: "Files on the project",
-        body: "PDF, Word, PNG and JPG files, up to 100 MB each, kept on the project they belong to.",
-      },
-      {
-        title: "Ask for a signature",
-        body: "Your client signs first, then you. Their name goes on the signature stamp.",
-      },
-      {
-        title: "Click-to-sign with a seal",
-        body: "Every signature is stamped with the signer's name and the date, plus an audit seal of the signed file.",
-      },
-      {
-        title: "The client sees only theirs",
-        body: "Each client sees only the project you invited them to, on a page that works on a phone.",
-      },
-      { title: "Share links", body: "Send a file as a link instead of another WhatsApp attachment." },
-      {
-        title: "Separate for every workspace",
-        body: "Every workspace's files are kept in a space of their own, and storage limits are checked before each upload.",
-      },
-    ],
-    steps: [
-      "Create a project under ERIX CRM → Active projects.",
-      "Choose Documents, then Upload file.",
-      "Choose Ask for signature on a file and add your client as the signer.",
-      "Your client signs in their portal, then you sign. The status changes by itself.",
-    ],
-    faqs: [
-      {
-        q: "Is this an Aadhaar eSign?",
-        a: "No. It's click-to-sign: each signature is stamped on the PDF with the signer's name and the date, with an audit seal. It suits quotations, work orders and service agreements. For papers that must be Aadhaar-signed, stamped or registered, use the official route.",
-      },
-      {
-        q: "What can my client see?",
-        a: "Only the project you invited them to: its progress, tasks, your documents to view and sign, and messages to you.",
-      },
-      {
-        q: "Is there a separate Storage page?",
-        a: "Not yet. Today your files live inside projects, next to the client they belong to. A standalone Storage page is coming soon.",
-      },
-      {
-        q: "What happens when my storage is full?",
-        a: "Uploading tells you the workspace's storage is full and suggests deleting files you no longer need. Talk to us if you need more.",
-      },
-    ],
-    searchQueries: ["ECODrIx storage", "client document portal India", "e-sign quotation India"],
-  },
 ];
 
 /* ── Helpers ─────────────────────────────────────────────────────── */

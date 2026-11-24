@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { Icon } from "@/components/icons";
-import { BrowserFrame, CtaBand, Faq, MkHero, MkSection, PrimaryCta, EmailCta } from "@/components/marketing/kit";
+import { BrowserFrame, CtaBand, EmailCta, Faq, MkHero, MkSection, PrimaryCta } from "@/components/marketing/kit";
 import { Story } from "@/components/marketing/story";
 import { MarketingBody } from "@/components/platform/MarketingBody";
 import { MODULE_TOURS } from "@/components/platform/module-tours";
@@ -23,7 +23,6 @@ const HERO_SCREEN: Record<string, ScreenKey> = {
   "erix-crm": "crm",
   "erix-connect": "inbox",
   "erix-flow": "flowCanvas",
-  "erix-storage": "documents",
   "erix-voice": "inbox",
 };
 
@@ -152,7 +151,6 @@ export async function ModulePage({ slug }: { slug: string }) {
       <MkHero
         top={
           <div className="mb-6 space-y-4">
-            <Crumbs onNavy items={[{ name: "Platform", href: "/platform" }, { name: m.brand }]} />
             <p className="flex flex-wrap items-center gap-2">
               <ModuleEyebrow m={m} onNavy />
               <StatusBadge status={v.status} isNew={v.isNew} />

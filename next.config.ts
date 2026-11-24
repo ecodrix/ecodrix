@@ -138,6 +138,9 @@ const nextConfig: NextConfig = {
       { source: "/get-started", destination: "/#contact", permanent: false },
       // Internal engines aren't marketed (founder, 27 Oct 2026): their old pages land on what customers get.
       { source: "/platform/erix-store", destination: "/platform", permanent: true },
+      // ERIX Storage is off the site until it returns (founder, 24 Nov 2026): old links and search results land on the platform page.
+      { source: "/platform/erix-storage", destination: "/platform", permanent: true },
+      { source: "/platform/erix-storage/:slug*", destination: "/platform", permanent: true },
       { source: "/platform/erix-store/:path*", destination: "/platform", permanent: true },
     ];
   },

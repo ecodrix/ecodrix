@@ -22,8 +22,8 @@
   --hx-shadow: 11, 27, 100;
   --hx-glow: rgba(43, 77, 203, 0.07);
   --hx-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
-  /* Header height (Navbar.tsx spacer, 14px gap + 64px bar): the band runs up behind the floating pill. */
-  --hx-nav: 4.875rem;
+  /* The header height token (globals.css): the band runs up behind the floating pill. */
+  --hx-nav: var(--header-h);
   margin-top: calc(var(--hx-nav) * -1);
   position: relative;
   overflow: hidden;

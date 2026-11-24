@@ -93,7 +93,7 @@ export function Navbar() {
 
   return (
     <>
-      {/* Spacer = pill (64px) + its 14px top gap. */}
+      {/* Spacer = pill (52px, h-13) + its 14px top gap: --header-h in globals.css. */}
       <div ref={sentinel} aria-hidden="true" className="h-(--header-h)" />
       <header data-scrolled={scrolled || undefined} className="group fixed inset-x-0 top-0 z-50 px-gutter pt-3.5">
         <div

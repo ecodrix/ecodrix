@@ -57,7 +57,7 @@ export function getOrganizationSchema() {
     },
     image: `${BASE_URL}/logo.png`,
     description:
-      "ECODrIx is a unified business infrastructure platform combining CRM, AI automation, WhatsApp messaging and cloud storage. It builds the ERIX suite (CRM, Connect, Flow and AI agents), started in August 2025 for growing businesses across India.",
+      "ECODrIx is a unified business infrastructure platform combining CRM, AI automation and WhatsApp messaging. It builds the ERIX suite (CRM, Connect, Flow and AI agents), started in August 2025 for growing businesses across India.",
     foundingDate: "2025-08",
     areaServed: "Worldwide",
     email: CONTACT_EMAIL,
@@ -103,7 +103,7 @@ export function getWebSiteSchema() {
     alternateName: "ECODrIx Platform",
     url: BASE_URL,
     description:
-      "Build Smarter. Grow Faster. Unified business infrastructure platform combining CRM, AI automation, WhatsApp and cloud storage.",
+      "Build Smarter. Grow Faster. Unified business infrastructure platform combining CRM, AI automation and WhatsApp.",
     inLanguage: "en",
     publisher: { "@id": ORG_ID },
     potentialAction: {

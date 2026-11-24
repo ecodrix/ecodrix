@@ -347,7 +347,14 @@ function Panel({ section, path }: { section: NavSection; path: string | null }) 
       <SpotPanel className="grid-cols-[minmax(0,1fr)_18rem] gap-6" spots={platformSpots(platform)} path={path}>
         {(spotlight) => (
           <>
-            <m.ul variants={list} className="grid grid-cols-3 gap-1">
+            <m.ul
+              variants={list}
+              // Six columns: rows of three tiles, and a short last row (two tiles) splits evenly, no hole.
+              className={cn(
+                "grid grid-cols-6 gap-1 [&>li]:col-span-2",
+                platform.length % 3 === 2 && "[&>li:nth-last-child(-n+2)]:col-span-3",
+              )}
+            >
               {platform.map((mod) => (
                 <PanelLink
                   key={mod.key}
