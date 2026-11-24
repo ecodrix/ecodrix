@@ -2,12 +2,15 @@
 
 import { type ReactNode, useCallback, useEffect, useReducer, useRef, useState, useSyncExternalStore } from "react";
 import { Console } from "./Console";
+import { Cursor } from "./Cursor";
 import { type Act, SCRIPT } from "./script";
 import { initialState, reduce } from "./state";
 import { useDemoClock } from "./use-demo-clock";
 import { useTilt } from "./use-tilt";
 import "./hero.css";
 
+// Cursor moves and the view switches they cause only make sense with the cursor on screen.
+const CURSOR_ACTS = new Set<Act["t"]>(["cur", "click", "view", "select"]);
 const TITLE = "Hire an AI employee for your team";
 
 const useMedia = (query: string) =>
@@ -30,10 +33,16 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
   const [s, dispatch] = useReducer(reduce, undefined, initialState);
   const reduced = useMedia("(prefers-reduced-motion: reduce)");
   const fine = useMedia("(pointer: fine)");
+  const phone = useMedia("(max-width: 680px)");
+  // Riya's cursor (and the view switching it does) is for wide, motion-OK screens only.
+  const cursorOn = !reduced && !phone;
   const hero = useRef<HTMLElement>(null);
+  const frame = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const tilt = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
+  // The opening moment (rows drop in, status line types) is CSS keyed on this class, once per load.
+  const [boot, setBoot] = useState(true);
   const [inView, setInView] = useState(true);
   const [tabVisible, setTabVisible] = useState(true);
   const [hover, setHover] = useState(false);
@@ -42,13 +51,15 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
   const playing = !reduced && ready && inView && tabVisible && !hover && !focusIn && !userPaused;
 
   useEffect(() => {
-    const t = setTimeout(() => setReady(true), 900); // let the entrance play first
+    const t = setTimeout(() => setReady(true), 1700); // let the opening play first
+    const tb = setTimeout(() => setBoot(false), 1800);
     const onVis = () => setTabVisible(document.visibilityState === "visible");
     const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting));
     if (hero.current) io.observe(hero.current);
     document.addEventListener("visibilitychange", onVis);
     return () => {
       clearTimeout(t);
+      clearTimeout(tb);
       io.disconnect();
       document.removeEventListener("visibilitychange", onVis);
     };
@@ -60,10 +71,16 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
     if (!reduced || ran.current) return;
     ran.current = true;
     for (const [at, acts] of SCRIPT.slice(0, -1))
-      for (const a of acts) dispatch({ type: "script", a, at, quiet: true });
+      for (const a of acts) if (!CURSOR_ACTS.has(a.t)) dispatch({ type: "script", a, at, quiet: true });
   }, [reduced]);
 
-  const fire = useCallback((a: Act, at: number) => dispatch({ type: "script", a, at }), []);
+  const fire = useCallback(
+    (a: Act, at: number) => {
+      if (!cursorOn && CURSOR_ACTS.has(a.t)) return;
+      dispatch({ type: "script", a, at });
+    },
+    [cursorOn],
+  );
   const tick = useCallback((at: number) => dispatch({ type: "tick", at }), []);
   useDemoClock(playing, fire, tick);
   useTilt(tilt, stage, !reduced && fine);
@@ -71,6 +88,8 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
   const pausers = {
     onPointerEnter: () => setHover(true),
     onPointerLeave: () => setHover(false),
+    onPointerDown: () => dispatch({ type: "visitor" }),
+    onKeyDown: () => dispatch({ type: "visitor" }),
     onFocus: () => setFocusIn(true),
     onBlur: (e: React.FocusEvent<HTMLElement>) => {
       if (!e.currentTarget.contains(e.relatedTarget)) setFocusIn(false);
@@ -82,11 +101,11 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
       ref={hero}
       data-hx-hero=""
       data-vb={s.vb ?? undefined}
-      className={`hx${playing ? "" : " paused"}`}
+      className={`hx${playing ? "" : " paused"}${boot ? " boot" : ""}`}
       aria-labelledby="hero-title"
     >
       {motif}
-      <div className="hx-frame">
+      <div className="hx-frame" ref={frame}>
         <div className="hx-type">
           <div className="hx-type-in">
             <h1 id="hero-title">
@@ -134,7 +153,7 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
             <button
               type="button"
               onClick={() => setUserPaused((p) => !p)}
-              className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:top-3 focus-visible:left-3 focus-visible:z-20 focus-visible:rounded-md focus-visible:bg-surface focus-visible:px-3 focus-visible:py-1.5 focus-visible:text-sm focus-visible:font-semibold focus-visible:text-foreground focus-visible:shadow-md"
+              className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:top-3 focus-visible:left-3 focus-visible:z-20 focus-visible:rounded-full focus-visible:bg-surface focus-visible:px-3 focus-visible:py-1.5 focus-visible:text-sm focus-visible:font-semibold focus-visible:text-foreground focus-visible:shadow-md"
             >
               {userPaused ? "Play demo" : "Pause demo"}
             </button>
@@ -145,6 +164,7 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
           </div>
         </div>
         <div className="hx-veil" aria-hidden="true" />
+        {cursorOn && <Cursor cur={s.cur} hidden={s.visitor} playing={playing} frame={frame} />}
       </div>
     </section>
   );

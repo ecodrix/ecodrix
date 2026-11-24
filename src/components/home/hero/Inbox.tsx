@@ -1,6 +1,6 @@
 import { type Dispatch, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useFlip } from "./motion";
-import { Avatar, CH, inr } from "./parts";
+import { Avatar, CH, inr, spotProps } from "./parts";
 import type { ConvState } from "./script";
 import type { Action, DemoState } from "./state";
 
@@ -29,7 +29,7 @@ function Compose({ s, dispatch }: { s: DemoState; dispatch: Dispatch<Action> }) 
   };
   if (you)
     return (
-      <div className="hx-compose">
+      <div className="hx-compose" data-cur="composer">
         <label htmlFor="hx-reply" className="sr-only">
           Your reply
         </label>
@@ -53,7 +53,7 @@ function Compose({ s, dispatch }: { s: DemoState; dispatch: Dispatch<Action> }) 
       </div>
     );
   return (
-    <div className="hx-compose">
+    <div className="hx-compose" data-cur="composer">
       <span className="note">
         {c.state === "ai"
           ? "Riya is answering. Take over to reply yourself."
@@ -85,7 +85,7 @@ export function Inbox({ s, dispatch }: { s: DemoState; dispatch: Dispatch<Action
   return (
     <div className="hx-inbox">
       <div className="hx-list" ref={list} role="listbox" aria-label="Conversations">
-        {s.convs.map((c) => {
+        {s.convs.map((c, idx) => {
           const cs = STATE[c.state];
           const last = c.msgs[c.msgs.length - 1];
           const prev = last ? (last.f === "ai" ? "Riya: " : last.f === "you" ? "You: " : "") + last.t : "";
@@ -97,7 +97,9 @@ export function Inbox({ s, dispatch }: { s: DemoState; dispatch: Dispatch<Action
               aria-selected={c.id === v.id}
               className={`hx-row${c.id === v.id ? " sel" : ""}`}
               data-key={c.id}
-              style={{ "--edge": cs.color } as React.CSSProperties}
+              data-cur={`row:${c.id}`}
+              {...spotProps(s, "row", c.id)}
+              style={{ "--edge": cs.color, "--i": idx } as React.CSSProperties}
               onClick={() => dispatch({ type: "select", id: c.id })}
             >
               <Avatar ini={c.ini} ch={c.ch} ring={c.state === "ai"} />
@@ -117,7 +119,7 @@ export function Inbox({ s, dispatch }: { s: DemoState; dispatch: Dispatch<Action
       </div>
       <div className="hx-thread">
         <div className="hx-strip" style={{ "--strip": st.color } as React.CSSProperties} />
-        <div className="hx-thead">
+        <div className="hx-thead" {...spotProps(s, "thread", v.id)}>
           <Avatar ini={v.ini} ch={v.ch} ring={v.state === "ai"} />
           <span className="who">
             <b>{v.name}</b>

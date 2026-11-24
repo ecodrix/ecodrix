@@ -23,6 +23,14 @@ export type DemoState = Seed & {
   call: CallState | null;
   toasts: ToastItem[];
   toastSeq: number;
+  /** Riya's cursor: target key, a move counter and a click counter (changes trigger the effects). */
+  cur: { to: string | null; n: number; click: number };
+  /** The visitor touched the console: Riya's cursor and view switching stay off until the next loop. */
+  visitor: boolean;
+  /** Which word just lit, which conversation it is about, and a counter that re-triggers the glow. */
+  spot: { k: VerbKey | null; id: string | null; n: number };
+  /** `day|time` of the slot Riya just booked (it pops once). */
+  popSlot: string | null;
 };
 export type Action =
   | { type: "script"; a: Act; at: number; quiet?: boolean }
@@ -31,7 +39,8 @@ export type Action =
   | { type: "select"; id: string }
   | { type: "take" }
   | { type: "back" }
-  | { type: "send"; text: string };
+  | { type: "send"; text: string }
+  | { type: "visitor" };
 
 export const CAP_DEFAULT = "Live demo: click a chat, then Take over";
 const NOW_DEFAULT = "Reading new messages";
@@ -50,6 +59,10 @@ export const initialState = (): DemoState => ({
   call: null,
   toasts: [],
   toastSeq: 0,
+  cur: { to: null, n: 0, click: 0 },
+  visitor: false,
+  spot: { k: null, id: null, n: 0 },
+  popSlot: null,
 });
 
 // One demo second is 100 clock-ms on the call card: the whole call reads as about a minute.
@@ -77,6 +90,24 @@ function apply(s: DemoState, a: Act, at: number, quiet: boolean): void {
       s.now = a.text;
       s.vb = a.k;
       if (a.cap) s.cap = a.cap;
+      if (a.k) s.spot = { k: a.k, id: a.id ?? s.sel, n: s.spot.n + 1 };
+      return;
+    case "view":
+      if (s.visitor) return;
+      s.view = a.view;
+      s.newKeys = [];
+      if (a.view in s.unseen) s.unseen[a.view as keyof Seed["unseen"]] = 0;
+      return;
+    case "select":
+      if (s.visitor) return;
+      s.sel = a.id;
+      s.newKeys = [];
+      return;
+    case "cur":
+      if (!s.visitor) s.cur = { ...s.cur, to: a.to, n: s.cur.n + 1 };
+      return;
+    case "click":
+      if (!s.visitor) s.cur.click++;
       return;
     case "say": {
       const c = conv(s, a.id);
@@ -95,6 +126,7 @@ function apply(s: DemoState, a: Act, at: number, quiet: boolean): void {
       s.slots[a.day][a.time] = c.name;
       s.booked++;
       c.stage = "Booked";
+      s.popSlot = `${a.day}|${a.time}`;
       if (s.view !== "cal") s.unseen.cal++;
       apply(
         s,
@@ -185,6 +217,7 @@ export function reduce(state: DemoState, action: Action): DemoState {
     return s;
   }
   const s = structuredClone(state);
+  if (action.type !== "script") s.visitor = true; // any user action: Riya's cursor steps back
   switch (action.type) {
     case "script":
       apply(s, action.a, action.at, !!action.quiet);

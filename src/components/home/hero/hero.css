@@ -161,7 +161,7 @@
   gap: 8px;
   margin: 18px auto 0;
   padding: 6px 14px;
-  border-radius: 16px;
+  border-radius: 9999px;
   background: var(--hx-surface);
   border: 1px solid var(--hx-line);
   font-size: 13px;
@@ -188,8 +188,9 @@
 .hx-ctas {
   animation-delay: 0.35s;
 }
-.hx-stage {
-  animation: hx-stage-in 1.1s var(--hx-ease) 0.35s both;
+/* The opening: the card rises from a steeper angle and settles to its rest tilt while the words come up */
+.hx-tilt {
+  animation: hx-open 0.9s var(--hx-ease) 0.15s both;
 }
 @keyframes hx-in {
   from {
@@ -197,10 +198,10 @@
     transform: translateY(14px);
   }
 }
-@keyframes hx-stage-in {
+@keyframes hx-open {
   from {
     opacity: 0;
-    transform: translateY(40px) scale(0.98);
+    transform: rotateX(18deg) rotateY(0deg) translateY(40px);
   }
 }
 
@@ -421,6 +422,12 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+}
+.hx-eg {
+  align-self: center;
+  font-size: 11px;
+  color: var(--hx-ink3);
+  white-space: nowrap;
 }
 .num {
   display: inline-flex;
@@ -691,7 +698,7 @@
 .hx-small {
   height: 34px;
   padding: 0 14px;
-  border-radius: 8px;
+  border-radius: 9999px;
   border: 1px solid var(--hx-line);
   background: var(--hx-surface);
   font-size: 13px;
@@ -1142,7 +1149,7 @@
   gap: 10px;
   max-width: 300px;
   padding: 10px 14px;
-  border-radius: 12px;
+  border-radius: 9999px;
   background: var(--hx-ink);
   color: var(--hx-bg);
   font-size: 13px;
@@ -1400,5 +1407,174 @@
   .hx *::after {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* Opening, part two (CSS only, while .boot is on the hero): list rows drop in with a 60 ms stagger and
+   Riya's first status line types itself. */
+.hx.boot .hx-row {
+  animation: hx-drop 0.5s var(--hx-ease) calc(0.7s + var(--i, 0) * 60ms) both;
+}
+@keyframes hx-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+}
+.hx.boot .hx-nowline .act {
+  display: inline-block;
+  animation: hx-type 0.9s steps(20, end) 0.8s both;
+}
+@keyframes hx-type {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Word to spot: the spot a lit word is about glows once (purple; red for "you") */
+[data-spot] {
+  --spot-c: var(--hx-ai);
+}
+[data-spot-k="you"] {
+  --spot-c: var(--hx-danger);
+}
+[data-spot="a"] {
+  animation: hx-spot-a 1.2s ease-out;
+}
+[data-spot="b"] {
+  animation: hx-spot-b 1.2s ease-out;
+}
+.hx-thead[data-spot="a"] {
+  animation-name: hx-spotin-a;
+}
+.hx-thead[data-spot="b"] {
+  animation-name: hx-spotin-b;
+}
+@keyframes hx-spot-a {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--spot-c) 70%, transparent);
+  }
+  35% {
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--spot-c) 45%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 14px color-mix(in srgb, var(--spot-c) 0%, transparent);
+  }
+}
+@keyframes hx-spot-b {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--spot-c) 70%, transparent);
+  }
+  35% {
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--spot-c) 45%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 14px color-mix(in srgb, var(--spot-c) 0%, transparent);
+  }
+}
+@keyframes hx-spotin-a {
+  0% {
+    box-shadow: inset 0 0 0 3px color-mix(in srgb, var(--spot-c) 70%, transparent);
+  }
+  100% {
+    box-shadow: inset 0 0 0 0 color-mix(in srgb, var(--spot-c) 0%, transparent);
+  }
+}
+@keyframes hx-spotin-b {
+  0% {
+    box-shadow: inset 0 0 0 3px color-mix(in srgb, var(--spot-c) 70%, transparent);
+  }
+  100% {
+    box-shadow: inset 0 0 0 0 color-mix(in srgb, var(--spot-c) 0%, transparent);
+  }
+}
+.hx-slot.pop {
+  --spot-c: var(--hx-ai);
+  animation:
+    hx-pop 0.45s var(--hx-ease),
+    hx-spot-a 1.2s ease-out;
+}
+@keyframes hx-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+}
+.hx-slot .who em {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--hx-ai);
+}
+
+/* Riya's cursor */
+.hx-cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  width: 76px;
+  height: 30px;
+  pointer-events: none;
+}
+.hx-cursor .in {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.hx-cursor .in.on {
+  opacity: 1;
+}
+.hx-cursor svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+}
+.hx-cursor .lbl {
+  position: absolute;
+  left: 16px;
+  top: 12px;
+  padding: 1px 8px;
+  border-radius: 10px;
+  background: var(--hx-ai);
+  color: var(--hx-on-blue);
+  font: 700 11px / 16px var(--font-sans);
+}
+.hx-cursor .rip {
+  position: absolute;
+  left: -8px;
+  top: -8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--hx-ai);
+  animation: hx-rip 0.6s ease-out forwards;
+}
+@keyframes hx-rip {
+  from {
+    opacity: 1;
+    transform: scale(0.3);
+  }
+  to {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}
+.hx-tab[data-pressed],
+.hx-row[data-pressed] {
+  transform: scale(0.95);
+  filter: brightness(0.94);
+}
+@media (max-width: 680px) {
+  .hx-cursor {
+    display: none;
   }
 }

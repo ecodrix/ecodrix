@@ -48,12 +48,13 @@ export function Calendar({ s }: { s: DemoState }) {
         <div className="day" key={day}>
           <h4>{day}</h4>
           {Object.entries(slots).map(([t, who]) => (
-            <div className={`hx-slot${who ? " full" : ""}`} key={t}>
+            <div className={`hx-slot${who ? " full" : ""}${s.popSlot === `${day}|${t}` ? " pop" : ""}`} key={t}>
               <time>{t}</time>
               {who ? (
                 <span className="who">
                   <Avatar ini={initials(who)} className="sm" />
                   {who}
+                  {s.popSlot === `${day}|${t}` && <em>booked by Riya</em>}
                 </span>
               ) : (
                 <span>Free</span>

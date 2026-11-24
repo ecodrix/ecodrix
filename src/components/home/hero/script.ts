@@ -32,7 +32,13 @@ export type CallPatch = {
 };
 
 export type Act =
-  | { t: "doing"; text: string; k: VerbKey | null; cap?: string }
+  /** `id`: the conversation the lit word is about (its row glows). */
+  | { t: "doing"; text: string; k: VerbKey | null; cap?: string; id?: string }
+  | { t: "view"; view: View }
+  | { t: "select"; id: string }
+  /** Riya's cursor glides to a `data-cur` target (null hides it); `click` presses it. */
+  | { t: "cur"; to: string | null }
+  | { t: "click" }
   | { t: "say"; id: string; msg: Msg; time?: string; state?: ConvState; tl?: string; also?: Act[] }
   | { t: "book"; id: string; day: string; time: string }
   | { t: "flow"; id: string }
@@ -136,17 +142,25 @@ export type Seed = ReturnType<typeof seed>;
 
 const remind: Act = { t: "flow", id: "remind" };
 const paylink: Act = { t: "flow", id: "paylink" };
+const click: Act = { t: "click" };
 
-/** [ms on the demo clock, actions]. The last entry restarts the loop. */
+/**
+ * [ms on the demo clock, actions]. Cursor moves start ~700 ms before the click they lead to.
+ * The last entry restarts the loop.
+ */
 export const SCRIPT: [number, Act[]][] = [
+  [300, [{ t: "cur", to: "row:ar" }]],
   [
     1200,
     [
+      click,
+      { t: "select", id: "ar" },
       {
         t: "doing",
         text: "Answering Ananya on website chat",
         k: "answer",
         cap: "Riya is answering Ananya on your website chat",
+        id: "ar",
       },
     ],
   ],
@@ -162,7 +176,9 @@ export const SCRIPT: [number, Act[]][] = [
       },
     ],
   ],
+  [2300, [{ t: "cur", to: "composer" }]],
   [3200, [{ t: "typing", id: "ar" }]],
+  [4300, [{ t: "cur", to: "tab:cal" }]],
   [
     4800,
     [
@@ -173,7 +189,6 @@ export const SCRIPT: [number, Act[]][] = [
         msg: { f: "ai", t: "Booked: Monday 11:00 am with Dr. Rao. I will remind you on Sunday." },
         also: [
           { t: "say", id: "ar", msg: { f: "ev", t: "Booked Mon 11 am · Dr. Rao" }, tl: "Booked Mon 11 am" },
-          { t: "book", id: "ar", day: "Mon 25 Nov", time: "11:00 am" },
           remind,
           paylink,
         ],
@@ -186,6 +201,9 @@ export const SCRIPT: [number, Act[]][] = [
       },
     ],
   ],
+  [5000, [click, { t: "view", view: "cal" }]],
+  [5100, [{ t: "book", id: "ar", day: "Mon 25 Nov", time: "11:00 am" }]],
+  [5500, [{ t: "cur", to: "tab:inbox" }]],
   [
     5900,
     [
@@ -197,6 +215,7 @@ export const SCRIPT: [number, Act[]][] = [
       },
     ],
   ],
+  [6200, [click, { t: "view", view: "inbox" }]],
   [
     7000,
     [
@@ -224,6 +243,7 @@ export const SCRIPT: [number, Act[]][] = [
         text: "Reading Ravi on WhatsApp · added to CRM as New",
         k: "answer",
         cap: "New WhatsApp from Ravi, added to your CRM",
+        id: "rk",
       },
     ],
   ],
@@ -246,10 +266,12 @@ export const SCRIPT: [number, Act[]][] = [
         text: "Pain is a person's job · alerted the doctor on duty",
         k: "you",
         cap: "Tooth pain is a job for a person, so Riya called your team",
+        id: "rk",
       },
     ],
   ],
   [11500, [{ t: "say", id: "ps", msg: { f: "in", t: "OK, Saturday morning?" }, time: "9:16 pm" }]],
+  [12300, [{ t: "cur", to: "tab:cal" }]],
   [
     13000,
     [
@@ -259,7 +281,6 @@ export const SCRIPT: [number, Act[]][] = [
         msg: { f: "ai", t: "Saturday 10:30 am is free. Booked, see you then." },
         also: [
           { t: "say", id: "ps", msg: { f: "ev", t: "Booked Sat 10:30 am" }, tl: "Booked Sat 10:30 am" },
-          { t: "book", id: "ps", day: "Sat 29 Nov", time: "10:30 am" },
           remind,
           paylink,
         ],
@@ -270,10 +291,17 @@ export const SCRIPT: [number, Act[]][] = [
         k: "book",
         cap: "Riya booked Priya for Sat 10:30 am from Instagram",
       },
+      click,
+      { t: "view", view: "cal" },
     ],
   ],
+  [13100, [{ t: "book", id: "ps", day: "Sat 29 Nov", time: "10:30 am" }]],
+  [13900, [{ t: "cur", to: "tab:inbox" }]],
+  [14600, [click, { t: "view", view: "inbox" }]],
+  [14800, [{ t: "cur", to: "tab:pay" }]],
+  [15500, [click, { t: "view", view: "pay" }]],
   [
-    15500,
+    15600,
     [
       { t: "paid", id: "ar", amt: 35000, what: "Braces, first instalment" },
       { t: "toast", text: "Paid · ₹35,000 by Ananya", color: "var(--hx-ok)", go: { view: "pay" } },
@@ -285,6 +313,8 @@ export const SCRIPT: [number, Act[]][] = [
       },
     ],
   ],
+  [16300, [{ t: "cur", to: "tab:inbox" }]],
+  [17000, [click, { t: "view", view: "inbox" }]],
   // Phone call: Riya picks up, books on the call, and the summary lands in the inbox
   [
     17500,
@@ -306,9 +336,16 @@ export const SCRIPT: [number, Act[]][] = [
         },
       },
       { t: "call", p: { start: true, who: "in", st: "Incoming · Riya is picking up", line: null } },
-      { t: "doing", text: "Answering a call from Suresh", k: "answer", cap: "A call comes in. Riya picks up." },
+      {
+        t: "doing",
+        text: "Answering a call from Suresh",
+        k: "answer",
+        cap: "A call comes in. Riya picks up.",
+        id: "sk",
+      },
     ],
   ],
+  [17900, [{ t: "cur", to: "call" }]],
   [
     18300,
     [
@@ -376,10 +413,12 @@ export const SCRIPT: [number, Act[]][] = [
         text: "Call summary saved to Suresh's record",
         k: "answer",
         cap: "The call summary is saved on Suresh's record",
+        id: "sk",
       },
     ],
   ],
   [25300, [{ t: "call", p: { hide: true } }]],
+  [25800, [{ t: "cur", to: "tab:flow" }]],
   [
     26300,
     [
@@ -392,5 +431,9 @@ export const SCRIPT: [number, Act[]][] = [
       },
     ],
   ],
+  [26500, [click, { t: "view", view: "flow" }]],
+  [28000, [{ t: "cur", to: "tab:inbox" }]],
+  [28700, [click, { t: "view", view: "inbox" }]],
+  [29300, [{ t: "cur", to: null }]],
   [30000, [{ t: "reset" }]],
 ];

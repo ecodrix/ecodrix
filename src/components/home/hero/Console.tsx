@@ -1,7 +1,7 @@
 import type { Dispatch } from "react";
 import { Calendar, Inbox as InboxIcon, IndianRupee, Phone, Users, Workflow } from "@/components/icons";
 import { Inbox } from "./Inbox";
-import { Count } from "./parts";
+import { Count, spotProps } from "./parts";
 import type { View } from "./script";
 import type { Action, DemoState } from "./state";
 import { Board, Calendar as CalendarView, Flows, Payments } from "./Views";
@@ -41,6 +41,8 @@ export function Console({
               id={`hx-tab-${view}`}
               aria-controls={`hx-view-${view}`}
               aria-selected={s.view === view}
+              data-cur={`tab:${view}`}
+              {...spotProps(s, "tab", view)}
               onClick={() => dispatch({ type: "view", view })}
             >
               <Icon size={20} />
@@ -61,6 +63,7 @@ export function Console({
             </span>
           </span>
           <div className="nums">
+            <span className="hx-eg">Example data</span>
             <span className="num need">
               <strong>
                 <Count n={need} />
@@ -112,7 +115,9 @@ export function Console({
                 <b>Suresh K · Phone call</b>
                 <small>{call.st}</small>
               </span>
-              <span className="call-t">{call.t}</span>
+              <span className="call-t" data-cur="call">
+                {call.t}
+              </span>
             </div>
             <div className="wave">
               {WAVE.map((i) => (
