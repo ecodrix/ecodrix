@@ -7,7 +7,7 @@ import { DocsSearch, type SearchEntry } from "@/components/docs/DocsSearch";
 import { Icon } from "@/components/icons";
 import { LogoMark } from "@/components/layout/LogoMark";
 import { buttonVariants } from "@/components/ui/button";
-import { CONSOLE_URL, DEV_NAV } from "@/lib/docs";
+import { CONSOLE_URL, DEV_NAV } from "@/lib/docs/docs";
 import { cn } from "@/lib/utils";
 
 /**

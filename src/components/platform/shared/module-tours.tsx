@@ -1,8 +1,8 @@
 import type { Chapter } from "@/components/marketing/story";
-import { AgentScene } from "@/components/scenes/agent-scene";
-import { LazyScreen } from "@/components/scenes/lazy-screen";
-import { ArrivalScene } from "@/components/scenes/story-scenes";
-import { TimelineScene } from "@/components/scenes/timeline-scene";
+import { AgentScene } from "@/components/product-screens/agent-scene";
+import { LazyScreen } from "@/components/product-screens/lazy-screen";
+import { ArrivalScene } from "@/components/product-screens/story-scenes";
+import { TimelineScene } from "@/components/product-screens/timeline-scene";
 
 /**
  * One chapter per live feature on /platform/erix-connect, -crm and -flow,

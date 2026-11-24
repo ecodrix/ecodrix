@@ -1,4 +1,4 @@
-import { SubPageLayout, subPageMetadata, subPageParams } from "@/components/platform/SubPageLayout";
+import { SubPageLayout, subPageMetadata, subPageParams } from "@/components/platform/shared/SubPageLayout";
 
 type Props = { params: Promise<{ slug: string }> };
 

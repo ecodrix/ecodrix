@@ -22,7 +22,7 @@ import {
   type StatusPayload,
   type StatusSystem,
   type Tick,
-} from "@/lib/status-page";
+} from "@/lib/status/status-page";
 import { cn } from "@/lib/utils";
 
 const REPORT_HREF = `mailto:${REPORT_EMAIL}?subject=${encodeURIComponent("Status: problem report")}`;

@@ -2,7 +2,7 @@
 
 import { useState, useSyncExternalStore } from "react";
 import { Icon } from "@/components/icons";
-import type { CodeSample as Sample } from "@/lib/docs";
+import type { CodeSample as Sample } from "@/lib/docs/docs";
 import { cn } from "@/lib/utils";
 
 /* The reader's language (TypeScript SDK or cURL), shared by every sample on the

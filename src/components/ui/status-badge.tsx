@@ -7,7 +7,7 @@ const tone = { live: "success", soon: "warning", invite: "primary" } as const;
 const dot = { live: "bg-success", soon: "bg-warning", invite: "bg-accent" } as const;
 
 /** Module status: colour plus the word, never colour alone. Available items show "New"
- *  for a while after going live (`isNew`, see lib/catalog) and no badge after that. Always drawn
+ *  for a while after going live (`isNew`, see lib/platform/catalog) and no badge after that. Always drawn
  *  with the light tokens (`surface-light`), so it reads the same on dark.
  *  `plain`: just a small dot beside the word, no fill (dense lists). */
 export function StatusBadge({

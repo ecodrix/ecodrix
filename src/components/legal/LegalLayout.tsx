@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Icon } from "@/components/icons";
-import { Crumbs } from "@/components/platform/ModulePage";
+import { Crumbs } from "@/components/platform/shared/ModulePage";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { LEGAL, type LegalBlock, type LegalDoc } from "@/lib/legal/config";
 

@@ -3,12 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Icon } from "@/components/icons";
 import { Faq, MkSection, PrimaryCta } from "@/components/marketing/kit";
-import { ClosingCta, Crumbs } from "@/components/platform/ModulePage";
+import { ClosingCta, Crumbs } from "@/components/platform/shared/ModulePage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { buttonVariants } from "@/components/ui/button";
-import { COMPARISONS, getComparisonBySlug, getComparisonSlugs } from "@/lib/comparisons";
-import { getBreadcrumbSchema, getFAQSchema } from "@/lib/jsonld";
-import { pageMetadata } from "@/lib/seo";
+import { COMPARISONS, getComparisonBySlug, getComparisonSlugs } from "@/lib/resources/comparisons";
+import { getBreadcrumbSchema, getFAQSchema } from "@/lib/seo/jsonld";
+import { pageMetadata } from "@/lib/seo/seo";
 import { cn } from "@/lib/utils";
 
 /* ──────────────────────────────────────────────────────────────────────

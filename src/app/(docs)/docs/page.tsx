@@ -4,15 +4,15 @@ import { Rich } from "@/components/docs/Rich";
 import { Icon } from "@/components/icons";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { API_BASE_URL, DOC_SECTIONS, type DocBlock, type DocSection } from "@/lib/docs";
-import { getBreadcrumbSchema } from "@/lib/jsonld";
-import { pageMetadata } from "@/lib/seo";
+import { API_BASE_URL, DOC_SECTIONS, type DocBlock, type DocSection } from "@/lib/docs/docs";
+import { getBreadcrumbSchema } from "@/lib/seo/jsonld";
+import { pageMetadata } from "@/lib/seo/seo";
 import { cn } from "@/lib/utils";
 
 /* ──────────────────────────────────────────────────────────────────────
    /docs — the ERIX API and SDK reference: one page, a section per topic,
    prose and endpoints on the left, TypeScript/cURL samples on the right.
-   Content lives in lib/docs.ts (public API only).
+   Content lives in lib/docs/docs.ts (public API only).
 ─────────────────────────────────────────────────────────────────────── */
 
 export const metadata = pageMetadata({

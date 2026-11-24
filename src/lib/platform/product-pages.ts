@@ -29,7 +29,7 @@ export interface SubPage {
   description: string;
   type: "use-case" | "capability" | "guide" | "comparison";
   lead: string;
-  /** Coded mock of the related screen (components/scenes/screens.tsx). */
+  /** Coded mock of the related screen (components/product-screens/screens.tsx). */
   screen?: ScreenKey;
   /** "How it works", in order. */
   steps?: string[];

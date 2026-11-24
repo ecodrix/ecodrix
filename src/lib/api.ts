@@ -48,7 +48,7 @@ export const blogs = {
 };
 
 /** What ERIX offers, as staff set it for the website (admin › Catalog). Null when the API fails. */
-export async function fetchCatalog(): Promise<import("@/lib/catalog").CatalogItem[] | null> {
+export async function fetchCatalog(): Promise<import("@/lib/platform/catalog").CatalogItem[] | null> {
   return getData("/v1/api/platform/public/catalog", 300);
 }
 

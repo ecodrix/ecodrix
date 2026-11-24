@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { DocsHeader } from "@/components/docs/DocsHeader";
-import { DEV_NAV, DOC_SEARCH } from "@/lib/docs";
+import { DEV_NAV, DOC_SEARCH } from "@/lib/docs/docs";
 
 const FOOT = [
   ...DEV_NAV,

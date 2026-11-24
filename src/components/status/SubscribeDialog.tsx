@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { Icon } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { subscribeToStatus } from "@/lib/status-page";
+import { subscribeToStatus } from "@/lib/status/status-page";
 import { cn } from "@/lib/utils";
 
 /** Stored with the subscription as proof of consent (server `STATUS_CONSENT_TEXT`): change both together. */

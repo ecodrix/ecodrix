@@ -19,7 +19,7 @@ import {
   Zap,
 } from "@/components/icons";
 import { LiveDot } from "@/components/motion/surface";
-import { AppFrame, Pill } from "@/components/scenes/parts";
+import { AppFrame, Pill } from "@/components/product-screens/parts";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 

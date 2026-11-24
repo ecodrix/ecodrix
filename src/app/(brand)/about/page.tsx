@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { Icon } from "@/components/icons";
 import { CtaBand, MkSection } from "@/components/marketing/kit";
-import { ModuleRow } from "@/components/platform/ModuleRow";
+import { ModuleRow } from "@/components/platform/shared/ModuleRow";
 import { buttonVariants } from "@/components/ui/button";
-import { getPlatformNav } from "@/lib/catalog";
-import { pageMetadata } from "@/lib/seo";
+import { getPlatformNav } from "@/lib/platform/catalog";
+import { pageMetadata } from "@/lib/seo/seo";
 import { EMAIL_CTA } from "@/lib/site";
 
 export const metadata = pageMetadata({

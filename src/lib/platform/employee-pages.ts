@@ -7,7 +7,7 @@
  * offered to an agent in a customer chat (`shared/flow/custom-agents.ts` AUTO_REPLY_TOOLS).
  */
 
-import type { LazyScreenName } from "@/components/scenes/lazy-screen";
+import type { LazyScreenName } from "@/components/product-screens/lazy-screen";
 import type { ModuleStatus } from "@/lib/site";
 
 type Faq = { q: string; a: string };

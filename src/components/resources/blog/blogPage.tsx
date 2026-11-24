@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SubscribeCard } from "@/components/blog/SubscribeForm";
 import { Icon } from "@/components/icons";
 import { MkSection, PrimaryCta } from "@/components/marketing/kit";
+import { SubscribeCard } from "@/components/resources/blog/SubscribeForm";
 import { cn } from "@/lib/utils";
 
 const fmt = (d: string) => new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });

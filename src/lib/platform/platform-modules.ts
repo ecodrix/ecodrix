@@ -2,7 +2,7 @@
  * Platform module catalog: one entry per /platform/{slug} page.
  *
  * Drives:
- *  - /platform/[module]  → the module page (components/platform/ModulePage)
+ *  - /platform/[module]  → the module page (components/platform/shared/ModulePage)
  *  - /platform           → JSON-LD ItemList
  *  - /sitemap.xml        → discovery (slugs only)
  *

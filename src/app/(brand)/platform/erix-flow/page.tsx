@@ -1,4 +1,4 @@
-import { ModulePage, moduleMetadata } from "@/components/platform/ModulePage";
+import { ModulePage, moduleMetadata } from "@/components/platform/shared/ModulePage";
 
 export const metadata = moduleMetadata("erix-flow");
 

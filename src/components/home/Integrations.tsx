@@ -1,9 +1,9 @@
+import { ErixMarkSvg } from "@/components/home/erix-mark";
+import { type BeamItem, IntegrationBeam } from "@/components/home/integration-beam";
 import { Icon, type IconName, isBrandName } from "@/components/icons";
-import { ErixMarkSvg } from "@/components/marketing/erix-mark";
-import { type BeamItem, IntegrationBeam } from "@/components/marketing/integration-beam";
 import { MkSection, TrustBar } from "@/components/marketing/kit";
 import { fetchCatalog } from "@/lib/api";
-import { itemStatus } from "@/lib/catalog";
+import { itemStatus } from "@/lib/platform/catalog";
 
 /**
  * Home: what ERIX connects to, and what it turns a message into. The strip

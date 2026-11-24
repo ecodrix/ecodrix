@@ -7,15 +7,15 @@
  */
 
 import type { CSSProperties, ReactNode } from "react";
-import { FlowEditorDemo } from "@/components/demos/flow-editor-demo";
-import { InboxDemo } from "@/components/demos/inbox-demo";
-import { PipelineDemo } from "@/components/demos/pipeline-demo";
 import { CheckCircle2, Clock, Icon, Link2, MessageCircle, Send, Sparkles } from "@/components/icons";
 import { Scene } from "@/components/motion/scene";
-import type { ScreenKey } from "@/lib/product-pages";
+import { FlowEditorDemo } from "@/components/product-screens/flow-editor-demo";
+import { InboxDemo } from "@/components/product-screens/inbox-demo";
+import { AppFrame, at, Pill } from "@/components/product-screens/parts";
+import { PipelineDemo } from "@/components/product-screens/pipeline-demo";
+import { CrmScreen } from "@/components/product-screens/showcase-scenes";
+import type { ScreenKey } from "@/lib/platform/product-pages";
 import { cn } from "@/lib/utils";
-import { AppFrame, at, Pill } from "./parts";
-import { CrmScreen } from "./showcase-scenes";
 
 const box = "rounded-[10px] bg-surface shadow-[var(--shadow-card)]";
 

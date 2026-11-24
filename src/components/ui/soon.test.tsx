@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { renderToStaticMarkup } from "react-dom/server";
-import { PrimaryCta, EmailCta } from "@/components/marketing/kit";
+import { EmailCta, PrimaryCta } from "@/components/marketing/kit";
 import { StatusBadge } from "./status-badge";
 
 describe("disabled CTA for a not-available item", () => {
@@ -48,7 +48,7 @@ describe("no visible waitlist wording", () => {
   it("labels, privacy policy and comparison copy say early access", async () => {
     const { PRIMARY_CTA } = await import("@/lib/site");
     const { privacyDoc } = await import("@/lib/legal/docs/privacy");
-    const { COMPARISONS } = await import("@/lib/comparisons");
+    const { COMPARISONS } = await import("@/lib/resources/comparisons");
     assert.equal(PRIMARY_CTA.label, "Request early access");
     assert.doesNotMatch(JSON.stringify(privacyDoc) + JSON.stringify(COMPARISONS), /wait ?list/i);
   });

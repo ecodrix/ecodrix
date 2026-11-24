@@ -1,17 +1,17 @@
 import type { MetadataRoute } from "next";
 import { blogs } from "@/lib/api";
-import { COMPARISONS } from "@/lib/comparisons";
-import { EMPLOYEE_PAGES } from "@/lib/employee-pages";
-import { SEO_CONSTANTS } from "@/lib/jsonld";
 import { LEGAL_DOCS, legalHref } from "@/lib/legal/documents";
-import { PLATFORM_MODULES } from "@/lib/platform-modules";
-import { getLivePages } from "@/lib/product-pages";
+import { EMPLOYEE_PAGES } from "@/lib/platform/employee-pages";
+import { PLATFORM_MODULES } from "@/lib/platform/platform-modules";
+import { getLivePages } from "@/lib/platform/product-pages";
+import { COMPARISONS } from "@/lib/resources/comparisons";
+import { SEO_CONSTANTS } from "@/lib/seo/jsonld";
 
 /**
  * Generates /sitemap.xml via Next.js App Router convention.
  *
  * Single source of truth: static routes are listed below, and platform
- * module pages are auto-derived from `lib/platform-modules.ts` so adding
+ * module pages are auto-derived from `lib/platform/platform-modules.ts` so adding
  * a new backend module instantly registers its SEO landing page.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

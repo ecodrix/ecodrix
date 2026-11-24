@@ -2,13 +2,13 @@ import Link from "next/link";
 import { type GlyphName, Icon } from "@/components/icons";
 import { MkSection } from "@/components/marketing/kit";
 import { OnceVisible, SegTabs } from "@/components/marketing/seg-tabs";
-import { LazyScreen, type LazyScreenName } from "@/components/scenes/lazy-screen";
+import { LazyScreen, type LazyScreenName } from "@/components/product-screens/lazy-screen";
 import { cn } from "@/lib/utils";
 
 /**
  * "Inside ERIX": one redrawn screen per part, three benefits and a link. The
  * screen runs the section's full width, so the app shell shows its labelled
- * sidebar (components/scenes/parts AppFrame) as the real app does. Live
+ * sidebar (components/product-screens/parts AppFrame) as the real app does. Live
  * v1.0 only (DS product.md); Analytics shows just the two live charts. The
  * screens load only once their tab is opened and they're near the screen
  * (OnceVisible + LazyScreen), so the home page doesn't pay for them up front.

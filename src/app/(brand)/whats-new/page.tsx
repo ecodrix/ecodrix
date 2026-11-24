@@ -1,7 +1,7 @@
-import { PostCard } from "@/components/blog/blogPage";
 import { MkSection } from "@/components/marketing/kit";
+import { PostCard } from "@/components/resources/blog/blogPage";
 import { blogs } from "@/lib/api";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo/seo";
 
 // Same 60 s refresh as the blog: a post the founder publishes shows within a minute.
 export const revalidate = 60;

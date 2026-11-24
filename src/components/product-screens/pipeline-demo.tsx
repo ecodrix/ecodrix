@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { CheckCircle2, ChevronLeft, ChevronRight, Plus, Sparkles, Workflow, X } from "@/components/icons";
-import { AppFrame, Pill } from "@/components/scenes/parts";
+import { AppFrame, Pill } from "@/components/product-screens/parts";
 import { cn } from "@/lib/utils";
 
 const STAGES = [

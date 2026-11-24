@@ -1,5 +1,5 @@
-import { BlogContent, prepareArticle } from "@/components/blog/BlogContent";
-import type { CatalogMarketing } from "@/lib/catalog";
+import { BlogContent, prepareArticle } from "@/components/resources/blog/BlogContent";
+import type { CatalogMarketing } from "@/lib/platform/catalog";
 
 /**
  * An item's admin-managed page copy (admin › Catalog), shown like a blog post:

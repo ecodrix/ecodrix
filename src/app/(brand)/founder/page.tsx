@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Icon } from "@/components/icons";
 import { Faq, MkSection } from "@/components/marketing/kit";
-import { ClosingCta } from "@/components/platform/ModulePage";
+import { ClosingCta } from "@/components/platform/shared/ModulePage";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { getBreadcrumbSchema, getFAQSchema, getPersonSchema, SEO_CONSTANTS } from "@/lib/jsonld";
+import { getBreadcrumbSchema, getFAQSchema, getPersonSchema, SEO_CONSTANTS } from "@/lib/seo/jsonld";
 import { CONTACT_EMAIL } from "@/lib/site";
 
 const { BASE_URL, PORTFOLIO_URL } = SEO_CONSTANTS;

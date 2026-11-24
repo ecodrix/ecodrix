@@ -1,12 +1,12 @@
 import type { GlyphName } from "@/components/icons";
 import { Icon } from "@/components/icons";
 import { CtaBand, EmailCta, MkSection, PrimaryCta } from "@/components/marketing/kit";
-import { VoiceGallery } from "@/components/platform/VoiceGallery";
-import { VoiceLibrary } from "@/components/platform/VoiceLibrary";
-import { CallsNote, ListenChip } from "@/components/platform/VoiceSamples";
+import { VoiceGallery } from "@/components/platform/voice/VoiceGallery";
+import { VoiceLibrary } from "@/components/platform/voice/VoiceLibrary";
+import { CallsNote, ListenChip } from "@/components/platform/voice/VoiceSamples";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { getBreadcrumbSchema } from "@/lib/jsonld";
-import { pageMetadata } from "@/lib/seo";
+import { getBreadcrumbSchema } from "@/lib/seo/jsonld";
+import { pageMetadata } from "@/lib/seo/seo";
 
 export const metadata = pageMetadata({
   title: "ERIX Voices: 37 voices, 11 languages for your business calls",

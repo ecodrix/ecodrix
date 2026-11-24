@@ -1,4 +1,4 @@
-import { EmployeePage, employeeMetadata } from "@/components/platform/EmployeePage";
+import { EmployeePage, employeeMetadata } from "@/components/platform/ai-employee/EmployeePage";
 
 export const metadata = employeeMetadata();
 

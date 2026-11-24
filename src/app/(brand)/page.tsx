@@ -22,8 +22,8 @@ import { UseCases } from "@/components/home/UseCases";
 import { WaitlistLazy } from "@/components/home/WaitlistLazy";
 import { CtaBand, Faq, MkSection } from "@/components/marketing/kit";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { getFAQSchema } from "@/lib/jsonld";
-import { pageMetadata } from "@/lib/seo";
+import { getFAQSchema } from "@/lib/seo/jsonld";
+import { pageMetadata } from "@/lib/seo/seo";
 
 const home = pageMetadata({
   title: "ECODrIx",

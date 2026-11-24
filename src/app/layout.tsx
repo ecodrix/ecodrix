@@ -12,7 +12,7 @@ import { CookieConsent } from "@/components/legal/CookieConsent";
 import { MotionRoot } from "@/components/motion/motion";
 import { MotionProvider } from "@/components/motion/motion-provider";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
-import { getOrganizationSchema, getSoftwareApplicationSchema, getWebSiteSchema } from "@/lib/jsonld";
+import { getOrganizationSchema, getSoftwareApplicationSchema, getWebSiteSchema } from "@/lib/seo/jsonld";
 import { cn } from "@/lib/utils";
 
 // ERIX design system type, self-hosted (SIL OFL — licences in ./fonts):

@@ -3,9 +3,9 @@ import { Rich } from "@/components/docs/Rich";
 import { Icon } from "@/components/icons";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Badge } from "@/components/ui/badge";
-import { RELEASES, type ReleaseBadge } from "@/lib/changelog";
-import { getBreadcrumbSchema } from "@/lib/jsonld";
-import { pageMetadata } from "@/lib/seo";
+import { RELEASES, type ReleaseBadge } from "@/lib/resources/changelog";
+import { getBreadcrumbSchema } from "@/lib/seo/jsonld";
+import { pageMetadata } from "@/lib/seo/seo";
 
 /* ──────────────────────────────────────────────────────────────────────
    /changelog — every ERIX release, newest first. Each version has its own

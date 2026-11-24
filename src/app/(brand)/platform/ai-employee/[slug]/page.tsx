@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
-import { EmployeePage, employeeMetadata, employeeParams } from "@/components/platform/EmployeePage";
-import { getEmployeePage } from "@/lib/employee-pages";
+import { EmployeePage, employeeMetadata, employeeParams } from "@/components/platform/ai-employee/EmployeePage";
+import { getEmployeePage } from "@/lib/platform/employee-pages";
 
 type Props = { params: Promise<{ slug: string }> };
 

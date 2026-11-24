@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { StyledPhoneInput } from "@/components/ui/phone-input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { CONSOLE_URL } from "@/lib/docs";
+import { CONSOLE_URL } from "@/lib/docs/docs";
 import { analyticsConsented } from "@/lib/legal/consent";
 import { getLanding, getVisitorId, trackEvent } from "@/lib/track";
 import { cn } from "@/lib/utils";

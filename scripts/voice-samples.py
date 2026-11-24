@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Render the ERIX Voice page's sample calls with Sarvam Bulbul (billed per character).
 
-Reads src/components/platform/voice-calls.json, speaks every line with the voice set for
+Reads src/components/platform/voice/voice-calls.json, speaks every line with the voice set for
 its speaker, joins the turns into one call per language and writes:
   public/audio/voice-agent/calls/<call>-<lang>.mp3
-  src/components/platform/voice-calls.audio.json   (duration, line timings, 48 loudness bars)
+  src/components/platform/voice/voice-calls.audio.json   (duration, line timings, 48 loudness bars)
 
   python3 scripts/voice-samples.py --plan            # characters and cost, calls nothing
   ERIX_PAID_EVAL=1 bash ../voice-runtime/scripts/with_local_env.sh \
@@ -32,12 +32,12 @@ import wave
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-CALLS = ROOT / "src/components/platform/voice-calls.json"
-MANIFEST = ROOT / "src/components/platform/voice-calls.audio.json"
+CALLS = ROOT / "src/components/platform/voice/voice-calls.json"
+MANIFEST = ROOT / "src/components/platform/voice/voice-calls.audio.json"
 AUDIO = ROOT / "public/audio/voice-agent/calls"
-LIB = ROOT / "src/components/platform/voice-library.json"
+LIB = ROOT / "src/components/platform/voice/voice-library.json"
 IDS = ROOT / "scripts/voice-ids.json"  # private: ERIX code -> provider speaker, never imported by the site
-LIB_MANIFEST = ROOT / "src/components/platform/voice-library.audio.json"
+LIB_MANIFEST = ROOT / "src/components/platform/voice/voice-library.audio.json"
 LIB_AUDIO = ROOT / "public/audio/voice-agent/voices"
 URL = "https://api.sarvam.ai/text-to-speech"
 LANG_CODE = {"en": "en-IN", "hi": "hi-IN", "te": "te-IN"}

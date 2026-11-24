@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Icon } from "@/components/icons";
 import { BrowserFrame, CtaBand, EmailCta, Faq, MkHero, MkSection, PrimaryCta, Steps } from "@/components/marketing/kit";
-import { Crumbs } from "@/components/platform/ModulePage";
-import { AgentScene } from "@/components/scenes/agent-scene";
-import { LazyScreen } from "@/components/scenes/lazy-screen";
+import { Crumbs } from "@/components/platform/shared/ModulePage";
+import { AgentScene } from "@/components/product-screens/agent-scene";
+import { LazyScreen } from "@/components/product-screens/lazy-screen";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { StatusBadge } from "@/components/ui/status-badge";
 import {
@@ -13,9 +13,9 @@ import {
   HANDOFF_COMMON,
   HIRE_STEPS,
   HUB,
-} from "@/lib/employee-pages";
-import { getBreadcrumbSchema, getFAQSchema } from "@/lib/jsonld";
-import { pageMetadata } from "@/lib/seo";
+} from "@/lib/platform/employee-pages";
+import { getBreadcrumbSchema, getFAQSchema } from "@/lib/seo/jsonld";
+import { pageMetadata } from "@/lib/seo/seo";
 
 const BASE = "/platform/ai-employee";
 
@@ -63,7 +63,7 @@ const Closing = () => (
   />
 );
 
-/** The hub and every channel page: one parent, content from lib/employee-pages.ts. */
+/** The hub and every channel page: one parent, content from lib/platform/employee-pages.ts. */
 export function EmployeePage({ page }: { page?: EmployeePageData }) {
   const hub = !page;
   const faqs = page ? page.faqs : HUB.faqs;

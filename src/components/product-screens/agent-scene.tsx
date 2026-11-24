@@ -1,6 +1,6 @@
 import { CheckCheck, Clock, Sparkles, UserRound } from "@/components/icons";
 import { Scene } from "@/components/motion/scene";
-import { AppFrame, at, Bubble, Pill } from "./parts";
+import { AppFrame, at, Bubble, Pill } from "@/components/product-screens/parts";
 
 function Case({ label, children }: { label: string; children: React.ReactNode }) {
   return (

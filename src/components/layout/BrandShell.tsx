@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { PlatformNavProvider } from "@/components/layout/platform-nav";
-import { getPlatformNav } from "@/lib/catalog";
+import { getPlatformNav } from "@/lib/platform/catalog";
 
 /**
  * The brand site's chrome (ecodrix.com marketing pages): the mega-menu header

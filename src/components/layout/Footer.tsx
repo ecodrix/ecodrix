@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { type GlyphName, Icon } from "@/components/icons";
 import { LogoMark } from "@/components/layout/LogoMark";
+import { Wordmark } from "@/components/layout/wordmark";
 import { CookiePrefsButton } from "@/components/legal/CookiePrefsButton";
-import { Wordmark } from "@/components/marketing/wordmark";
 import { buttonVariants } from "@/components/ui/button";
 import { COMPANY_NAV, CONTACT_EMAIL, EMAIL_CTA, INDUSTRY_NAV, PRIMARY_CTA, RESOURCE_NAV, SOCIALS } from "@/lib/site";
 import { cn } from "@/lib/utils";

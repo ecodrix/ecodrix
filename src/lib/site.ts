@@ -124,7 +124,7 @@ export const PLATFORM_NAV = [
   ai?: boolean;
 }[];
 
-/** Industries: the use-case pages under ERIX CRM (lib/product-pages.ts). */
+/** Industries: the use-case pages under ERIX CRM (lib/platform/product-pages.ts). */
 export const INDUSTRY_NAV = [
   {
     icon: "building-2",

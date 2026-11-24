@@ -1,7 +1,7 @@
 import { Bot, Plus, Sparkles } from "@/components/icons";
 import { Scene } from "@/components/motion/scene";
+import { AppFrame, at, Pill } from "@/components/product-screens/parts";
 import { cn } from "@/lib/utils";
-import { AppFrame, at, Pill } from "./parts";
 
 const kinds = ["Agent", "Automation", "Conversation", "Campaign"];
 const agenda = [

@@ -1,8 +1,8 @@
-/** Run: npx tsx --test src/lib/catalog.test.ts (no test runner is installed in this repo). */
+/** Run: npx tsx --test src/lib/platform/catalog.test.ts (no test runner is installed in this repo). */
 import assert from "node:assert/strict";
 import { afterEach, describe, it } from "node:test";
-import { applyCatalog, type CatalogItem, getModuleView, getPlatformNav, isNewBadge, NEW_BADGE_DAYS } from "./catalog";
-import { PLATFORM_NAV } from "./site";
+import { applyCatalog, type CatalogItem, getModuleView, getPlatformNav, isNewBadge, NEW_BADGE_DAYS } from "@/lib/platform/catalog";
+import { PLATFORM_NAV } from "@/lib/site";
 
 const item = (id: string, status: "listed" | "soon"): CatalogItem => ({
   id,

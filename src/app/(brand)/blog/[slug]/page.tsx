@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { BlogContent, prepareArticle } from "@/components/blog/BlogContent";
-import { PostCard } from "@/components/blog/blogPage";
-import { SubscribeForm } from "@/components/blog/SubscribeForm";
 import { Icon } from "@/components/icons";
 import { MkSection } from "@/components/marketing/kit";
-import { ClosingCta, Crumbs } from "@/components/platform/ModulePage";
+import { ClosingCta, Crumbs } from "@/components/platform/shared/ModulePage";
+import { BlogContent, prepareArticle } from "@/components/resources/blog/BlogContent";
+import { PostCard } from "@/components/resources/blog/blogPage";
+import { SubscribeForm } from "@/components/resources/blog/SubscribeForm";
 import { blogs } from "@/lib/api";
-import { SEO_CONSTANTS } from "@/lib/jsonld";
+import { SEO_CONSTANTS } from "@/lib/seo/jsonld";
 
 interface Props {
   params: Promise<{ slug: string }>;

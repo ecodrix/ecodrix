@@ -13,8 +13,8 @@ import type { ReactNode } from "react";
 import { CheckCircle2, Clock, type IconComponent, Link2, MessageCircle, Sparkles, Workflow } from "@/components/icons";
 import { Scene } from "@/components/motion/scene";
 import { LiveDot } from "@/components/motion/surface";
+import { AppFrame, Avatar, at, Bubble, Channel, Pill, Ticks, Typing } from "@/components/product-screens/parts";
 import { cn } from "@/lib/utils";
-import { AppFrame, Avatar, at, Bubble, Channel, Pill, Ticks, Typing } from "./parts";
 
 const box = "rounded-[10px] bg-surface shadow-[var(--shadow-card)]";
 

@@ -3,10 +3,10 @@
 import { useRef, useState } from "react";
 import { BookOpen, Send, Sparkles } from "@/components/icons";
 import { LiveDot } from "@/components/motion/surface";
-import { AppFrame, Avatar, Channel, Pill } from "@/components/scenes/parts";
+import { type ChatMsg, Composer, MessageList, msg, reducedMotion, sleep } from "@/components/product-screens/chat";
+import { AppFrame, Avatar, Channel, Pill } from "@/components/product-screens/parts";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { type ChatMsg, Composer, MessageList, msg, reducedMotion, sleep } from "./chat";
 
 type Ch = "whatsapp";
 

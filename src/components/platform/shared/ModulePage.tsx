@@ -5,17 +5,17 @@ import type { ReactNode } from "react";
 import { Icon } from "@/components/icons";
 import { BrowserFrame, CtaBand, EmailCta, Faq, MkHero, MkSection, PrimaryCta } from "@/components/marketing/kit";
 import { Story } from "@/components/marketing/story";
-import { MarketingBody } from "@/components/platform/MarketingBody";
-import { MODULE_TOURS } from "@/components/platform/module-tours";
-import { VoiceSamples } from "@/components/platform/VoiceSamples";
-import { SCREENS } from "@/components/scenes/screens";
+import { MarketingBody } from "@/components/platform/shared/MarketingBody";
+import { MODULE_TOURS } from "@/components/platform/shared/module-tours";
+import { VoiceSamples } from "@/components/platform/voice/VoiceSamples";
+import { SCREENS } from "@/components/product-screens/screens";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { getModuleView } from "@/lib/catalog";
-import { getBreadcrumbSchema, getFAQSchema } from "@/lib/jsonld";
-import { getModuleBySlug, type PlatformModule } from "@/lib/platform-modules";
-import { getLivePages, getProductPages, type ScreenKey } from "@/lib/product-pages";
-import { pageMetadata } from "@/lib/seo";
+import { getModuleView } from "@/lib/platform/catalog";
+import { getModuleBySlug, type PlatformModule } from "@/lib/platform/platform-modules";
+import { getLivePages, getProductPages, type ScreenKey } from "@/lib/platform/product-pages";
+import { getBreadcrumbSchema, getFAQSchema } from "@/lib/seo/jsonld";
+import { pageMetadata } from "@/lib/seo/seo";
 import { cn } from "@/lib/utils";
 
 /** The coded screen each module page leads with. */
