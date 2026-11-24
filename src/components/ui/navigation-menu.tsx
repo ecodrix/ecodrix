@@ -37,7 +37,7 @@ function NavigationMenuTrigger({
     <NavigationMenuPrimitive.Trigger
       data-slot="navigation-menu-trigger"
       className={cn(
-        "group/nav relative isolate inline-flex h-9 items-center gap-1 rounded-[8px] px-3 text-[14.5px] font-semibold text-muted-foreground",
+        "group/nav relative isolate inline-flex h-9 items-center gap-1 rounded-full px-3 text-[14.5px] font-semibold text-muted-foreground",
         "hover:text-foreground data-[state=open]:text-foreground",
         className,
       )}

@@ -16,11 +16,11 @@ function Tabs(props: React.ComponentProps<typeof TabsPrimitive.Root>) {
 }
 
 /** DS segmented control: a sunken track whose selected item is a raised pill. */
-export const segClass = "relative inline-flex max-w-full gap-0.5 overflow-x-auto rounded-[10px] bg-sunken p-[3px]";
+export const segClass = "relative inline-flex max-w-full gap-0.5 overflow-x-auto rounded-full bg-sunken p-[3px]";
 /** One item. The selected pill is the item itself, or a sliding `data-seg-ind` child (the pill
  *  then carries the fill, so before hydration the selected item never flashes empty). */
 export const segItemClass =
-  "relative isolate inline-flex min-h-9 cursor-pointer items-center justify-center gap-1.5 rounded-[7px] px-4 font-sans text-[14.5px]/5 font-semibold whitespace-nowrap text-muted-foreground hover:text-foreground aria-selected:bg-surface aria-selected:text-foreground aria-selected:shadow-sm aria-checked:bg-surface aria-checked:text-foreground aria-checked:shadow-sm has-[input:checked]:bg-surface has-[input:checked]:text-foreground has-[input:checked]:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent has-focus-visible:outline-2 has-focus-visible:outline-offset-1 has-focus-visible:outline-accent motion-safe:focus-visible:animate-focus has-[[data-seg-ind]]:bg-transparent! has-[[data-seg-ind]]:[box-shadow:none]!";
+  "relative isolate inline-flex min-h-9 cursor-pointer items-center justify-center gap-1.5 rounded-full px-4 font-sans text-[14.5px]/5 font-semibold whitespace-nowrap text-muted-foreground hover:text-foreground aria-selected:bg-surface aria-selected:text-foreground aria-selected:shadow-sm aria-checked:bg-surface aria-checked:text-foreground aria-checked:shadow-sm has-[input:checked]:bg-surface has-[input:checked]:text-foreground has-[input:checked]:shadow-sm focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-accent has-focus-visible:outline-2 has-focus-visible:outline-offset-1 has-focus-visible:outline-accent motion-safe:focus-visible:animate-focus has-[[data-seg-ind]]:bg-transparent! has-[[data-seg-ind]]:[box-shadow:none]!";
 
 function TabsList({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.List>) {
   return <TabsPrimitive.List data-slot="tabs-list" className={cn(segClass, className)} {...props} />;

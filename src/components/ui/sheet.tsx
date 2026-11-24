@@ -50,7 +50,7 @@ function SheetContent({
               exit={{ x: "100%", transition: { duration: 0.2, ease: [0.4, 0, 1, 1] } }}
             >
               {children}
-              <SheetPrimitive.Close className="absolute top-2.5 right-3 flex size-11 items-center justify-center rounded-[8px] text-muted-foreground hover:bg-hover hover:text-foreground">
+              <SheetPrimitive.Close className="absolute top-2.5 right-3 flex size-11 items-center justify-center rounded-full text-muted-foreground hover:bg-hover hover:text-foreground">
                 <X aria-hidden="true" className="size-5" />
                 <span className="sr-only">{closeLabel}</span>
               </SheetPrimitive.Close>

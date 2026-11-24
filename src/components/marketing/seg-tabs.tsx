@@ -49,7 +49,7 @@ export function SegTabs({ tabs, label, panelClassName }: { tabs: SegTab[]; label
                 layoutId={pill}
                 aria-hidden="true"
                 data-seg-ind
-                className="absolute inset-0 -z-1 rounded-[7px] bg-surface shadow-sm"
+                className="absolute inset-0 -z-1 rounded-full bg-surface shadow-sm"
                 transition={{ type: "spring", bounce: 0.18, duration: 0.42 }}
               />
             )}

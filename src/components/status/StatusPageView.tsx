@@ -283,7 +283,7 @@ function Pipes({
                   type="button"
                   onClick={close}
                   aria-label="Close day details"
-                  className="-m-1 grid size-8 shrink-0 place-items-center rounded-[8px] text-subtle hover:bg-sunken hover:text-foreground focus-visible:outline-2 focus-visible:outline-accent"
+                  className="-m-1 grid size-8 shrink-0 place-items-center rounded-full text-subtle hover:bg-sunken hover:text-foreground focus-visible:outline-2 focus-visible:outline-accent"
                 >
                   <Icon name="x" size={16} variant="line" />
                 </button>
@@ -613,7 +613,7 @@ export function StatusPageView({ initial }: { initial: StatusPayload | null }) {
                 <h2 id="system-status" className="text-[18px] font-semibold">
                   System status
                 </h2>
-                <fieldset className="m-0 inline-flex min-w-0 rounded-[8px] border-0 bg-sunken p-0.5">
+                <fieldset className="m-0 inline-flex min-w-0 rounded-full border-0 bg-sunken p-0.5">
                   <legend className="sr-only">Date range</legend>
                   {([30, 90] as const).map((r) => (
                     <button
@@ -622,7 +622,7 @@ export function StatusPageView({ initial }: { initial: StatusPayload | null }) {
                       aria-pressed={range === r}
                       onClick={() => setRange(r)}
                       className={cn(
-                        "min-h-9 rounded-[6px] px-3 text-[13.5px] font-medium focus-visible:outline-2 focus-visible:outline-accent",
+                        "min-h-9 rounded-full px-3 text-[13.5px] font-medium focus-visible:outline-2 focus-visible:outline-accent",
                         range === r
                           ? "bg-surface-white text-foreground shadow-xs"
                           : "text-muted-foreground hover:text-foreground",

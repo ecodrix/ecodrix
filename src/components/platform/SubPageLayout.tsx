@@ -110,7 +110,7 @@ export async function SubPageLayout({ module, slug }: { module: string; slug: st
             <p className="mt-6 flex flex-wrap items-center gap-3">
               <ModuleEyebrow m={m} />
               <StatusBadge status={v.status} isNew={v.isNew} />
-              <span className="rounded-[6px] bg-sunken px-2 py-0.5 text-[12px] font-semibold text-muted-foreground">
+              <span className="rounded-full bg-sunken px-2 py-0.5 text-[12px] font-semibold text-muted-foreground">
                 {TYPE_LABEL[page.type]}
               </span>
             </p>

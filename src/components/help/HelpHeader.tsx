@@ -35,9 +35,7 @@ export function HelpHeader() {
         <Link href={helpHref("/")} className="flex shrink-0 items-center gap-2">
           <LogoMark priority className="size-7" />
           <span className="font-display text-[18px] font-bold tracking-[-0.02em] text-foreground">ERIX</span>
-          <span className="rounded-[6px] bg-accent-muted px-1.5 py-0.5 text-[12px] font-semibold text-accent">
-            Help
-          </span>
+          <span className="rounded-full bg-accent-muted px-1.5 py-0.5 text-[12px] font-semibold text-accent">Help</span>
           <span className="sr-only">, help center home</span>
         </Link>
 
@@ -51,7 +49,7 @@ export function HelpHeader() {
                 <li key={n.href}>
                   <a
                     href={n.href}
-                    className="rounded-[8px] px-3 py-2 text-[14.5px] font-medium text-muted-foreground transition-colors hover:bg-sunken hover:text-foreground"
+                    className="rounded-full px-3 py-2 text-[14.5px] font-medium text-muted-foreground transition-colors hover:bg-sunken hover:text-foreground"
                   >
                     {n.label}
                   </a>
@@ -69,7 +67,7 @@ export function HelpHeader() {
             aria-controls="help-menu"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen(!open)}
-            className="grid size-10 place-items-center rounded-[8px] text-foreground hover:bg-sunken lg:hidden"
+            className="grid size-10 place-items-center rounded-full text-foreground hover:bg-sunken lg:hidden"
           >
             <Icon name={open ? "x" : "menu"} size={20} variant="line" />
           </button>

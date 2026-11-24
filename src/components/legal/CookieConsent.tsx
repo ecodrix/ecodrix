@@ -218,13 +218,13 @@ export function CookieConsent({
             <div className="mt-4 flex flex-wrap gap-2 items-center">
               <button
                 onClick={acceptAll}
-                className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md bg-accent px-4 text-sm font-semibold text-white hover:bg-accent-hover"
+                className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-accent px-4 text-sm font-semibold text-white hover:bg-accent-hover"
               >
                 {icons.check} Accept all
               </button>
               <button
                 onClick={rejectNonEssential}
-                className="inline-flex min-h-10 items-center justify-center rounded-md border border-border-strong px-4 text-sm font-semibold text-foreground hover:border-accent hover:text-accent"
+                className="inline-flex min-h-10 items-center justify-center rounded-full border border-border-strong px-4 text-sm font-semibold text-foreground hover:border-accent hover:text-accent"
               >
                 Reject non-essential
               </button>

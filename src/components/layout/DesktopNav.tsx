@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, m, type Variants } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion, type Variants } from "framer-motion";
 import Link from "next/link";
 import { type ReactNode, useEffect, useState } from "react";
 import { ArrowRight, Icon, type IconName } from "@/components/icons";
@@ -457,6 +457,7 @@ export default function DesktopNav({
   focusKey?: NavSection;
 }) {
   const [value, setValue] = useState("");
+  const reduce = useReducedMotion();
 
   // Navigating closes the menu.
   const [lastPath, setLastPath] = useState(path);
@@ -470,65 +471,70 @@ export default function DesktopNav({
   }, [focusKey]);
 
   return (
-    <NavigationMenu value={value} onValueChange={setValue} aria-label="Main">
-      <NavigationMenuList>
-        {NAV_SECTIONS.map((s) => (
-          <NavigationMenuItem key={s.key} value={s.key}>
-            <NavigationMenuTrigger
-              data-nav-key={s.key}
-              data-current={current === s.key || undefined}
-              className="data-[current]:text-foreground"
-            >
-              {value === s.key && (
-                <m.span
-                  layoutId="nav-pill"
-                  aria-hidden="true"
-                  className="absolute inset-0 -z-10 rounded-[8px] bg-hover"
-                  transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
-                />
-              )}
-              {s.label}
-              {current === s.key && (
-                <m.span
-                  layoutId="nav-current"
-                  aria-hidden="true"
-                  className="absolute bottom-0 left-[calc(50%-2.5px)] size-[5px] rounded-full bg-[var(--hero-dot)]"
-                />
-              )}
-            </NavigationMenuTrigger>
-            <AnimatePresence>
-              {value === s.key && (
-                <NavigationMenuContent forceMount asChild>
-                  <m.div
-                    className="absolute inset-x-0 top-full"
-                    initial="closed"
-                    animate="open"
-                    exit={{ opacity: 0, transition: { duration: 0.12 } }}
-                  >
-                    {/* Full-width panel under the header; the page below dims a little. */}
+    <>
+      {/* The page below dims a little (behind the header, which is its own stacking context). */}
+      {value && <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 bg-[rgb(11_27_100/0.06)]" />}
+      <NavigationMenu value={value} onValueChange={setValue} aria-label="Main">
+        <NavigationMenuList>
+          {NAV_SECTIONS.map((s) => (
+            <NavigationMenuItem key={s.key} value={s.key}>
+              <NavigationMenuTrigger
+                data-nav-key={s.key}
+                data-current={current === s.key || undefined}
+                className="data-[current]:text-foreground"
+              >
+                {value === s.key && (
+                  <m.span
+                    layoutId="nav-pill"
+                    aria-hidden="true"
+                    className="absolute inset-0 -z-10 rounded-full bg-hover"
+                    transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
+                  />
+                )}
+                {s.label}
+                {current === s.key && (
+                  <m.span
+                    layoutId="nav-current"
+                    aria-hidden="true"
+                    className="absolute bottom-0 left-[calc(50%-2.5px)] size-[5px] rounded-full bg-[var(--hero-dot)]"
+                  />
+                )}
+              </NavigationMenuTrigger>
+              <AnimatePresence>
+                {value === s.key && (
+                  <NavigationMenuContent forceMount asChild>
                     <m.div
-                      data-lenis-prevent
-                      variants={{
-                        closed: { opacity: 0, y: -6 },
-                        open: { opacity: 1, y: 0, transition: { duration: 0.24, ease: [0.22, 1, 0.36, 1] } },
+                      // The pill's own width and edges (-1px = its border), attached under the bar: one surface that
+                      // grows down; the bar squares its bottom corners meanwhile (Navbar). Height 0 > auto, no transform.
+                      className="absolute inset-x-[-1px] top-full overflow-hidden rounded-b-[28px] border-x border-b border-border bg-surface text-foreground"
+                      initial={reduce ? false : { height: 0, opacity: 0.6 }}
+                      animate={{
+                        height: "auto",
+                        opacity: 1,
+                        transition: { duration: reduce ? 0 : 0.28, ease: [0.22, 1, 0.36, 1] },
                       }}
-                      className="relative z-10 border-y border-border-soft bg-surface text-foreground shadow-[0_24px_48px_-24px_rgba(11,27,100,0.28)]"
+                      exit={{ height: reduce ? "auto" : 0, opacity: 0, transition: { duration: reduce ? 0 : 0.18 } }}
                     >
-                      <div className="mx-auto w-full max-w-wrap px-gutter py-5">
+                      <m.div
+                        data-lenis-prevent
+                        initial={reduce ? false : { opacity: 0, y: -8 }}
+                        animate={{
+                          opacity: 1,
+                          y: 0,
+                          transition: { duration: reduce ? 0 : 0.26, delay: reduce ? 0 : 0.05 },
+                        }}
+                        className="px-6 py-5"
+                      >
                         <Panel section={s.key} path={path} />
-                      </div>
+                      </m.div>
                     </m.div>
-                    <div
-                      aria-hidden="true"
-                      className="pointer-events-none absolute inset-x-0 top-full h-dvh bg-[rgb(11_27_100/0.06)]"
-                    />
-                  </m.div>
-                </NavigationMenuContent>
-              )}
-            </AnimatePresence>
-          </NavigationMenuItem>
-        ))}
-      </NavigationMenuList>
-    </NavigationMenu>
+                  </NavigationMenuContent>
+                )}
+              </AnimatePresence>
+            </NavigationMenuItem>
+          ))}
+        </NavigationMenuList>
+      </NavigationMenu>
+    </>
   );
 }

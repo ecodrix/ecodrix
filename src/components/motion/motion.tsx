@@ -195,7 +195,7 @@ export function SceneDriver({
         type="button"
         onClick={() => setPaused(!paused)}
         className={cn(
-          "scene-toggle relative z-10 mt-2 in-data-[browser]:my-1.5 in-data-[browser]:mr-2 in-data-[browser]:ml-auto flex size-8 items-center justify-center rounded-[8px] text-subtle hover:bg-hover hover:text-accent",
+          "scene-toggle relative z-10 mt-2 in-data-[browser]:my-1.5 in-data-[browser]:mr-2 in-data-[browser]:ml-auto flex size-8 items-center justify-center rounded-full text-subtle hover:bg-hover hover:text-accent",
           toggleClassName,
         )}
       >

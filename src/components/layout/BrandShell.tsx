@@ -16,7 +16,7 @@ export async function BrandShell({ children }: { children: ReactNode }) {
       <PlatformNavProvider nav={platformNav}>
         <Navbar />
       </PlatformNavProvider>
-      <main id="main-content" tabIndex={-1} className="flex flex-1 flex-col outline-none">
+      <main id="main-content" tabIndex={-1} className="brand-main flex flex-1 flex-col outline-none">
         {children}
       </main>
       <Footer />

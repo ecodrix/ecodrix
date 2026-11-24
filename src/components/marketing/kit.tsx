@@ -194,10 +194,8 @@ export function BrowserFrame({
     <div
       data-browser=""
       className={cn(
-        "surface-light overflow-hidden bg-background",
-        light
-          ? "rounded-[14px] shadow-lg"
-          : "rounded-[14px_14px_0_0] shadow-[0_0_0_1px_rgba(255,255,255,0.12),0_40px_80px_-24px_rgba(4,13,66,0.55)]",
+        "surface-light relative overflow-hidden bg-background",
+        light ? "rounded-[14px] shadow-lg" : "rounded-[14px_14px_0_0] shadow-[0_0_0_1px_rgba(255,255,255,0.12)]",
         className,
       )}
     >
@@ -210,6 +208,9 @@ export function BrowserFrame({
           {url}
         </span>
       </div>
+      <span className="absolute top-0 right-3.5 flex h-9 items-center font-sans text-[11px]/4 font-medium text-subtle">
+        Example data
+      </span>
       {/* An app screen inside a browser window drops its own frame. */}
       <div className="p-3.5 [&:has(>.scene_[data-app-frame])]:p-0 [&:has(>[data-app-frame])]:p-0">{children}</div>
     </div>
@@ -228,7 +229,7 @@ export function PhoneFrame({
   return (
     <div
       className={cn(
-        "surface-light relative w-[268px] rounded-[34px] bg-[#0d1020] p-2.5 shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_30px_60px_-20px_rgba(4,13,66,0.6)]",
+        "surface-light relative w-[268px] rounded-[34px] bg-[#0d1020] p-2.5 shadow-[0_0_0_1px_rgba(255,255,255,0.1)]",
         className,
       )}
     >

@@ -32,7 +32,7 @@ export function DocsHeader({ search }: { search: SearchEntry[] }) {
         <Link href="/docs" className="flex shrink-0 items-center gap-2">
           <LogoMark priority className="size-7" />
           <span className="font-display text-[18px] font-bold tracking-[-0.02em] text-foreground">ERIX</span>
-          <span className="rounded-[6px] bg-accent-muted px-1.5 py-0.5 text-[12px] font-semibold text-accent">
+          <span className="rounded-full bg-accent-muted px-1.5 py-0.5 text-[12px] font-semibold text-accent">
             Developers
           </span>
           <span className="sr-only">, docs home</span>
@@ -46,7 +46,7 @@ export function DocsHeader({ search }: { search: SearchEntry[] }) {
                   href={n.href}
                   aria-current={current(n.href) ? "page" : undefined}
                   className={cn(
-                    "rounded-[8px] px-3 py-2 text-[14.5px] font-medium transition-colors",
+                    "rounded-full px-3 py-2 text-[14.5px] font-medium transition-colors",
                     current(n.href)
                       ? "bg-sunken text-foreground"
                       : "text-muted-foreground hover:bg-sunken hover:text-foreground",
@@ -65,7 +65,7 @@ export function DocsHeader({ search }: { search: SearchEntry[] }) {
           </div>
           <Link
             href="/"
-            className="hidden items-center gap-1 rounded-[8px] px-2.5 py-2 text-[14px] font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
+            className="hidden items-center gap-1 rounded-full px-2.5 py-2 text-[14px] font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
           >
             ecodrix.com
           </Link>
@@ -79,7 +79,7 @@ export function DocsHeader({ search }: { search: SearchEntry[] }) {
             aria-controls="docs-menu"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen(!open)}
-            className="grid size-10 place-items-center rounded-[8px] text-foreground hover:bg-sunken lg:hidden"
+            className="grid size-10 place-items-center rounded-full text-foreground hover:bg-sunken lg:hidden"
           >
             <Icon name={open ? "x" : "menu"} size={20} variant="line" />
           </button>

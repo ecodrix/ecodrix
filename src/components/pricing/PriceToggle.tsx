@@ -80,7 +80,7 @@ export default function PricingPlansSection({
             ))}
           </RadioGroup.Root>
           {yearlyPct > 0 && (
-            <span className="rounded-[6px] bg-ai-subtle px-2.5 py-0.5 text-[12.5px] font-semibold text-ai">
+            <span className="rounded-full bg-ai-subtle px-2.5 py-0.5 text-[12.5px] font-semibold text-ai">
               Save {yearlyPct}% yearly
             </span>
           )}
@@ -116,7 +116,7 @@ export default function PricingPlansSection({
                     {plan.priceMonthlyPaise ? (
                       <p
                         className={cn(
-                          "mt-2 w-fit rounded-[6px] px-2 py-0.5 text-[12px] font-semibold",
+                          "mt-2 w-fit rounded-full px-2 py-0.5 text-[12px] font-semibold",
                           featured ? "bg-white/15 text-white" : "bg-accent-muted text-accent",
                         )}
                       >

@@ -206,7 +206,7 @@ export default async function BlogPostPage({ params }: Props) {
                       href={s.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex h-9 items-center gap-2 rounded-md bg-background px-3 text-[14px] font-medium text-foreground hover:bg-hover"
+                      className="inline-flex h-9 items-center gap-2 rounded-full bg-background px-3 text-[14px] font-medium text-foreground hover:bg-hover"
                     >
                       <Icon name={s.icon} size={16} variant="line" />
                       {s.label}
