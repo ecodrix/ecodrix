@@ -31,8 +31,6 @@ const DesktopNav = dynamic(() => import("./DesktopNav"), { ssr: false });
  */
 export function Navbar() {
   const path = usePathname();
-  // false until the desktop menu is wanted; a section key when a placeholder
-  // had keyboard focus (focus moves to the real trigger).
   const [desktop, setDesktop] = useState<boolean | NavSection>(false);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -40,7 +38,6 @@ export function Navbar() {
   const sentinel = useRef<HTMLDivElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
   const closedByNav = useRef(false);
-  // The phone menu (sheet) only exists below 1024px. Hooks run on every render, never inside JSX.
   const isMobile = useIsMobile(1024);
   const current = sectionOf(path);
 
@@ -166,7 +163,10 @@ export function Navbar() {
           </nav>
 
           <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
-            <Link href={CONTACT_CTA.href} className={cn(buttonVariants({ size: "sm" }), "group px-3.5 sm:px-4")}>
+            <Link
+              href={CONTACT_CTA.href}
+              className={cn(buttonVariants({ size: "sm" }), "group px-3.5 sm:px-4 justify-center items-center flex")}
+            >
               {CONTACT_CTA.label}
               <ArrowRight
                 aria-hidden="true"
