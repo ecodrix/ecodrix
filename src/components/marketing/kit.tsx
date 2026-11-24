@@ -9,7 +9,7 @@
  *   <BrowserFrame>  <PhoneFrame>   real product UI, never a screenshot
  *   <PainGrid> <FeatureSplit> <Steps> <Faq> <CtaBand>
  *   <TrustBar>      "Works with" integrations, as a marquee
- *   <PrimaryCta> <WhatsAppCta>     the two calls to action
+ *   <PrimaryCta> <EmailCta>        the two calls to action
  *
  * Product visuals rise in once with <Reveal> (framer-motion) as they scroll
  * into view; headings and body text never animate (design system v13).
@@ -25,8 +25,9 @@ import { Marquee } from "@/components/motion/surface";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { buttonVariants } from "@/components/ui/button";
 import { SOON_BUTTON, SoonControl } from "@/components/ui/soon";
-import { PRIMARY_CTA, WHATSAPP_CTA } from "@/lib/site";
+import { EMAIL_CTA, PRIMARY_CTA } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { TiltVisual } from "./tilt-visual";
 
 /* ── Calls to action ─────────────────────────────────────────────────── */
 
@@ -56,7 +57,7 @@ export function PrimaryCta({ lg, className, disabled }: { lg?: boolean; classNam
   );
 }
 
-export function WhatsAppCta({ lg, className, disabled }: { lg?: boolean; className?: string; disabled?: boolean }) {
+export function EmailCta({ lg, className, disabled }: { lg?: boolean; className?: string; disabled?: boolean }) {
   if (disabled)
     return (
       <SoonControl
@@ -64,21 +65,18 @@ export function WhatsAppCta({ lg, className, disabled }: { lg?: boolean; classNa
         hint
         className={cn(buttonVariants({ variant: "ghost", size: lg ? "lg" : "default" }), SOON_BUTTON, className)}
       >
-        <Icon name="whatsapp" size={16} />
-        {WHATSAPP_CTA.label}
+        <Icon name="mail" size={16} variant="line" />
+        {EMAIL_CTA.label}
       </SoonControl>
     );
   return (
     <Link
       role="button"
-      href={WHATSAPP_CTA.href}
-      target="_blank"
-      rel="noopener noreferrer"
+      href={EMAIL_CTA.href}
       className={cn(buttonVariants({ variant: "ghost", size: lg ? "lg" : "default" }), className)}
     >
-      <Icon name="whatsapp" size={16} />
-      {WHATSAPP_CTA.label}
-      <span className="sr-only"> (opens in a new tab)</span>
+      <Icon name="mail" size={16} variant="line" />
+      {EMAIL_CTA.label}
     </Link>
   );
 }
@@ -177,8 +175,8 @@ export function MkHero({
           )}
         </div>
         {visual && (
-          <div className="relative self-end max-h-[calc(100svh-var(--header-h)-3rem)] overflow-hidden motion-safe:animate-rise motion-safe:[animation-delay:var(--d,200ms)]">
-            {visual}
+          <div className="relative self-end max-h-[calc(100svh-var(--header-h)-3rem)] motion-safe:animate-rise motion-safe:[animation-delay:var(--d,200ms)]">
+            <TiltVisual>{visual}</TiltVisual>
           </div>
         )}
       </div>
@@ -205,7 +203,7 @@ export function BrowserFrame({
       data-browser=""
       className={cn(
         "surface-light relative overflow-hidden bg-background",
-        light ? "rounded-[14px] shadow-lg" : "rounded-[14px_14px_0_0] shadow-[0_0_0_1px_rgba(255,255,255,0.12)]",
+        light ? "rounded-[16px] shadow-lg" : "rounded-[16px] shadow-[0_0_0_1px_rgba(255,255,255,0.12)]",
         className,
       )}
     >
@@ -222,7 +220,7 @@ export function BrowserFrame({
         Example data
       </span>
       {/* An app screen inside a browser window drops its own frame. */}
-      <div className="p-3.5 [&:has(>.scene_[data-app-frame])]:p-0 [&:has(>[data-app-frame])]:p-0">{children}</div>
+      <div className="[&:has(>.scene_[data-app-frame])]:p-0 [&:has(>[data-app-frame])]:p-0">{children}</div>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { Faq, MkSection } from "@/components/marketing/kit";
 import { ClosingCta } from "@/components/platform/ModulePage";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { getBreadcrumbSchema, getFAQSchema, getPersonSchema, SEO_CONSTANTS } from "@/lib/jsonld";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 const { BASE_URL, PORTFOLIO_URL } = SEO_CONSTANTS;
 
@@ -56,19 +57,12 @@ const FOUNDER_FAQS = [
   },
   {
     q: "Is Dhanesh M the same person as Erix or erix.dhanesh?",
-    a: "Yes. Erix and erix.dhanesh are the online names Dhanesh uses on LinkedIn, GitHub and Instagram. The ERIX product name comes from it.",
+    a: "Yes. Erix and erix.dhanesh are online names Dhanesh uses. The ERIX product name comes from it.",
   },
   {
     q: "How can I contact Dhanesh?",
-    a: "Email dhanesh@ecodrix.com or WhatsApp +91 81439 63821. Public profiles: LinkedIn (linkedin.com/in/dhanesh-ecodrix), GitHub (github.com/dhanesh1232), Instagram (@erix.dhanesh).",
+    a: `Email ${CONTACT_EMAIL}; a person replies on IST working hours.`,
   },
-];
-
-// Text links, never other companies' logos (DS brand rule).
-const SOCIALS = [
-  { href: "https://www.linkedin.com/in/dhanesh-ecodrix/", label: "LinkedIn" },
-  { href: "https://github.com/dhanesh1232", label: "GitHub" },
-  { href: "https://www.instagram.com/erix.dhanesh/", label: "Instagram" },
 ];
 
 const ALIASES = ["Dhanesh M", "Erix", "erix.dhanesh"];
@@ -133,14 +127,8 @@ export default function FounderPage() {
               </li>
               <li className="flex items-center gap-2.5">
                 <Icon name="mail" size={16} variant="line" className="text-accent" />
-                <a href="mailto:dhanesh@ecodrix.com" className="text-muted-foreground hover:text-accent">
-                  dhanesh@ecodrix.com
-                </a>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <Icon name="message-circle" size={16} variant="line" className="text-accent" />
-                <a href="https://wa.me/918143963821" className="text-muted-foreground hover:text-accent">
-                  WhatsApp +91 81439 63821
+                <a href={`mailto:${CONTACT_EMAIL}`} className="text-muted-foreground hover:text-accent">
+                  {CONTACT_EMAIL}
                 </a>
               </li>
             </ul>
@@ -165,23 +153,10 @@ export default function FounderPage() {
       </MkSection>
 
       {/* ── Elsewhere ── */}
-      <MkSection id="elsewhere" title="Find Dhanesh online">
+      <MkSection id="elsewhere" title="Dhanesh's portfolio">
         <div className="grid gap-10 lg:grid-cols-2">
           <div>
             <ul className="flex flex-wrap gap-x-6 gap-y-3">
-              {SOCIALS.map(({ href, label }) => (
-                <li key={label}>
-                  <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 font-sans text-[15px]/5 font-[650] text-accent hover:underline hover:underline-offset-3 motion-safe:focus-visible:animate-focus"
-                  >
-                    {label}
-                    <Icon name="external-link" size={14} variant="line" />
-                  </a>
-                </li>
-              ))}
               <li>
                 <a
                   href={PORTFOLIO_URL}
@@ -222,7 +197,7 @@ export default function FounderPage() {
 
       <ClosingCta
         title="See what Dhanesh is building"
-        body="Request early access to ERIX, or message him directly on WhatsApp."
+        body={`Request early access to ERIX, or email ${CONTACT_EMAIL}.`}
       />
     </div>
   );

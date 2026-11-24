@@ -28,4 +28,4 @@ Allow: /compare/
 Disallow: /api/
 Disallow: /auth/
 
-# Contact: support@ecodrix.com
+# Contact: contact@ecodrix.com

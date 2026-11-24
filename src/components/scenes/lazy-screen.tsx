@@ -33,8 +33,7 @@ export type LazyScreenName = keyof typeof screens;
 
 /**
  * A 25rem app screen that mounts when it's within ~1,200px of the viewport.
- * The placeholder has the scene's exact height (screen 25rem + pause button
- * 2.5rem; no button under reduced motion), so mounting never moves the page:
+ * The placeholder has the scene's exact height (25rem; the pause button is keyboard-only and takes no room), so mounting never moves the page:
  * a jump to /#contact lands where it should.
  */
 export function LazyScreen({ name }: { name: LazyScreenName }) {
@@ -60,7 +59,7 @@ export function LazyScreen({ name }: { name: LazyScreenName }) {
 
   const Screen = screens[name];
   return (
-    <div ref={ref} className="js-only h-[27.5rem] motion-reduce:h-[25rem]">
+    <div ref={ref} className="js-only h-[25rem]">
       {near && <Screen />}
     </div>
   );

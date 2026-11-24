@@ -1,24 +1,44 @@
-import { type RefObject, useEffect } from "react";
+import { type RefObject, useEffect, useRef } from "react";
 
-const MAX = 4; // degrees of tilt following the pointer
-const REST = 7; // resting X tilt
+export interface TiltOptions {
+  /** Degrees of tilt following the pointer (default 4). */
+  max?: number;
+  /** Resting X tilt in degrees (default 7). */
+  rest?: number;
+  /** Element whose pointer events drive the tilt (default: the stage). */
+  root?: () => HTMLElement | null | undefined;
+  /** True while the card should flatten (default: the pointer is on the stage). */
+  flatOn?: (e: PointerEvent, stage: DOMRect) => boolean;
+  /** Called on every pointer move over the root, for extras such as a spotlight. */
+  onPointer?: (e: PointerEvent) => void;
+  /** Called with the flatten amount 0..1 each frame. */
+  onFlat?: (flat: number) => void;
+}
 
 /**
- * Pointer-follow tilt for the console plus `--flat`: while the pointer is on the card (outside the
- * text block) the card flattens and the text fades. Writes CSS vars straight to the DOM, no re-render.
+ * Pointer-follow tilt plus a flatten amount: while `flatOn` is true (default: pointer on the card) the card
+ * flattens so what is inside stays usable. Writes `--rx`/`--ry` on `tilt` straight to the DOM, no re-render.
+ * Shared by the home hero console and the navy page heroes (MkHero).
  */
-export function useTilt(tilt: RefObject<HTMLElement | null>, stage: RefObject<HTMLElement | null>, enabled: boolean) {
+export function useTilt(
+  tilt: RefObject<HTMLElement | null>,
+  stage: RefObject<HTMLElement | null>,
+  enabled: boolean,
+  opts: TiltOptions = {},
+) {
+  const o = useRef(opts);
+  o.current = opts;
   useEffect(() => {
     const t = tilt.current;
     const st = stage.current;
-    const hero = st?.closest<HTMLElement>("[data-hx-hero]");
-    const con = hero?.querySelector<HTMLElement>(".hx-console");
-    const typeIn = hero?.querySelector<HTMLElement>(".hx-type-in");
-    if (!t || !st || !hero || !con || !typeIn) return;
+    const root = o.current.root?.() ?? st;
+    if (!t || !st || !root) return;
     if (!enabled) {
       t.style.setProperty("--rx", "0deg");
       return;
     }
+    const MAX = o.current.max ?? 4;
+    const REST = o.current.rest ?? 7;
     t.style.setProperty("--rx", `${REST}deg`);
     let tx = 0,
       ty = 0,
@@ -34,7 +54,7 @@ export function useTilt(tilt: RefObject<HTMLElement | null>, stage: RefObject<HT
       const k = 1 - flat;
       t.style.setProperty("--ry", `${(cx * MAX * k).toFixed(2)}deg`);
       t.style.setProperty("--rx", `${((REST - cy * MAX) * k).toFixed(2)}deg`);
-      hero.style.setProperty("--flat", flat.toFixed(3));
+      o.current.onFlat?.(flat);
       raf = Math.abs(tx - cx) + Math.abs(ty - cy) + Math.abs(tflat - flat) > 0.002 ? requestAnimationFrame(frame) : 0;
     };
     const go = () => {
@@ -44,26 +64,20 @@ export function useTilt(tilt: RefObject<HTMLElement | null>, stage: RefObject<HT
       const r = st.getBoundingClientRect();
       tx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width / 2)));
       ty = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height / 2)));
-      const c = con.getBoundingClientRect();
-      con.style.setProperty("--mx", `${e.clientX - c.left}px`);
-      con.style.setProperty("--my", `${e.clientY - c.top}px`);
-      const b = typeIn.getBoundingClientRect();
-      const pad = 16;
-      const onText =
-        e.clientX > b.left - pad && e.clientX < b.right + pad && e.clientY > b.top - pad && e.clientY < b.bottom + pad;
+      o.current.onPointer?.(e);
       const onCard = e.clientY > r.top && e.clientY < r.bottom && e.clientX > r.left && e.clientX < r.right;
-      tflat = !onText && onCard ? 1 : 0;
+      tflat = (o.current.flatOn ? o.current.flatOn(e, r) : onCard) ? 1 : 0;
       go();
     };
     const leave = () => {
       tx = ty = tflat = 0;
       go();
     };
-    hero.addEventListener("pointermove", move);
-    hero.addEventListener("pointerleave", leave);
+    root.addEventListener("pointermove", move);
+    root.addEventListener("pointerleave", leave);
     return () => {
-      hero.removeEventListener("pointermove", move);
-      hero.removeEventListener("pointerleave", leave);
+      root.removeEventListener("pointermove", move);
+      root.removeEventListener("pointerleave", leave);
       cancelAnimationFrame(raf);
     };
   }, [tilt, stage, enabled]);

@@ -97,9 +97,7 @@ export function Navbar() {
       <header data-scrolled={scrolled || undefined} className="group fixed inset-x-0 top-0 z-50 px-gutter pt-3.5">
         <div
           className={cn(
-            // 64px always (= --header-h minus the 14px gap). Radius is explicit (h/2) so it can animate: an open menu
-            // squares the bottom corners and the panel (DesktopNav) continues the same surface below.
-            "relative mx-auto flex h-16 w-full max-w-[1180px] items-center gap-3 rounded-[32px] border border-border bg-surface pr-2.5 pl-5 lg:gap-6 lg:pl-6",
+            "relative mx-auto flex h-13 w-full max-w-[1180px] items-center gap-3 rounded-[32px] border border-border bg-surface pr-2.5 pl-5 lg:gap-6 lg:pl-6",
             "has-[[data-slot=navigation-menu-trigger][data-state=open]]:rounded-[28px_28px_0_0]",
             "transition-[border-radius] duration-200 ease-out motion-reduce:transition-none",
           )}
@@ -107,13 +105,8 @@ export function Navbar() {
           <Link href="/" className="flex shrink-0 items-center gap-2">
             <LogoMark priority className="size-8" />
             <span className="font-display text-[19px] font-bold tracking-[-0.02em] text-foreground">ERIX</span>
-            {/* The visible word starts the link's name (WCAG 2.5.3, label in name). */}
             <span className="sr-only">by ECODrIx, home</span>
           </Link>
-
-          {/* Wide screens: the Radix menu loads once the page is idle (or on
-              first hover/focus); until then these same-looking buttons hold
-              its place, so nothing shifts. Phones never load it. */}
           <div className="js-only hidden lg:block">
             {desktop ? (
               <DesktopNav path={path} current={current} focusKey={desktop === true ? undefined : desktop} />

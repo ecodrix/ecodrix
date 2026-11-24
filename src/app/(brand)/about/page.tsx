@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { Icon } from "@/components/icons";
-import { CtaBand, MkSection, WhatsAppCta } from "@/components/marketing/kit";
+import { CtaBand, MkSection } from "@/components/marketing/kit";
 import { ModuleRow } from "@/components/platform/ModuleRow";
 import { buttonVariants } from "@/components/ui/button";
 import { getPlatformNav } from "@/lib/catalog";
 import { pageMetadata } from "@/lib/seo";
+import { EMAIL_CTA } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "About ECODrIx, the team behind ERIX",
@@ -132,12 +133,9 @@ export default async function AboutPage() {
           </p>
         }
         actions={
-          <>
-            <Link href="mailto:contact@ecodrix.com" className={buttonVariants({ size: "lg" })}>
-              <Icon name="mail" size={16} variant="line" /> Email us
-            </Link>
-            <WhatsAppCta lg />
-          </>
+          <Link href={EMAIL_CTA.href} className={buttonVariants({ size: "lg" })}>
+            <Icon name="mail" size={16} variant="line" /> Email us
+          </Link>
         }
       />
     </div>

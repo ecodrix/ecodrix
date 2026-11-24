@@ -12,6 +12,8 @@
  *   - Product      | Service | ItemList
  */
 
+import { CONTACT_EMAIL, SUPPORT_EMAIL } from "@/lib/site";
+
 const BASE_URL = "https://ecodrix.com";
 const PORTFOLIO_URL = "https://portfolio.ecodrix.com";
 const APP_URL = "https://console.ecodrix.com";
@@ -28,12 +30,11 @@ const WEBSITE_ID = `${BASE_URL}/#website`;
 const PERSON_ID = `${BASE_URL}/#dhanesh`;
 const SOFTWARE_ID = `${BASE_URL}/#platform`;
 
+// Company profiles only: no personal profile is published as a contact route.
 const SAME_AS = [
-  PORTFOLIO_URL,
-  "https://www.linkedin.com/in/dhanesh-ecodrix/",
-  "https://www.linkedin.com/in/dhanesh-mekalthuru-5baa9323b",
-  "https://github.com/dhanesh1232",
-  "https://www.instagram.com/erix.dhanesh/",
+  "https://www.linkedin.com/company/ecodrix",
+  "https://github.com/ecodrix",
+  "https://www.instagram.com/ecodr.ix/",
 ];
 
 /* ──────────────────────────────────────────────────────────────────────
@@ -59,26 +60,17 @@ export function getOrganizationSchema() {
       "ECODrIx is a unified business infrastructure platform combining CRM, AI automation, WhatsApp messaging and cloud storage. It builds the ERIX suite (CRM, Connect, Flow and AI agents), started in August 2025 for growing businesses across India.",
     foundingDate: "2025-08",
     areaServed: "Worldwide",
-    email: "contact@ecodrix.com",
+    email: CONTACT_EMAIL,
     knowsLanguage: ["en", "hi", "te"],
     contactPoint: [
       {
         "@type": "ContactPoint",
         contactType: "customer support",
-        email: "support@ecodrix.com",
+        email: SUPPORT_EMAIL,
         url: `${BASE_URL}/#contact`,
         availableLanguage: ["English", "Hindi", "Telugu"],
       },
-      {
-        "@type": "ContactPoint",
-        contactType: "sales",
-        email: "sales@ecodrix.com",
-      },
-      {
-        "@type": "ContactPoint",
-        contactType: "technical support",
-        email: "dev@ecodrix.com",
-      },
+      { "@type": "ContactPoint", contactType: "sales", email: CONTACT_EMAIL },
     ],
     founder: { "@id": PERSON_ID },
     employee: [{ "@id": PERSON_ID }],
@@ -179,8 +171,6 @@ export function getPersonSchema() {
     jobTitle: "Founder & CEO",
     description:
       "Dhanesh Mekalthuru (Dhanesh M, also known as Erix) is the founder of ECODrIx and started the ERIX suite in August 2025: ERIX CRM, ERIX Connect, ERIX Flow and AI agents for Indian businesses that sell over WhatsApp.",
-    email: "mailto:dhanesh@ecodrix.com",
-    telephone: "+91-81439-63821",
     nationality: { "@type": "Country", name: "India" },
     address: {
       "@type": "PostalAddress",
@@ -212,7 +202,6 @@ export function getPersonSchema() {
       "Growth Systems",
       "Distributed Workers",
     ],
-    sameAs: SAME_AS,
   };
 }
 

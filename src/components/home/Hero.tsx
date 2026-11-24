@@ -1,4 +1,4 @@
-import { HeroMotif, PrimaryCta, WhatsAppCta } from "@/components/marketing/kit";
+import { HeroMotif, PrimaryCta, EmailCta } from "@/components/marketing/kit";
 import { HeroShell } from "./hero/HeroShell";
 
 /**
@@ -12,7 +12,7 @@ export function Hero() {
       actions={
         <>
           <PrimaryCta lg />
-          <WhatsAppCta lg />
+          <EmailCta lg />
         </>
       }
     />

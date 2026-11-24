@@ -6,7 +6,7 @@ import { HeroMotif } from "@/components/marketing/kit";
 import { LiveDot } from "@/components/motion/surface";
 import { SubscribeButton } from "@/components/status/SubscribeDialog";
 import { buttonVariants } from "@/components/ui/button";
-import { REPORT_EMAIL, WHATSAPP_CTA } from "@/lib/site";
+import { REPORT_EMAIL } from "@/lib/site";
 import {
   fmtDay,
   fmtDuration,
@@ -535,16 +535,6 @@ export function StatusPageView({ initial }: { initial: StatusPayload | null }) {
               <Icon name="mail" size={16} variant="line" />
               Report a problem
               <span className="sr-only"> (opens your email app)</span>
-            </a>
-            <a
-              href={WHATSAPP_CTA.href}
-              target="_blank"
-              rel="noopener"
-              className={buttonVariants({ variant: "ghost", size: "sm" })}
-            >
-              <Icon name="message-circle" size={16} variant="line" />
-              Get help
-              <span className="sr-only"> (opens WhatsApp in a new tab)</span>
             </a>
             <SubscribeButton />
           </div>

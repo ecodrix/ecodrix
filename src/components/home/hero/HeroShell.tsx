@@ -6,7 +6,7 @@ import { Cursor } from "./Cursor";
 import { type Act, SCRIPT } from "./script";
 import { initialState, reduce } from "./state";
 import { useDemoClock } from "./use-demo-clock";
-import { useTilt } from "./use-tilt";
+import { useHeroTilt } from "./use-hero-tilt";
 import "./hero.css";
 
 // Cursor moves and the view switches they cause only make sense with the cursor on screen.
@@ -83,7 +83,7 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
   );
   const tick = useCallback((at: number) => dispatch({ type: "tick", at }), []);
   useDemoClock(playing, fire, tick);
-  useTilt(tilt, stage, !reduced && fine);
+  useHeroTilt(tilt, stage, !reduced && fine);
 
   const pausers = {
     onPointerEnter: () => setHover(true),

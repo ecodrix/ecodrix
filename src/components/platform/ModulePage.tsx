@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { Icon } from "@/components/icons";
-import { BrowserFrame, CtaBand, Faq, MkHero, MkSection, PrimaryCta, WhatsAppCta } from "@/components/marketing/kit";
+import { BrowserFrame, CtaBand, Faq, MkHero, MkSection, PrimaryCta, EmailCta } from "@/components/marketing/kit";
 import { Story } from "@/components/marketing/story";
 import { MarketingBody } from "@/components/platform/MarketingBody";
 import { MODULE_TOURS } from "@/components/platform/module-tours";
@@ -107,7 +107,7 @@ export function GuideList({ module, pages }: { module: string; pages: ReturnType
   );
 }
 
-/** Closing navy band with the two calls to action. `disabled` only dims WhatsApp: early access stays open. */
+/** Closing navy band with the two calls to action. `disabled` only dims Email us: early access stays open. */
 export function ClosingCta({ title, body, disabled }: { title: string; body: ReactNode; disabled?: boolean }) {
   return (
     <CtaBand
@@ -116,7 +116,7 @@ export function ClosingCta({ title, body, disabled }: { title: string; body: Rea
       actions={
         <>
           <PrimaryCta lg />
-          <WhatsAppCta lg disabled={disabled} />
+          <EmailCta lg disabled={disabled} />
         </>
       }
     />
@@ -164,7 +164,7 @@ export async function ModulePage({ slug }: { slug: string }) {
         actions={
           <>
             <PrimaryCta lg />
-            <WhatsAppCta lg disabled={soon} />
+            <EmailCta lg disabled={soon} />
           </>
         }
         visual={

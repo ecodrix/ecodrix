@@ -6,7 +6,7 @@ import { Wordmark } from "@/components/marketing/wordmark";
 import { buttonVariants } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { getPlatformNav } from "@/lib/catalog";
-import { COMPANY_NAV, INDUSTRY_NAV, PRIMARY_CTA, RESOURCE_NAV, SOCIALS, SUPPORT_EMAIL, WHATSAPP_CTA } from "@/lib/site";
+import { COMPANY_NAV, CONTACT_EMAIL, EMAIL_CTA, INDUSTRY_NAV, PRIMARY_CTA, RESOURCE_NAV, SOCIALS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /** The v1.0 job, enquiry to payment, each step linking to the part of ERIX that does it. */
@@ -116,14 +116,11 @@ export async function Footer() {
                 />
               </Link>
               <a
-                href={WHATSAPP_CTA.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={EMAIL_CTA.href}
                 className={cn(buttonVariants({ variant: "ghost" }), "min-h-10! px-4! text-[14px]")}
               >
-                <Icon name="whatsapp" size={15} />
-                WhatsApp us
-                <span className="sr-only"> (opens in a new tab)</span>
+                <Icon name="mail" size={15} variant="line" />
+                {EMAIL_CTA.label}
               </a>
             </div>
             <Link
@@ -211,8 +208,8 @@ export async function Footer() {
               ))}
               <li>
                 {/* Wraps instead of pushing past a 320 px screen's two-column grid. */}
-                <a href={`mailto:${SUPPORT_EMAIL}`} className={`${linkCls} [overflow-wrap:anywhere]`}>
-                  {SUPPORT_EMAIL}
+                <a href={`mailto:${CONTACT_EMAIL}`} className={`${linkCls} [overflow-wrap:anywhere]`}>
+                  {CONTACT_EMAIL}
                 </a>
               </li>
             </Column>

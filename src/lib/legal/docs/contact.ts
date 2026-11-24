@@ -21,7 +21,6 @@ export const contactDoc: LegalDoc = {
             `Trade name: ${LEGAL.brand}`,
             `GSTIN: ${LEGAL.gstin}`,
             `Place of business: ${LEGAL.address}`,
-            `Phone and WhatsApp: ${LEGAL.phone}`,
           ],
         },
       ],
@@ -69,7 +68,6 @@ export const contactDoc: LegalDoc = {
           list: [
             `Name: ${LEGAL.grievanceOfficer} (proprietor)`,
             `Email: ${LEGAL.emails.grievance}`,
-            `Phone: ${LEGAL.phone}`,
             `Address: ${LEGAL.address}`,
           ],
         },

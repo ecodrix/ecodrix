@@ -8,6 +8,7 @@
  */
 
 import type { IconComponent } from "@/components/icons";
+import { CONTACT_EMAIL, SUPPORT_EMAIL } from "@/lib/site";
 
 export const LEGAL = {
   brand: "ECODrIx",
@@ -24,20 +25,18 @@ export const LEGAL = {
   jurisdiction: "Sri Kalahasthi, Andhra Pradesh, India",
   governingLaw: "the laws of India",
   grievanceOfficer: "Mekalthuru Dhanesh",
-  /** Business phone and WhatsApp (already public on the founder page and in the site's JSON-LD). */
-  phone: "+91 81439 63821",
   /** What support actually commits to (founder, 28 Oct 2026). */
   supportHours: "Monday to Saturday, 10:00 to 19:00 IST",
   supportReply: "within one business day",
-  // Every address below is an alias on the ecodrix.com mailbox (founder, 28 Oct 2026).
+  // Two mailboxes only (see site.ts): users' requests go to support, general and legal enquiries to contact.
   emails: {
-    support: "support@ecodrix.com",
-    privacy: "privacy@ecodrix.com",
-    grievance: "grievance@ecodrix.com",
-    legal: "legal@ecodrix.com",
-    billing: "billing@ecodrix.com",
-    security: "security@ecodrix.com",
-    abuse: "abuse@ecodrix.com",
+    support: SUPPORT_EMAIL,
+    privacy: SUPPORT_EMAIL,
+    grievance: SUPPORT_EMAIL,
+    legal: CONTACT_EMAIL,
+    billing: SUPPORT_EMAIL,
+    security: SUPPORT_EMAIL,
+    abuse: SUPPORT_EMAIL,
   },
 } as const;
 

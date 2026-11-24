@@ -126,8 +126,9 @@ export function Reveal({ children, className }: { children: ReactNode; className
  * Drives a product scene: sets `--step` 0 → `steps`, holds the finished
  * frame, then loops. Runs only while at least a third of it is on screen,
  * so off-screen and hidden-tab scenes cost nothing. The server HTML (and
- * reduced motion) is the finished frame. A pause button satisfies WCAG
- * 2.2.2 (moving content longer than 5 s can be stopped).
+ * reduced motion) is the finished frame. No visible control (same as the home hero):
+ * it holds while the pointer is over it or focus is inside it, and a keyboard-only
+ * "Pause demo" button (WCAG 2.2.2) shows on focus.
  */
 export function SceneDriver({
   steps,
@@ -135,9 +136,6 @@ export function SceneDriver({
   hold = 3200,
   label,
   className,
-  toggleClassName = "ml-auto",
-  pauseIcon,
-  playIcon,
   children,
 }: {
   /** Index of the last step. */
@@ -150,15 +148,13 @@ export function SceneDriver({
   /** What the scene shows, for screen readers (the parts are hidden). */
   label: string;
   className?: string;
-  /** Where the pause button sits under the scene (default: right). */
-  toggleClassName?: string;
-  /** Rendered by the server (scene.tsx), so no icon data ships with this. */
-  pauseIcon: ReactNode;
-  playIcon: ReactNode;
   children: ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [paused, setPaused] = useState(false);
+  const [userPaused, setUserPaused] = useState(false);
+  const [hold_, setHold] = useState(false);
+  // Hover or focus inside holds the scene, like the hero console.
+  const paused = userPaused || hold_;
 
   useEffect(() => {
     const el = ref.current;
@@ -187,20 +183,24 @@ export function SceneDriver({
   }, [paused, steps, timing, hold]);
 
   return (
-    <div ref={ref} className={cn("scene flex flex-col", className)} data-paused={paused || undefined}>
+    <div
+      ref={ref}
+      className={cn("scene relative flex flex-col", className)}
+      data-paused={paused || undefined}
+      onPointerEnter={() => setHold(true)}
+      onPointerLeave={() => setHold(false)}
+      onFocus={() => setHold(true)}
+      onBlur={() => setHold(false)}
+    >
       <div role="img" aria-label={label}>
         {children}
       </div>
       <button
         type="button"
-        onClick={() => setPaused(!paused)}
-        className={cn(
-          "scene-toggle relative z-10 mt-2 in-data-[browser]:my-1.5 in-data-[browser]:mr-2 in-data-[browser]:ml-auto flex size-8 items-center justify-center rounded-full text-subtle hover:bg-hover hover:text-accent",
-          toggleClassName,
-        )}
+        onClick={() => setUserPaused(!userPaused)}
+        className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:top-3 focus-visible:left-3 focus-visible:z-20 focus-visible:rounded-full focus-visible:bg-surface focus-visible:px-3 focus-visible:py-1.5 focus-visible:text-sm focus-visible:font-semibold focus-visible:text-foreground"
       >
-        {paused ? playIcon : pauseIcon}
-        <span className="sr-only">{paused ? "Play animation" : "Pause animation"}</span>
+        {userPaused ? "Play demo" : "Pause demo"}
       </button>
     </div>
   );

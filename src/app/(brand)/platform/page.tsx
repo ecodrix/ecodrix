@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ChannelBeam } from "@/components/home/Integrations";
 import { type GlyphName, Icon } from "@/components/icons";
-import { BrowserFrame, Faq, MkHero, MkSection, PrimaryCta, WhatsAppCta } from "@/components/marketing/kit";
+import { BrowserFrame, Faq, MkHero, MkSection, PrimaryCta, EmailCta } from "@/components/marketing/kit";
 import { type Chapter, Story } from "@/components/marketing/story";
 import { ClosingCta } from "@/components/platform/ModulePage";
 import { ModuleRow } from "@/components/platform/ModuleRow";
@@ -239,7 +239,7 @@ export default async function PlatformIndexPage() {
         actions={
           <>
             <PrimaryCta lg />
-            <WhatsAppCta lg />
+            <EmailCta lg />
           </>
         }
         visual={

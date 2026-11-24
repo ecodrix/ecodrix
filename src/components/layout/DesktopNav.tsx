@@ -14,15 +14,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { SoonControl } from "@/components/ui/soon";
 import { StatusBadge } from "@/components/ui/status-badge";
-import {
-  COMPANY_NAV,
-  COMPARE_NAV,
-  GUIDE_NAV,
-  INDUSTRY_NAV,
-  RESOURCE_NAV,
-  SUPPORT_EMAIL,
-  WHATSAPP_CTA,
-} from "@/lib/site";
+import { COMPANY_NAV, COMPARE_NAV, CONTACT_EMAIL, GUIDE_NAV, INDUSTRY_NAV, RESOURCE_NAV } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { isCurrent, NAV_SECTIONS, type NavSection } from "./nav-data";
 import { type PlatformNavItem, usePlatformNav } from "./platform-nav";
@@ -311,12 +303,11 @@ const COMPANY_SPOTS: readonly Spot[] = [
     key: "contact",
     kicker: "Contact",
     headline: "Talk to a person, not a ticket queue.",
-    text: "WhatsApp or email, answered on IST working hours.",
+    text: "Email us; a person replies on IST working hours.",
     links: [
-      { label: WHATSAPP_CTA.label, href: WHATSAPP_CTA.href, icon: <Icon name="whatsapp" size={16} />, external: true },
       {
-        label: SUPPORT_EMAIL,
-        href: `mailto:${SUPPORT_EMAIL}`,
+        label: CONTACT_EMAIL,
+        href: `mailto:${CONTACT_EMAIL}`,
         icon: <Icon name="mail" size={16} variant="line" />,
         external: true,
       },

@@ -21,8 +21,6 @@ export function HeroScene() {
         steps={8}
         timing={[0, 1000, 1500, 800, 900, 1500, 1700, 1600]}
         hold={3600}
-        // The phone overlaps the bottom-right corner, so the pause button goes left.
-        toggleClassName="mr-auto"
         label="ERIX at work: after a WhatsApp enquiry about a 3BHK flat, the Overview counts the new enquiry, a site visit is booked for 4 pm, and a WhatsApp follow-up is scheduled and sent."
       >
         <BrowserFrame className="max-[900px]:-mr-gutter max-[900px]:rounded-[12px_0_0_0]">

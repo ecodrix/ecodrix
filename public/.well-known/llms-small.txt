@@ -4,4 +4,4 @@ ERIX 1.0 (live): ERIX CRM (contacts, pipeline, forms, appointments, proposals, p
 
 Not live yet: voice agent (in development). Pricing not published during early access; billed in rupees with GST.
 
-Site: https://ecodrix.com · App: https://console.ecodrix.com · API docs: https://api.ecodrix.com/docs · Support: support@ecodrix.com · WhatsApp: +91 81439 63821
+Site: https://ecodrix.com · App: https://console.ecodrix.com · API docs: https://api.ecodrix.com/docs · Support: support@ecodrix.com

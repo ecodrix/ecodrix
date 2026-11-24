@@ -110,6 +110,9 @@ export const metadata: Metadata = {
   },
 };
 
+/** Loads the ERIX chat widget only on ecodrix.com; same script, same data-erix, async. */
+const CHAT_BOOT_SCRIPT = `if(/^(www\\.)?ecodrix\\.com$/.test(location.hostname)){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@ecodrix/chatbot@2/dist/index.global.js';s.dataset.erix='ECODRIX_OWN';s.async=true;document.head.appendChild(s)}`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -136,11 +139,12 @@ export default function RootLayout({
           {GA_LOADER_SCRIPT}
         </Script>
 
+        {/* The chat widget's API allows only the real site origin, so localhost and preview hosts skip it (no CORS noise). */}
         <script
-          src="https://cdn.jsdelivr.net/npm/@ecodrix/chatbot@2/dist/index.global.js"
-          data-erix="ECODRIX_OWN"
-          async
-        ></script>
+          id="erix-chat-boot"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: static boot script
+          dangerouslySetInnerHTML={{ __html: CHAT_BOOT_SCRIPT }}
+        />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 
         {/* JSON-LD structured data — must be in <head> for crawler visibility */}

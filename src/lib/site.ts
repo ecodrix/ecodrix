@@ -22,16 +22,18 @@ export const PRIMARY_CTA = {
 export const CONTACT_CTA = { label: "Contact", href: PRIMARY_CTA.href } as const;
 
 /**
- * The second action: a WhatsApp chat. This is the ECODrIx number already
- * published on /about ("Want to talk to the founder?"); don't invent another.
+ * The site's two mailboxes (founder, 24 Nov 2026), and no phone number. CONTACT: people who are not customers yet
+ * (sales, quotes, pilots, partners, press, general). SUPPORT: people already using ERIX (help, status, account,
+ * billing, privacy requests, grievances). Components and pages import these, never a literal address.
  */
-export const WHATSAPP_CTA = {
-  label: "Chat on WhatsApp",
-  href: "https://wa.me/918143963821",
-} as const;
+export const CONTACT_EMAIL = "contact@ecodrix.com";
+export const SUPPORT_EMAIL = "support@ecodrix.com";
+
+/** The second action: an email to the contact address. */
+export const EMAIL_CTA = { label: "Email us", href: `mailto:${CONTACT_EMAIL}` } as const;
 
 /** Where "Report a problem" on the status page sends mail (one place to change it). */
-export const REPORT_EMAIL = "report@ecodrix.com";
+export const REPORT_EMAIL = SUPPORT_EMAIL;
 
 export type ModuleStatus = "live" | "soon" | "invite";
 
@@ -293,8 +295,6 @@ export const COMPANY_NAV = [
     },
   },
 ] as const;
-
-export const SUPPORT_EMAIL = "support@ecodrix.com";
 
 // Text labels, never other companies' logos (DS brand rule).
 export const SOCIALS = [
