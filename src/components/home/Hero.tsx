@@ -2,7 +2,7 @@ import { HeroMotif, PrimaryCta, EmailCta } from "@/components/marketing/kit";
 import { HeroShell } from "./hero/HeroShell";
 
 /**
- * Homepage hero: "Hire an AI employee", with a live scripted ERIX console behind the words.
+ * Homepage hero: "Every enquiry answered. Every visit booked.", with a live scripted ERIX console below the words.
  * On the navy band (swoosh and red dot from the marketing kit). The text is in the first HTML byte; the console is a client island (hero/HeroShell.tsx).
  */
 export function Hero() {

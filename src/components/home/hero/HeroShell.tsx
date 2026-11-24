@@ -11,7 +11,7 @@ import "./hero.css";
 
 // Cursor moves and the view switches they cause only make sense with the cursor on screen.
 const CURSOR_ACTS = new Set<Act["t"]>(["cur", "click", "view", "select"]);
-const TITLE = "Hire an AI employee for your team";
+const TITLE = "Every enquiry answered. Every visit booked.";
 
 const useMedia = (query: string) =>
   useSyncExternalStore(
@@ -110,7 +110,8 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
           <div className="hx-type-in">
             <h1 id="hero-title">
               {TITLE.split(" ").map((w, i) => (
-                <span key={w}>
+                // index in the key: the title repeats a word ("Every")
+                <span key={`${i}-${w}`}>
                   <span className="w" style={{ animationDelay: `${i * 70}ms` }}>
                     {w}
                   </span>{" "}
@@ -118,7 +119,7 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
               ))}
             </h1>
             <p className="hx-lead">
-              It{" "}
+              Riya, your AI employee,{" "}
               <span className="vb" data-k="answer">
                 answers chats and calls
               </span>
@@ -132,9 +133,9 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
               </span>{" "}
               and{" "}
               <span className="vb" data-k="pay">
-                collects payments
-              </span>
-              , all inside your CRM.{" "}
+                sends payment links
+              </span>{" "}
+              inside ERIX.{" "}
               <span className="vb" data-k="you">
                 You step in only when it matters.
               </span>

@@ -1331,7 +1331,7 @@
 }
 @media (min-width: 681px) {
   /* The band is exactly one screen; the words take what they need and the console fills the rest
-     (420–640px), so the whole card is visible. Only very short screens let the band grow. */
+     (400–640px), so the whole card is visible. Only very short screens let the band grow. */
   .hx {
     min-height: 100svh;
   }
@@ -1345,28 +1345,28 @@
   .hx-type {
     width: 100%;
     flex: none;
-    padding-top: clamp(20px, 4vh, 56px);
+    padding-top: clamp(28px, 5vh, 64px);
   }
   .hx-type h1 {
-    font-size: clamp(36px, min(4.6vw, 6.4vh), 64px);
+    font-size: clamp(34px, min(4.2vw, 5.6vh), 60px);
   }
   .hx-lead {
-    margin-top: 14px;
+    margin-top: clamp(16px, 2.4vh, 24px);
   }
   .hx-ctas {
-    margin-top: 22px;
+    margin-top: clamp(24px, 3.6vh, 36px);
   }
   .hx-try {
-    margin-top: 12px;
+    margin-top: clamp(14px, 2vh, 20px);
   }
   .hx-stage {
     position: relative;
     inset: auto;
     width: min(1120px, 100%);
     flex: 1 1 auto;
-    min-height: 420px;
+    min-height: 400px;
     max-height: 640px;
-    margin-top: clamp(18px, 3vh, 36px);
+    margin-top: clamp(28px, 4.5vh, 52px);
     display: flex;
     flex-direction: column;
   }
