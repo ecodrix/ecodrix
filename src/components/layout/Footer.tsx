@@ -4,7 +4,6 @@ import { LogoMark } from "@/components/layout/LogoMark";
 import { CookiePrefsButton } from "@/components/legal/CookiePrefsButton";
 import { Wordmark } from "@/components/marketing/wordmark";
 import { buttonVariants } from "@/components/ui/button";
-import { SoonControl } from "@/components/ui/soon";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { getPlatformNav } from "@/lib/catalog";
 import { COMPANY_NAV, INDUSTRY_NAV, PRIMARY_CTA, RESOURCE_NAV, SOCIALS, SUPPORT_EMAIL, WHATSAPP_CTA } from "@/lib/site";
@@ -164,9 +163,7 @@ export async function Footer() {
               {also.map((m) => (
                 <li key={m.key} className="flex flex-wrap items-center gap-x-2">
                   {m.status === "soon" ? (
-                    <SoonControl role="link" className={linkCls}>
-                      {m.name}
-                    </SoonControl>
+                    <span className={linkCls}>{m.name}</span>
                   ) : (
                     <Link href={m.href} className={linkCls}>
                       {m.name}

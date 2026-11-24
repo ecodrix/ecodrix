@@ -50,29 +50,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
 
   title: {
-    default: "ECODrIx | Unified Business Infrastructure Platform",
+    default: "ERIX by ECODrIx | AI employee for WhatsApp, calls and CRM",
     // Page-level overrides use this template
     template: "%s | ECODrIx",
   },
   description:
-    "ERIX by ECODrIx: one workspace for Indian businesses that sell on WhatsApp. Inbox, AI agents, CRM and automation.",
-  keywords: [
-    "CRM software",
-    "business automation",
-    "WhatsApp Business API",
-    "lead management system",
-    "sales pipeline software",
-    "workflow automation",
-    "cloud storage",
-    "SaaS platform India",
-    "ECODrIx",
-    "Dhanesh M",
-    "Dhanesh Mekalthuru",
-    "ERIX CRM",
-    "ERIX-FLOW",
-    "Socket.io chat",
-    "custom node marketplace",
-  ],
+    "ERIX is an AI employee for Indian businesses: it answers WhatsApp and phone calls, books visits, follows up and collects payments inside your CRM.",
   authors: [{ name: "ECODrIx", url: BASE_URL }],
   creator: "ECODrIx",
   publisher: "ECODrIx",
@@ -91,9 +74,9 @@ export const metadata: Metadata = {
 
   // Open Graph
   openGraph: {
-    title: "ECODrIx | Unified Business Infrastructure Platform",
+    title: "ERIX by ECODrIx | AI employee for WhatsApp, calls and CRM",
     description:
-      "ERIX by ECODrIx: one workspace for Indian businesses that sell on WhatsApp. Inbox, AI agents, CRM and automation.",
+      "ERIX is an AI employee for Indian businesses: it answers WhatsApp and phone calls, books visits, follows up and collects payments inside your CRM.",
     siteName: "ECODrIx",
     type: "website",
     locale: "en_IN",
@@ -103,8 +86,9 @@ export const metadata: Metadata = {
   // Twitter / X card
   twitter: {
     card: "summary_large_image",
-    title: "ECODrIx | Unified Business Infrastructure Platform",
-    description: "One inbox, AI agents, CRM and automation for Indian businesses that sell on WhatsApp.",
+    title: "ERIX by ECODrIx | AI employee for WhatsApp, calls and CRM",
+    description:
+      "ERIX is an AI employee for Indian businesses: it answers WhatsApp and phone calls, books visits, follows up and collects payments inside your CRM.",
     site: "@ecodrix",
     creator: "@ecodrix",
   },

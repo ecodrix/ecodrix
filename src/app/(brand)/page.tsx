@@ -28,15 +28,15 @@ import { pageMetadata } from "@/lib/seo";
 const home = pageMetadata({
   title: "ECODrIx",
   description:
-    "ERIX by ECODrIx: one inbox for WhatsApp and phone calls, an AI agent that answers from your price list, a pipeline, bookings and automatic follow-ups.",
+    "ERIX is an AI employee for Indian businesses: it answers WhatsApp and phone calls, books visits, follows up and collects payments inside your CRM.",
   path: "/",
 });
 
 export const metadata = {
   ...home,
   // The home page keeps the brand title as is (no " | ECODrIx" suffix).
-  title: { absolute: "ECODrIx | Unified Business Infrastructure Platform" },
-  openGraph: { ...home.openGraph, title: "ECODrIx | Unified Business Infrastructure Platform" },
+  title: { absolute: "ERIX by ECODrIx | AI employee for WhatsApp, calls and CRM" },
+  openGraph: { ...home.openGraph, title: "ERIX by ECODrIx | AI employee for WhatsApp, calls and CRM" },
 };
 
 const faqs = [
