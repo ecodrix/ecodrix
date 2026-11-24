@@ -1331,7 +1331,7 @@
 }
 @media (min-width: 681px) {
   /* A tall hero, about 150–170% of the screen (founder, 24 Nov 2026): the first screen belongs to the
-     words, with the console's top peeking in below the actions; scrolling brings the large console
+     words, with the console's top peeking in below the actions; scrolling brings the console (max 600px)
      into full view, where it settles from a steeper tilt. */
   .hx-frame {
     display: flex;
@@ -1361,7 +1361,7 @@
     position: relative;
     inset: auto;
     width: min(1240px, 100%);
-    height: clamp(520px, 88svh, 860px);
+    height: clamp(480px, 70svh, 600px); /* founder: the console is at most 600px tall */
     margin-top: clamp(40px, 7vh, 80px);
     display: flex;
     flex-direction: column;
