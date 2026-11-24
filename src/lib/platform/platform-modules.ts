@@ -48,9 +48,9 @@ export const PLATFORM_MODULES: PlatformModule[] = [
     category: "product",
     status: "live",
     description:
-      "ERIX CRM keeps every enquiry on one board: contacts, pipeline, forms, bookings, GST invoices and payment links, priced in INR.",
+      "ERIX CRM keeps every enquiry on one board: contacts, pipeline, forms and bookings, priced in INR. GST invoices and payment links are coming soon.",
     longDescription:
-      "Enquiries from your form links, booking page and chats land in your pipeline. Move deals in one drag, book appointments in Indian time, and send GST invoices with a payment link through your own Razorpay or Stripe account.",
+      "Enquiries from your form links, booking page and chats land in your pipeline. Move deals in one drag and book appointments in Indian time. Proposals, GST invoices and payment links are coming soon.",
     features: [
       {
         title: "A pipeline for your trade",
@@ -66,7 +66,7 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       },
       {
         title: "Invoices and payment links",
-        body: "GST invoices with a PDF and a payment link through your own Razorpay or Stripe account. Recurring invoices and overdue reminders run on their own.",
+        body: "Coming soon: GST invoices and payment links through your own Razorpay.",
       },
     ],
     steps: [
@@ -81,7 +81,7 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       },
       {
         q: "Does ERIX send GST invoices?",
-        a: "Yes. ERIX makes GST invoices with a PDF and a payment link through your own Razorpay or Stripe account.",
+        a: "Not yet. GST invoices and Razorpay payment links are coming soon.",
       },
       {
         q: "Can my staff use it on a phone?",
