@@ -110,12 +110,16 @@ function CallCard({
         >
           <Icon name={playing ? "pause" : "play"} size={16} variant="solid" />
         </button>
-        <div aria-hidden="true" className="flex h-10 min-w-0 flex-1 items-center justify-between gap-px">
+        <div
+          aria-hidden="true"
+          data-idle={started ? undefined : ""}
+          className="mk-wave flex h-10 min-w-0 flex-1 items-center justify-between gap-px"
+        >
           {audio.peaks.map((h, i) => (
             <i
               // biome-ignore lint/suspicious/noArrayIndexKey: fixed-length decorative bars
               key={i}
-              style={{ height: `${Math.round(h * 100)}%` }}
+              style={{ height: `${Math.round(h * 100)}%`, "--i": i % 24 } as React.CSSProperties}
               className={cn(
                 "min-w-px max-w-1 flex-1 rounded-sm transition-colors duration-150 motion-reduce:transition-none",
                 barIsAssistant(audio.segs, audio.dur, i, audio.peaks.length)

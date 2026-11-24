@@ -130,17 +130,26 @@ export default function PricingPlansSection({
                   className={cn("group w-full", buttonVariants({ variant: featured ? "primary" : "ghost" }))}
                 >
                   {PRIMARY_CTA.label}
-                  <Icon name="arrow-right" size={16} variant="line" />
+                  <Icon
+                    name="arrow-right"
+                    size={16}
+                    variant="line"
+                    className="transition-transform duration-150 ease-in-out motion-reduce:transition-none group-hover:translate-x-1"
+                  />
                 </a>
                 <ul className="space-y-2.5 border-t border-border-soft pt-5">
-                  {humaniseFeatures(plan).map((f) => (
-                    <li key={f} className="flex gap-2.5 text-[14px] leading-snug text-foreground">
+                  {humaniseFeatures(plan).map((f, n) => (
+                    <li
+                      key={f}
+                      style={{ "--i": n } as React.CSSProperties}
+                      className="flex gap-2.5 text-[14px] leading-snug text-foreground"
+                    >
                       <Icon
                         name="check"
                         size={15}
                         strokeWidth={2.2}
                         variant="line"
-                        className={cn("mt-0.5 shrink-0", featured ? "text-white" : "text-accent")}
+                        className={cn("mk-tick mt-0.5 shrink-0", featured ? "text-white" : "text-accent")}
                       />
                       {f}
                     </li>
