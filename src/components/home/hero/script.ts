@@ -9,6 +9,7 @@ export type Conv = {
   name: string;
   ini: string;
   ch: Channel;
+  // Phone numbers here are +91 55501 00xxx: not a valid Indian mobile or landline, so the demo can never show a real person's number.
   ph: string;
   state: ConvState;
   time: string;
@@ -58,7 +59,7 @@ export const seed = () => ({
       name: "Ananya Reddy",
       ini: "AR",
       ch: "web",
-      ph: "+91 98480 22117",
+      ph: "+91 55501 00117",
       state: "ai",
       time: "9:12 pm",
       stage: "Interested",
@@ -93,7 +94,7 @@ export const seed = () => ({
       name: "Mohammed Irfan",
       ini: "MI",
       ch: "ph",
-      ph: "+91 99490 11872",
+      ph: "+91 55501 00172",
       state: "need",
       time: "8:40 pm",
       stage: "New",
@@ -106,7 +107,7 @@ export const seed = () => ({
       name: "Keerthi T",
       ini: "KT",
       ch: "wa",
-      ph: "+91 90000 33019",
+      ph: "+91 55501 00119",
       state: "done",
       time: "6:10 pm",
       stage: "Visited",
@@ -221,7 +222,7 @@ export const SCRIPT: [number, Act[]][] = [
           name: "Ravi Kumar",
           ini: "RK",
           ch: "wa",
-          ph: "+91 98660 41377",
+          ph: "+91 55501 00137",
           state: "ai",
           time: "9:15 pm",
           stage: "New",
@@ -300,7 +301,7 @@ export const SCRIPT: [number, Act[]][] = [
           name: "Suresh K",
           ini: "SK",
           ch: "ph",
-          ph: "+91 97010 55214",
+          ph: "+91 55501 00114",
           state: "ai",
           time: "9:20 pm",
           stage: "New",

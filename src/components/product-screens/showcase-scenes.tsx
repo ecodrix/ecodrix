@@ -251,7 +251,7 @@ export function AnalyticsScreen() {
 
 const fields = [
   ["Your name", "Kavya Nair"],
-  ["WhatsApp number", "+91 98450 12345"],
+  ["WhatsApp number", "+91 55501 00145"],
   ["Budget", "₹60 to 70 lakh"],
   ["Area", "Wakad"],
 ] as const;
@@ -419,7 +419,7 @@ export function WidgetScreen() {
             <div style={at(2)} className={cn(box, "scene-in space-y-1 p-2 text-[11px]")}>
               <p className="font-semibold text-foreground">Before we chat</p>
               <p className="rounded-[6px] border border-border-strong px-2 py-1 text-foreground">Kavya Nair</p>
-              <p className="rounded-[6px] border border-border-strong px-2 py-1 text-foreground">+91 98450 12345</p>
+              <p className="rounded-[6px] border border-border-strong px-2 py-1 text-foreground">+91 55501 00145</p>
               <p className="flex items-center gap-1 text-muted-foreground">
                 <CheckCircle2 aria-hidden="true" className="size-3 text-accent" /> OK to contact me about my enquiry
               </p>
