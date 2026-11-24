@@ -12,7 +12,7 @@ import { CookieConsent } from "@/components/legal/CookieConsent";
 import { MotionRoot } from "@/components/motion/motion";
 import { MotionProvider } from "@/components/motion/motion-provider";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
-import { getOrganizationSchema, getPersonSchema, getSoftwareApplicationSchema, getWebSiteSchema } from "@/lib/jsonld";
+import { getOrganizationSchema, getSoftwareApplicationSchema, getWebSiteSchema } from "@/lib/jsonld";
 import { cn } from "@/lib/utils";
 
 // ERIX design system type, self-hosted (SIL OFL — licences in ./fonts):
@@ -167,15 +167,6 @@ export default function RootLayout({
           // biome-ignore lint/security/noDangerouslySetInnerHtml: controlled JSON-LD data
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(getSoftwareApplicationSchema()),
-          }}
-        />
-        {/* Person schema — anchors "who is Dhanesh M" knowledge-panel
-            queries on Google, Bing, and AI answer engines. */}
-        <script
-          type="application/ld+json"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: controlled JSON-LD data
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(getPersonSchema()),
           }}
         />
       </head>
