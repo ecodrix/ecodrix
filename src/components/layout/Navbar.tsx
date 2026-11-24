@@ -25,7 +25,7 @@ const DesktopNav = dynamic(() => import("./DesktopNav"), { ssr: false });
  * panel that enters with framer-motion. A pill glides to the open section
  * and the logo's red dot marks the current one (both `layoutId`). A floating
  * rounded bar, fixed, one height always (a spacer holds it), with a soft shadow that deepens on scroll (the one
- * shadow on the otherwise flat site, founder 24 Nov). Phones get a navy bottom sheet that lists
+ * shadow on the otherwise flat site, founder 24 Nov). Phones get a bottom sheet that lists
  * every section. Without JavaScript the menus become plain links and the menu
  * button jumps to the footer's site map (globals.css, `scripting`).
  */
