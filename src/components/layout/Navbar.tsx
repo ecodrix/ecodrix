@@ -24,7 +24,8 @@ const DesktopNav = dynamic(() => import("./DesktopNav"), { ssr: false });
  * Site header on the shadcn NavigationMenu (Radix): four sections, each a
  * panel that enters with framer-motion. A pill glides to the open section
  * and the logo's red dot marks the current one (both `layoutId`). A floating
- * rounded bar, fixed, one height always (a spacer holds it), flat (a 1px border, no shadow). Phones get a Sheet with an
+ * rounded bar, fixed, one height always (a spacer holds it), with a soft shadow that deepens on scroll (the one
+ * shadow on the otherwise flat site, founder 24 Nov). Phones get a Sheet with an
  * Accordion. Without JavaScript the menus become plain links and the menu
  * button jumps to the footer's site map (globals.css, `scripting`).
  */
@@ -99,7 +100,10 @@ export function Navbar() {
           className={cn(
             "relative mx-auto flex h-13 w-full max-w-[1180px] items-center gap-3 rounded-[32px] border border-border bg-surface pr-2.5 pl-5 lg:gap-6 lg:pl-6",
             "has-[[data-slot=navigation-menu-trigger][data-state=open]]:rounded-[28px_28px_0_0]",
-            "transition-[border-radius] duration-200 ease-out motion-reduce:transition-none",
+            // Deep navy tint reads on both light pages and the navy hero band.
+            "shadow-[0_12px_32px_-12px_rgba(4,13,66,0.30),0_2px_6px_-2px_rgba(4,13,66,0.10)]",
+            "group-data-[scrolled]:shadow-[0_18px_44px_-14px_rgba(4,13,66,0.42),0_3px_8px_-3px_rgba(4,13,66,0.14)]",
+            "transition-[border-radius,box-shadow] duration-200 ease-out motion-reduce:transition-none",
           )}
         >
           <Link href="/" className="flex shrink-0 items-center gap-2">
