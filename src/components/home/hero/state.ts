@@ -42,7 +42,7 @@ export type Action =
   | { type: "send"; text: string }
   | { type: "visitor" };
 
-export const CAP_DEFAULT = "Live demo: click a chat, then Take over";
+export const CAP_DEFAULT = "Riya is reading new messages";
 const NOW_DEFAULT = "Reading new messages";
 const TOAST_MS = 3200;
 const TOAST_OUT_MS = 360;
