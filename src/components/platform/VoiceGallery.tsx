@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Icon } from "@/components/icons";
 import { cn } from "@/lib/utils";
-import { INDIC_FONT, LangTabs } from "./LangTabs";
+import { ComingSoon, INDIC_FONT, LangTabs } from "./LangTabs";
 import { type PlayerView, useGalleryPlayer } from "./use-gallery-player";
+import { setVoiceLang, useVoiceLang } from "./use-voice-lang";
 import {
   AUDIO,
   type Audio,
@@ -187,24 +188,17 @@ function CallCard({
 
 /** Language tabs plus the call cards (`limit` for a teaser), on the page's shared player. */
 export function VoiceGallery({ limit = CALLS.length }: { limit?: number }) {
-  const [lang, setLang] = useState<Lang>("en");
+  const lang = useVoiceLang();
   const { view, play, stop } = useGalleryPlayer();
-  const pick = (l: Lang) => {
-    stop();
-    setLang(l);
-  };
+  // Any language change (here or in the voice library) stops the playing clip.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `lang` is the trigger
+  useEffect(stop, [lang, stop]);
 
   return (
     <>
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-        <LangTabs lang={lang} onPick={pick} label="Call language" prefix="tab" controls={GRID_ID} />
-        <p className="flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-[15px] text-subtle" style={INDIC_FONT}>
-          <b className="text-[13px] font-semibold">Coming soon</b>
-          <span lang="ta">தமிழ்</span>
-          <span lang="kn">ಕನ್ನಡ</span>
-          <span lang="ml">മലയാളം</span>
-          <span>and 5 more</span>
-        </p>
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2.5">
+        <LangTabs lang={lang} onPick={setVoiceLang} label="Call language" prefix="tab" controls={GRID_ID} />
+        <ComingSoon />
       </div>
       <div
         id={GRID_ID}

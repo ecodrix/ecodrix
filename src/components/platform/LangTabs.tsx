@@ -1,6 +1,7 @@
 "use client";
 
 import { type KeyboardEvent, useRef } from "react";
+import { segClass, segItemClass } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { LANGS, type Lang } from "./voice-calls";
 
@@ -38,34 +39,41 @@ export function LangTabs({
       role="tablist"
       aria-label={label}
       onKeyDown={onKey}
-      className="inline-flex gap-1 rounded-2xl border border-border bg-surface p-[5px]"
+      className={cn(segClass, "flex w-full min-[600px]:inline-flex min-[600px]:w-auto on-dark:bg-white/10")}
     >
-      {LANGS.map((l, i) => {
-        const on = l.id === lang;
-        return (
-          <button
-            key={l.id}
-            ref={(el) => {
-              tabs.current[i] = el;
-            }}
-            type="button"
-            role="tab"
-            id={`${prefix}-${l.id}`}
-            aria-controls={controls}
-            aria-selected={on}
-            tabIndex={on ? 0 : -1}
-            lang={l.id}
-            style={l.id === "en" ? undefined : INDIC_FONT}
-            onClick={() => onPick(l.id)}
-            className={cn(
-              "h-11 cursor-pointer rounded-full px-[18px] text-[17px] font-semibold transition-colors duration-200 motion-reduce:transition-none",
-              on ? "bg-foreground text-background" : "text-muted-foreground hover:bg-sunken hover:text-foreground",
-            )}
-          >
-            {l.label}
-          </button>
-        );
-      })}
+      {LANGS.map((l, i) => (
+        <button
+          key={l.id}
+          ref={(el) => {
+            tabs.current[i] = el;
+          }}
+          type="button"
+          role="tab"
+          id={`${prefix}-${l.id}`}
+          aria-controls={controls}
+          aria-selected={l.id === lang}
+          tabIndex={l.id === lang ? 0 : -1}
+          lang={l.id}
+          style={l.id === "en" ? undefined : INDIC_FONT}
+          onClick={() => onPick(l.id)}
+          // The shared segmented look, flat: no selected-pill shadow, white pill on navy bands.
+          className={cn(
+            segItemClass,
+            "flex-1 min-[600px]:flex-none aria-selected:shadow-none on-dark:aria-selected:bg-white on-dark:aria-selected:text-blue-800",
+          )}
+        >
+          {l.label}
+        </button>
+      ))}
     </div>
+  );
+}
+
+/** The not-yet-live languages, as one quiet line that wraps below the tabs as a unit. */
+export function ComingSoon() {
+  return (
+    <p className="text-[13px] whitespace-nowrap text-subtle" style={INDIC_FONT}>
+      Coming soon: <span lang="ta">தமிழ்</span> · <span lang="kn">ಕನ್ನಡ</span> · <span lang="ml">മലയാളം</span> + 5 more
+    </p>
   );
 }

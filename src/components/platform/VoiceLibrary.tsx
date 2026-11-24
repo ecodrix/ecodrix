@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect } from "react";
 import { Icon } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import { LangTabs } from "./LangTabs";
 import { useGalleryPlayer } from "./use-gallery-player";
+import { setVoiceLang, useVoiceLang } from "./use-voice-lang";
 import type { Lang } from "./voice-calls";
 import audioJson from "./voice-library.audio.json";
 import libraryJson from "./voice-library.json";
@@ -18,16 +19,15 @@ const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).p
 
 /** Every selectable voice in one language, each playable on the page's shared player. */
 export function VoiceLibrary() {
-  const [lang, setLang] = useState<Lang>("en");
+  const lang = useVoiceLang();
   const { view, play, stop } = useGalleryPlayer();
-  const pick = (l: Lang) => {
-    stop();
-    setLang(l);
-  };
+  // Any language change (here or in the calls gallery) stops the playing clip.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `lang` is the trigger
+  useEffect(stop, [lang, stop]);
 
   return (
     <>
-      <LangTabs lang={lang} onPick={pick} label="Sample language" prefix="vtab" controls={GRID_ID} />
+      <LangTabs lang={lang} onPick={setVoiceLang} label="Sample language" prefix="vtab" controls={GRID_ID} />
       <ul
         id={GRID_ID}
         role="tabpanel"

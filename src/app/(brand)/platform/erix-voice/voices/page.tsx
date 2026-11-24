@@ -1,7 +1,6 @@
 import type { GlyphName } from "@/components/icons";
 import { Icon } from "@/components/icons";
 import { CtaBand, EmailCta, MkSection, PrimaryCta } from "@/components/marketing/kit";
-import { Crumbs } from "@/components/platform/ModulePage";
 import { VoiceGallery } from "@/components/platform/VoiceGallery";
 import { VoiceLibrary } from "@/components/platform/VoiceLibrary";
 import { CallsNote, ListenChip } from "@/components/platform/VoiceSamples";
@@ -70,14 +69,6 @@ export default function Page() {
       <section className="band-navy pt-[clamp(40px,6vw,64px)] pb-[clamp(48px,6vw,80px)]" aria-labelledby="voices-title">
         <div className="mx-auto w-full max-w-wrap px-gutter">
           <div className="mb-6 space-y-4">
-            <Crumbs
-              onNavy
-              items={[
-                { name: "Platform", href: "/platform" },
-                { name: "ERIX Voice", href: "/platform/erix-voice" },
-                { name: "ERIX Voices" },
-              ]}
-            />
             <ListenChip />
           </div>
           <h1 id="voices-title" className="font-display text-mk-hero text-balance text-white">
