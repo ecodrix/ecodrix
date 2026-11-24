@@ -48,7 +48,7 @@ const PLATFORM_FAQS = [
   },
   {
     q: "Is there a public ERIX API?",
-    a: "Yes. The same modules are available through the REST API at https://api.ecodrix.com, with keys per workspace, webhooks and the public SDK @ecodrix/erix-api. The docs are at ecodrix.com/docs.",
+    a: "Yes. The same modules are available through the REST API at https://api.ecodrix.com, with keys per workspace, webhooks and the public SDK @ecodrix/erix-api. The docs are at doc.ecodrix.com/api.",
   },
   {
     q: "Can I use just one part of ERIX?",
@@ -370,9 +370,9 @@ export default async function PlatformIndexPage() {
           <span>
             <span className="font-semibold">For developers:</span> the same modules through one public API, with keys
             per workspace and the TypeScript SDK.{" "}
-            <Link href="/docs" className="text-accent underline underline-offset-4">
+            <a href="https://doc.ecodrix.com/api" className="text-accent underline underline-offset-4">
               Read the API docs
-            </Link>
+            </a>
           </span>
         </p>
       </MkSection>

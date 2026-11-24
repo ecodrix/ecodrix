@@ -5,12 +5,13 @@ The public website of ECODrIx and, from the same app, ERIX Help.
 | Address | What it serves | Source |
 |---|---|---|
 | `ecodrix.com`, `www.ecodrix.com` | Home, platform, pricing, compare, guides, resources, blog, about, founder, legal pages | `src/app/(brand)` |
-| `ecodrix.com/docs`, `/changelog`, `/status` | Developer docs, release notes, platform status | `src/app/(docs)` |
-| `doc.ecodrix.com` | ERIX Help for customers | `src/app/(help)` |
+| `doc.ecodrix.com` | ERIX Help (`/`), API reference (`/api`), Changelog (`/changelog`) in one docs shell | `src/app/(docs)` |
+| `status.ecodrix.com` | Platform status | `src/app/(statushost)` |
 
-`next.config.ts` routes by host: `doc.ecodrix.com` serves the Help pages at its
-root, and `ecodrix.com/help/...` redirects there. Locally `doc.localhost`
-works the same way.
+`next.config.ts` routes by host: `doc.ecodrix.com` and `status.ecodrix.com` serve
+their pages at their roots, and the old `ecodrix.com/help`, `/docs`, `/changelog`,
+`/whats-new` and `/status` redirect (308) there. Locally `doc.localhost:3100` and
+`status.localhost:3100` work the same way.
 
 The site reads two settings, both defaulting to `https://api.ecodrix.com`:
 

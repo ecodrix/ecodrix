@@ -20,7 +20,7 @@ export default async function HelpCollectionPage({ params }: { params: Promise<{
   if (!c) notFound();
   const list = articlesIn(c.slug);
   return (
-    <div className="mx-auto flex w-full max-w-[880px] flex-col gap-8 px-gutter py-10 lg:py-14">
+    <div className="mx-auto flex w-full max-w-[880px] flex-col gap-8 px-gutter py-6 lg:py-10">
       <nav aria-label="Breadcrumb" className="text-[14px] text-subtle">
         <Link href={helpHref("/")} className="hover:text-foreground">
           Help

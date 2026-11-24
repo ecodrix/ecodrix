@@ -224,7 +224,7 @@ export const RELEASES: Release[] = [
       {
         icon: "triangle-alert",
         title: "Breaking (API)",
-        text: "Routes reorganised under `/v1/api`. See the [docs](/docs) for the current paths.",
+        text: "Routes reorganised under `/v1/api`. See the [docs](/api) for the current paths.",
       },
     ],
   },
@@ -291,3 +291,6 @@ export const RELEASES: Release[] = [
     ],
   },
 ];
+
+/** URL fragment of a release: v1.0.0 → v1-0-0. */
+export const versionAnchor = (version: string) => version.replace(/\./g, "-");

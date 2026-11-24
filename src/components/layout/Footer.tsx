@@ -4,7 +4,16 @@ import { LogoMark } from "@/components/layout/LogoMark";
 import { Wordmark } from "@/components/layout/wordmark";
 import { CookiePrefsButton } from "@/components/legal/CookiePrefsButton";
 import { buttonVariants } from "@/components/ui/button";
-import { COMPANY_NAV, CONTACT_EMAIL, EMAIL_CTA, INDUSTRY_NAV, PRIMARY_CTA, RESOURCE_NAV, SOCIALS } from "@/lib/site";
+import {
+  COMPANY_NAV,
+  CONTACT_EMAIL,
+  EMAIL_CTA,
+  INDUSTRY_NAV,
+  PRIMARY_CTA,
+  RESOURCE_NAV,
+  SOCIALS,
+  STATUS_URL,
+} from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /** The v1.0 job, enquiry to payment, each step linking to the part of ERIX that does it. */
@@ -30,14 +39,6 @@ const facts: { icon: GlyphName; text: string }[] = [
   { icon: "phone", text: "WhatsApp and phone calls" },
   { icon: "clock", text: "Runs on IST" },
   { icon: "message-circle", text: "Your own WhatsApp, no markup" },
-];
-
-/** Developer pages, on this site (the API serves JSON only). */
-const developer: { label: string; href: string; live?: boolean }[] = [
-  { label: "API docs", href: "/docs" },
-  { label: "System status", href: "https://status.ecodrix.com", live: true },
-  { label: "Changelog", href: "/changelog" },
-  { label: "What's new", href: "/whats-new" },
 ];
 
 const legal = [
@@ -167,18 +168,11 @@ export async function Footer() {
             <Column title="Resources">
               {RESOURCE_NAV.map((r) => (
                 <li key={r.href}>
-                  <Link href={r.href} className={linkCls}>
-                    {r.name}
-                  </Link>
-                </li>
-              ))}
-              {developer.map((d) => (
-                <li key={d.href}>
-                  <Link href={d.href} className={cn(linkCls, d.live && "relative")}>
-                    {d.live && (
+                  <Link href={r.href} className={cn(linkCls, r.href === STATUS_URL && "relative")}>
+                    {r.href === STATUS_URL && (
                       <span className="inline-flex size-2 absolute -left-3.5 shrink-0 items-center justify-center rounded-full bg-green-500 animate-pulse" />
                     )}
-                    {d.label}
+                    {r.name}
                   </Link>
                 </li>
               ))}

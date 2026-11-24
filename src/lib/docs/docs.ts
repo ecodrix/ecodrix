@@ -38,13 +38,6 @@ export interface DocSection {
 export const API_BASE_URL = "https://api.ecodrix.com/v1/api";
 export const CONSOLE_URL = "https://console.ecodrix.com";
 
-/** The developer area's pages, in header and footer order. */
-export const DEV_NAV = [
-  { href: "/docs", label: "Docs" },
-  { href: "/changelog", label: "Changelog" },
-  { href: "https://status.ecodrix.com", label: "Status" },
-];
-
 export const DOC_SECTIONS: DocSection[] = [
   {
     id: "auth",
@@ -1668,7 +1661,7 @@ export const DOC_SECTIONS: DocSection[] = [
         id: "ep-get-site-health",
         method: "GET",
         path: "/health",
-        purpose: "The public [status page](/status). Send `Accept: application/json` for JSON.",
+        purpose: "The public [status page](https://status.ecodrix.com). Send `Accept: application/json` for JSON.",
         params: [],
       },
     ],
@@ -1694,15 +1687,17 @@ export const DOC_SECTIONS: DocSection[] = [
 
 const plain = (text: string) => text.replace(/\*\*|`/g, "").replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
 
-/** What the developer header's search looks through: every section and endpoint. */
+/** What the docs search looks through for the API: every section and endpoint. */
 export const DOC_SEARCH = DOC_SECTIONS.flatMap((s) => [
   {
-    href: `/docs#${s.id}`,
+    href: `/api/${s.id}`,
     title: s.title,
     kind: s.group,
     hint: plain(s.blocks.find((b) => b.kind === "p")?.text ?? ""),
   },
   ...s.blocks.flatMap((b) =>
-    b.kind === "endpoint" ? [{ href: `/docs#${b.id}`, title: b.path, kind: b.method, hint: plain(b.purpose) }] : [],
+    b.kind === "endpoint"
+      ? [{ href: `/api/${s.id}#${b.id}`, title: b.path, kind: b.method, hint: plain(b.purpose) }]
+      : [],
   ),
 ]);

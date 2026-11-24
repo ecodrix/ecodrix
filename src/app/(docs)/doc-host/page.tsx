@@ -1,13 +1,13 @@
 import Link from "next/link";
-import { DocsSearch } from "@/components/docs/DocsSearch";
+import { DocLead } from "@/components/docs/DocLead";
 import { Icon } from "@/components/icons";
 import {
   articleHref,
   articlesIn,
   byKey,
   CONSOLE_SIGNUP,
+  HELP_ARTICLES,
   HELP_COLLECTIONS,
-  HELP_SEARCH,
   helpHref,
   START_HERE,
 } from "@/lib/help";
@@ -21,30 +21,36 @@ export const metadata = helpMetadata({
   path: "/",
 });
 
-/** doc.ecodrix.com — the help center home: search, where to start, every collection. */
+const dateFmt = new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric" });
+
+/** doc.ecodrix.com — the help home: where to start, then every collection. */
 export default function HelpHome() {
-  const start = START_HERE.map(byKey).filter((a) => a !== undefined);
+  const start = START_HERE.slice(0, 3)
+    .map(byKey)
+    .filter((a) => a !== undefined);
+  const checked =
+    HELP_ARTICLES.map((a) => a.updated)
+      .sort()
+      .at(-1) ?? "";
   return (
-    <div className="mx-auto flex w-full max-w-[1120px] flex-col gap-14 px-gutter py-12 lg:py-16">
-      <section className="flex flex-col gap-5">
-        <p className="text-[13px] font-semibold tracking-[0.08em] text-accent uppercase">ERIX Help</p>
-        <h1 className="max-w-[18ch] font-display text-[clamp(2.2rem,1.6rem+2.4vw,3.4rem)] font-extrabold tracking-[-0.025em] text-balance text-foreground">
-          How can we help?
-        </h1>
-        <p className="max-w-[62ch] text-[17px] leading-relaxed text-muted-foreground">
-          Plain, step-by-step guides with real screens from ERIX. The screens show a demo dental clinic, so your menus
-          may say Customers, Buyers or Students where ours say Patients. An orange outline marks what to select.
-        </p>
-        <div className="max-w-[560px]">
-          <DocsSearch entries={HELP_SEARCH} />
-        </div>
-      </section>
+    <div className="mx-auto flex w-full max-w-[880px] flex-col gap-12 px-gutter py-6 lg:py-10">
+      <DocLead
+        eyebrow="ERIX Help · Start here"
+        title="How can we help?"
+        text="Plain, step-by-step guides with real screens from ERIX. The screens show a demo dental clinic, so your menus may say Customers, Buyers or Students where ours say Patients."
+        facts={[
+          { value: String(HELP_ARTICLES.length), label: "step-by-step guides" },
+          { value: String(HELP_COLLECTIONS.length), label: "topics" },
+          { value: `${start.reduce((n, a) => n + a.minutes, 0)} min`, label: "to read the three start-here guides" },
+          { value: dateFmt.format(new Date(checked)), label: "last checked against ERIX" },
+        ]}
+      />
 
       <section aria-labelledby="start" className="flex flex-col gap-5">
         <h2 id="start" className="font-display text-[24px] font-bold tracking-[-0.01em] text-foreground">
           New to ERIX? Start here
         </h2>
-        <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <ol className="grid gap-3 sm:grid-cols-3">
           {start.map((a, i) => (
             <li key={a.slug}>
               <Link
@@ -73,7 +79,7 @@ export default function HelpHome() {
         <h2 id="topics" className="font-display text-[24px] font-bold tracking-[-0.01em] text-foreground">
           Browse by topic
         </h2>
-        <ul className="grid gap-4 md:grid-cols-2">
+        <ul className="grid gap-4 sm:grid-cols-2">
           {HELP_COLLECTIONS.map((c) => {
             const list = articlesIn(c.slug);
             return (
@@ -118,9 +124,9 @@ export default function HelpHome() {
           from <strong className="text-foreground">Help &amp; support</strong>. It carries the page you were on, so we
           see what you saw. Or write to{" "}
           <span className="font-semibold text-foreground select-all">{SUPPORT_EMAIL}</span>. Building on ERIX?{" "}
-          <a href="https://ecodrix.com/docs" className="font-semibold text-accent underline-offset-2 hover:underline">
-            Read the developer docs
-          </a>
+          <Link href="/api" className="font-semibold text-accent underline-offset-2 hover:underline">
+            Read the API reference
+          </Link>
           .
         </p>
       </section>

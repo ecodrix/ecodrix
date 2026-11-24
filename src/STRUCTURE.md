@@ -29,11 +29,9 @@ lib/<area>/                   its data and helpers, no React in them
 | AI employee (WhatsApp, chat, Instagram, email) | `/platform/ai-employee/...` | `(brand)/platform/ai-employee/` | `components/platform/ai-employee/` | `lib/platform/employee-pages.ts` |
 | Industries (header menu) | `/platform/erix-crm/<industry>` | same as sub-pages | same | `lib/platform/product-pages.ts` |
 | Pricing (not in the header) | `/pricing` | `(brand)/pricing/page.tsx` | `components/pricing/` | `lib/pricing.ts` |
-| Resources: Blog, What's new | `/blog`, `/whats-new` | `(brand)/blog/`, `(brand)/whats-new/` | `components/resources/blog/` | `lib/api.ts` (SDK) |
+| Resources: Blog | `/blog` | `(brand)/blog/` | `components/resources/blog/` | `lib/api.ts` (SDK) |
 | Resources: Compare, Guides | `/compare`, `/guides` | `(brand)/compare/`, `(brand)/guides/` | `marketing/kit.tsx`, `ModulePage` | `lib/resources/comparisons.ts` |
-| Resources: Changelog | `/changelog` | `(docs)/changelog/page.tsx` | `components/docs/` | `lib/resources/changelog.ts` |
-| Developer docs | `/docs` | `(docs)/docs/page.tsx` | `components/docs/` | `lib/docs/docs.ts` |
-| Help center | `/help/...` | `(help)/help/` | `components/help/` | `lib/help/` |
+| Help, API reference, Changelog (doc.ecodrix.com, one shell) | doc host `/`, `/api`, `/api/<section>`, `/changelog`; ecodrix.com links out and redirects the old `/help`, `/docs`, `/changelog`, `/whats-new` | `(docs)/layout.tsx` (shell), `(docs)/doc-host/` (rewritten to the host's root: `page.tsx` Help home, `[collection]/`, `api/`, `changelog/`, `sitemap.ts`) | `components/docs/` (`DocsShell` → `DocsFrame`, `DocsSidebar`, `DocToc`, `DocLead`, `ApiSection`), `components/help/` | `lib/docs/nav.ts` (sidebar + search), `lib/docs/docs.ts` (API), `lib/help/`, `lib/resources/changelog.ts` |
 | Company: About, Founder | `/about`, `/founder` | `(brand)/about/`, `(brand)/founder/` | built from `marketing/kit.tsx` in the page | `lib/site.ts` |
 | Legal | `/legal/...` | `(brand)/legal/<doc>/page.tsx` | `components/legal/` (also the cookie banner) | `lib/legal/` |
 | Status page | status host `/` | `(statushost)/status-host/page.tsx` | `components/status/` | `lib/status/status-page.ts` |

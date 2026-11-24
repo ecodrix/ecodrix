@@ -827,6 +827,22 @@ html[data-consent="ask"] [data-cookie-banner] {
   width: 0 !important;
 }
 
+/* ── Docs shell ── */
+/* The phone sidebar slides in from the left (doc.ecodrix.com). */
+@keyframes docs-sheet-in {
+  from {
+    transform: translateX(-100%);
+  }
+}
+.docs-sheet[data-state="open"] {
+  animation: docs-sheet-in 0.25s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .docs-sheet[data-state="open"] {
+    animation: none;
+  }
+}
+
 /* ── Motion: grid sparks and motion pass ── */
 /* Scroll-linked effects use view() timelines: no JS, no hiding (browsers without support, and
    reduced motion, show the finished state). Transform/opacity/box-shadow-ring only; no layout. */

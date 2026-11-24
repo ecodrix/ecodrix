@@ -61,7 +61,7 @@ export function CodeSample({ sample }: { sample: Sample }) {
   const tabbed = sample.tabs.length > 1;
   const active = sample.tabs.find((t) => t.lang === lang) ?? sample.tabs[0];
   return (
-    <figure className="overflow-hidden rounded-[12px] bg-[#0e1424] text-white shadow-[var(--shadow-card)]">
+    <figure className="overflow-hidden rounded-[12px] border border-white/10 bg-[#0e1424] text-white">
       <figcaption className="flex items-center justify-between gap-2 border-b border-white/10 px-3 py-1.5">
         {tabbed ? (
           <div role="tablist" aria-label={`${sample.label}: code language`} className="flex gap-1">

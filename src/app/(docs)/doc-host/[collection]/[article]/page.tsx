@@ -4,7 +4,7 @@ import { Rich } from "@/components/docs/Rich";
 import { HelpBlocks } from "@/components/help/HelpBlocks";
 import { Helpful } from "@/components/help/Helpful";
 import { Icon } from "@/components/icons";
-import { article, articleHref, articlesIn, byKey, collection, HELP_ARTICLES, helpHref, KIND_LABEL } from "@/lib/help";
+import { article, articleHref, byKey, collection, HELP_ARTICLES, helpHref, KIND_LABEL } from "@/lib/help";
 import { helpMetadata } from "@/lib/help/meta";
 
 type Params = Promise<{ collection: string; article: string }>;
@@ -28,40 +28,11 @@ export default async function HelpArticlePage({ params }: { params: Params }) {
   const a = article(p.collection, p.article);
   const c = collection(p.collection);
   if (!a || !c) notFound();
-  const siblings = articlesIn(c.slug);
   const related = (a.related ?? []).map(byKey).filter((r) => r !== undefined);
 
   return (
-    <div className="mx-auto grid w-full max-w-[1200px] gap-10 px-gutter py-10 lg:grid-cols-[240px_minmax(0,1fr)] lg:py-14">
-      <nav aria-label={`${c.title} articles`} className="hidden lg:block">
-        <div className="sticky top-24 flex flex-col gap-2">
-          <Link
-            href={helpHref(`/${c.slug}`)}
-            className="px-2 text-[13px] font-semibold tracking-[0.06em] text-subtle uppercase hover:text-foreground"
-          >
-            {c.title}
-          </Link>
-          <ul className="flex flex-col">
-            {siblings.map((s) => (
-              <li key={s.slug}>
-                <Link
-                  href={articleHref(s)}
-                  aria-current={s.slug === a.slug ? "page" : undefined}
-                  className={
-                    s.slug === a.slug
-                      ? "block rounded-[8px] bg-accent-muted px-2 py-2 text-[14.5px] font-semibold text-accent"
-                      : "block rounded-[8px] px-2 py-2 text-[14.5px] text-muted-foreground hover:bg-sunken hover:text-foreground"
-                  }
-                >
-                  {s.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </nav>
-
-      <article className="flex max-w-[760px] min-w-0 flex-col gap-8">
+    <div className="mx-auto w-full max-w-[880px] px-gutter py-6 lg:py-10">
+      <article className="flex min-w-0 flex-col gap-8">
         <nav aria-label="Breadcrumb" className="text-[14px] text-subtle">
           <Link href={helpHref("/")} className="hover:text-foreground">
             Help

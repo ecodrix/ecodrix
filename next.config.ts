@@ -71,9 +71,9 @@ const nextConfig: NextConfig = {
   // /legal and /platform now. Permanent redirects keep links in app stores,
   // Meta / Google OAuth consent screens and old search results working.
   /**
-   * ERIX Help lives on doc.ecodrix.com (files in app/(help)/help): the host
-   * serves those pages at its root. `doc.localhost` works the same in dev.
-   * Files (images, _next, anything with an extension) pass through.
+   * doc.ecodrix.com (and doc.localhost in dev) serves app/(docs)/doc-host at its root: ERIX Help
+   * at `/`, the API reference at `/api`, the changelog at `/changelog`. Files (images, _next,
+   * anything with an extension) pass through; its own sitemap is served here too (robots.txt reads the host in app/robots.ts).
    * status.ecodrix.com (and status.localhost) serves app/(statushost)/status-host at its root.
    */
   async rewrites() {
@@ -81,29 +81,42 @@ const nextConfig: NextConfig = {
     const statusHost = [{ type: "host" as const, value: "status\\.(ecodrix\\.com|localhost)" }];
     return {
       beforeFiles: [
-        // status.ecodrix.com: its root is the status page (app/(statushost)/status-host).
         { source: "/", has: statusHost, destination: "/status-host" },
-        { source: "/", has: docHost, destination: "/help" },
-        { source: "/:path((?!help(?:/|$)|_next/|api/|.*\\.[a-z0-9]+$).*)", has: docHost, destination: "/help/:path" },
+        { source: "/", has: docHost, destination: "/doc-host" },
+        { source: "/sitemap.xml", has: docHost, destination: "/doc-host/sitemap.xml" },
+        {
+          source: "/:path((?!doc-host(?:/|$)|_next/|.*\\.[a-z0-9]+$).*)",
+          has: docHost,
+          destination: "/doc-host/:path",
+        },
       ],
     };
   },
 
   async redirects() {
     const docHost = [{ type: "host" as const, value: "doc\\.(ecodrix\\.com|localhost)" }];
-    const brandHost = [{ type: "host" as const, value: "(www\\.)?ecodrix\\.com" }];
+    // The brand site is every host except doc. and status.: the moved pages redirect only here, so
+    // the doc and status hosts never loop, and localhost:3100 in dev follows the same rules.
+    const brandOnly = [{ type: "host" as const, value: "(doc|status)\\.(ecodrix\\.com|localhost)" }];
+    const noFile = "(?!.*\\.[a-z0-9]+$).*";
+    const DOCS = "https://doc.ecodrix.com";
+    const moved = [
+      // Help, the API docs and the changelog moved to doc.ecodrix.com (founder, 24 Nov 2026).
+      { source: "/docs", destination: `${DOCS}/api` },
+      { source: "/docs/:path*", destination: `${DOCS}/api/:path*` },
+      { source: "/help", destination: DOCS },
+      { source: `/help/:path(${noFile})`, destination: `${DOCS}/:path` },
+      { source: "/changelog", destination: `${DOCS}/changelog` },
+      // What's new is merged into the changelog.
+      { source: "/whats-new", destination: `${DOCS}/changelog` },
+      // The status page lives only on its own host.
+      { source: "/status", destination: "https://status.ecodrix.com" },
+    ].map((r) => ({ ...r, missing: brandOnly, permanent: true }));
     const help = [
-      // Clean addresses on the help host: /help/x → /x (files excluded).
+      // Clean addresses on the doc host: /help/x → /x (files excluded), the old /docs → /api.
       { source: "/help", has: docHost, destination: "/", permanent: false },
-      { source: "/help/:path((?!.*\\.[a-z0-9]+$).*)", has: docHost, destination: "/:path", permanent: false },
-      // The brand site sends help readers to the help host.
-      { source: "/help", has: brandHost, destination: "https://doc.ecodrix.com", permanent: false },
-      {
-        source: "/help/:path((?!.*\\.[a-z0-9]+$).*)",
-        has: brandHost,
-        destination: "https://doc.ecodrix.com/:path",
-        permanent: false,
-      },
+      { source: `/help/:path(${noFile})`, has: docHost, destination: "/:path", permanent: false },
+      { source: "/docs", has: docHost, destination: "/api", permanent: true },
     ];
     const legal = [
       "privacy",
@@ -119,8 +132,7 @@ const nextConfig: NextConfig = {
     ];
     return [
       ...help,
-      // The status page lives only on its own host; old links land there.
-      { source: "/status", destination: "https://status.ecodrix.com", permanent: false },
+      ...moved,
       ...legal.map((slug) => ({
         source: `/${slug}`,
         destination: `/legal/${slug}`,

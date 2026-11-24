@@ -35,6 +35,10 @@ export const EMAIL_CTA = { label: "Contact us", href: `mailto:${CONTACT_EMAIL}` 
 /** Where "Report a problem" on the status page sends mail (one place to change it). */
 export const REPORT_EMAIL = SUPPORT_EMAIL;
 
+/** Help, API docs and the changelog live on their own hosts; the brand site only links out. */
+export const DOCS_URL = "https://doc.ecodrix.com";
+export const STATUS_URL = "https://status.ecodrix.com";
+
 export type ModuleStatus = "live" | "soon" | "invite";
 
 export const STATUS_LABEL: Record<ModuleStatus, string> = {
@@ -175,7 +179,7 @@ export const INDUSTRY_NAV = [
   card: { headline: string; text: string };
 }[];
 
-/** Resources: the blog, the comparisons and the guides hub (footer, phone menu and header). */
+/** Resources: the blog, comparisons, guides hub, then the doc and status hosts (footer, phone menu and header). */
 export const RESOURCE_NAV = [
   {
     icon: "book-open",
@@ -203,9 +207,12 @@ export const RESOURCE_NAV = [
   {
     icon: "help-circle",
     name: "Help center",
-    href: "https://doc.ecodrix.com",
+    href: DOCS_URL,
     summary: "How to do each job in ERIX, with real screens.",
   },
+  { icon: "code", name: "API docs", href: `${DOCS_URL}/api`, summary: "Build on ERIX with the API and SDK." },
+  { icon: "history", name: "Changelog", href: `${DOCS_URL}/changelog`, summary: "What changed in each release." },
+  { icon: "chart-line", name: "System status", href: STATUS_URL, summary: "Live uptime of every module." },
 ] as const satisfies readonly {
   icon: IconName;
   name: string;
