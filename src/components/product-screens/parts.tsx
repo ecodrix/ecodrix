@@ -143,7 +143,7 @@ export function Bubble({
       )}
       <p className="text-foreground">{children}</p>
       {(source || time) && (
-        <span className="mt-1 flex items-center justify-end gap-1.5 text-[10px] text-subtle">
+        <span className="mt-1 flex items-center justify-end gap-1.5 text-[11px] text-subtle">
           {source && (
             <span className="mr-auto flex items-center gap-1">
               <BookOpen aria-hidden="true" className="size-3" /> From: {source}
@@ -261,7 +261,7 @@ export function AppFrame({
             )}
           >
             {g.group && (
-              <span className="hidden px-2 pb-0.5 text-[10px] font-semibold text-[var(--blue-200)] opacity-80 @4xl:block">
+              <span className="hidden px-2 pb-0.5 text-[11px] font-semibold text-[var(--blue-200)] opacity-80 @4xl:block">
                 {g.group}
               </span>
             )}
@@ -288,7 +288,7 @@ export function AppFrame({
                     </span>
                   )}
                   {badge !== undefined && (
-                    <span className="absolute top-0.5 right-0.5 size-1.5 rounded-full bg-[var(--hero-dot)] @4xl:static @4xl:ml-auto @4xl:size-auto @4xl:min-w-4 @4xl:px-1 @4xl:text-center @4xl:text-[10px] @4xl:leading-4 @4xl:font-semibold @4xl:text-white">
+                    <span className="absolute top-0.5 right-0.5 size-1.5 rounded-full bg-[var(--hero-dot)] @4xl:static @4xl:ml-auto @4xl:size-auto @4xl:min-w-4 @4xl:px-1 @4xl:text-center @4xl:text-[11px] @4xl:leading-4 @4xl:font-semibold @4xl:text-white">
                       <span className="hidden @4xl:inline">{badge}</span>
                     </span>
                   )}
@@ -298,10 +298,10 @@ export function AppFrame({
           </div>
         ))}
         <div className="mt-auto flex items-center justify-center gap-2 border-t border-white/8 pt-2 @4xl:justify-start @4xl:px-3">
-          <Avatar name={user} className="size-6 bg-white/12 text-[9px] text-white" />
+          <Avatar name={user} className="size-6 bg-white/12 text-[11px] text-white" />
           <span className="hidden min-w-0 @4xl:block">
             <span className="block truncate text-[11.5px] leading-4 font-semibold text-white">{user}</span>
-            <span className="block text-[10px] leading-3 text-[var(--blue-200)]">Owner</span>
+            <span className="block text-[11px] leading-3 text-[var(--blue-200)]">Owner</span>
           </span>
         </div>
       </div>
@@ -324,14 +324,14 @@ export function AppFrame({
           {action ?? (
             <span className="hidden items-center gap-1.5 rounded-[6px] border border-border bg-sunken px-2 py-1 text-[11px] text-subtle @3xl:flex">
               <Search aria-hidden="true" className="size-3" /> Search contacts, pages, actions
-              <span className="rounded-[4px] border border-border bg-surface px-1 text-[9.5px] leading-3.5">⌘K</span>
+              <span className="rounded-[4px] border border-border bg-surface px-1 text-[11px] leading-3.5">⌘K</span>
             </span>
           )}
           <span className="hidden items-center gap-2.5 text-subtle @md:flex">
             <Sparkles aria-hidden="true" className="size-3.5 text-ai" />
             <span className="h-4 w-px bg-border" />
             <Bell aria-hidden="true" className="size-3.5" />
-            <Avatar name={user} className="size-6 text-[9px]" />
+            <Avatar name={user} className="size-6 text-[11px]" />
           </span>
         </div>
         <div className="relative min-h-0 flex-1">{children}</div>

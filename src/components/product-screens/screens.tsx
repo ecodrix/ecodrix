@@ -75,11 +75,11 @@ export function AiScreen() {
           <div className="min-w-0 space-y-3">
             <div className="grid grid-cols-2 gap-2">
               <div className="rounded-[10px] bg-[var(--brand-purple)] p-2.5 text-white">
-                <p className="text-[10px] text-white/85">AI drafts to review</p>
+                <p className="text-[11px] text-white/85">AI drafts to review</p>
                 <p className="mt-1 font-display text-xl font-bold text-white">2</p>
               </div>
               <div className="rounded-[10px] bg-[var(--brand-blue)] p-2.5 text-white">
-                <p className="text-[10px] text-white/85">Automations on hold</p>
+                <p className="text-[11px] text-white/85">Automations on hold</p>
                 <p className="inline-grid *:[grid-area:1/1] mt-1 font-display text-xl font-bold text-white">
                   <span className="scene-in" style={at(0, 5)}>
                     1
@@ -257,7 +257,7 @@ export function BookingScreen() {
             {days.map(([d, n]) => (
               <span
                 key={n}
-                className="relative rounded-[6px] border border-border py-1.5 text-center text-[10px] text-muted-foreground"
+                className="relative rounded-[6px] border border-border py-1.5 text-center text-[11px] text-muted-foreground"
               >
                 {d}
                 <span className="block text-[13px] font-semibold text-foreground">{n}</span>
@@ -294,7 +294,7 @@ export function BookingScreen() {
             ))}
           </div>
           <div className="inline-grid *:[grid-area:1/1] mt-auto w-full pt-3">
-            <p style={at(0, 3)} className="scene-in text-[10px] text-subtle">
+            <p style={at(0, 3)} className="scene-in text-[11px] text-subtle">
               Times in India Standard Time
             </p>
             <p
@@ -321,7 +321,7 @@ export function BookingScreen() {
                 Rohan Mehta <Pill tone="success">Confirmed</Pill>
               </p>
               <p className="text-muted-foreground">Site visit · Sat 31 Oct, 11:30 am</p>
-              <p className="mt-1 flex items-center gap-1 text-[10px] text-muted-foreground">
+              <p className="mt-1 flex items-center gap-1 text-[11px] text-muted-foreground">
                 <Icon name="googlecalendar" size={11} /> On your Google Calendar
               </p>
             </li>
@@ -413,7 +413,7 @@ export function DocumentsScreen() {
                 You signed. Audit seal added to the PDF.
               </li>
             </ul>
-            <p className="mt-auto pt-3 text-[10px] text-subtle">Click-to-sign with an audit seal. Not Aadhaar eSign.</p>
+            <p className="mt-auto pt-3 text-[11px] text-subtle">Click-to-sign with an audit seal. Not Aadhaar eSign.</p>
           </div>
         </div>
       </AppFrame>

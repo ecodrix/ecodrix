@@ -67,7 +67,7 @@ export function CrmScreen() {
                 <div className="space-y-1.5">
                   <div className={cn(box, "p-2")}>
                     <p className="text-[11.5px] font-semibold text-foreground">{i ? "Ravi Kumar" : "Meera Iyer"}</p>
-                    <p className="text-[10.5px] text-muted-foreground">
+                    <p className="text-[11px] text-muted-foreground">
                       {i ? "Plot, Hinjewadi · ₹1,25,000" : "2BHK, Wakad · ₹1,20,000"}
                     </p>
                   </div>
@@ -77,7 +77,7 @@ export function CrmScreen() {
                     className={cn(box, "scene-in relative p-2", i && "scene-x ring-1 ring-accent-border")}
                   >
                     <p className="text-[11.5px] font-semibold text-foreground">Rohan Mehta</p>
-                    <p className="text-[10.5px] text-muted-foreground">3BHK, Baner · ₹1,85,000</p>
+                    <p className="text-[11px] text-muted-foreground">3BHK, Baner · ₹1,85,000</p>
                     {!i && (
                       <span
                         aria-hidden="true"
@@ -93,7 +93,7 @@ export function CrmScreen() {
           <div className="grid min-h-0 flex-1 gap-2.5 md:grid-cols-[1.15fr_1fr]">
             <div className={cn(box, "min-h-0 p-2.5")}>
               <p className="flex items-center gap-2 text-[11.5px] font-semibold text-foreground">
-                <Avatar name="Rohan Mehta" className="size-6 text-[9px]" /> Timeline
+                <Avatar name="Rohan Mehta" className="size-6 text-[11px]" /> Timeline
               </p>
               <ol className="mt-2 space-y-1.5">
                 {crmEvents.map((e) => (
@@ -107,16 +107,16 @@ export function CrmScreen() {
                       <e.icon aria-hidden="true" className="size-3" />
                     </span>
                     <span className="min-w-0">
-                      <span className="block text-[10.5px] leading-snug text-foreground">{e.text}</span>
-                      <span className="block text-[9.5px] text-subtle">{e.time}</span>
+                      <span className="block text-[11px] leading-snug text-foreground">{e.text}</span>
+                      <span className="block text-[11px] text-subtle">{e.time}</span>
                     </span>
                   </li>
                 ))}
               </ol>
             </div>
-            <div style={at(6)} className={cn(box, "scene-in hidden min-h-0 flex-col p-2.5 text-[10.5px] md:flex")}>
+            <div style={at(6)} className={cn(box, "scene-in hidden min-h-0 flex-col p-2.5 text-[11px] md:flex")}>
               <div className="flex items-center justify-between gap-2">
-                <p className="font-mono text-[10px] text-muted-foreground">INV/26-27/0042</p>
+                <p className="font-mono text-[11px] text-muted-foreground">INV/26-27/0042</p>
                 <span className="inline-grid *:[grid-area:1/1] justify-items-end">
                   <Pill className="scene-in" style={at(0, 7)}>
                     Draft
@@ -187,14 +187,14 @@ export function AnalyticsScreen() {
         nav="crm"
         className="h-[25rem]"
         action={
-          <span className="rounded-[6px] bg-sunken px-2 py-1 text-[10.5px] font-semibold text-foreground">30D</span>
+          <span className="rounded-[6px] bg-sunken px-2 py-1 text-[11px] font-semibold text-foreground">30D</span>
         }
       >
         <div className="grid h-full content-start gap-2.5 overflow-hidden p-3 md:grid-cols-[1.25fr_1fr]">
           <div className={cn(box, "p-3")}>
             <p className="text-[11px] text-muted-foreground">New contacts by day</p>
             <p className="font-display text-[22px] leading-tight font-bold tabular-nums text-foreground">142</p>
-            <p className="text-[10px] text-subtle">Last 30 days</p>
+            <p className="text-[11px] text-subtle">Last 30 days</p>
             <svg
               viewBox="0 0 100 40"
               preserveAspectRatio="none"
@@ -212,7 +212,7 @@ export function AnalyticsScreen() {
                 strokeLinejoin="round"
               />
             </svg>
-            <p className="mt-1 flex justify-between text-[9.5px] text-subtle">
+            <p className="mt-1 flex justify-between text-[11px] text-subtle">
               <span>28 Sep</span>
               <span>13 Oct</span>
               <span>27 Oct</span>
@@ -224,7 +224,7 @@ export function AnalyticsScreen() {
             <ul className="mt-2.5 space-y-2">
               {stages.map((s) => (
                 <li key={s.name}>
-                  <p className="flex items-center justify-between gap-2 text-[10.5px]">
+                  <p className="flex items-center justify-between gap-2 text-[11px]">
                     <span className="flex min-w-0 items-center gap-1.5 text-foreground">
                       <span aria-hidden="true" className={cn("size-1.5 shrink-0 rounded-full", s.dot)} />
                       <span className="truncate">{s.name}</span>
@@ -271,7 +271,7 @@ export function FormScreen() {
           <div className="mt-3 space-y-2">
             {fields.map(([label, value]) => (
               <div key={label}>
-                <p className="text-[10.5px] text-muted-foreground">{label}</p>
+                <p className="text-[11px] text-muted-foreground">{label}</p>
                 <p className="mt-0.5 rounded-[6px] border border-border-strong px-2.5 py-1.5 text-[11.5px] text-foreground">
                   {value}
                 </p>
@@ -292,7 +292,7 @@ export function FormScreen() {
           <ul className="mt-2 space-y-2 text-[11px]">
             <li style={at(2)} className={cn(box, "scene-in scene-x p-2 ring-1 ring-accent-border")}>
               <p className="flex items-center justify-between gap-1 font-semibold text-foreground">
-                Kavya Nair <span className="text-[10px] font-normal text-subtle">Just now</span>
+                Kavya Nair <span className="text-[11px] font-normal text-subtle">Just now</span>
               </p>
               <p className="text-muted-foreground">From: Site visit form</p>
               <Pill tone="primary" className="scene-in mt-1.5" style={at(3)}>
@@ -349,11 +349,11 @@ export function TemplatesScreen() {
                 <t.icon aria-hidden="true" className="size-3.5" />
               </span>
               <p className="mt-2 text-[12px] font-semibold text-foreground">{t.name}</p>
-              <p className="mt-0.5 text-[10.5px] text-muted-foreground">{t.how}</p>
+              <p className="mt-0.5 text-[11px] text-muted-foreground">{t.how}</p>
               <span className="mt-2.5">
                 {i === 1 ? (
                   swap(
-                    <span className="relative inline-flex rounded-[6px] border border-border-strong px-2 py-1 text-[10.5px] font-semibold text-foreground">
+                    <span className="relative inline-flex rounded-[6px] border border-border-strong px-2 py-1 text-[11px] font-semibold text-foreground">
                       Use template
                       <span
                         aria-hidden="true"
@@ -367,7 +367,7 @@ export function TemplatesScreen() {
                     2,
                   )
                 ) : (
-                  <span className="inline-flex rounded-[6px] border border-border-strong px-2 py-1 text-[10.5px] font-semibold text-foreground">
+                  <span className="inline-flex rounded-[6px] border border-border-strong px-2 py-1 text-[11px] font-semibold text-foreground">
                     Use template
                   </span>
                 )}
@@ -392,7 +392,7 @@ export function WidgetScreen() {
     >
       <div className="surface-light relative h-[25rem] overflow-hidden rounded-[12px] bg-background shadow-[var(--shadow-lg)]">
         <div className="flex items-center gap-2 border-b border-border bg-surface px-4 py-2.5">
-          <span className="grid size-6 place-items-center rounded-[6px] bg-accent text-[10px] font-bold text-white">
+          <span className="grid size-6 place-items-center rounded-[6px] bg-accent text-[11px] font-bold text-white">
             SR
           </span>
           <span className="text-[12px] font-semibold text-foreground">Sharma Realty</span>
@@ -409,14 +409,14 @@ export function WidgetScreen() {
         </div>
         <div className="absolute right-3 bottom-3 left-3 flex flex-col overflow-hidden rounded-[12px] bg-surface shadow-[var(--shadow-lg)] sm:left-auto sm:w-[17.5rem]">
           <div className="flex items-center gap-2 bg-accent px-3 py-2 text-white">
-            <span className="grid size-6 place-items-center rounded-full bg-white/20 text-[10px] font-bold">SR</span>
+            <span className="grid size-6 place-items-center rounded-full bg-white/20 text-[11px] font-bold">SR</span>
             <span className="text-[12px] font-semibold text-white">Chat with Sharma Realty</span>
           </div>
           <div className="space-y-1.5 bg-background p-2.5">
             <Bubble show={at(1)} className="max-w-[92%] text-[11.5px]">
               Hi! Looking for a home in Pune? Ask me anything.
             </Bubble>
-            <div style={at(2)} className={cn(box, "scene-in space-y-1 p-2 text-[10.5px]")}>
+            <div style={at(2)} className={cn(box, "scene-in space-y-1 p-2 text-[11px]")}>
               <p className="font-semibold text-foreground">Before we chat</p>
               <p className="rounded-[6px] border border-border-strong px-2 py-1 text-foreground">Kavya Nair</p>
               <p className="rounded-[6px] border border-border-strong px-2 py-1 text-foreground">+91 98450 12345</p>
@@ -429,7 +429,7 @@ export function WidgetScreen() {
               className="scene-in ml-auto w-fit max-w-[88%] rounded-[10px] border border-accent-border bg-accent-muted px-2.5 py-1.5 text-[11.5px] text-foreground"
             >
               Any 2BHK near Wakad under ₹70 lakh?
-              <span className="mt-0.5 flex items-center justify-end gap-1 text-[9.5px] text-subtle">
+              <span className="mt-0.5 flex items-center justify-end gap-1 text-[11px] text-subtle">
                 9:47 pm <Ticks from={3} />
               </span>
             </div>
@@ -440,8 +440,8 @@ export function WidgetScreen() {
               </Bubble>
             </div>
           </div>
-          <p className="flex items-center gap-1 border-t border-border bg-surface px-2.5 py-1.5 text-[10.5px] text-subtle">
-            <Channel name="web" className="text-[10px]" />
+          <p className="flex items-center gap-1 border-t border-border bg-surface px-2.5 py-1.5 text-[11px] text-subtle">
+            <Channel name="web" className="text-[11px]" />
             <span className="ml-auto">Type a message…</span>
           </p>
         </div>

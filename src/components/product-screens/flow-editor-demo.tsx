@@ -128,7 +128,7 @@ function Node({
           <Icon aria-hidden="true" className="size-3.5" />
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block text-[9.5px] text-subtle">{k.kicker}</span>
+          <span className="block text-[11px] text-subtle">{k.kicker}</span>
           <span className="block truncate text-[11px] font-semibold text-foreground">{titleOf(s)}</span>
         </span>
         <span className="ml-auto shrink-0" aria-hidden="true">
@@ -151,7 +151,7 @@ function Node({
         <button
           type="button"
           onClick={onApprove}
-          className="absolute -right-1 -bottom-3 z-10 rounded-[6px] bg-accent px-2 py-0.5 text-[10.5px] font-semibold text-white shadow-[var(--shadow-sm)] hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="absolute -right-1 -bottom-3 z-10 rounded-[6px] bg-accent px-2 py-0.5 text-[11px] font-semibold text-white shadow-[var(--shadow-sm)] hover:bg-accent-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           Approve
         </button>
@@ -288,7 +288,7 @@ export function FlowEditorDemo() {
         onClick={() => setAdding(adding === path ? null : path)}
         disabled={running}
         aria-expanded={adding === path}
-        className="mx-auto flex items-center gap-1 rounded-[6px] px-2 py-0.5 text-[10.5px] font-semibold text-subtle transition-colors hover:bg-surface hover:text-accent focus-visible:outline-2 focus-visible:outline-accent disabled:opacity-40"
+        className="mx-auto flex items-center gap-1 rounded-[6px] px-2 py-0.5 text-[11px] font-semibold text-subtle transition-colors hover:bg-surface hover:text-accent focus-visible:outline-2 focus-visible:outline-accent disabled:opacity-40"
       >
         <Plus aria-hidden="true" className="size-3" /> Add step
       </button>
@@ -357,7 +357,7 @@ export function FlowEditorDemo() {
             <div className="mx-auto mt-1 grid w-full max-w-[24rem] grid-cols-2 gap-2">
               {(["replied", "noReply"] as const).map((path) => (
                 <div key={path} className="flex min-w-0 flex-col">
-                  <p className="pb-1 text-center text-[9.5px] font-semibold text-subtle">
+                  <p className="pb-1 text-center text-[11px] font-semibold text-subtle">
                     {path === "replied" ? "Replied" : "No reply"}
                   </p>
                   {paths[path].map((s, i) => (
@@ -370,7 +370,7 @@ export function FlowEditorDemo() {
                 </div>
               ))}
             </div>
-            <div className="mt-auto flex flex-wrap items-center justify-between gap-2 rounded-[10px] bg-surface px-2.5 py-2 text-[10.5px] shadow-[var(--shadow-card)]">
+            <div className="mt-auto flex flex-wrap items-center justify-between gap-2 rounded-[10px] bg-surface px-2.5 py-2 text-[11px] shadow-[var(--shadow-card)]">
               {run ? (
                 <span className="text-foreground">
                   Run · <span className="font-semibold">Rohan Mehta</span>
@@ -446,7 +446,7 @@ export function FlowEditorDemo() {
                   <X aria-hidden="true" className="size-3.5" />
                 </button>
               </div>
-              <label className="flex flex-col gap-1 text-[10.5px] font-semibold text-muted-foreground">
+              <label className="flex flex-col gap-1 text-[11px] font-semibold text-muted-foreground">
                 {sel.kind === "trigger" ? "Start when" : sel.kind === "whatsapp" ? "Template" : "Setting"}
                 <Select value={sel.value} onValueChange={(v) => edit(sel.id, v)} disabled={running}>
                   <SelectTrigger size="sm">
@@ -467,12 +467,12 @@ export function FlowEditorDemo() {
                 </p>
               )}
               {sel.kind === "ai" && (
-                <p className="text-[10.5px] leading-snug text-muted-foreground">
+                <p className="text-[11px] leading-snug text-muted-foreground">
                   Writes from your price list and past chats. Nothing goes out until it&apos;s approved.
                 </p>
               )}
               {sel.kind === "approval" && (
-                <p className="text-[10.5px] leading-snug text-muted-foreground">
+                <p className="text-[11px] leading-snug text-muted-foreground">
                   The run waits here until they approve in the Approvals inbox.
                 </p>
               )}

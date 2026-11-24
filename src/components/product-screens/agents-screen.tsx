@@ -70,12 +70,12 @@ export function AgentsScreen() {
               className="scene-in min-h-0 space-y-2 rounded-[10px] border border-border bg-surface p-3"
             >
               <div className="flex flex-wrap items-center gap-1.5">
-                <p className="mr-1 text-[10.5px] font-semibold text-ai">Here&apos;s the plan. Nothing is built yet.</p>
+                <p className="mr-1 text-[11px] font-semibold text-ai">Here&apos;s the plan. Nothing is built yet.</p>
                 {kinds.map((k, i) => (
                   <span
                     key={k}
                     className={cn(
-                      "rounded-[4px] px-1 py-0.5 text-[9.5px] leading-3 font-bold",
+                      "rounded-[4px] px-1 py-0.5 text-[11px] leading-3 font-bold",
                       i === 0
                         ? "bg-ai-subtle text-ai shadow-[inset_0_0_0_1.5px_currentColor]"
                         : "bg-sunken text-subtle",
@@ -94,7 +94,7 @@ export function AgentsScreen() {
                 ))}
               </ol>
               <div style={at(5)} className="scene-in rounded-[8px] bg-sunken px-2 py-1.5">
-                <p className="text-[10px] font-semibold text-muted-foreground">
+                <p className="text-[11px] font-semibold text-muted-foreground">
                   A few things that change what gets built (optional)
                 </p>
                 <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px]">
@@ -130,8 +130,8 @@ export function AgentsScreen() {
                 </div>
               </div>
               <div>
-                <p className="text-[10px] font-semibold text-muted-foreground">May do on its own</p>
-                <div className="mt-1 grid grid-cols-4 gap-0.5 rounded-[7px] bg-sunken p-0.5 text-center text-[9.5px] leading-3">
+                <p className="text-[11px] font-semibold text-muted-foreground">May do on its own</p>
+                <div className="mt-1 grid grid-cols-4 gap-0.5 rounded-[7px] bg-sunken p-0.5 text-center text-[11px] leading-3">
                   {levels.map((l) => (
                     <span
                       key={l}
@@ -144,11 +144,11 @@ export function AgentsScreen() {
                     </span>
                   ))}
                 </div>
-                <p className="mt-1 text-[10px] leading-3.5 text-muted-foreground">
+                <p className="mt-1 text-[11px] leading-3.5 text-muted-foreground">
                   Reads and suggests. Changes are noted on the contact; a person makes them.
                 </p>
               </div>
-              <p className="text-[10px] leading-3.5 text-subtle">
+              <p className="text-[11px] leading-3.5 text-subtle">
                 No channels yet. It opens as a draft you can keep changing by chatting. Nothing goes live until you
                 publish it.
               </p>

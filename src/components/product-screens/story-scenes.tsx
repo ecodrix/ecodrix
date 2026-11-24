@@ -56,12 +56,12 @@ export function ArrivalScene() {
               style={"step" in t ? at(t.step) : undefined}
               className={cn(box, "flex gap-2 p-2", "step" in t && "scene-in scene-x")}
             >
-              <Avatar name={t.name} className="size-7 text-[10px]" />
+              <Avatar name={t.name} className="size-7 text-[11px]" />
               <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2">
                   <span className="truncate text-[12px] font-semibold text-foreground">{t.name}</span>
                   <span
-                    className={cn("shrink-0 text-[10px]", "step" in t ? "font-semibold text-accent" : "text-subtle")}
+                    className={cn("shrink-0 text-[11px]", "step" in t ? "font-semibold text-accent" : "text-subtle")}
                   >
                     {t.time}
                   </span>
@@ -73,7 +73,7 @@ export function ArrivalScene() {
                     {t.text}
                   </span>
                   {"step" in t && (
-                    <span className="grid size-4 shrink-0 place-items-center rounded-full bg-error text-[9px] font-bold text-white">
+                    <span className="grid size-4 shrink-0 place-items-center rounded-full bg-error text-[11px] font-bold text-white">
                       1
                     </span>
                   )}
@@ -121,7 +121,7 @@ function Kpi({
     >
       <p
         className={cn(
-          "flex items-center justify-between gap-1 text-[10px]",
+          "flex items-center justify-between gap-1 text-[11px]",
           solid ? "text-white/85" : "text-muted-foreground",
         )}
       >
@@ -137,7 +137,7 @@ function Kpi({
         {value}
         {unit && <span className="ml-0.5 text-[12px]">{unit}</span>}
       </p>
-      <p className={cn("mt-1 truncate text-[9.5px]", solid ? "text-white/85" : "text-subtle")}>{hint}</p>
+      <p className={cn("mt-1 truncate text-[11px]", solid ? "text-white/85" : "text-subtle")}>{hint}</p>
     </div>
   );
 }
@@ -160,7 +160,7 @@ export function OverviewScreen() {
       <AppFrame title="Overview" nav="overview" className="h-[25rem]">
         <div className="flex h-full flex-col gap-2.5 overflow-hidden p-3 sm:p-4">
           <div>
-            <p className="text-[10px] text-subtle">Tuesday, 3 Nov</p>
+            <p className="text-[11px] text-subtle">Tuesday, 3 Nov</p>
             <p className="font-display text-[17px] leading-tight font-bold text-foreground">Good morning, Priya</p>
             <p className="mt-0.5 text-[11px] text-muted-foreground">
               You have <b className="font-semibold text-foreground">3 unread conversations</b> and{" "}
@@ -192,13 +192,13 @@ export function OverviewScreen() {
             <ul className="mt-1.5 divide-y divide-border-soft">
               {agenda.map((a) => (
                 <li key={a.title} className="flex items-center gap-2.5 py-1.5">
-                  <span className="w-12 shrink-0 text-[10px] text-subtle">{a.when}</span>
+                  <span className="w-12 shrink-0 text-[11px] text-subtle">{a.when}</span>
                   <span className="grid size-6 shrink-0 place-items-center rounded-[6px] bg-accent-muted text-accent">
                     <a.icon aria-hidden="true" className="size-3" />
                   </span>
                   <span className="min-w-0">
                     <span className="block truncate text-[11px] font-semibold text-foreground">{a.title}</span>
-                    <span className="block truncate text-[10px] text-muted-foreground">{a.text}</span>
+                    <span className="block truncate text-[11px] text-muted-foreground">{a.text}</span>
                   </span>
                 </li>
               ))}

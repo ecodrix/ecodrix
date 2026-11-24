@@ -147,7 +147,7 @@ function CallCard({
           aria-expanded={open}
           aria-controls={`tr-${c.id}`}
           onClick={() => setOpen((o) => !o)}
-          className="inline-flex cursor-pointer items-center gap-1.5 py-1 font-semibold text-muted-foreground"
+          className="inline-flex cursor-pointer items-center gap-1.5 py-1 max-sm:min-h-10 font-semibold text-muted-foreground"
         >
           Transcript
           <Icon

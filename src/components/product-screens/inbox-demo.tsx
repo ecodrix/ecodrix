@@ -266,12 +266,12 @@ export function InboxDemo() {
                   >
                     <span className="flex items-center justify-between gap-2">
                       <span className="truncate text-[12px] font-semibold text-foreground">{x.name}</span>
-                      <span className="shrink-0 text-[10px] text-subtle">{tail.time}</span>
+                      <span className="shrink-0 text-[11px] text-subtle">{tail.time}</span>
                     </span>
                     <span className="mt-0.5 flex items-center justify-between gap-2">
                       <span className="truncate text-[11px] text-muted-foreground">{tail.text}</span>
                       {s.unread > 0 && (
-                        <span className="flex size-4 shrink-0 items-center justify-center rounded-full bg-error text-[9px] font-bold text-white">
+                        <span className="flex size-4 shrink-0 items-center justify-center rounded-full bg-error text-[11px] font-bold text-white">
                           {s.unread}
                         </span>
                       )}
@@ -308,7 +308,7 @@ export function InboxDemo() {
                 </Select>
               </label>
               {busy !== open && last && (
-                <span className="hidden items-center gap-1 text-[10.5px] text-subtle sm:flex">
+                <span className="hidden items-center gap-1 text-[11px] text-subtle sm:flex">
                   <LiveDot /> Live
                 </span>
               )}
@@ -327,7 +327,7 @@ export function InboxDemo() {
                     <span className="font-medium text-muted-foreground">· {st.draft.confidence}% confident</span>
                   </span>
                   <p className="mt-1 text-[12px] text-foreground">{st.draft.text}</p>
-                  <p className="mt-1 flex items-center gap-1 text-[10px] text-muted-foreground">
+                  <p className="mt-1 flex items-center gap-1 text-[11px] text-muted-foreground">
                     <BookOpen aria-hidden="true" className="size-3" /> Based on: {st.draft.source}
                   </p>
                   <span className="mt-2 flex gap-2">

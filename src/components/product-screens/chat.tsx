@@ -128,12 +128,12 @@ export function MessageBubble({ m }: { m: ChatMsg }) {
       )}
     >
       {m.from === "ai" && (
-        <span className="mb-0.5 flex items-center gap-1 text-[10.5px] font-semibold text-ai">
+        <span className="mb-0.5 flex items-center gap-1 text-[11px] font-semibold text-ai">
           <Sparkles aria-hidden="true" className="size-3" /> AI agent
         </span>
       )}
       {m.from === "team" && (
-        <span className="mb-0.5 flex items-center gap-1 text-[10.5px] font-semibold text-accent">
+        <span className="mb-0.5 flex items-center gap-1 text-[11px] font-semibold text-accent">
           <UserRound aria-hidden="true" className="size-3" /> Priya · Sales
         </span>
       )}
@@ -143,7 +143,7 @@ export function MessageBubble({ m }: { m: ChatMsg }) {
           <FileText aria-hidden="true" className="size-3.5 text-error" /> {m.attach}
         </span>
       )}
-      <span className="mt-0.5 flex items-center justify-end gap-1.5 text-[10px] text-subtle">
+      <span className="mt-0.5 flex items-center justify-end gap-1.5 text-[11px] text-subtle">
         {m.source && (
           <span className="mr-auto flex items-center gap-1">
             <BookOpen aria-hidden="true" className="size-3" /> From: {m.source}
@@ -158,7 +158,7 @@ export function MessageBubble({ m }: { m: ChatMsg }) {
 
 export function TypingDots({ who = "AI agent" }: { who?: string }) {
   return (
-    <li className="ml-auto flex w-fit items-center gap-2 rounded-[10px] border border-accent-border bg-accent-muted px-2.5 py-1.5 text-[10.5px] font-semibold text-ai">
+    <li className="ml-auto flex w-fit items-center gap-2 rounded-[10px] border border-accent-border bg-accent-muted px-2.5 py-1.5 text-[11px] font-semibold text-ai">
       <Sparkles aria-hidden="true" className="size-3" /> {who} is typing
       <span className="inline-flex items-center gap-[3px]" aria-hidden="true">
         <i className="size-1.5 animate-dot rounded-full bg-current" />

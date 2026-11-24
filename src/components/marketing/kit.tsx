@@ -185,7 +185,7 @@ export function MkHero({
           )}
         </div>
         {visual && (
-          <div className="relative self-end max-h-[calc(100svh-var(--header-h)-3rem)] motion-safe:animate-rise motion-safe:[animation-delay:var(--d,200ms)]">
+          <div className="relative self-end max-h-[calc(100svh-var(--header-h)-3rem)] min-[901px]:[&_[data-browser]]:max-h-[calc(100svh-var(--header-h)-3rem)] motion-safe:animate-rise motion-safe:[animation-delay:var(--d,200ms)]">
             <TiltVisual>{visual}</TiltVisual>
           </div>
         )}
@@ -221,7 +221,7 @@ export function BrowserFrame({
         <i className="size-[9px] rounded-[50%] bg-border-strong opacity-60" />
         <i className="size-[9px] rounded-[50%] bg-border-strong opacity-60" />
         <i className="size-[9px] rounded-[50%] bg-border-strong opacity-60" />
-        <span className="mx-auto inline-flex items-center gap-[5px] rounded-sm bg-sunken px-3 py-[3px] font-sans text-[11.5px]/4 font-medium text-subtle">
+        <span className="mx-auto inline-flex items-center gap-[5px] rounded-sm bg-sunken max-sm:hidden px-3 py-[3px] font-sans text-[11.5px]/4 font-medium text-subtle">
           <Icon name="lock" variant="line" size={11} />
           {url}
         </span>

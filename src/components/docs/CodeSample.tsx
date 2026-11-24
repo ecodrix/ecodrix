@@ -47,7 +47,7 @@ export function CopyButton({ text, label }: { text: string; label: string }) {
           // Clipboard blocked: the text stays selectable.
         }
       }}
-      className="inline-flex h-7 items-center gap-1 rounded-full px-2 text-[12.5px] font-semibold text-white/70 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
+      className="inline-flex h-7 items-center gap-1 rounded-full px-2 max-sm:h-10 text-[12.5px] font-semibold text-white/70 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
     >
       <Icon name={done ? "check" : "copy"} size={13} variant="line" />
       <span aria-live="polite">{done ? "Copied" : "Copy"}</span>
