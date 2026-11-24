@@ -1283,25 +1283,104 @@
 }
 
 /* Phone: words above, a 78vh console below */
-/* Desktop: the band fills the screen (100svh, no next section peeking in); the card caps at 680px and
-   sits centred below the header, the words move with it. */
+/* Layout (founder, 24 Nov 2026): the words sit on the navy ABOVE the console, never on top of it, so
+   both stay fully readable. The console starts under the actions and is shown whole; the band is at
+   least one screen tall and grows on short screens instead of shrinking the console. */
+.hx-type h1 {
+  color: #ffffff;
+  text-shadow: none;
+}
+.hx-lead {
+  color: rgba(255, 255, 255, 0.78);
+  text-shadow: none;
+}
+.hx[data-vb="answer"] .vb[data-k="answer"],
+.hx[data-vb="book"] .vb[data-k="book"],
+.hx[data-vb="follow"] .vb[data-k="follow"],
+.hx[data-vb="pay"] .vb[data-k="pay"] {
+  color: #e7b6f7;
+}
+.hx[data-vb="you"] .vb[data-k="you"] {
+  color: #f4a3a1;
+}
+.hx-ctas > :first-child {
+  background: #ffffff;
+  color: #1f3cad;
+}
+.hx-ctas > :last-child {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+}
+.hx-try {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+}
+.hx-type,
+.hx-ctas,
+.hx-try {
+  --hx-blue: #ffffff;
+}
+.hx-type-in {
+  opacity: 1;
+}
+.hx-type-in::before,
+.hx-veil {
+  display: none;
+}
 @media (min-width: 681px) {
+  /* The band is exactly one screen; the words take what they need and the console fills the rest
+     (420–640px), so the whole card is visible. Only very short screens let the band grow. */
   .hx {
-    --hx-cardh: clamp(400px, calc(100svh - var(--hx-nav) - 48px), 680px);
-    --hx-gap: max(24px, calc((100svh - var(--hx-nav) - var(--hx-cardh)) / 2));
-    min-height: max(100svh, calc(var(--hx-cardh) + var(--hx-nav) + 48px));
+    min-height: 100svh;
   }
   .hx-frame {
-    height: calc(max(100svh, var(--hx-cardh) + var(--hx-nav) + 48px) - var(--hx-nav));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: max(calc(100svh - var(--hx-nav)), 860px - var(--hx-nav));
+    padding-bottom: clamp(16px, 3vh, 36px);
   }
   .hx-type {
-    padding-top: calc(var(--hx-gap) - 24px + clamp(36px, 7vh, 112px));
+    width: 100%;
+    flex: none;
+    padding-top: clamp(20px, 4vh, 56px);
   }
-  .hx-stage,
-  .hx-veil {
-    top: var(--hx-gap);
-    height: var(--hx-cardh);
-    bottom: auto;
+  .hx-type h1 {
+    font-size: clamp(36px, min(4.6vw, 6.4vh), 64px);
+  }
+  .hx-lead {
+    margin-top: 14px;
+  }
+  .hx-ctas {
+    margin-top: 22px;
+  }
+  .hx-try {
+    margin-top: 12px;
+  }
+  .hx-stage {
+    position: relative;
+    inset: auto;
+    width: min(1120px, 100%);
+    flex: 1 1 auto;
+    min-height: 420px;
+    max-height: 640px;
+    margin-top: clamp(18px, 3vh, 36px);
+    display: flex;
+    flex-direction: column;
+  }
+  .hx-tilt {
+    flex: 1;
+    min-height: 0;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .hx-tilt > .hx-console {
+    flex: 1;
+    min-height: 0;
+    height: auto;
   }
 }
 @media (max-width: 680px) {
