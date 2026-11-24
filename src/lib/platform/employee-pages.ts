@@ -36,6 +36,8 @@ export interface EmployeePage {
   /** What must exist before step 1. */
   needs: string;
   faqs: Faq[];
+  /** Absent = live. Follows admin › Catalog; a not-yet-live desk keeps its page with a badge. */
+  status?: ModuleStatus;
 }
 
 /** A desk on the hub. `href` absent = Coming soon, no page. */
@@ -137,6 +139,7 @@ export const EMPLOYEE_PAGES: EmployeePage[] = [
   {
     slug: "website-chat",
     name: "Website chat",
+    status: "soon", // catalog default for connect.webchat is "soon" (founder, 24 Nov 2026)
     icon: "globe",
     title: "AI employee for website chat",
     description:
@@ -325,7 +328,7 @@ function toDesk(p: EmployeePage): Desk {
   return {
     name: p.name,
     icon: p.icon,
-    status: "live",
+    status: p.status ?? "live",
     blurb: p.blurb,
     href: `/platform/ai-employee/${p.slug}`,
   };

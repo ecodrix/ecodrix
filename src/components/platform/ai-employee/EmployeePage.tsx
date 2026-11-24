@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Icon } from "@/components/icons";
 import { BrowserFrame, CtaBand, EmailCta, Faq, MkHero, MkSection, PrimaryCta, Steps } from "@/components/marketing/kit";
-import { Crumbs } from "@/components/platform/shared/ModulePage";
 import { AgentScene } from "@/components/product-screens/agent-scene";
 import { LazyScreen } from "@/components/product-screens/lazy-screen";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -83,16 +82,12 @@ export function EmployeePage({ page }: { page?: EmployeePageData }) {
 
       <MkHero
         top={
-          <div className="mb-6">
-            <Crumbs
-              onNavy
-              items={[
-                { name: "Platform", href: "/platform" },
-                { name: "AI Employee", href: page ? BASE : undefined },
-                ...(page ? [{ name: page.name }] : []),
-              ]}
-            />
-          </div>
+          // No visible breadcrumbs in navy heroes (founder); the BreadcrumbList JSON-LD above stays.
+          page?.status && page.status !== "live" ? (
+            <div className="mb-6">
+              <StatusBadge status={page.status} />
+            </div>
+          ) : undefined
         }
         title={hero.title}
         lead={hero.lead}
