@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, ChevronLeft, ChevronRight, Plus, Sparkles, Workflow, X } from "@/components/icons";
+import { CheckCircle2, ChevronLeft, ChevronRight, Plus, Workflow, X } from "@/components/icons";
 import { AppFrame, Pill } from "@/components/product-screens/parts";
 import { cn } from "@/lib/utils";
 
@@ -245,10 +245,6 @@ export function PipelineDemo() {
           })}
         </div>
       </AppFrame>
-      <p className="mt-3 flex h-7 items-center justify-center gap-1.5 text-[12.5px] text-muted-foreground motion-reduce:hidden">
-        <Sparkles aria-hidden="true" className="size-3.5 text-ai" />
-        Try it: drag a deal to another stage, or add a lead.
-      </p>
     </div>
   );
 }

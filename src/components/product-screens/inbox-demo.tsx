@@ -366,10 +366,6 @@ export function InboxDemo() {
           </div>
         </div>
       </AppFrame>
-      <p className="mt-3 flex h-7 items-center justify-center gap-1.5 text-[12.5px] text-muted-foreground motion-reduce:hidden">
-        <Sparkles aria-hidden="true" className="size-3.5 text-ai" />
-        Try it: send or edit the AI draft, or switch on &ldquo;AI replies on its own&rdquo;.
-      </p>
     </div>
   );
 }

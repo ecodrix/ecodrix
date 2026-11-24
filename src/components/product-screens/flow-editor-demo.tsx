@@ -490,10 +490,6 @@ export function FlowEditorDemo() {
           )}
         </div>
       </AppFrame>
-      <p className="mt-3 flex h-7 items-center justify-center gap-1.5 text-[12.5px] text-muted-foreground motion-reduce:hidden">
-        <Sparkles aria-hidden="true" className="size-3.5 text-ai" />
-        Try it: click a step to change it, add one, or press <span className="font-semibold">Test run</span>.
-      </p>
     </div>
   );
 }
