@@ -73,7 +73,8 @@ export function LangTabs({
 export function ComingSoon() {
   return (
     <p className="text-[13px] whitespace-nowrap text-subtle" style={INDIC_FONT}>
-      Coming soon: <span lang="ta">தமிழ்</span> · <span lang="kn">ಕನ್ನಡ</span> · <span lang="ml">മലയാളം</span> + 5 more
+      More samples soon: <span lang="ta">தமிழ்</span> · <span lang="kn">ಕನ್ನಡ</span> · <span lang="ml">മലയാളം</span> + 5
+      more
     </p>
   );
 }

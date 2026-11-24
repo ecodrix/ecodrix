@@ -54,7 +54,11 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
         text: "The official Business API on your own account: templates, broadcasts, the 24-hour window handled, no ERIX markup.",
       },
       { icon: "phone", title: "Phone calls", text: "Voice calls in the same inbox, on the same contact." },
-      { icon: "image", title: "More channels", text: "Coming soon: Instagram DMs, email and website chat." },
+      {
+        icon: "image",
+        title: "More channels",
+        text: "Instagram DMs and email in the same inbox. Website chat is coming soon.",
+      },
       {
         icon: "calendar",
         title: "Google Calendar and Meet",
@@ -129,7 +133,7 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
       {
         icon: "phone-call",
         title: "Answers your calls",
-        text: "On your own Indian number, in English, Hindi or Telugu.",
+        text: "On your own Indian number, in 11 Indian languages.",
       },
       {
         icon: "calendar-check",

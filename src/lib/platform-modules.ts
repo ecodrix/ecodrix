@@ -113,7 +113,7 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       },
       {
         title: "More channels",
-        body: "Coming soon: Instagram DMs, email from your own domain and website chat.",
+        body: "Instagram DMs and email from your own domain land in the same inbox. Website chat is coming soon.",
       },
       {
         title: "An inbox that shows what needs you",
@@ -226,13 +226,13 @@ export const PLATFORM_MODULES: PlatformModule[] = [
     status: "invite",
     ai: true,
     description:
-      "ERIX Voice answers calls on your own Indian number in English, Hindi or Telugu, books appointments, takes messages and puts every call in your inbox.",
+      "ERIX Voice answers calls on your own Indian number in 11 Indian languages, books appointments, takes messages and puts every call in your inbox.",
     longDescription:
       "The assistant picks up on your own business number, tells the caller it is an AI assistant, and gets on with the job: booking a visit, taking a message or a callback request, or passing the call to your team during business hours. Every call lands in your Inbox with a transcript and a summary. ERIX Voice is open by request.",
     features: [
       {
         title: "Answers on your own number",
-        body: "Callers ring the Indian number you already use. The assistant picks up, in English, Hindi or Telugu.",
+        body: "Callers ring the Indian number you already use. The assistant picks up in 11 Indian languages and switches when the caller does.",
       },
       {
         title: "Books appointments",
@@ -268,7 +268,7 @@ export const PLATFORM_MODULES: PlatformModule[] = [
     faqs: [
       {
         q: "Which languages does it speak?",
-        a: "English, Hindi and Telugu are live. Tamil, Kannada, Malayalam and more are coming soon.",
+        a: "Eleven: English, Hindi, Telugu, Tamil, Kannada, Malayalam, Marathi, Bengali, Gujarati, Punjabi and Odia. It switches language when the caller does.",
       },
       {
         q: "Will callers know it is an AI?",

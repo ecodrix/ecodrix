@@ -96,7 +96,7 @@ export const PLATFORM_NAV = [
     status: "invite",
     card: {
       headline: "Calls answered, even after hours.",
-      text: "Answers on your own number in English, Hindi or Telugu, books the visit and puts the transcript in your inbox.",
+      text: "Answers on your own number in 11 Indian languages, books the visit and puts the transcript in your inbox.",
     },
     ai: true,
   },
