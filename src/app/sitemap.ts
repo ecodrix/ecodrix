@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { blogs } from "@/lib/api";
 import { COMPARISONS } from "@/lib/comparisons";
+import { EMPLOYEE_PAGES } from "@/lib/employee-pages";
 import { SEO_CONSTANTS } from "@/lib/jsonld";
 import { LEGAL_DOCS, legalHref } from "@/lib/legal/documents";
 import { PLATFORM_MODULES } from "@/lib/platform-modules";
@@ -91,6 +92,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
 
   // Static module sub-page (not in product-pages).
+  const employeeRoutes: MetadataRoute.Sitemap = ["", ...EMPLOYEE_PAGES.map((p) => `/${p.slug}`)].map((s) => ({
+    url: `${BASE_URL}/platform/ai-employee${s}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: s ? 0.75 : 0.85,
+  }));
   const voicesRoute: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/platform/erix-voice/voices`,
@@ -129,6 +136,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...moduleRoutes,
     ...subPageRoutes,
     ...voicesRoute,
+    ...employeeRoutes,
     ...compareRoutes,
     ...blogRoutes,
     ...legalRoutes,

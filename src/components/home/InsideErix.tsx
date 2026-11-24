@@ -69,7 +69,7 @@ const parts: {
   },
   {
     id: "agents",
-    label: "AI agents",
+    label: "AI Employee",
     icon: "sparkles",
     ai: true,
     screen: "agents",
@@ -79,7 +79,7 @@ const parts: {
       "It starts as a draft that only suggests, with no channels",
       "You choose how much it may do. Money and messages wait for you",
     ],
-    href: "/platform#agents",
+    href: "/platform/ai-employee",
     link: "See AI agents",
   },
   {

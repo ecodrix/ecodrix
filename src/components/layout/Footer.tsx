@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 /** The v1.0 job, enquiry to payment, each step linking to the part of ERIX that does it. */
 const journey: { label: string; href: string; icon: GlyphName; ai?: boolean }[] = [
   { label: "Enquiry lands", href: "/platform/erix-connect", icon: "inbox" },
-  { label: "AI replies", href: "/platform#agents", icon: "sparkles", ai: true },
+  { label: "AI replies", href: "/platform/ai-employee", icon: "sparkles", ai: true },
   { label: "Deal and booking", href: "/platform/erix-crm", icon: "square-kanban" },
   { label: "Follow-ups run", href: "/platform/erix-flow", icon: "workflow", ai: true },
 ];
@@ -20,7 +20,7 @@ const product = [
   { name: "ERIX CRM", href: "/platform/erix-crm" },
   { name: "ERIX Flow", href: "/platform/erix-flow" },
   { name: "ERIX Voice", href: "/platform/erix-voice" },
-  { name: "AI agents", href: "/platform#agents" },
+  { name: "AI Employee", href: "/platform/ai-employee" },
   { name: "How it fits together", href: "/platform" },
 ];
 
@@ -99,8 +99,8 @@ export async function Footer() {
               Every enquiry answered. Every follow-up done.
             </p>
             <p className="mt-3 text-[14.5px] leading-relaxed text-muted-foreground">
-              One workspace for Indian businesses that sell on WhatsApp: one inbox, a CRM, automations, and AI agents
-              for the routine replies.
+              One workspace for Indian businesses that sell on WhatsApp: one inbox, a CRM, automations, and an AI
+              employee for the routine replies.
             </p>
             <div className="mt-6 flex flex-wrap gap-2.5">
               <Link href={PRIMARY_CTA.href} className={cn(buttonVariants(), "group min-h-10! px-4! text-[14px]")}>

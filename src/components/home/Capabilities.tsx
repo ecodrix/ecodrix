@@ -93,8 +93,8 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
     ],
   },
   {
-    name: "AI agents",
-    href: "/platform#agents",
+    name: "AI Employee",
+    href: "/platform/ai-employee",
     icon: "sparkles",
     ai: true,
     items: [

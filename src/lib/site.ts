@@ -30,7 +30,7 @@ export const CONTACT_EMAIL = "contact@ecodrix.com";
 export const SUPPORT_EMAIL = "support@ecodrix.com";
 
 /** The second action: an email to the contact address. */
-export const EMAIL_CTA = { label: "Contact", href: `mailto:${CONTACT_EMAIL}` } as const;
+export const EMAIL_CTA = { label: "Contact us", href: `mailto:${CONTACT_EMAIL}` } as const;
 
 /** Where "Report a problem" on the status page sends mail (one place to change it). */
 export const REPORT_EMAIL = SUPPORT_EMAIL;
@@ -77,8 +77,8 @@ export const PLATFORM_NAV = [
   {
     key: "agents",
     icon: "sparkles",
-    name: "AI agents",
-    href: "/platform#agents",
+    name: "AI Employee",
+    href: "/platform/ai-employee",
     summary: "Answers from your knowledge, books, and hands off to you.",
     status: "live",
     card: {

@@ -528,7 +528,8 @@ export function StatusPageView({ initial }: { initial: StatusPayload | null }) {
             ERIX status
           </p>
           <p className="mt-2 max-w-[52ch] text-[15.5px] text-muted-foreground">
-            Live health of the console, API, inbox, phone calls, automations, email and AI agents. Updated every minute.
+            Live health of the console, API, inbox, phone calls, automations, email and the AI employee. Updated every
+            minute.
           </p>
           <div className="mt-6 flex flex-wrap gap-2.5">
             <a href={REPORT_HREF} className={buttonVariants({ variant: "ghost", size: "sm" })}>

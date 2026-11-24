@@ -42,7 +42,7 @@ export function Agents() {
       tone="navy"
       kicker={
         <span className="inline-flex items-center gap-1 rounded-sm bg-ai-subtle px-2 py-0.5 text-[12px] font-semibold text-ai">
-          <Icon name="sparkles" variant="solid" size={12} /> AI agents
+          <Icon name="sparkles" variant="solid" size={12} /> AI Employee
         </span>
       }
       title="Agents, not template chatbots"

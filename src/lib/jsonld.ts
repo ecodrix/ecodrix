@@ -57,7 +57,7 @@ export function getOrganizationSchema() {
     },
     image: `${BASE_URL}/logo.png`,
     description:
-      "ECODrIx is a unified business infrastructure platform combining CRM, AI automation and WhatsApp messaging. It builds the ERIX suite (CRM, Connect, Flow and AI agents), started in August 2025 for growing businesses across India.",
+      "ECODrIx is a unified business infrastructure platform combining CRM, AI automation and WhatsApp messaging. It builds the ERIX suite (CRM, Connect, Flow and AI Employee), started in August 2025 for growing businesses across India.",
     foundingDate: "2025-08",
     areaServed: "Worldwide",
     email: CONTACT_EMAIL,
@@ -135,13 +135,13 @@ export function getSoftwareApplicationSchema() {
     operatingSystem: "Web",
     softwareVersion: "1.0",
     description:
-      "ERIX by ECODrIx: one workspace for Indian businesses that sell over WhatsApp and phone calls. One inbox, AI agents, a CRM with pipeline and bookings, and automations.",
+      "ERIX by ECODrIx: one workspace for Indian businesses that sell over WhatsApp and phone calls. One inbox, an AI employee, a CRM with pipeline and bookings, and automations.",
     featureList: [
       "One inbox for WhatsApp and phone calls",
       "Official WhatsApp Business API with approved templates and broadcasts",
       "CRM: contacts, pipeline, forms and bookings",
       "Automations with approvals, Wait for a reply and AI replies",
-      "AI agents that answer from your own knowledge and hand off to your team",
+      "An AI employee that answers from your own knowledge and hands off to your team",
       "Bookings with Google Calendar and Meet",
       "Analytics for pipeline and lead sources",
     ],
@@ -170,7 +170,7 @@ export function getPersonSchema() {
     image: `${PORTFOLIO_URL}/og-card.png`,
     jobTitle: "Founder & CEO",
     description:
-      "Dhanesh Mekalthuru (Dhanesh M, also known as Erix) is the founder of ECODrIx and started the ERIX suite in August 2025: ERIX CRM, ERIX Connect, ERIX Flow and AI agents for Indian businesses that sell over WhatsApp.",
+      "Dhanesh Mekalthuru (Dhanesh M, also known as Erix) is the founder of ECODrIx and started the ERIX suite in August 2025: ERIX CRM, ERIX Connect, ERIX Flow and AI Employee for Indian businesses that sell over WhatsApp.",
     nationality: { "@type": "Country", name: "India" },
     address: {
       "@type": "PostalAddress",
