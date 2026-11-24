@@ -19,7 +19,7 @@ export const PRIMARY_CTA = {
 } as const;
 
 /** The header's one action: the contact section on the home page (its form is answered by a person). */
-export const CONTACT_CTA = { label: "Contact", href: PRIMARY_CTA.href } as const;
+export const CONTACT_CTA = { label: "Access", href: PRIMARY_CTA.href } as const;
 
 /**
  * The site's two mailboxes (founder, 24 Nov 2026), and no phone number. CONTACT: people who are not customers yet
