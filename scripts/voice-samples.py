@@ -36,6 +36,7 @@ CALLS = ROOT / "src/components/platform/voice-calls.json"
 MANIFEST = ROOT / "src/components/platform/voice-calls.audio.json"
 AUDIO = ROOT / "public/audio/voice-agent/calls"
 LIB = ROOT / "src/components/platform/voice-library.json"
+IDS = ROOT / "scripts/voice-ids.json"  # private: ERIX code -> provider speaker, never imported by the site
 LIB_MANIFEST = ROOT / "src/components/platform/voice-library.audio.json"
 LIB_AUDIO = ROOT / "public/audio/voice-agent/voices"
 URL = "https://api.sarvam.ai/text-to-speech"
@@ -50,6 +51,12 @@ V3_SPEAKERS = set(
 )
 
 
+def provider(code: str) -> str:
+    v = json.loads(IDS.read_text(encoding="utf-8"))["ids"][code]
+    assert v in V3_SPEAKERS, f"{code}: unknown bulbul:v3 voice {v!r}"
+    return v
+
+
 def load() -> dict:
     data = json.loads(CALLS.read_text(encoding="utf-8"))
     for c in data["calls"]:  # self-check: every spoken line has a known voice and fits Sarvam's limit
@@ -57,8 +64,7 @@ def load() -> dict:
             for who, text in c["lines"][lang]:
                 if who == "e":
                     continue
-                voice = c["voices"][who][lang]
-                assert voice in V3_SPEAKERS, f"{c['id']}/{lang}: unknown bulbul:v3 voice {voice!r}"
+                provider(c["voices"][who][lang])  # every code resolves to a known speaker
                 assert 0 < len(text) <= 2500, f"{c['id']}/{lang}: line length {len(text)}"
     return data
 
@@ -68,7 +74,7 @@ def spoken(data: dict):
         for lang in data["langs"]:
             for who, text in c["lines"][lang]:
                 if who != "e":
-                    yield c, lang, who, text, c["voices"][who][lang]
+                    yield c, lang, who, text, provider(c["voices"][who][lang])
 
 
 def speak(key: str, model: str, voice: str, lang: str, text: str, cache: Path) -> bytes:
@@ -130,17 +136,16 @@ def mp3(pcm: bytes, out: Path) -> None:
 
 def library_lines(lib: dict):
     """(voice, lang, text) for the voice library: every voice says the same line with its own name."""
-    for v in lib["voices"]:
-        assert v in V3_SPEAKERS, f"unknown bulbul:v3 voice {v!r}"
+    for code in lib["voices"]:
         for lang in lib["langs"]:
-            yield v, lang, lib["lines"][lang].format(name=v.capitalize())
+            yield code, lang, lib["lines"][lang]
 
 
 def render_library(key: str, lib: dict, cache: Path) -> None:
     manifest: dict = {}
     for v, lang, text in library_lines(lib):
-        pcm = silence(0.15) + speak(key, lib["model"], v, lang, text, cache) + silence(0.25)
-        name = f"{v}-{lang}.mp3"
+        pcm = silence(0.15) + speak(key, lib["model"], provider(v), lang, text, cache) + silence(0.25)
+        name = f"{v.lower().replace(' ', '-')}-{lang}.mp3"
         mp3(pcm, LIB_AUDIO / name)
         manifest.setdefault(v, {})[lang] = {"src": f"/audio/voice-agent/voices/{name}",
                                              "dur": round(len(pcm) / 2 / RATE, 2), "peaks": bars(pcm)}
@@ -158,7 +163,7 @@ def main() -> int:
     a = ap.parse_args()
     if a.set == "library":
         lib = json.loads(LIB.read_text(encoding="utf-8"))
-        lines = [(None, lang, None, text, v) for v, lang, text in library_lines(lib)]
+        lines = [(None, lang, None, text, provider(v)) for v, lang, text in library_lines(lib)]
         model = lib["model"]
     else:
         data = load()
@@ -187,7 +192,7 @@ def main() -> int:
             for i, (who, text) in enumerate(c["lines"][lang]):
                 if i:
                     pcm += silence(TURN_GAP); t += TURN_GAP
-                part = ringback() if who == "e" else speak(key, model, c["voices"][who][lang], lang, text, a.cache)
+                part = ringback() if who == "e" else speak(key, model, provider(c["voices"][who][lang]), lang, text, a.cache)
                 d = len(part) / 2 / RATE
                 segs.append([who, round(t, 2), round(t + d, 2)])
                 pcm += part; t += d
