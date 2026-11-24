@@ -90,6 +90,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
+  // Static module sub-page (not in product-pages).
+  const voicesRoute: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/platform/erix-voice/voices`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.75,
+    },
+  ];
+
   const compareRoutes: MetadataRoute.Sitemap = COMPARISONS.map((c) => ({
     url: `${BASE_URL}/compare/${c.slug}`,
     lastModified: now,
@@ -114,5 +124,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   ];
 
-  return [...staticRoutes, ...moduleRoutes, ...subPageRoutes, ...compareRoutes, ...blogRoutes, ...legalRoutes];
+  return [
+    ...staticRoutes,
+    ...moduleRoutes,
+    ...subPageRoutes,
+    ...voicesRoute,
+    ...compareRoutes,
+    ...blogRoutes,
+    ...legalRoutes,
+  ];
 }

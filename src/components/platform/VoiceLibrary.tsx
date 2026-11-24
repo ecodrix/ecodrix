@@ -15,7 +15,6 @@ const CLIPS = audioJson as unknown as Record<string, Record<Lang, Clip>>;
 const GRID_ID = "voice-library-grid";
 
 const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, "0")}`;
-const cap = (id: string) => id.charAt(0).toUpperCase() + id.slice(1);
 
 /** Every selectable voice in one language, each playable on the page's shared player. */
 export function VoiceLibrary() {
@@ -49,7 +48,7 @@ export function VoiceLibrary() {
               )}
             >
               <div className="flex items-baseline justify-between gap-2">
-                <h3 className="font-display text-[16px] leading-tight font-semibold">{cap(v)}</h3>
+                <h3 className="font-display text-[16px] leading-tight font-semibold">{v}</h3>
                 <span className="text-[13px] font-medium text-subtle tabular-nums">
                   {fmt(own ? Math.max(0, clip.dur - own.t) : clip.dur)}
                 </span>
@@ -57,7 +56,7 @@ export function VoiceLibrary() {
               <div className="flex items-center gap-2.5">
                 <button
                   type="button"
-                  aria-label={`${playing ? "Pause" : "Play"} ${cap(v)}`}
+                  aria-label={`${playing ? "Pause" : "Play"} ${v}`}
                   onClick={() => play(v, clip.src, clip.dur)}
                   className="grid size-9 flex-none cursor-pointer place-items-center rounded-full bg-accent text-accent-foreground transition-transform duration-150 hover:scale-105 hover:bg-accent-hover active:scale-95 motion-reduce:transition-none motion-reduce:hover:scale-100"
                 >

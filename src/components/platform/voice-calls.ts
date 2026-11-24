@@ -35,8 +35,6 @@ export const LANGS: readonly { id: Lang; label: string }[] = (callsJson.langs as
   label: NATIVE[id],
 }));
 
-/** The assistant's display name is its voice name for the language, capitalised. */
-export const assistantName = (c: Call, lang: Lang) => {
-  const v = c.voices.r[lang];
-  return v.charAt(0).toUpperCase() + v.slice(1);
-};
+/** The assistant is shown by its ERIX voice code ("Voice 09"); the avatar shows the number. */
+export const assistantVoice = (c: Call, lang: Lang) => c.voices.r[lang];
+export const voiceNumber = (voice: string) => voice.replace(/^\D+/, "");

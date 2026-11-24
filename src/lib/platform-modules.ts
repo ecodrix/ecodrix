@@ -280,7 +280,7 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       },
       {
         q: "Whose voices are these?",
-        a: "The voices on customer calls are Bulbul voices from Sarvam AI.",
+        a: "They are ERIX voices: 37 of them, each speaking all 11 languages. You pick one in the assistant's voice settings and can hear it before it takes a call.",
       },
       {
         q: "How much does it cost?",

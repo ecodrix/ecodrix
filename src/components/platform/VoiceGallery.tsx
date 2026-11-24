@@ -5,7 +5,17 @@ import { Icon } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import { INDIC_FONT, LangTabs } from "./LangTabs";
 import { type PlayerView, useGalleryPlayer } from "./use-gallery-player";
-import { AUDIO, type Audio, assistantName, CALLS, type Call, type Lang, type TagKind, type Who } from "./voice-calls";
+import {
+  AUDIO,
+  type Audio,
+  assistantVoice,
+  CALLS,
+  type Call,
+  type Lang,
+  type TagKind,
+  voiceNumber,
+  type Who,
+} from "./voice-calls";
 
 const GRID_ID = "voice-grid";
 
@@ -30,9 +40,9 @@ const barIsAssistant = (segs: readonly (readonly [Who, number, number])[], dur: 
   return segs.find((s) => at >= s[1] && at <= s[2])?.[0] === "r";
 };
 
-function Caption({ c, lang, who, text }: { c: Call; lang: Lang; who: Who; text: string }) {
+function Caption({ c, who, text }: { c: Call; who: Who; text: string }) {
   if (who === "e") return <>{text}</>;
-  const name = who === "r" ? assistantName(c, lang) : who === "c" ? c.caller : c.human;
+  const name = who === "r" ? "Assistant" : who === "c" ? c.caller : c.human;
   return (
     <>
       <b className={cn("font-semibold", who === "r" ? "text-ai" : "text-foreground")}>{name}</b> {text}
@@ -60,7 +70,7 @@ function CallCard({
   const started = !!view;
   const lit = started ? Math.round((t / audio.dur) * audio.peaks.length) : 0;
   const cur = started ? lineAt(audio.segs, t) : 0;
-  const name = assistantName(c, lang);
+  const voice = assistantVoice(c, lang);
   const [capWho, capText] = lines[cur];
   const label = `${playing ? "Pause" : "Play"}: ${c.title}`;
 
@@ -81,12 +91,12 @@ function CallCard({
       <div className="flex min-w-0 items-center gap-2.5 text-[14px]">
         <span
           aria-hidden="true"
-          className="grid size-7 flex-none place-items-center rounded-full bg-ai-subtle font-display text-[13px] leading-none font-semibold text-ai"
+          className="grid size-7 flex-none place-items-center rounded-full bg-ai-subtle font-display text-[12px] leading-none font-semibold text-ai"
         >
-          {name.charAt(0)}
+          {voiceNumber(voice)}
         </span>
         <span className="min-w-0 leading-tight">
-          <b className="font-semibold">{name}</b>
+          <b className="font-semibold">Assistant</b> <span className="text-subtle">· {voice}</span>
           <span className="block truncate text-[13px] text-subtle">{c.dir}</span>
         </span>
       </div>
@@ -124,7 +134,7 @@ function CallCard({
         style={lang === "en" ? undefined : INDIC_FONT}
         className={cn("min-h-[2.9em] text-[14px] leading-[1.45]", started ? "text-muted-foreground" : "text-subtle")}
       >
-        <Caption c={c} lang={lang} who={capWho} text={capText} />
+        <Caption c={c} who={capWho} text={capText} />
       </p>
       <div className="flex items-center justify-between gap-3 border-t border-border pt-3 text-[13px]">
         <button
@@ -146,7 +156,7 @@ function CallCard({
           className={cn(
             "inline-flex h-7 items-center gap-1.5 rounded-full border px-2.5 text-[12.5px] font-semibold whitespace-nowrap",
             c.tag[0] === "book"
-              ? "border-transparent bg-accent-muted text-accent"
+              ? "border-transparent bg-accent-muted text-accent on-dark:text-on-navy-link"
               : "border-border text-muted-foreground",
           )}
         >
@@ -167,7 +177,7 @@ function CallCard({
             key={i}
             className={cn(who === "e" && "text-[12.5px] text-subtle", started && cur === i && "text-foreground")}
           >
-            <Caption c={c} lang={lang} who={who} text={text} />
+            <Caption c={c} who={who} text={text} />
           </li>
         ))}
       </ol>
@@ -175,8 +185,8 @@ function CallCard({
   );
 }
 
-/** Language tabs plus eight call cards, on the page's shared player. */
-export function VoiceGallery() {
+/** Language tabs plus the call cards (`limit` for a teaser), on the page's shared player. */
+export function VoiceGallery({ limit = CALLS.length }: { limit?: number }) {
   const [lang, setLang] = useState<Lang>("en");
   const { view, play, stop } = useGalleryPlayer();
   const pick = (l: Lang) => {
@@ -202,7 +212,7 @@ export function VoiceGallery() {
         aria-labelledby={`tab-${lang}`}
         className="mt-6 grid grid-cols-1 gap-4 min-[640px]:grid-cols-2 min-[1200px]:grid-cols-4"
       >
-        {CALLS.map((c) => {
+        {CALLS.slice(0, limit).map((c) => {
           const a = AUDIO[c.id][lang];
           return (
             <CallCard
