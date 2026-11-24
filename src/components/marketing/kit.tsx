@@ -19,7 +19,6 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { type GlyphName, Icon, type IconName, isBrandName } from "@/components/icons";
 import { BlurText } from "@/components/motion/blur-text";
-import { GridSparks } from "@/components/motion/GridSparks";
 import { Reveal } from "@/components/motion/motion";
 import { Spotlight } from "@/components/motion/spotlight";
 import { Marquee } from "@/components/motion/surface";
@@ -146,10 +145,9 @@ export function MkHero({
         className,
       )}
     >
-      <GridSparks />
       <HeroMotif />
       <div className="relative mx-auto grid w-full max-w-wrap grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] min-[901px]:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] items-end gap-[clamp(32px,5vw,64px)] px-gutter max-[900px]:grid-cols-[1fr] min-[901px]:items-center min-[901px]:py-6">
-        <div data-sparks-avoid="" className="pb-[clamp(48px,7vw,45px)] max-[900px]:pb-0 min-[901px]:pb-0">
+        <div className="pb-[clamp(48px,7vw,45px)] max-[900px]:pb-0 min-[901px]:pb-0">
           {top}
           <BlurText
             as="h1"
@@ -187,10 +185,7 @@ export function MkHero({
           )}
         </div>
         {visual && (
-          <div
-            data-sparks-avoid=""
-            className="relative self-end max-h-[calc(100svh-var(--header-h)-3rem)] motion-safe:animate-rise motion-safe:[animation-delay:var(--d,200ms)]"
-          >
+          <div className="relative self-end max-h-[calc(100svh-var(--header-h)-3rem)] motion-safe:animate-rise motion-safe:[animation-delay:var(--d,200ms)]">
             <TiltVisual>{visual}</TiltVisual>
           </div>
         )}
@@ -304,10 +299,9 @@ export function MkSection({
         className,
       )}
     >
-      {tone === "navy" && <GridSparks />}
       <div className="relative mx-auto w-full max-w-wrap px-gutter">
         {(title || lead) && (
-          <div data-sparks-avoid="" className={cn("mb-[clamp(36px,5vw,56px)]", center && "text-center")}>
+          <div className={cn("mb-[clamp(36px,5vw,56px)]", center && "text-center")}>
             {kicker && <div className="mb-3">{kicker}</div>}
             {title && (
               <h2 id={headingId} className="font-display text-mk-h2 text-foreground text-balance">
@@ -319,7 +313,7 @@ export function MkSection({
             )}
           </div>
         )}
-        {tone === "navy" ? <div data-sparks-avoid="">{children}</div> : children}
+        {children}
       </div>
     </section>
   );
@@ -487,7 +481,6 @@ export function CtaBand({
       aria-labelledby={id ? `${id}-title` : undefined}
       className="band-navy scroll-mt-20 py-[clamp(56px,7vw,96px)]"
     >
-      <GridSparks />
       <svg
         className="pointer-events-none absolute right-0 bottom-0 h-full w-[56%]"
         viewBox="0 0 600 300"
@@ -505,7 +498,7 @@ export function CtaBand({
           aside && "lg:grid-cols-[1fr_1.05fr] lg:gap-16",
         )}
       >
-        <div data-sparks-avoid="">
+        <div>
           <h2 id={id ? `${id}-title` : undefined} className="font-display text-mk-cta text-balance text-white">
             {title}
           </h2>
@@ -514,7 +507,7 @@ export function CtaBand({
           )}
           {actions && <div className="mt-[30px] flex flex-wrap gap-2.5 max-[900px]:*:flex-[1_1_100%]">{actions}</div>}
         </div>
-        {aside && <div data-sparks-avoid="">{aside}</div>}
+        {aside && <div>{aside}</div>}
       </div>
     </section>
   );

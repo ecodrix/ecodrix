@@ -843,7 +843,7 @@ html[data-consent="ask"] [data-cookie-banner] {
   }
 }
 
-/* ── Motion: grid sparks and motion pass ── */
+/* ── Motion pass ── */
 /* Scroll-linked effects use view() timelines: no JS, no hiding (browsers without support, and
    reduced motion, show the finished state). Transform/opacity/box-shadow-ring only; no layout. */
 @media (prefers-reduced-motion: no-preference) {

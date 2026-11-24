@@ -1,7 +1,6 @@
 "use client";
 
 import { type ReactNode, useCallback, useEffect, useReducer, useRef, useState, useSyncExternalStore } from "react";
-import { GridSparks } from "@/components/motion/GridSparks";
 import { Console } from "./Console";
 import { Cursor } from "./Cursor";
 import { type Act, SCRIPT } from "./script";
@@ -105,11 +104,10 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
       className={`hx${playing ? "" : " paused"}${boot ? " boot" : ""}`}
       aria-labelledby="hero-title"
     >
-      <GridSparks />
       {motif}
       <div className="hx-frame" ref={frame}>
         <div className="hx-type">
-          <div className="hx-type-in" data-sparks-avoid="">
+          <div className="hx-type-in">
             <h1 id="hero-title">
               {TITLE.split(" ").map((w, i) => (
                 <span key={w}>
@@ -160,7 +158,7 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
               {userPaused ? "Play demo" : "Pause demo"}
             </button>
           )}
-          <div className="hx-tilt" ref={tilt} data-sparks-avoid="">
+          <div className="hx-tilt" ref={tilt}>
             <div className="edge" aria-hidden="true" />
             <Console s={s} dispatch={dispatch} {...pausers} />
           </div>

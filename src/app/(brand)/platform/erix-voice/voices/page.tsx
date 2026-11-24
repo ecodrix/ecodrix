@@ -1,7 +1,6 @@
 import type { GlyphName } from "@/components/icons";
 import { Icon } from "@/components/icons";
 import { CtaBand, EmailCta, MkSection, PrimaryCta } from "@/components/marketing/kit";
-import { GridSparks } from "@/components/motion/GridSparks";
 import { VoiceGallery } from "@/components/platform/voice/VoiceGallery";
 import { VoiceLibrary } from "@/components/platform/voice/VoiceLibrary";
 import { CallsNote, ListenChip } from "@/components/platform/voice/VoiceSamples";
@@ -68,8 +67,7 @@ export default function Page() {
       />
 
       <section className="band-navy pt-[clamp(40px,6vw,64px)] pb-[clamp(48px,6vw,80px)]" aria-labelledby="voices-title">
-        <GridSparks />
-        <div data-sparks-avoid="" className="relative mx-auto w-full max-w-wrap px-gutter">
+        <div className="relative mx-auto w-full max-w-wrap px-gutter">
           <div className="mb-6 space-y-4">
             <ListenChip />
           </div>
