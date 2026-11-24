@@ -8,27 +8,29 @@ import { renderContent } from "@ecodrix/erix-editor/render";
 
 /** Tag-to-class mapping — every element gets controlled Tailwind styles */
 const TAG_STYLES: Record<string, string> = {
-  h1: "text-[28px] font-display font-bold text-foreground mt-12 mb-4 tracking-[-0.02em] leading-tight",
-  h2: "text-[26px] font-display font-bold text-foreground mt-12 mb-3 tracking-[-0.02em] leading-tight",
-  h3: "text-[20px] font-sans font-semibold text-foreground mt-8 mb-2",
-  h4: "text-[17px] font-sans font-semibold text-foreground mt-6 mb-2",
-  p: "text-[17px] leading-[1.75] text-foreground/85 mb-5",
-  a: "text-accent border-b border-accent/30 hover:border-accent transition-colors",
+  h1: "font-display text-[30px] font-bold text-foreground mt-14 mb-4 tracking-[-0.02em] leading-tight text-balance",
+  h2: "font-display text-[28px] font-bold text-foreground mt-[2.2em] mb-[0.6em] tracking-[-0.02em] leading-tight text-balance",
+  h3: "font-display text-[22px] font-semibold text-foreground mt-[1.6em] mb-[0.5em] tracking-[-0.01em] leading-snug text-balance",
+  h4: "font-sans text-[18px] font-semibold text-foreground mt-8 mb-2",
+  p: "text-[17px] md:text-[18px] leading-[1.7] text-foreground/85 mb-[1em]",
+  a: "text-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent transition-colors focus-visible:rounded-xs focus-visible:outline-2 focus-visible:outline-accent",
   strong: "font-semibold text-foreground",
   em: "italic",
-  ul: "list-disc pl-5 mb-5 space-y-2 text-[17px] text-foreground/85 marker:text-accent",
-  ol: "list-decimal pl-5 mb-5 space-y-2 text-[17px] text-foreground/85 marker:text-accent",
-  li: "leading-[1.7]",
-  blockquote: "rounded-[12px] bg-background px-6 py-4 my-8 text-[19px] text-foreground",
-  pre: "rounded-[12px] bg-background p-5 overflow-x-auto my-6 text-[13px] leading-relaxed",
-  code: "text-[0.875em] rounded-[4px] bg-background px-1.5 py-0.5",
-  img: "w-full h-auto my-8 rounded-[16px]",
-  hr: "border-none h-px bg-border my-10",
-  table: "w-full border-collapse my-6 text-[15px]",
-  th: "text-left bg-background text-foreground font-semibold p-3 border-b border-border",
-  td: "p-3 border-b border-border-soft text-muted-foreground",
+  ul: "list-disc pl-6 mb-[1em] space-y-1.5 text-[17px] md:text-[18px] leading-[1.7] text-foreground/85 marker:text-accent",
+  ol: "list-decimal pl-6 mb-[1em] space-y-1.5 text-[17px] md:text-[18px] leading-[1.7] text-foreground/85 marker:text-accent",
+  li: "pl-1",
+  blockquote:
+    "my-8 border-l-4 border-accent bg-accent-muted/40 rounded-r-[12px] py-4 pr-5 pl-5 text-[20px] leading-[1.6] text-foreground [&_p]:mb-0 [&_p]:text-[20px]",
+  pre: "rounded-[12px] bg-background p-5 overflow-x-auto my-8 text-[14px] leading-relaxed max-w-full",
+  code: "font-mono text-[0.875em] rounded-[4px] bg-background px-1.5 py-0.5 text-foreground",
+  img: "block h-auto max-w-full w-full my-8 rounded-[16px]",
+  hr: "border-none h-px bg-border my-12",
+  // display:block makes a wide table scroll inside its own box, not the page.
+  table: "block w-full max-w-full overflow-x-auto border-collapse my-8 text-[15px]",
+  th: "text-left bg-background text-foreground font-semibold p-3 border-b border-border whitespace-nowrap",
+  td: "p-3 border-b border-border-soft text-muted-foreground align-top",
   figure: "my-8",
-  figcaption: "text-xs text-muted-foreground mt-2 text-center",
+  figcaption: "text-[14px] text-subtle mt-2 text-center",
 };
 
 /**
@@ -86,7 +88,9 @@ function processHtml(raw: string): string {
   );
 
   // Remove empty paragraphs (common CMS artifact)
-  processed = processed.replace(/<p[^>]*>\s*(<br\s*\/?>)?\s*<\/p>/gi, "");
+  processed = processed.replace(/<p[^>]*>(?:\s|&nbsp;|<br\s*\/?>)*<\/p>/gi, "");
+  // Repeated <br> make blank lines inside a paragraph: keep one.
+  processed = processed.replace(/(?:<br\s*\/?>\s*){2,}/gi, "<br />");
 
   return fixHeadingLevels(processed);
 }
@@ -117,27 +121,32 @@ const plain = (html: string) =>
     .replace(/&quot;/g, '"')
     .trim();
 
+export type OutlineItem = { id: string; text: string; level: 2 | 3 };
+
 /**
- * The article ready to render, plus its outline: every h2 gets a stable id (from its text) so
- * the "On this page" list can link to it. Ids are unique within the article.
+ * The article ready to render, plus its outline: every h2 and h3 gets a stable id (from its
+ * text) so the "On this page" list can link to it. Ids are unique within the article.
  */
-export function prepareArticle(raw: string): { html: string; outline: { id: string; text: string }[] } {
-  const outline: { id: string; text: string }[] = [];
+export function prepareArticle(raw: string): { html: string; outline: OutlineItem[] } {
+  const outline: OutlineItem[] = [];
   const used = new Set<string>();
-  const html = processHtml(raw).replace(/<h2(\s[^>]*)?>([\s\S]*?)<\/h2>/gi, (_m, attrs = "", inner: string) => {
-    const text = plain(inner);
-    const base =
-      text
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "")
-        .slice(0, 60) || "section";
-    let id = base;
-    for (let n = 2; used.has(id); n++) id = `${base}-${n}`;
-    used.add(id);
-    outline.push({ id, text });
-    return `<h2${attrs.replace(/\sid="[^"]*"/i, "")} id="${id}">${inner}</h2>`;
-  });
+  const html = processHtml(raw).replace(
+    /<h([23])(\s[^>]*)?>([\s\S]*?)<\/h\1>/gi,
+    (_m, lvl: string, attrs = "", inner: string) => {
+      const text = plain(inner);
+      const base =
+        text
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-|-$/g, "")
+          .slice(0, 60) || "section";
+      let id = base;
+      for (let n = 2; used.has(id); n++) id = `${base}-${n}`;
+      used.add(id);
+      outline.push({ id, text, level: lvl === "2" ? 2 : 3 });
+      return `<h${lvl}${attrs.replace(/\sid="[^"]*"/i, "")} id="${id}">${inner}</h${lvl}>`;
+    },
+  );
   return { html, outline };
 }
 
@@ -146,7 +155,7 @@ export function BlogContent({ html }: { html: string }) {
   return (
     <div
       className={[
-        "max-w-none text-[1.0625rem]/[1.8] text-muted-foreground *:first:mt-0 *:last:mb-0 [&_h2]:scroll-mt-24",
+        "max-w-none text-[17px]/[1.7] md:text-[18px]/[1.7] text-foreground/85 [&_li_p]:mb-0 [&_li_p]:text-[length:inherit] [&_li_p]:leading-[inherit] [&_blockquote_p]:mb-0 [&_td_p]:mb-0 [&_th_p]:mb-0 [&_figcaption_p]:mb-0 [&_li_ul]:mt-1.5 [&_li_ol]:mt-1.5 [&_li_ul]:mb-0 [&_li_ol]:mb-0 [&_blockquote_p+p]:mt-3 [&_li_p+p]:mt-1.5 *:first:mt-0 *:last:mb-0 [&_h2]:scroll-mt-24 [&_h3]:scroll-mt-24 [&_figure_img]:my-0 [&_pre_code]:bg-transparent [&_pre_code]:p-0",
         // Editor blocks: callout, task list, table, toggle, columns, video.
         "[&_.erix-callout]:my-6 [&_.erix-callout]:flex [&_.erix-callout]:gap-3 [&_.erix-callout]:rounded-[12px] [&_.erix-callout]:bg-background [&_.erix-callout]:p-4 [&_.erix-callout_p]:mb-0",
         "[&_.erix-task-list]:list-none [&_.erix-task-list]:pl-0 [&_.erix-task-item]:flex [&_.erix-task-item]:gap-2 [&_.erix-task-item.done]:text-subtle [&_.erix-task-item.done]:line-through",
@@ -155,6 +164,7 @@ export function BlogContent({ html }: { html: string }) {
         "[&_.erix-columns]:my-6 [&_.erix-columns]:grid [&_.erix-columns]:gap-6 sm:[&_.erix-columns]:grid-cols-2",
         "[&_iframe]:my-8 [&_iframe]:aspect-video [&_iframe]:w-full [&_iframe]:rounded-[16px]",
       ].join(" ")}
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: body is sanitised by renderContent (erix-editor/render) in processHtml
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
