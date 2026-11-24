@@ -30,7 +30,7 @@ export function Helpful({ article }: { article: string }) {
           key={a}
           type="button"
           onClick={() => pick(a)}
-          className="rounded-[8px] border border-border-soft bg-surface px-4 py-1.5 text-[14.5px] font-medium text-foreground transition-colors hover:bg-sunken"
+          className="rounded-full border border-border-soft bg-surface px-4 py-1.5 text-[14.5px] font-medium text-foreground transition-colors hover:bg-sunken"
         >
           {a === "yes" ? "Yes" : "No"}
         </button>

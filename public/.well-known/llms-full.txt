@@ -41,9 +41,6 @@ One job end to end: an enquiry comes in, gets answered, becomes a deal, a propos
 - A sales agent, a channels agent and a website agent.
 - They answer from the business's own information (price lists, hours, FAQs, website pages), draft when unsure, keep some topics for humans, and wait for approval on anything risky such as money.
 
-### ERIX Storage (live)
-
-- File storage for documents and images inside the workspace, with a storage allowance per workspace.
 
 ## Not live yet
 
@@ -89,16 +86,12 @@ A: Pricing is not published during early access; it is agreed with each pilot bu
 - **Name**: Dhanesh Mekalthuru
 - **Also known as**: Dhanesh M, Erix, erix.dhanesh
 - **Role**: Founder and CEO, ECODrIx
-- **LinkedIn**: https://www.linkedin.com/in/dhanesh-ecodrix/
-- **GitHub**: https://github.com/dhanesh1232
-- **Instagram**: https://www.instagram.com/erix.dhanesh/
 - **Page**: https://ecodrix.com/founder
 
 ## Contact
 
 - Support: support@ecodrix.com
-- Founder: dhanesh@ecodrix.com
-- WhatsApp: +91 81439 63821
+- Contact: contact@ecodrix.com
 
 ## Key pages
 
@@ -106,7 +99,6 @@ A: Pricing is not published during early access; it is agreed with each pilot bu
 - https://ecodrix.com/platform/erix-crm
 - https://ecodrix.com/platform/erix-connect
 - https://ecodrix.com/platform/erix-flow
-- https://ecodrix.com/platform/erix-storage
 - https://ecodrix.com/compare
 - https://ecodrix.com/guides
 - https://ecodrix.com/blog

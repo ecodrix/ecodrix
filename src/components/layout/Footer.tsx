@@ -1,19 +1,25 @@
 import Link from "next/link";
 import { type GlyphName, Icon } from "@/components/icons";
 import { LogoMark } from "@/components/layout/LogoMark";
+import { Wordmark } from "@/components/layout/wordmark";
 import { CookiePrefsButton } from "@/components/legal/CookiePrefsButton";
-import { Wordmark } from "@/components/marketing/wordmark";
 import { buttonVariants } from "@/components/ui/button";
-import { SoonControl } from "@/components/ui/soon";
-import { StatusBadge } from "@/components/ui/status-badge";
-import { getPlatformNav } from "@/lib/catalog";
-import { COMPANY_NAV, INDUSTRY_NAV, PRIMARY_CTA, RESOURCE_NAV, SOCIALS, SUPPORT_EMAIL, WHATSAPP_CTA } from "@/lib/site";
+import {
+  COMPANY_NAV,
+  CONTACT_EMAIL,
+  EMAIL_CTA,
+  INDUSTRY_NAV,
+  PRIMARY_CTA,
+  RESOURCE_NAV,
+  SOCIALS,
+  STATUS_URL,
+} from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /** The v1.0 job, enquiry to payment, each step linking to the part of ERIX that does it. */
 const journey: { label: string; href: string; icon: GlyphName; ai?: boolean }[] = [
   { label: "Enquiry lands", href: "/platform/erix-connect", icon: "inbox" },
-  { label: "AI replies", href: "/platform#agents", icon: "sparkles", ai: true },
+  { label: "AI replies", href: "/platform/ai-employee", icon: "sparkles", ai: true },
   { label: "Deal and booking", href: "/platform/erix-crm", icon: "square-kanban" },
   { label: "Follow-ups run", href: "/platform/erix-flow", icon: "workflow", ai: true },
 ];
@@ -23,7 +29,7 @@ const product = [
   { name: "ERIX CRM", href: "/platform/erix-crm" },
   { name: "ERIX Flow", href: "/platform/erix-flow" },
   { name: "ERIX Voice", href: "/platform/erix-voice" },
-  { name: "AI agents", href: "/platform#agents" },
+  { name: "AI Employee", href: "/platform/ai-employee" },
   { name: "How it fits together", href: "/platform" },
 ];
 
@@ -33,14 +39,6 @@ const facts: { icon: GlyphName; text: string }[] = [
   { icon: "phone", text: "WhatsApp and phone calls" },
   { icon: "clock", text: "Runs on IST" },
   { icon: "message-circle", text: "Your own WhatsApp, no markup" },
-];
-
-/** Developer pages, on this site (the API serves JSON only). */
-const developer: { label: string; href: string; live?: boolean }[] = [
-  { label: "API docs", href: "/docs" },
-  { label: "System status", href: "https://status.ecodrix.com", live: true },
-  { label: "Changelog", href: "/changelog" },
-  { label: "What's new", href: "/whats-new" },
 ];
 
 const legal = [
@@ -86,7 +84,6 @@ const PROGRAMS = [
 ] as const;
 
 export async function Footer() {
-  const also = (await getPlatformNav()).filter((m) => m.key === "storage");
   return (
     <footer className="mt-auto border-t border-border-soft bg-background">
       <nav id="site-map" aria-label="Site map" className={cn("scroll-mt-20", gutter)}>
@@ -103,8 +100,8 @@ export async function Footer() {
               Every enquiry answered. Every follow-up done.
             </p>
             <p className="mt-3 text-[14.5px] leading-relaxed text-muted-foreground">
-              One workspace for Indian businesses that sell on WhatsApp: one inbox, a CRM, automations, and AI agents
-              for the routine replies.
+              One workspace for Indian businesses that sell on WhatsApp: one inbox, a CRM, automations, and an AI
+              employee for the routine replies.
             </p>
             <div className="mt-6 flex flex-wrap gap-2.5">
               <Link href={PRIMARY_CTA.href} className={cn(buttonVariants(), "group min-h-10! px-4! text-[14px]")}>
@@ -117,14 +114,11 @@ export async function Footer() {
                 />
               </Link>
               <a
-                href={WHATSAPP_CTA.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={EMAIL_CTA.href}
                 className={cn(buttonVariants({ variant: "ghost" }), "min-h-10! px-4! text-[14px]")}
               >
-                <Icon name="whatsapp" size={15} />
-                WhatsApp us
-                <span className="sr-only"> (opens in a new tab)</span>
+                <Icon name="mail" size={15} variant="line" />
+                {EMAIL_CTA.label}
               </a>
             </div>
             <Link
@@ -161,20 +155,6 @@ export async function Footer() {
                   </Link>
                 </li>
               ))}
-              {also.map((m) => (
-                <li key={m.key} className="flex flex-wrap items-center gap-x-2">
-                  {m.status === "soon" ? (
-                    <SoonControl role="link" className={linkCls}>
-                      {m.name}
-                    </SoonControl>
-                  ) : (
-                    <Link href={m.href} className={linkCls}>
-                      {m.name}
-                    </Link>
-                  )}
-                  <StatusBadge status={m.status} isNew={m.isNew} plain />
-                </li>
-              ))}
             </Column>
             <Column title="Industries">
               {INDUSTRY_NAV.map((i) => (
@@ -188,18 +168,11 @@ export async function Footer() {
             <Column title="Resources">
               {RESOURCE_NAV.map((r) => (
                 <li key={r.href}>
-                  <Link href={r.href} className={linkCls}>
-                    {r.name}
-                  </Link>
-                </li>
-              ))}
-              {developer.map((d) => (
-                <li key={d.href}>
-                  <Link href={d.href} className={cn(linkCls, d.live && "relative")}>
-                    {d.live && (
+                  <Link href={r.href} className={cn(linkCls, r.href === STATUS_URL && "relative")}>
+                    {r.href === STATUS_URL && (
                       <span className="inline-flex size-2 absolute -left-3.5 shrink-0 items-center justify-center rounded-full bg-green-500 animate-pulse" />
                     )}
-                    {d.label}
+                    {r.name}
                   </Link>
                 </li>
               ))}
@@ -214,8 +187,8 @@ export async function Footer() {
               ))}
               <li>
                 {/* Wraps instead of pushing past a 320 px screen's two-column grid. */}
-                <a href={`mailto:${SUPPORT_EMAIL}`} className={`${linkCls} [overflow-wrap:anywhere]`}>
-                  {SUPPORT_EMAIL}
+                <a href={`mailto:${CONTACT_EMAIL}`} className={`${linkCls} [overflow-wrap:anywhere]`}>
+                  {CONTACT_EMAIL}
                 </a>
               </li>
             </Column>

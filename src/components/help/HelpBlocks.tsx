@@ -23,7 +23,7 @@ export function Figure({ shot, className }: { shot: Shot; className?: string }) 
         target="_blank"
         rel="noopener"
         className={cn(
-          "block overflow-hidden rounded-[10px] border border-border-soft bg-surface shadow-[var(--shadow-xs)] transition-shadow hover:shadow-[0_0_0_1px_var(--accent-border)]",
+          "block overflow-hidden rounded-[10px] border border-border-soft bg-surface transition-colors hover:border-accent-border",
           narrow && "max-w-[300px]",
         )}
       >
@@ -70,6 +70,13 @@ function keyOf(b: HelpBlock): string {
   }
 }
 
+/** Anchor for a section heading (equal headings in one article would clash; none exist today). */
+const headingId = (text: string) =>
+  text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
 export function HelpBlocks({ blocks }: { blocks: HelpBlock[] }) {
   return (
     <div className="flex flex-col gap-6">
@@ -84,7 +91,11 @@ export function HelpBlocks({ blocks }: { blocks: HelpBlock[] }) {
             );
           case "h":
             return (
-              <h2 key={i} className="mt-2 font-display text-[21px] font-bold tracking-[-0.01em] text-foreground">
+              <h2
+                key={i}
+                id={headingId(b.text)}
+                className="mt-2 font-display text-[21px] font-bold tracking-[-0.01em] text-foreground"
+              >
                 {b.text}
               </h2>
             );

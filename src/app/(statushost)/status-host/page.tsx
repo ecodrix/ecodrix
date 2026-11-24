@@ -1,6 +1,6 @@
 import { StatusPageView } from "@/components/status/StatusPageView";
-import { pageMetadata } from "@/lib/seo";
-import { readStatusPage } from "@/lib/status-page";
+import { pageMetadata } from "@/lib/seo/seo";
+import { readStatusPage } from "@/lib/status/status-page";
 
 /* status.ecodrix.com serves this at its root (next.config.ts rewrite, like doc.ecodrix.com → /help).
    First paint is a 30 s-fresh snapshot; the view then polls in the browser. */

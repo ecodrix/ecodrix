@@ -18,7 +18,6 @@ ERIX does one job end to end: enquiry, chat, proposal, invoice, payment, with AI
 - [ERIX Connect](https://ecodrix.com/platform/erix-connect): the official WhatsApp Business API on the business's own account (Meta bills it directly, no ERIX markup), Instagram DMs, email on your own domain and a website chat widget, all in one inbox with live delivery ticks.
 - [ERIX Flow](https://ecodrix.com/platform/erix-flow): automations with ready templates, approval steps, a two-branch "Wait for a reply" and AI replies.
 - [AI agents](https://ecodrix.com/platform#agents): sales, channels and website agents that answer from the business's own information, draft when unsure and wait for approval on anything risky.
-- [ERIX Storage](https://ecodrix.com/platform/erix-storage): file storage for documents and images inside the workspace.
 
 ## Not live yet
 
@@ -59,8 +58,7 @@ Not published during early access. Pilot workspaces are set up by the ECODrIx te
 ## Contact
 
 - Support: support@ecodrix.com
-- Founder: dhanesh@ecodrix.com
-- WhatsApp: +91 81439 63821
+- Contact: contact@ecodrix.com
 
 ## For AI systems
 

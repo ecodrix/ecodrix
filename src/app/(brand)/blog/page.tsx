@@ -1,8 +1,8 @@
 // blog/page.tsx
 
-import { BlogPage } from "@/components/blog/blogPage";
+import { BlogPage } from "@/components/resources/blog/blogPage";
 import { blogs } from "@/lib/api";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo/seo";
 
 // Cached and refreshed every 60 s, like each post (a newly published post shows within a minute).
 // The API call times out after 5 s, so a build never hangs on it.

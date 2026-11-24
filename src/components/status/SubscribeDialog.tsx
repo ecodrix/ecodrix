@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { Icon } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { subscribeToStatus } from "@/lib/status-page";
+import { subscribeToStatus } from "@/lib/status/status-page";
 import { cn } from "@/lib/utils";
 
 /** Stored with the subscription as proof of consent (server `STATUS_CONSENT_TEXT`): change both together. */
@@ -46,7 +46,7 @@ export function SubscribeButton({ className }: { className?: string }) {
         onClick={(e) => e.target === ref.current && ref.current?.close()}
         // Escape closes it too (the backdrop click above is the mouse way).
         onKeyDown={(e) => e.key === "Escape" && ref.current?.close()}
-        className="m-auto w-[min(92vw,26rem)] rounded-[16px] bg-surface p-0 text-foreground shadow-xl backdrop:bg-black/40"
+        className="m-auto w-[min(92vw,26rem)] rounded-[16px] bg-surface p-0 border border-border text-foreground backdrop:bg-black/40"
       >
         <div className="p-5 sm:p-6">
           <div className="flex items-start justify-between gap-3">
@@ -56,7 +56,7 @@ export function SubscribeButton({ className }: { className?: string }) {
             <button
               type="button"
               onClick={() => ref.current?.close()}
-              className="-m-2 inline-flex size-10 items-center justify-center rounded-[8px] text-muted-foreground hover:bg-sunken hover:text-foreground focus-visible:outline-2 focus-visible:outline-accent"
+              className="-m-2 inline-flex size-10 items-center justify-center rounded-full text-muted-foreground hover:bg-sunken hover:text-foreground focus-visible:outline-2 focus-visible:outline-accent"
             >
               <Icon name="x" size={18} variant="line" />
               <span className="sr-only">Close</span>

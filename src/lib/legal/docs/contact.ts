@@ -6,7 +6,7 @@ export const contactDoc: LegalDoc = {
   title: "Contact Us",
   pill: "Contact",
   description:
-    "How to reach ECODrIx: business details and GSTIN, address, phone and WhatsApp, which email to use for what, support hours and our Grievance Officer.",
+    "How to reach ECODrIx: business details and GSTIN, address, which email to use for what, support hours and our Grievance Officer.",
   intro: `${LEGAL.brand} is run by ${LEGAL.entity}. Here is how to reach us.`,
   effectiveDate: "28 October 2026",
   sections: [
@@ -21,7 +21,6 @@ export const contactDoc: LegalDoc = {
             `Trade name: ${LEGAL.brand}`,
             `GSTIN: ${LEGAL.gstin}`,
             `Place of business: ${LEGAL.address}`,
-            `Phone and WhatsApp: ${LEGAL.phone}`,
           ],
         },
       ],
@@ -69,7 +68,6 @@ export const contactDoc: LegalDoc = {
           list: [
             `Name: ${LEGAL.grievanceOfficer} (proprietor)`,
             `Email: ${LEGAL.emails.grievance}`,
-            `Phone: ${LEGAL.phone}`,
             `Address: ${LEGAL.address}`,
           ],
         },

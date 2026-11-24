@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Icon } from "@/components/icons";
 
 export interface SearchEntry {
-  /** Where the hit goes, e.g. `/docs#leads`. */
+  /** Where the hit goes, e.g. `/api/crm-leads#leads`. */
   href: string;
   title: string;
   /** Section name, or the method of an endpoint. */
@@ -12,9 +12,14 @@ export interface SearchEntry {
   hint: string;
 }
 
+/** True when a key press belongs to a field the reader is typing in. */
+const typing = (t: EventTarget | null) =>
+  t instanceof HTMLElement && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName));
+
 /**
- * Find a docs section or endpoint from any developer page: every word has to
- * match. ⌘K / Ctrl+K focuses it; Escape clears it.
+ * Find a help article, API section or release from any docs page: every word
+ * has to match. "/" or ⌘K / Ctrl+K focuses it (never while typing elsewhere);
+ * Escape clears it.
  */
 export function DocsSearch({ entries, onPick }: { entries: SearchEntry[]; onPick?: () => void }) {
   const [q, setQ] = useState("");
@@ -32,8 +37,9 @@ export function DocsSearch({ entries, onPick }: { entries: SearchEntry[]; onPick
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      // Only the visible box takes the shortcut (the phone menu has its own).
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k" && input.current?.offsetParent) {
+      if (!input.current?.offsetParent) return;
+      const slash = e.key === "/" && !e.metaKey && !e.ctrlKey && !e.altKey && !typing(e.target);
+      if (slash || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k")) {
         e.preventDefault();
         input.current.focus();
       }
@@ -43,7 +49,7 @@ export function DocsSearch({ entries, onPick }: { entries: SearchEntry[]; onPick
   }, []);
 
   return (
-    <div role="search" className="relative">
+    <search className="relative block">
       <label htmlFor={`${listId}-q`} className="sr-only">
         Search the docs
       </label>
@@ -51,7 +57,7 @@ export function DocsSearch({ entries, onPick }: { entries: SearchEntry[]; onPick
         name="search"
         size={16}
         variant="line"
-        className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-subtle"
+        className="pointer-events-none absolute top-1/2 left-3.5 -translate-y-1/2 text-subtle"
       />
       <input
         ref={input}
@@ -60,20 +66,21 @@ export function DocsSearch({ entries, onPick }: { entries: SearchEntry[]; onPick
         value={q}
         onChange={(e) => setQ(e.target.value)}
         onKeyDown={(e) => e.key === "Escape" && setQ("")}
-        placeholder="Search docs"
+        placeholder="Search the docs"
         aria-controls={listId}
         autoComplete="off"
-        className="peer h-9 w-full rounded-[8px] bg-background pr-12 pl-9 text-[14px] shadow-[inset_0_0_0_1px_var(--color-border-soft)] outline-none placeholder:text-subtle focus:bg-surface focus:shadow-[inset_0_0_0_2px_var(--color-accent)]"
+        aria-keyshortcuts="/"
+        className="peer h-10 w-full rounded-full bg-background pr-10 pl-10 text-[14px] border border-border-soft outline-none placeholder:text-subtle focus:border-accent focus:bg-surface focus-visible:ring-2 focus-visible:ring-accent/30"
       />
-      <kbd
+      <span
         aria-hidden="true"
-        className="pointer-events-none absolute top-1/2 right-2 -translate-y-1/2 rounded-[4px] bg-surface px-1.5 font-sans text-[11px] text-subtle shadow-[inset_0_0_0_1px_var(--color-border-soft)] peer-focus:hidden"
+        className="pointer-events-none absolute top-1/2 right-3 hidden -translate-y-1/2 rounded-[4px] border border-border-soft bg-surface px-1.5 font-sans text-[11px] text-subtle sm:block peer-focus:hidden"
       >
-        ⌘K
-      </kbd>
+        /
+      </span>
       <div id={listId} aria-live="polite" className={words.length ? "" : "sr-only"}>
         {words.length > 0 && (
-          <div className="absolute inset-x-0 top-[calc(100%+6px)] z-50 min-w-[min(420px,90vw)] rounded-[12px] bg-surface p-1.5 shadow-[0_0_0_1px_var(--color-border-soft),var(--shadow-card)]">
+          <div className="absolute inset-x-0 top-[calc(100%+6px)] z-50 rounded-[12px] border border-border-soft bg-surface p-1.5 sm:min-w-[min(420px,90vw)]">
             {hits.length ? (
               <ul>
                 {hits.map((h) => (
@@ -101,6 +108,6 @@ export function DocsSearch({ entries, onPick }: { entries: SearchEntry[]; onPick
           </div>
         )}
       </div>
-    </div>
+    </search>
   );
 }

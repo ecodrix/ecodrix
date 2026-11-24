@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
  * fill elsewhere; purple marks AI and automation.
  */
 const badgeVariants = cva(
-  "inline-flex w-fit shrink-0 items-center gap-1 whitespace-nowrap rounded-[6px] px-2 py-0.5 text-[11.5px] leading-4 font-semibold [&>svg]:size-3 [&>svg]:shrink-0",
+  "inline-flex w-fit shrink-0 items-center gap-1 whitespace-nowrap rounded-full px-2 py-0.5 text-[11.5px] leading-4 font-semibold [&>svg]:size-3 [&>svg]:shrink-0",
   {
     variants: {
       variant: {

@@ -1,9 +1,9 @@
 import { MkSection, PrimaryCta } from "@/components/marketing/kit";
-import { ClosingCta, GuideList } from "@/components/platform/ModulePage";
+import { ClosingCta, GuideList } from "@/components/platform/shared/ModulePage";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { getBreadcrumbSchema, getItemListSchema } from "@/lib/jsonld";
-import { getLivePages } from "@/lib/product-pages";
-import { pageMetadata } from "@/lib/seo";
+import { getLivePages } from "@/lib/platform/product-pages";
+import { getBreadcrumbSchema, getItemListSchema } from "@/lib/seo/jsonld";
+import { pageMetadata } from "@/lib/seo/seo";
 
 /* ──────────────────────────────────────────────────────────────────────
    /guides — every setup guide in one place, grouped by module. New guides

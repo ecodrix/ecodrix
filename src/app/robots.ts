@@ -1,4 +1,6 @@
 import type { MetadataRoute } from "next";
+import { headers } from "next/headers";
+import { DOCS_URL } from "@/lib/site";
 
 /**
  * Generates /robots.txt via Next.js App Router convention.
@@ -10,7 +12,11 @@ import type { MetadataRoute } from "next";
  * - Explicitly invite known AI crawlers and answer engines so they can
  *   index llms.txt / llms-full.txt / ai.txt for AEO + GEO.
  */
-export default function robots(): MetadataRoute.Robots {
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  // doc.ecodrix.com is its own site: everything public, its own sitemap.
+  if ((await headers()).get("host")?.startsWith("doc.")) {
+    return { rules: [{ userAgent: "*", allow: "/" }], sitemap: `${DOCS_URL}/sitemap.xml`, host: DOCS_URL };
+  }
   const aiAgents = [
     "GPTBot",
     "ClaudeBot",

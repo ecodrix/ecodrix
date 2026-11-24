@@ -1,16 +1,17 @@
 import type { MetadataRoute } from "next";
 import { blogs } from "@/lib/api";
-import { COMPARISONS } from "@/lib/comparisons";
-import { SEO_CONSTANTS } from "@/lib/jsonld";
 import { LEGAL_DOCS, legalHref } from "@/lib/legal/documents";
-import { PLATFORM_MODULES } from "@/lib/platform-modules";
-import { getLivePages } from "@/lib/product-pages";
+import { EMPLOYEE_PAGES } from "@/lib/platform/employee-pages";
+import { PLATFORM_MODULES } from "@/lib/platform/platform-modules";
+import { getLivePages } from "@/lib/platform/product-pages";
+import { COMPARISONS } from "@/lib/resources/comparisons";
+import { SEO_CONSTANTS } from "@/lib/seo/jsonld";
 
 /**
  * Generates /sitemap.xml via Next.js App Router convention.
  *
  * Single source of truth: static routes are listed below, and platform
- * module pages are auto-derived from `lib/platform-modules.ts` so adding
+ * module pages are auto-derived from `lib/platform/platform-modules.ts` so adding
  * a new backend module instantly registers its SEO landing page.
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -60,9 +61,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.5,
     },
-    { url: `${BASE_URL}/docs`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/changelog`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${BASE_URL}/whats-new`, lastModified: now, changeFrequency: "weekly", priority: 0.5 },
   ];
 
   // All legal/policy documents (terms, privacy, cookie, AUP, DPA, etc.)
@@ -90,6 +88,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
+  // Static module sub-page (not in product-pages).
+  const employeeRoutes: MetadataRoute.Sitemap = ["", ...EMPLOYEE_PAGES.map((p) => `/${p.slug}`)].map((s) => ({
+    url: `${BASE_URL}/platform/ai-employee${s}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: s ? 0.75 : 0.85,
+  }));
+  const voicesRoute: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/platform/erix-voice/voices`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.75,
+    },
+  ];
+
   const compareRoutes: MetadataRoute.Sitemap = COMPARISONS.map((c) => ({
     url: `${BASE_URL}/compare/${c.slug}`,
     lastModified: now,
@@ -114,5 +128,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   ];
 
-  return [...staticRoutes, ...moduleRoutes, ...subPageRoutes, ...compareRoutes, ...blogRoutes, ...legalRoutes];
+  return [
+    ...staticRoutes,
+    ...moduleRoutes,
+    ...subPageRoutes,
+    ...voicesRoute,
+    ...employeeRoutes,
+    ...compareRoutes,
+    ...blogRoutes,
+    ...legalRoutes,
+  ];
 }

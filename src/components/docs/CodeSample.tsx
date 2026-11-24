@@ -2,7 +2,7 @@
 
 import { useState, useSyncExternalStore } from "react";
 import { Icon } from "@/components/icons";
-import type { CodeSample as Sample } from "@/lib/docs";
+import type { CodeSample as Sample } from "@/lib/docs/docs";
 import { cn } from "@/lib/utils";
 
 /* The reader's language (TypeScript SDK or cURL), shared by every sample on the
@@ -47,7 +47,7 @@ export function CopyButton({ text, label }: { text: string; label: string }) {
           // Clipboard blocked: the text stays selectable.
         }
       }}
-      className="inline-flex h-7 items-center gap-1 rounded-[6px] px-2 text-[12.5px] font-semibold text-white/70 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
+      className="inline-flex h-7 items-center gap-1 rounded-full px-2 max-sm:h-10 text-[12.5px] font-semibold text-white/70 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-white"
     >
       <Icon name={done ? "check" : "copy"} size={13} variant="line" />
       <span aria-live="polite">{done ? "Copied" : "Copy"}</span>
@@ -61,7 +61,7 @@ export function CodeSample({ sample }: { sample: Sample }) {
   const tabbed = sample.tabs.length > 1;
   const active = sample.tabs.find((t) => t.lang === lang) ?? sample.tabs[0];
   return (
-    <figure className="overflow-hidden rounded-[12px] bg-[#0e1424] text-white shadow-[var(--shadow-card)]">
+    <figure className="overflow-hidden rounded-[12px] border border-white/10 bg-[#0e1424] text-white">
       <figcaption className="flex items-center justify-between gap-2 border-b border-white/10 px-3 py-1.5">
         {tabbed ? (
           <div role="tablist" aria-label={`${sample.label}: code language`} className="flex gap-1">
@@ -73,7 +73,7 @@ export function CodeSample({ sample }: { sample: Sample }) {
                 aria-selected={t === active}
                 onClick={() => setLang(t.lang)}
                 className={cn(
-                  "h-7 rounded-[6px] px-2.5 text-[12.5px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-white",
+                  "h-7 rounded-full px-2.5 text-[12.5px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-white",
                   t === active ? "bg-white/12 text-white" : "text-white/60 hover:text-white",
                 )}
               >

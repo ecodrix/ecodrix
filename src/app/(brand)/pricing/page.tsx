@@ -2,13 +2,13 @@ import Link from "next/link";
 import type { GlyphName } from "@/components/icons";
 import { Icon } from "@/components/icons";
 import { Faq, MkSection } from "@/components/marketing/kit";
-import { ClosingCta } from "@/components/platform/ModulePage";
+import { ClosingCta } from "@/components/platform/shared/ModulePage";
 import PricingPlansSection from "@/components/pricing/PriceToggle";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { fetchPublicCatalogue } from "@/lib/api";
-import { getFAQSchema } from "@/lib/jsonld";
 import { trialLine, yearlyDiscountPct } from "@/lib/pricing";
-import { pageMetadata } from "@/lib/seo";
+import { getFAQSchema } from "@/lib/seo/jsonld";
+import { pageMetadata } from "@/lib/seo/seo";
 
 // Private during the pilot (founder decision): ECODrIx agrees terms with each
 // pilot client, so this page is shared by link only. It stays out of search,

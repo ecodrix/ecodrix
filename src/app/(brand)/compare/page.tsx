@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { Icon } from "@/components/icons";
 import { Faq, MkSection, PrimaryCta } from "@/components/marketing/kit";
-import { ClosingCta } from "@/components/platform/ModulePage";
+import { ClosingCta } from "@/components/platform/shared/ModulePage";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { COMPARISONS } from "@/lib/comparisons";
-import { getBreadcrumbSchema, getFAQSchema, getItemListSchema } from "@/lib/jsonld";
-import { pageMetadata } from "@/lib/seo";
+import { COMPARISONS } from "@/lib/resources/comparisons";
+import { getBreadcrumbSchema, getFAQSchema, getItemListSchema } from "@/lib/seo/jsonld";
+import { pageMetadata } from "@/lib/seo/seo";
 
 /* ──────────────────────────────────────────────────────────────────────
    /compare — comparison hub, targets "best WhatsApp CRM in India" and

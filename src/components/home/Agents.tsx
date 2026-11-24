@@ -1,7 +1,7 @@
 import { type GlyphName, Icon } from "@/components/icons";
 import { MkSection } from "@/components/marketing/kit";
 import { Reveal } from "@/components/motion/motion";
-import { LazyScreen } from "@/components/scenes/lazy-screen";
+import { LazyScreen } from "@/components/product-screens/lazy-screen";
 
 /** What the agent does — each line is a shipped v1.0 behaviour (docs/modules/agents.md). */
 const abilities: { icon: GlyphName; title: string; body: string }[] = [
@@ -42,7 +42,7 @@ export function Agents() {
       tone="navy"
       kicker={
         <span className="inline-flex items-center gap-1 rounded-sm bg-ai-subtle px-2 py-0.5 text-[12px] font-semibold text-ai">
-          <Icon name="sparkles" variant="solid" size={12} /> AI agents
+          <Icon name="sparkles" variant="solid" size={12} /> AI Employee
         </span>
       }
       title="Agents, not template chatbots"

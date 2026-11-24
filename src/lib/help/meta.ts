@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import { HELP_ORIGIN } from "@/lib/help";
 
-/** Help pages are canonical on doc.ecodrix.com, not on the brand site's base URL. */
+/** Every doc.ecodrix.com page (help, API, changelog) is canonical on doc.ecodrix.com, not on the brand site's base URL. */
 export function helpMetadata({
   title,
   description,
   path,
+  site = "ERIX Help",
 }: {
   title: string;
   description: string;
   path: string;
+  /** Suffix of the social title: "ERIX Help", "ERIX API docs" ... */
+  site?: string;
 }): Metadata {
   const url = `${HELP_ORIGIN}${path === "/" ? "" : path}`;
   return {
@@ -17,7 +20,7 @@ export function helpMetadata({
     description,
     alternates: { canonical: url },
     openGraph: {
-      title: `${title} | ERIX Help`,
+      title: `${title} | ${site}`,
       description,
       url,
       type: "article",

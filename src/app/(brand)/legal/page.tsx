@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Icon } from "@/components/icons";
 import { LEGAL } from "@/lib/legal/config";
 import { LEGAL_DOCS, legalHref } from "@/lib/legal/documents";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo/seo";
 
 export const metadata = pageMetadata({
   title: "Legal and policies",

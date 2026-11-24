@@ -6,14 +6,14 @@ import { cn } from "@/lib/utils";
 // ponytail: the ui/ primitives (accordion, badge, button, navigation-menu, separator, sheet, tabs) were ported by hand from the shadcn radix-nova registry, because `shadcn add` with iconLibrary "erix" emits broken imports (an npm package named `cn`, IconPlaceholder) — use the CLI again once components.json has an icon library it supports.
 
 /**
- * shadcn Button (radix-nova), restyled to the ERIX marketing kit: 8px corners,
+ * shadcn Button (radix-nova), restyled to the ERIX marketing kit: pill (fully rounded) corners,
  * 44px touch height, verb labels; solid buttons carry the 1px top highlight
  * (shadow-btn). `on-dark:` re-themes them inside a navy band or the blue
  * featured tile: the main action turns white, the second one glass.
  */
 // Press: a 2% squeeze in 90ms, then a soft spring back.
 const solid =
-  "inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-md px-5 text-[15px] font-[650] transition-[color,background-color,box-shadow,scale] duration-[var(--dur-fast),var(--dur-fast),var(--dur-fast),360ms] ease-[ease-out,ease-out,ease-out,var(--ease-soft-spring)] active:[scale:0.98] active:duration-[var(--dur-fast),var(--dur-fast),var(--dur-fast),90ms] motion-safe:focus-visible:animate-focus";
+  "inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full px-5 text-[15px] font-[650] transition-[color,background-color,box-shadow,scale] duration-[var(--dur-fast),var(--dur-fast),var(--dur-fast),360ms] ease-[ease-out,ease-out,ease-out,var(--ease-soft-spring)] active:[scale:0.98] active:duration-[var(--dur-fast),var(--dur-fast),var(--dur-fast),90ms] motion-safe:focus-visible:animate-focus";
 
 const variants = cva("[&_svg]:pointer-events-none [&_svg]:shrink-0", {
   variants: {
@@ -26,8 +26,6 @@ const variants = cva("[&_svg]:pointer-events-none [&_svg]:shrink-0", {
         "relative isolate overflow-hidden before:pointer-events-none before:absolute before:inset-y-0 before:left-0 before:w-1/3 before:opacity-0 before:content-['']",
         "before:bg-[linear-gradient(100deg,transparent,rgba(255,255,255,0.5),transparent)] on-dark:before:bg-[linear-gradient(100deg,transparent,rgba(43,77,203,0.28),transparent)]",
         "motion-safe:hover:before:animate-sheen motion-safe:focus-visible:before:animate-sheen",
-        // The featured tile keeps the top highlight; only navy bands swap the shadow.
-        "[&:where(.band-navy_*):not(.surface-light_*)]:shadow-[inset_0_-1px_0_rgba(11,27,100,0.08),0_1px_2px_rgba(0,0,0,0.2)]",
       ),
       ghost: cn(
         solid,
@@ -36,12 +34,12 @@ const variants = cva("[&_svg]:pointer-events-none [&_svg]:shrink-0", {
       ),
       /** Quiet text button: header items, icon buttons. */
       plain:
-        "inline-flex items-center justify-center gap-2 rounded-[8px] font-semibold text-muted-foreground hover:bg-hover hover:text-foreground",
+        "inline-flex items-center justify-center gap-2 rounded-full font-semibold text-muted-foreground hover:bg-hover hover:text-foreground",
     },
     size: {
       default: "",
       sm: "min-h-10! px-3.5! text-[14px]!",
-      lg: "min-h-12 rounded-lg px-[22px] text-[15.5px]",
+      lg: "min-h-12 rounded-full px-[22px] text-[15.5px]",
       icon: "size-11 shrink-0",
     },
   },

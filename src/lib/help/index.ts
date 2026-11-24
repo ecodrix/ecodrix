@@ -5,6 +5,7 @@
  * stack (no customer data), refreshed when the console UI changes.
  */
 import type { SearchEntry } from "@/components/docs/DocsSearch";
+import { DOCS_URL } from "@/lib/site";
 import { AGENTS, AUTOMATIONS } from "./agents-and-automations";
 import { ACCOUNT, CHANNELS } from "./channels-and-account";
 import { GETTING_STARTED } from "./getting-started";
@@ -15,7 +16,7 @@ import type { HelpArticle, HelpCollection } from "./types";
 export type { HelpArticle, HelpBlock, HelpCollection, HelpKind, Shot } from "./types";
 
 /** The help center's public origin. */
-export const HELP_ORIGIN = "https://doc.ecodrix.com";
+export const HELP_ORIGIN = DOCS_URL;
 
 /**
  * Path prefix of the help pages. Empty on doc.ecodrix.com, where the host

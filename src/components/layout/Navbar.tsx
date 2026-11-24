@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ChevronDown, Menu } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -23,9 +23,9 @@ const DesktopNav = dynamic(() => import("./DesktopNav"), { ssr: false });
 /**
  * Site header on the shadcn NavigationMenu (Radix): four sections, each a
  * panel that enters with framer-motion. A pill glides to the open section
- * and the logo's red dot marks the current one (both `layoutId`). Fixed,
- * translucent, and 8px tighter once the page scrolls; a spacer holds its
- * height, so compacting never shifts the page. Phones get a Sheet with an
+ * and the logo's red dot marks the current one (both `layoutId`). A floating
+ * rounded bar, fixed, one height always (a spacer holds it), with a soft shadow that deepens on scroll (the one
+ * shadow on the otherwise flat site, founder 24 Nov). Phones get a Sheet with an
  * Accordion. Without JavaScript the menus become plain links and the menu
  * button jumps to the footer's site map (globals.css, `scripting`).
  */
@@ -93,34 +93,24 @@ export function Navbar() {
 
   return (
     <>
-      <div ref={sentinel} aria-hidden="true" className="h-[3.75rem]" />
-      <header
-        data-scrolled={scrolled || undefined}
-        className={cn(
-          "fixed inset-x-0 top-0 z-50 border-b border-transparent bg-surface/80 backdrop-blur-md backdrop-saturate-150",
-          "transition-[background-color,border-color,box-shadow] duration-150 ease-in-out",
-          "data-[scrolled]:border-border-soft data-[scrolled]:bg-surface/88 data-[scrolled]:shadow-[0_1px_12px_-4px_rgba(11,27,100,0.12)]",
-        )}
-      >
+      {/* Spacer = pill (52px, h-13) + its 14px top gap: --header-h in globals.css. */}
+      <div ref={sentinel} aria-hidden="true" className="h-(--header-h)" />
+      <header data-scrolled={scrolled || undefined} className="group fixed inset-x-0 top-0 z-50 px-gutter pt-3.5">
         <div
           className={cn(
-            "mx-auto w-full max-w-7xl px-gutter flex items-center gap-3 transition-[height] duration-150 ease-in-out lg:gap-6",
-            scrolled ? "h-[3.25rem]" : "h-[3.75rem]",
+            "relative mx-auto flex h-13 w-full max-w-[1180px] items-center gap-3 rounded-[32px] border border-border bg-surface pr-2.5 pl-5 lg:gap-6 lg:pl-6",
+            "has-[[data-slot=navigation-menu-trigger][data-state=open]]:rounded-[28px_28px_0_0]",
+            // Deep navy tint reads on both light pages and the navy hero band.
+            "shadow-[0_6px_18px_-10px_rgba(4,13,66,0.16),0_1px_3px_-1px_rgba(4,13,66,0.06)]",
+            "group-data-[scrolled]:shadow-[0_8px_22px_-12px_rgba(4,13,66,0.22),0_1px_4px_-1px_rgba(4,13,66,0.08)]",
+            "transition-[border-radius,box-shadow] duration-200 ease-out motion-reduce:transition-none",
           )}
         >
           <Link href="/" className="flex shrink-0 items-center gap-2">
-            <LogoMark
-              priority
-              className={cn("transition-[width,height] duration-300", scrolled ? "size-7" : "size-8")}
-            />
+            <LogoMark priority className="size-8" />
             <span className="font-display text-[19px] font-bold tracking-[-0.02em] text-foreground">ERIX</span>
-            {/* The visible word starts the link's name (WCAG 2.5.3, label in name). */}
             <span className="sr-only">by ECODrIx, home</span>
           </Link>
-
-          {/* Wide screens: the Radix menu loads once the page is idle (or on
-              first hover/focus); until then these same-looking buttons hold
-              its place, so nothing shifts. Phones never load it. */}
           <div className="js-only hidden lg:block">
             {desktop ? (
               <DesktopNav path={path} current={current} focusKey={desktop === true ? undefined : desktop} />
@@ -134,7 +124,7 @@ export function Navbar() {
                       onPointerEnter={() => setDesktop(true)}
                       onFocus={() => setDesktop(s.key)}
                       className={cn(
-                        "relative inline-flex h-9 items-center gap-1 rounded-[8px] px-3 text-[14.5px] font-semibold text-muted-foreground hover:text-foreground",
+                        "relative inline-flex h-9 items-center gap-1 rounded-full px-3 text-[14.5px] font-semibold text-muted-foreground hover:text-foreground",
                         current === s.key && "text-foreground",
                       )}
                     >
@@ -164,7 +154,7 @@ export function Navbar() {
               <Link
                 key={l.href}
                 href={l.href}
-                className="rounded-[8px] px-3 py-2 text-[14.5px] font-semibold text-muted-foreground hover:text-foreground"
+                className="rounded-full px-3 py-2 text-[14.5px] font-semibold text-muted-foreground hover:text-foreground"
               >
                 {l.label}
               </Link>
@@ -192,13 +182,13 @@ export function Navbar() {
                 setMenuWanted(true);
                 setMenuOpen(true);
               }}
-              className="js-only flex size-11 items-center justify-center rounded-[8px] text-foreground hover:bg-hover lg:hidden"
+              className="js-only flex size-11 items-center justify-center rounded-full text-foreground hover:bg-hover lg:hidden"
             >
               <Menu aria-hidden="true" className="size-5" />
             </button>
             <Link
               href="#site-map"
-              className="nojs-sm hidden size-11 items-center justify-center rounded-[8px] text-foreground"
+              className="nojs-sm hidden size-11 items-center justify-center rounded-full text-foreground"
             >
               <Menu aria-hidden="true" className="size-5" />
               <span className="sr-only">Site map</span>

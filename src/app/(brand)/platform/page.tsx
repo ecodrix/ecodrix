@@ -1,19 +1,19 @@
 import Link from "next/link";
 import { ChannelBeam } from "@/components/home/Integrations";
 import { type GlyphName, Icon } from "@/components/icons";
-import { BrowserFrame, Faq, MkHero, MkSection, PrimaryCta, WhatsAppCta } from "@/components/marketing/kit";
+import { BrowserFrame, EmailCta, Faq, MkHero, MkSection, PrimaryCta } from "@/components/marketing/kit";
 import { type Chapter, Story } from "@/components/marketing/story";
-import { ClosingCta } from "@/components/platform/ModulePage";
-import { ModuleRow } from "@/components/platform/ModuleRow";
-import { LazyScreen } from "@/components/scenes/lazy-screen";
-import { TimelineScene } from "@/components/scenes/timeline-scene";
+import { ClosingCta } from "@/components/platform/shared/ModulePage";
+import { ModuleRow } from "@/components/platform/shared/ModuleRow";
+import { LazyScreen } from "@/components/product-screens/lazy-screen";
+import { TimelineScene } from "@/components/product-screens/timeline-scene";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SoonControl } from "@/components/ui/soon";
 import { StatusBadge } from "@/components/ui/status-badge";
-import { getPlatformNav } from "@/lib/catalog";
-import { getBreadcrumbSchema, getFAQSchema, getItemListSchema } from "@/lib/jsonld";
-import { PLATFORM_MODULES } from "@/lib/platform-modules";
-import { pageMetadata } from "@/lib/seo";
+import { getPlatformNav } from "@/lib/platform/catalog";
+import { PLATFORM_MODULES } from "@/lib/platform/platform-modules";
+import { getBreadcrumbSchema, getFAQSchema, getItemListSchema } from "@/lib/seo/jsonld";
+import { pageMetadata } from "@/lib/seo/seo";
 import { PLATFORM_NAV } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -48,7 +48,7 @@ const PLATFORM_FAQS = [
   },
   {
     q: "Is there a public ERIX API?",
-    a: "Yes. The same modules are available through the REST API at https://api.ecodrix.com, with keys per workspace, webhooks and the public SDK @ecodrix/erix-api. The docs are at ecodrix.com/docs.",
+    a: "Yes. The same modules are available through the REST API at https://api.ecodrix.com, with keys per workspace, webhooks and the public SDK @ecodrix/erix-api. The docs are at doc.ecodrix.com/api.",
   },
   {
     q: "Can I use just one part of ERIX?",
@@ -208,7 +208,6 @@ const LATER = [
 const moreCopy: Record<string, string> = {
   voice:
     "An AI assistant that answers your calls, books appointments and puts each call in your inbox. Open by request.",
-  storage: "Files kept with the client and project they belong to: documents and secure share links.",
 };
 
 // Which modules are listed (and which are Coming soon) follows admin › Catalog.
@@ -216,7 +215,7 @@ export const revalidate = 300;
 
 export default async function PlatformIndexPage() {
   const nav = await getPlatformNav();
-  const more = nav.filter((m) => m.key === "storage" || m.key === "voice");
+  const more = nav.filter((m) => m.key === "voice");
   return (
     <div className="w-full">
       {/* JSON-LD: ItemList + FAQ + Breadcrumb */}
@@ -239,7 +238,7 @@ export default async function PlatformIndexPage() {
         actions={
           <>
             <PrimaryCta lg />
-            <WhatsAppCta lg />
+            <EmailCta lg />
           </>
         }
         visual={
@@ -371,9 +370,9 @@ export default async function PlatformIndexPage() {
           <span>
             <span className="font-semibold">For developers:</span> the same modules through one public API, with keys
             per workspace and the TypeScript SDK.{" "}
-            <Link href="/docs" className="text-accent underline underline-offset-4">
+            <a href="https://doc.ecodrix.com/api" className="text-accent underline underline-offset-4">
               Read the API docs
-            </Link>
+            </a>
           </span>
         </p>
       </MkSection>

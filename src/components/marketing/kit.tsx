@@ -9,7 +9,7 @@
  *   <BrowserFrame>  <PhoneFrame>   real product UI, never a screenshot
  *   <PainGrid> <FeatureSplit> <Steps> <Faq> <CtaBand>
  *   <TrustBar>      "Works with" integrations, as a marquee
- *   <PrimaryCta> <WhatsAppCta>     the two calls to action
+ *   <PrimaryCta> <EmailCta>        the two calls to action
  *
  * Product visuals rise in once with <Reveal> (framer-motion) as they scroll
  * into view; headings and body text never animate (design system v13).
@@ -25,8 +25,9 @@ import { Marquee } from "@/components/motion/surface";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { buttonVariants } from "@/components/ui/button";
 import { SOON_BUTTON, SoonControl } from "@/components/ui/soon";
-import { PRIMARY_CTA, WHATSAPP_CTA } from "@/lib/site";
+import { EMAIL_CTA, PRIMARY_CTA } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { TiltVisual } from "./tilt-visual";
 
 /* ── Calls to action ─────────────────────────────────────────────────── */
 
@@ -56,7 +57,7 @@ export function PrimaryCta({ lg, className, disabled }: { lg?: boolean; classNam
   );
 }
 
-export function WhatsAppCta({ lg, className, disabled }: { lg?: boolean; className?: string; disabled?: boolean }) {
+export function EmailCta({ lg, className, disabled }: { lg?: boolean; className?: string; disabled?: boolean }) {
   if (disabled)
     return (
       <SoonControl
@@ -64,21 +65,18 @@ export function WhatsAppCta({ lg, className, disabled }: { lg?: boolean; classNa
         hint
         className={cn(buttonVariants({ variant: "ghost", size: lg ? "lg" : "default" }), SOON_BUTTON, className)}
       >
-        <Icon name="whatsapp" size={16} />
-        {WHATSAPP_CTA.label}
+        <Icon name="mail" size={16} variant="line" />
+        {EMAIL_CTA.label}
       </SoonControl>
     );
   return (
     <Link
       role="button"
-      href={WHATSAPP_CTA.href}
-      target="_blank"
-      rel="noopener noreferrer"
+      href={EMAIL_CTA.href}
       className={cn(buttonVariants({ variant: "ghost", size: lg ? "lg" : "default" }), className)}
     >
-      <Icon name="whatsapp" size={16} />
-      {WHATSAPP_CTA.label}
-      <span className="sr-only"> (opens in a new tab)</span>
+      <Icon name="mail" size={16} variant="line" />
+      {EMAIL_CTA.label}
     </Link>
   );
 }
@@ -98,7 +96,17 @@ export function HeroMotif() {
         className="fill-none stroke-hero-swoosh opacity-[0.28] [stroke-linecap:round] [stroke-width:56]"
         d="M180 760 C 520 300 900 220 1320 250"
       />
-      <circle className="fill-hero-dot max-[900px]:hidden" cx="1010" cy="438" r="26" />
+      {/* A ball rolls in along the arch (same path, reversed), down the slope and out the bottom, then rests ~5 s (globals.css .mk-ball). */}
+      <clipPath id="mk-ball-clip">
+        <circle r="26" />
+      </clipPath>
+      <g className="mk-ball max-[900px]:hidden">
+        <g className="mk-spin">
+          <circle r="26" className="fill-hero-dot" />
+          <rect x="-26" y="-4" width="52" height="7" clipPath="url(#mk-ball-clip)" fill="#a8423f" />
+          <path d="M-17 -11 A20 20 0 0 1 3 -20" fill="none" stroke="#e8a09c" strokeWidth="4.5" strokeLinecap="round" />
+        </g>
+      </g>
     </svg>
   );
 }
@@ -130,20 +138,30 @@ export function MkHero({
   className?: string;
 }) {
   return (
-    <section className={cn("band-navy relative overflow-hidden pt-[clamp(48px,7vw,45px)]", className)}>
+    // Desktop: exactly one screen (the band includes the strip behind the header, see globals.css); phones keep auto height.
+    <section
+      className={cn(
+        "band-navy relative overflow-hidden pt-[clamp(48px,7vw,45px)] min-[901px]:flex min-[901px]:h-svh min-[901px]:min-h-[600px] min-[901px]:flex-col min-[901px]:justify-center min-[901px]:pt-0",
+        className,
+      )}
+    >
       <HeroMotif />
-      <div className="relative mx-auto grid w-full max-w-wrap grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] items-end gap-[clamp(32px,5vw,64px)] px-gutter max-[900px]:grid-cols-[1fr]">
-        <div className="pb-[clamp(48px,7vw,45px)] max-[900px]:pb-0">
+      <div className="relative mx-auto grid w-full max-w-wrap grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] min-[901px]:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] items-end gap-[clamp(32px,5vw,64px)] px-gutter max-[900px]:grid-cols-[1fr] min-[901px]:items-center min-[901px]:py-6">
+        <div className="pb-[clamp(48px,7vw,45px)] max-[900px]:pb-0 min-[901px]:pb-0">
           {top}
-          <BlurText as="h1" text={title} className="font-display text-mk-hero text-balance text-white" />
+          <BlurText
+            as="h1"
+            text={title}
+            className="font-display text-mk-hero text-balance text-white min-[901px]:text-[length:clamp(36px,min(4vw,8.5vh),60px)]!"
+          />
           <p
-            className={`mt-[22px] max-w-[34em] font-sans text-mk-hero-lead text-pretty text-[rgba(255,255,255,0.78)] ${fadeIn}`}
+            className={`mt-[22px] max-w-[34em] font-sans text-mk-hero-lead text-pretty min-[901px]:mt-[min(22px,2.4vh)] min-[901px]:text-[length:clamp(15px,min(1.5vw,2.3vh),19px)]! text-[rgba(255,255,255,0.78)] ${fadeIn}`}
           >
             {lead}
           </p>
           {actions && (
             <div
-              className={`mt-[30px] flex flex-wrap gap-2.5 max-[900px]:*:flex-[1_1_100%] ${fadeIn}`}
+              className={`mt-[30px] flex flex-wrap gap-2.5 max-[900px]:*:flex-[1_1_100%] min-[901px]:mt-[min(30px,3.4vh)] min-[901px]:flex-nowrap min-[901px]:*:flex-none ${fadeIn}`}
               style={{ "--d": "520ms" } as React.CSSProperties}
             >
               {actions}
@@ -167,8 +185,8 @@ export function MkHero({
           )}
         </div>
         {visual && (
-          <div className="relative self-end motion-safe:animate-rise motion-safe:[animation-delay:var(--d,200ms)]">
-            {visual}
+          <div className="relative self-end max-h-[calc(100svh-var(--header-h)-3rem)] min-[901px]:[&_[data-browser]]:max-h-[calc(100svh-var(--header-h)-3rem)] motion-safe:animate-rise motion-safe:[animation-delay:var(--d,200ms)]">
+            <TiltVisual>{visual}</TiltVisual>
           </div>
         )}
       </div>
@@ -194,10 +212,8 @@ export function BrowserFrame({
     <div
       data-browser=""
       className={cn(
-        "surface-light overflow-hidden bg-background",
-        light
-          ? "rounded-[14px] shadow-lg"
-          : "rounded-[14px_14px_0_0] shadow-[0_0_0_1px_rgba(255,255,255,0.12),0_40px_80px_-24px_rgba(4,13,66,0.55)]",
+        "surface-light relative overflow-hidden bg-background",
+        light ? "rounded-[16px] shadow-lg" : "rounded-[16px] shadow-[0_0_0_1px_rgba(255,255,255,0.12)]",
         className,
       )}
     >
@@ -205,13 +221,16 @@ export function BrowserFrame({
         <i className="size-[9px] rounded-[50%] bg-border-strong opacity-60" />
         <i className="size-[9px] rounded-[50%] bg-border-strong opacity-60" />
         <i className="size-[9px] rounded-[50%] bg-border-strong opacity-60" />
-        <span className="mx-auto inline-flex items-center gap-[5px] rounded-sm bg-sunken px-3 py-[3px] font-sans text-[11.5px]/4 font-medium text-subtle">
+        <span className="mx-auto inline-flex items-center gap-[5px] rounded-sm bg-sunken max-sm:hidden px-3 py-[3px] font-sans text-[11.5px]/4 font-medium text-subtle">
           <Icon name="lock" variant="line" size={11} />
           {url}
         </span>
       </div>
+      <span className="absolute top-0 right-3.5 flex h-9 items-center font-sans text-[11px]/4 font-medium text-subtle">
+        Example data
+      </span>
       {/* An app screen inside a browser window drops its own frame. */}
-      <div className="p-3.5 [&:has(>.scene_[data-app-frame])]:p-0 [&:has(>[data-app-frame])]:p-0">{children}</div>
+      <div className="[&:has(>.scene_[data-app-frame])]:p-0 [&:has(>[data-app-frame])]:p-0">{children}</div>
     </div>
   );
 }
@@ -228,7 +247,7 @@ export function PhoneFrame({
   return (
     <div
       className={cn(
-        "surface-light relative w-[268px] rounded-[34px] bg-[#0d1020] p-2.5 shadow-[0_0_0_1px_rgba(255,255,255,0.1),0_30px_60px_-20px_rgba(4,13,66,0.6)]",
+        "surface-light relative w-[268px] rounded-[34px] bg-[#0d1020] p-2.5 shadow-[0_0_0_1px_rgba(255,255,255,0.1)]",
         className,
       )}
     >
@@ -280,7 +299,7 @@ export function MkSection({
         className,
       )}
     >
-      <div className="mx-auto w-full max-w-wrap px-gutter">
+      <div className="relative mx-auto w-full max-w-wrap px-gutter">
         {(title || lead) && (
           <div className={cn("mb-[clamp(36px,5vw,56px)]", center && "text-center")}>
             {kicker && <div className="mb-3">{kicker}</div>}
@@ -379,7 +398,12 @@ export function FeatureSplit({
             className="group mt-6 inline-flex items-center gap-1.5 font-sans text-[15px]/5 font-[650] text-accent hover:underline hover:underline-offset-3 motion-safe:focus-visible:animate-focus"
           >
             {link.label}
-            <Icon name="arrow-right" size={14} variant="line" />
+            <Icon
+              name="arrow-right"
+              size={14}
+              variant="line"
+              className="transition-transform duration-150 ease-in-out motion-reduce:transition-none group-hover:translate-x-1"
+            />
           </Link>
         )}
       </div>
@@ -393,16 +417,19 @@ export function FeatureSplit({
 /** A real sequence, so the numbers are earned. */
 export function Steps({ items }: { items: { title: string; text: string; time?: string }[] }) {
   return (
-    <ol className="grid list-none grid-cols-3 max-[900px]:grid-cols-[1fr]">
+    <ol className="mk-steps grid list-none grid-cols-3 max-[900px]:grid-cols-[1fr]">
       {items.map((s, i) => (
         <li
           key={s.title}
+          style={{ "--i": i } as React.CSSProperties}
           // Phones: the steps stack, each divided from the one above.
           className="relative pr-7 not-first:border-l not-first:border-l-border-soft not-first:pl-7 max-[900px]:[border-left:0]! max-[900px]:[border-top:1px_solid_var(--border-soft)] max-[900px]:px-0! max-[900px]:py-[22px] max-[900px]:first:[border-top:0] max-[900px]:first:pt-0"
         >
           <span className="mb-[18px] grid size-9 place-items-center rounded-full bg-accent font-sans text-[15px]/none font-bold text-white shadow-[0_0_0_6px_var(--accent-dim)]">
             {i + 1}
           </span>
+          {/* Connector to the next step; drawn as the row scrolls in (globals.css, Motion block). */}
+          {i < items.length - 1 && <i aria-hidden="true" className="mk-link" />}
           <h3 className="font-sans text-lg/6 font-[650]">{s.title}</h3>
           <p className="mt-2 font-sans text-[15px]/[1.6] text-muted-foreground">{s.text}</p>
           {s.time && (
@@ -480,7 +507,7 @@ export function CtaBand({
           )}
           {actions && <div className="mt-[30px] flex flex-wrap gap-2.5 max-[900px]:*:flex-[1_1_100%]">{actions}</div>}
         </div>
-        {aside}
+        {aside && <div>{aside}</div>}
       </div>
     </section>
   );

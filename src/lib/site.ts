@@ -19,19 +19,25 @@ export const PRIMARY_CTA = {
 } as const;
 
 /** The header's one action: the contact section on the home page (its form is answered by a person). */
-export const CONTACT_CTA = { label: "Contact", href: PRIMARY_CTA.href } as const;
+export const CONTACT_CTA = { label: "Access", href: PRIMARY_CTA.href } as const;
 
 /**
- * The second action: a WhatsApp chat. This is the ECODrIx number already
- * published on /about ("Want to talk to the founder?"); don't invent another.
+ * The site's two mailboxes (founder, 24 Nov 2026), and no phone number. CONTACT: people who are not customers yet
+ * (sales, quotes, pilots, partners, press, general). SUPPORT: people already using ERIX (help, status, account,
+ * billing, privacy requests, grievances). Components and pages import these, never a literal address.
  */
-export const WHATSAPP_CTA = {
-  label: "Chat on WhatsApp",
-  href: "https://wa.me/918143963821",
-} as const;
+export const CONTACT_EMAIL = "contact@ecodrix.com";
+export const SUPPORT_EMAIL = "support@ecodrix.com";
+
+/** The second action: an email to the contact address. */
+export const EMAIL_CTA = { label: "Contact us", href: `mailto:${CONTACT_EMAIL}` } as const;
 
 /** Where "Report a problem" on the status page sends mail (one place to change it). */
-export const REPORT_EMAIL = "report@ecodrix.com";
+export const REPORT_EMAIL = SUPPORT_EMAIL;
+
+/** Help, API docs and the changelog live on their own hosts; the brand site only links out. */
+export const DOCS_URL = "https://doc.ecodrix.com";
+export const STATUS_URL = "https://status.ecodrix.com";
 
 export type ModuleStatus = "live" | "soon" | "invite";
 
@@ -75,8 +81,8 @@ export const PLATFORM_NAV = [
   {
     key: "agents",
     icon: "sparkles",
-    name: "AI agents",
-    href: "/platform#agents",
+    name: "AI Employee",
+    href: "/platform/ai-employee",
     summary: "Answers from your knowledge, books, and hands off to you.",
     status: "live",
     card: {
@@ -94,7 +100,7 @@ export const PLATFORM_NAV = [
     status: "invite",
     card: {
       headline: "Calls answered, even after hours.",
-      text: "Answers on your own number in English, Hindi or Telugu, books the visit and puts the transcript in your inbox.",
+      text: "Answers on your own number in 11 Indian languages, books the visit and puts the transcript in your inbox.",
     },
     ai: true,
   },
@@ -111,18 +117,6 @@ export const PLATFORM_NAV = [
     },
     ai: true,
   },
-  {
-    key: "storage",
-    icon: "folder-open",
-    name: "ERIX Storage",
-    href: "/platform/erix-storage",
-    summary: "Files kept with the client and project they belong to.",
-    status: "live",
-    card: {
-      headline: "Files that stay with the deal.",
-      text: "Documents and images kept on the client and project they belong to, inside your workspace.",
-    },
-  },
 ] as const satisfies readonly {
   key: string;
   icon: IconName;
@@ -134,7 +128,7 @@ export const PLATFORM_NAV = [
   ai?: boolean;
 }[];
 
-/** Industries: the use-case pages under ERIX CRM (lib/product-pages.ts). */
+/** Industries: the use-case pages under ERIX CRM (lib/platform/product-pages.ts). */
 export const INDUSTRY_NAV = [
   {
     icon: "building-2",
@@ -185,7 +179,7 @@ export const INDUSTRY_NAV = [
   card: { headline: string; text: string };
 }[];
 
-/** Resources: the blog, the comparisons and the guides hub (footer, phone menu and header). */
+/** Resources: the blog, comparisons, guides hub, then the doc and status hosts (footer, phone menu and header). */
 export const RESOURCE_NAV = [
   {
     icon: "book-open",
@@ -213,9 +207,12 @@ export const RESOURCE_NAV = [
   {
     icon: "help-circle",
     name: "Help center",
-    href: "https://doc.ecodrix.com",
+    href: DOCS_URL,
     summary: "How to do each job in ERIX, with real screens.",
   },
+  { icon: "code", name: "API docs", href: `${DOCS_URL}/api`, summary: "Build on ERIX with the API and SDK." },
+  { icon: "history", name: "Changelog", href: `${DOCS_URL}/changelog`, summary: "What changed in each release." },
+  { icon: "chart-line", name: "System status", href: STATUS_URL, summary: "Live uptime of every module." },
 ] as const satisfies readonly {
   icon: IconName;
   name: string;
@@ -293,8 +290,6 @@ export const COMPANY_NAV = [
     },
   },
 ] as const;
-
-export const SUPPORT_EMAIL = "support@ecodrix.com";
 
 // Text labels, never other companies' logos (DS brand rule).
 export const SOCIALS = [

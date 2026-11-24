@@ -2,8 +2,7 @@
 
   Founder & CEO: Dhanesh Mekalthuru (Dhanesh M, Erix)
   Site:   https://ecodrix.com
-  Email:  dhanesh@ecodrix.com
-  Phone:  +91-81439-63821
+  Email:  contact@ecodrix.com
   From:   Andhra Pradesh, India
 
 /* SITE */

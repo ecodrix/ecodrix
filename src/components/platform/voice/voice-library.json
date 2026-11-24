@@ -1,0 +1,53 @@
+{
+  "_about": "The ERIX voice library: every voice a customer can pick, by its ERIX code. Provider speaker names live only in scripts/voice-ids.json. Every voice says the same line; the Hindi line avoids gendered verbs. Rendered by scripts/voice-samples.py --set library.",
+  "model": "bulbul:v3",
+  "langs": [
+    "en",
+    "hi",
+    "te"
+  ],
+  "lines": {
+    "en": "Hello, thank you for calling. Whether you want to book an appointment or ask a question, just tell me. How can I help you today?",
+    "hi": "नमस्ते, call करने के लिए धन्यवाद। Appointment book करनी हो या कोई सवाल पूछना हो, बताइए। आज आपकी क्या मदद करूँ?",
+    "te": "నమస్కారం, call చేసినందుకు ధన్యవాదాలు. Appointment book చేయాలన్నా, ఏదైనా అడగాలన్నా చెప్పండి. ఈరోజు మీకు ఎలా సహాయం చేయగలను?"
+  },
+  "voices": [
+    "Voice 01",
+    "Voice 02",
+    "Voice 03",
+    "Voice 04",
+    "Voice 05",
+    "Voice 06",
+    "Voice 07",
+    "Voice 08",
+    "Voice 09",
+    "Voice 10",
+    "Voice 11",
+    "Voice 12",
+    "Voice 13",
+    "Voice 14",
+    "Voice 15",
+    "Voice 16",
+    "Voice 17",
+    "Voice 18",
+    "Voice 19",
+    "Voice 20",
+    "Voice 21",
+    "Voice 22",
+    "Voice 23",
+    "Voice 24",
+    "Voice 25",
+    "Voice 26",
+    "Voice 27",
+    "Voice 28",
+    "Voice 29",
+    "Voice 30",
+    "Voice 31",
+    "Voice 32",
+    "Voice 33",
+    "Voice 34",
+    "Voice 35",
+    "Voice 36",
+    "Voice 37"
+  ]
+}

@@ -320,7 +320,7 @@ export const privacyDoc: LegalDoc = {
       icon: Mail,
       body: [
         `Privacy questions and requests: ${LEGAL.emails.privacy}.`,
-        `Grievance Officer (under the IT Act, 2000 and the DPDP Act, 2023): ${LEGAL.grievanceOfficer}, proprietor. Email ${LEGAL.emails.grievance} or call ${LEGAL.phone}. We acknowledge a grievance within 48 hours and resolve it within one month.`,
+        `Grievance Officer (under the IT Act, 2000 and the DPDP Act, 2023): ${LEGAL.grievanceOfficer}, proprietor. Email ${LEGAL.emails.grievance}. We acknowledge a grievance within 48 hours and resolve it within one month.`,
         `${LEGAL.entity}, ${LEGAL.address}.`,
       ],
     },
