@@ -130,20 +130,30 @@ export function MkHero({
   className?: string;
 }) {
   return (
-    <section className={cn("band-navy relative overflow-hidden pt-[clamp(48px,7vw,45px)]", className)}>
+    // Desktop: exactly one screen (the band includes the strip behind the header, see globals.css); phones keep auto height.
+    <section
+      className={cn(
+        "band-navy relative overflow-hidden pt-[clamp(48px,7vw,45px)] min-[901px]:flex min-[901px]:h-svh min-[901px]:min-h-[600px] min-[901px]:flex-col min-[901px]:justify-center min-[901px]:pt-0",
+        className,
+      )}
+    >
       <HeroMotif />
-      <div className="relative mx-auto grid w-full max-w-wrap grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] items-end gap-[clamp(32px,5vw,64px)] px-gutter max-[900px]:grid-cols-[1fr]">
-        <div className="pb-[clamp(48px,7vw,45px)] max-[900px]:pb-0">
+      <div className="relative mx-auto grid w-full max-w-wrap grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] min-[901px]:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] items-end gap-[clamp(32px,5vw,64px)] px-gutter max-[900px]:grid-cols-[1fr] min-[901px]:items-center min-[901px]:py-6">
+        <div className="pb-[clamp(48px,7vw,45px)] max-[900px]:pb-0 min-[901px]:pb-0">
           {top}
-          <BlurText as="h1" text={title} className="font-display text-mk-hero text-balance text-white" />
+          <BlurText
+            as="h1"
+            text={title}
+            className="font-display text-mk-hero text-balance text-white min-[901px]:text-[length:clamp(36px,min(4vw,8.5vh),60px)]!"
+          />
           <p
-            className={`mt-[22px] max-w-[34em] font-sans text-mk-hero-lead text-pretty text-[rgba(255,255,255,0.78)] ${fadeIn}`}
+            className={`mt-[22px] max-w-[34em] font-sans text-mk-hero-lead text-pretty min-[901px]:mt-[min(22px,2.4vh)] min-[901px]:text-[length:clamp(15px,min(1.5vw,2.3vh),19px)]! text-[rgba(255,255,255,0.78)] ${fadeIn}`}
           >
             {lead}
           </p>
           {actions && (
             <div
-              className={`mt-[30px] flex flex-wrap gap-2.5 max-[900px]:*:flex-[1_1_100%] ${fadeIn}`}
+              className={`mt-[30px] flex flex-wrap gap-2.5 max-[900px]:*:flex-[1_1_100%] min-[901px]:mt-[min(30px,3.4vh)] min-[901px]:flex-nowrap min-[901px]:*:flex-none ${fadeIn}`}
               style={{ "--d": "520ms" } as React.CSSProperties}
             >
               {actions}
@@ -167,7 +177,7 @@ export function MkHero({
           )}
         </div>
         {visual && (
-          <div className="relative self-end motion-safe:animate-rise motion-safe:[animation-delay:var(--d,200ms)]">
+          <div className="relative self-end max-h-[calc(100svh-var(--header-h)-3rem)] overflow-hidden motion-safe:animate-rise motion-safe:[animation-delay:var(--d,200ms)]">
             {visual}
           </div>
         )}

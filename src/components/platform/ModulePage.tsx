@@ -134,6 +134,9 @@ export async function ModulePage({ slug }: { slug: string }) {
   const pages = getLivePages(m.slug);
   const soonPages = getProductPages(m.slug).filter((p) => p.soon);
   const tour = MODULE_TOURS[m.slug];
+  // The hero fits one screen: the short line, or the admin summary when it is just as short.
+  const summary = v.marketing?.summary?.trim();
+  const heroLead = summary && summary.length <= 160 ? summary : m.description;
 
   return (
     <div className="w-full">
@@ -157,7 +160,7 @@ export async function ModulePage({ slug }: { slug: string }) {
           </div>
         }
         title={m.tagline}
-        lead={v.marketing?.summary?.trim() || m.longDescription}
+        lead={heroLead}
         actions={
           <>
             <PrimaryCta lg />
