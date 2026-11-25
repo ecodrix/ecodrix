@@ -19,7 +19,6 @@ export function WorksWith() {
           items={[
             { label: "WhatsApp", icon: "whatsapp" },
             { label: "Phone calls", icon: "phone" },
-            { label: "Google Calendar and Meet", icon: "googlecalendar" },
           ]}
         />
       </div>

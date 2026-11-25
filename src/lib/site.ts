@@ -137,7 +137,7 @@ export const INDUSTRY_NAV = [
     summary: "Night enquiries, weekend site visits, the token amount.",
     card: {
       headline: "Night enquiries answered, site visits booked.",
-      text: "The agent replies from your project details, books the weekend visit, and follow-ups go out on their own.",
+      text: "The AI employee replies from your project details, books the weekend visit, and follow-ups go out on their own.",
     },
   },
   {
@@ -200,7 +200,7 @@ export const RESOURCE_NAV = [
     summary: "Step-by-step setup for every channel.",
     card: {
       headline: "Set up ERIX one step at a time.",
-      text: "WhatsApp and Google Meet in plain steps. Website chat, email and payment guides are coming soon.",
+      text: "WhatsApp in plain steps. Website chat, email and payment guides are coming soon.",
       cta: "See all guides",
     },
   },
@@ -242,16 +242,6 @@ export const GUIDE_NAV = [
     card: {
       headline: "How many people can you message a day?",
       text: "Meta's messaging tiers, how a number moves up, and what keeps it in good standing.",
-    },
-  },
-  {
-    icon: "calendar-days",
-    name: "Google Calendar and Meet",
-    href: "/platform/erix-crm/google-meet-guide",
-    summary: "Bookings with a Meet link.",
-    card: {
-      headline: "Bookings on your calendar, with a Meet link.",
-      text: "Connect Google, create appointment types, set your hours and share one booking link.",
     },
   },
 ] as const satisfies readonly {

@@ -45,8 +45,8 @@ export function Agents() {
           <Icon name="sparkles" variant="solid" size={12} /> AI Employee
         </span>
       }
-      title="Agents, not template chatbots"
-      lead="A template bot asks people to pick 1, 2 or 3, and most of them leave. An ERIX agent reads your price list, hours and listings, answers like your best front-desk person, and knows when to stop and ask you."
+      title="AI employees, not template chatbots"
+      lead="A template bot asks people to pick 1, 2 or 3, and most of them leave. An ERIX AI employee reads your price list, hours and listings, answers like your best front-desk person, and knows when to stop and ask you."
     >
       <div className="grid items-start gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
         <div>
@@ -59,7 +59,7 @@ export function Agents() {
             </figure>
             <figure className="rounded-[12px] bg-white/10 p-4 ring-1 ring-[var(--ai)]">
               <figcaption className="flex items-center gap-1.5 text-[13px] font-semibold text-ai">
-                <Icon name="sparkles" variant="solid" size={14} /> ERIX agent
+                <Icon name="sparkles" variant="solid" size={14} /> ERIX AI employee
               </figcaption>
               <p className="mt-2 text-[15px] text-white">
                 “Yes, every 3BHK comes with covered parking. Want to see it on Saturday?”

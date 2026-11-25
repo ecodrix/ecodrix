@@ -280,7 +280,7 @@ const platformData = (platform: readonly PlatformNavItem[]): PanelData => ({
       key: "/#story",
       kicker: "The ERIX story",
       headline: "One enquiry, from a 9:42 pm message to a booked visit.",
-      text: "Follow it through the inbox, the agent, the pipeline and Flow.",
+      text: "Follow it through the inbox, the AI employee, the pipeline and Flow.",
       cta: { label: "See the story", href: "/#story" },
     },
     ...platform.map((mod) => ({

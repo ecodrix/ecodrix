@@ -34,7 +34,7 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
       {
         icon: "calendar-check",
         title: "Appointments",
-        text: "Booking pages in IST, Google Calendar and Meet, reminders, no double bookings.",
+        text: "Booking pages in IST, reminders, no double bookings.",
       },
       {
         icon: "receipt",
@@ -62,7 +62,7 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
       {
         icon: "calendar",
         title: "Google Calendar and Meet",
-        text: "Bookings land on your calendar, with a Meet link for online calls.",
+        text: "Coming soon.",
       },
     ],
   },

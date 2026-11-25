@@ -97,7 +97,7 @@ export function humaniseFeatures(plan: PublicPlan): string[] {
   const connect = f.connect ?? {};
   const n = (q: Quota | undefined, one: string, many = `${one}s`) => `${fmtQuota(q)} ${q === 1 ? one : many}`;
   const bullets = [
-    erix.aiAgent ? "AI agent" : null,
+    erix.aiAgent ? "AI employee" : null,
     `${fmtQuota(f.ai?.callsPerMonth)} AI requests / month`,
     n(erix.agents, "team member"),
     `Up to ${fmtQuota(erix.contacts)} contacts`,

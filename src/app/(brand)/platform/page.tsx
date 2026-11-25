@@ -44,7 +44,7 @@ export const metadata = {
 const PLATFORM_FAQS = [
   {
     q: "What does ERIX include today?",
-    a: "ERIX 1.0 is live with four parts on one customer record. ERIX CRM: contacts, pipeline, forms and appointments. ERIX Connect: the WhatsApp inbox and phone calls, with Google Calendar and Meet for bookings. ERIX Flow: automations, templates, approvals, Wait for a reply and AI reply. AI Employee: answers from your own business details and hands the rest to your team. Instagram DMs, email, website chat, GST invoices and payment links are coming soon.",
+    a: "ERIX 1.0 is live with four parts on one customer record. ERIX CRM: contacts, pipeline, forms and appointments. ERIX Connect: the WhatsApp inbox and phone calls. ERIX Flow: automations, templates, approvals, Wait for a reply and AI reply. AI Employee: answers from your own business details and hands the rest to your team. Instagram DMs, email, website chat, Google Calendar and Meet, GST invoices and payment links are coming soon.",
   },
   {
     q: "Is there a public ERIX API?",
@@ -107,7 +107,7 @@ const chapters: Chapter[] = [
     points: [
       "Pipeline stages made for your industry, totals in rupees",
       "Forms and booking pages that add contacts by themselves",
-      "Appointments in IST on Google Calendar, with no double bookings",
+      "Appointments in IST, with no double bookings",
     ],
     link: { href: "/platform/erix-crm", label: "Explore ERIX CRM" },
     visual: <LazyScreen name="pipeline" />,
@@ -152,7 +152,6 @@ const INCLUDED: { icon: GlyphName; title: string; ai?: boolean; items: string[] 
       "One inbox with sent, delivered and read ticks, on the right contact",
       "Broadcasts to a segment, paced, with quiet hours from 9 pm to 9 am",
       "WhatsApp opt-in, the 24-hour window and STOP replies handled for you",
-      "Google Calendar and Meet links for online bookings",
     ],
   },
   {
@@ -197,9 +196,9 @@ const INCLUDED: { icon: GlyphName; title: string; ai?: boolean; items: string[] 
 /** Built or planned but not in 1.0 for every workspace (VERSION_PLAN). */
 const LATER = [
   { label: "Instagram DMs, email and website chat", when: "Coming soon" },
+  { label: "Google Calendar and Meet for bookings", when: "Coming soon" },
   { label: "GST invoices, payment links and proposals", when: "Coming soon" },
   { label: "Projects, e-sign and the client portal", when: "Coming soon" },
-  { label: "Messenger and Telegram inboxes", when: "Version 1.2" },
   { label: "Webhooks, more schedules and connected apps", when: "Version 1.2" },
   { label: "Lead scoring, referrals, reviews and memberships", when: "Version 1.2" },
   { label: "Instagram posts and a content calendar", when: "Version 1.3" },

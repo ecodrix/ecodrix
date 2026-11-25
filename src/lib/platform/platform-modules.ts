@@ -119,10 +119,6 @@ export const PLATFORM_MODULES: PlatformModule[] = [
         title: "An inbox that shows what needs you",
         body: "Unread counts, a Needs you list for handed-over chats, and AI drafts that show where the answer came from.",
       },
-      {
-        title: "Calendar",
-        body: "Google Calendar and Meet for bookings.",
-      },
     ],
     steps: [
       "Connect WhatsApp with Meta's Embedded Signup, using your own WhatsApp Business account.",
@@ -173,7 +169,7 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       },
       {
         title: "AI reply",
-        body: "Let the AI agent answer inside an automation, from your own knowledge. It drafts for a person by default.",
+        body: "Let the AI employee answer inside an automation, from your own knowledge. It drafts for a person by default.",
       },
       {
         title: "Approvals before it acts",

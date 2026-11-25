@@ -27,9 +27,9 @@ const chapters: Chapter[] = [
     id: "agent",
     marker: "9:42 pm",
     markerIcon: "moon",
-    module: "AI agent",
+    module: "AI employee",
     ai: true,
-    title: "The agent answers from what you taught it",
+    title: "The AI employee answers from what you taught it",
     body: "It reads your listings, price list and hours, and replies on its own only when the answer is there. A discount request isn't, so it writes a draft and waits for you. A refund always goes to a person.",
     points: [
       "Starts in Suggest: it drafts, you send",
@@ -66,7 +66,7 @@ const chapters: Chapter[] = [
     module: "ERIX CRM",
     icon: "calendar-check",
     title: "The visit is booked, without phone tag",
-    body: "Rohan picks a free slot on your booking page, in IST, and two people can never take the same one. The visit lands on your Google Calendar and a WhatsApp reminder goes out before it. Online meetings get a Google Meet link.",
+    body: "Rohan picks a free slot on your booking page, in IST, and two people can never take the same one. A WhatsApp reminder goes out before the visit. Google Calendar and Meet are coming soon.",
     visual: <LazyScreen name="booking" />,
   },
   {

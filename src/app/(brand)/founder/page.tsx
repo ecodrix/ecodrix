@@ -17,7 +17,7 @@ const { BASE_URL, PORTFOLIO_URL } = SEO_CONSTANTS;
 export const metadata = {
   title: "Dhanesh M — Founder of ECODrIx",
   description:
-    "Dhanesh M (Erix) is the founder of ECODrIx, the Indian company behind ERIX: CRM, WhatsApp inbox, AI agents and automation for SMBs.",
+    "Dhanesh M (Erix) is the founder of ECODrIx, the Indian company behind ERIX: CRM, WhatsApp inbox, AI employees and automation for SMBs.",
   keywords: [
     "Dhanesh M",
     "Dhanesh Mekalthuru",
@@ -41,15 +41,15 @@ export const metadata = {
 const FOUNDER_FAQS = [
   {
     q: "Who is Dhanesh M?",
-    a: "Dhanesh M (known online as Erix or erix.dhanesh) is the founder and CEO of ECODrIx, the Indian company behind ERIX. He is a full-stack engineer based in Andhra Pradesh, India, and started the ERIX suite in August 2025: ERIX CRM, ERIX Connect, ERIX Flow and AI agents for businesses that sell over WhatsApp.",
+    a: "Dhanesh M (known online as Erix or erix.dhanesh) is the founder and CEO of ECODrIx, the Indian company behind ERIX. He is a full-stack engineer based in Andhra Pradesh, India, and started the ERIX suite in August 2025: ERIX CRM, ERIX Connect, ERIX Flow and AI employees for businesses that sell over WhatsApp.",
   },
   {
     q: "When did ERIX start?",
-    a: "In August 2025, when Dhanesh founded ECODrIx. ERIX 1.0 brings CRM, Connect, Flow and AI agents together.",
+    a: "In August 2025, when Dhanesh founded ECODrIx. ERIX 1.0 brings CRM, Connect, Flow and AI employees together.",
   },
   {
     q: "What does ERIX do for a business?",
-    a: "Every WhatsApp message and call lands in one inbox on the right contact. AI agents answer from the business's own information, the pipeline tracks each deal, and automations run the follow-ups.",
+    a: "Every WhatsApp message and call lands in one inbox on the right contact. AI employees answer from the business's own information, the pipeline tracks each deal, and automations run the follow-ups.",
   },
   {
     q: "Where is Dhanesh based?",
@@ -95,8 +95,8 @@ export default function FounderPage() {
                 automation.
               </p>
               <p>
-                Today that is one product: ERIX CRM, ERIX Connect, ERIX Flow and AI agents that take care of enquiries
-                from the first message to the booked visit.
+                Today that is one product: ERIX CRM, ERIX Connect, ERIX Flow and AI employees that take care of
+                enquiries from the first message to the booked visit.
               </p>
             </div>
             <ul className="mt-6 flex flex-wrap gap-2">

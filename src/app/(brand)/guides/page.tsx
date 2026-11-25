@@ -12,7 +12,7 @@ import { pageMetadata } from "@/lib/seo/seo";
 
 export const metadata = pageMetadata({
   title: "ERIX setup guides",
-  description: "Step-by-step guides to set up ERIX: the WhatsApp Business API and Google Meet bookings.",
+  description: "Step-by-step guides to set up ERIX: the WhatsApp Business API.",
   path: "/guides",
 });
 
@@ -45,8 +45,7 @@ export default function GuidesPage() {
             Set up ERIX, one step at a time
           </h1>
           <p className="mt-5 max-w-[62ch] text-[clamp(16px,1.5vw,19px)] leading-relaxed text-muted-foreground">
-            Plain steps for connecting your WhatsApp number and taking bookings with Google Meet. Website chat, email
-            and payment guides are coming soon.
+            Plain steps for connecting your WhatsApp number. Website chat, email and payment guides are coming soon.
           </p>
           <div className="mt-8">
             <PrimaryCta />
