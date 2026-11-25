@@ -1,27 +1,34 @@
-import { MkSection } from "@/components/marketing/kit";
+import { HeroMotif, MkSection } from "@/components/marketing/kit";
 import { BlogIndex } from "@/components/resources/blog/BlogIndex";
 import { SubscribeCard } from "@/components/resources/blog/SubscribeForm";
 
 export function BlogPage({ posts }: { posts: BlogSummary[] }) {
   return (
     <div className="w-full">
-      <section data-tone="subtle" className="py-section bg-background pt-12! pb-10! md:pt-16! md:pb-12!">
-        <div className="mx-auto w-full max-w-wrap px-gutter">
-          <h1 className="text-[clamp(38px,5.4vw,60px)] leading-[1.04] tracking-[-0.035em]">The ERIX blog</h1>
-          <p className="mt-4 max-w-[56ch] text-[clamp(16px,1.5vw,19px)] leading-relaxed text-muted-foreground">
-            Practical notes on WhatsApp selling, pipelines, GST invoicing and automation for Indian businesses.
-          </p>
+      {/* The site's navy hero, kept short: a blog visitor came for the posts right under it. */}
+      <section className="band-navy relative py-[clamp(40px,6vw,64px)]" aria-labelledby="blog-title">
+        <HeroMotif />
+        <div className="relative mx-auto grid w-full max-w-wrap items-center gap-[clamp(28px,5vw,64px)] px-gutter min-[900px]:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)]">
+          <div className="min-w-0">
+            <h1 id="blog-title" className="font-display text-mk-hero text-balance text-white">
+              The ERIX blog
+            </h1>
+            <p className="mt-[22px] max-w-[34em] font-sans text-mk-hero-lead text-pretty text-white/80">
+              Practical notes on WhatsApp selling, pipelines, GST invoicing and automation for Indian businesses.
+            </p>
+          </div>
+          {/* surface-light: the form keeps its normal light colours inside the navy band. */}
+          <div
+            id="subscribe"
+            className="surface-light min-w-0 scroll-mt-24 rounded-[16px] bg-surface p-6 text-foreground sm:p-8 min-[900px]:justify-self-end min-[900px]:max-w-[520px]"
+          >
+            <SubscribeCard />
+          </div>
         </div>
       </section>
 
       <MkSection id="posts" className="pt-8! md:pt-10!">
         <BlogIndex posts={posts} />
-      </MkSection>
-
-      <MkSection id="subscribe" tone="subtle">
-        <div className="mx-auto max-w-xl rounded-[16px] bg-surface p-6 shadow-card sm:p-8">
-          <SubscribeCard />
-        </div>
       </MkSection>
     </div>
   );
