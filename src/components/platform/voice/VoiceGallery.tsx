@@ -1,22 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { Fragment, type RefObject, useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/icons";
 import { cn } from "@/lib/utils";
-import { ComingSoon, INDIC_FONT, LangTabs } from "./LangTabs";
-import { type PlayerView, useGalleryPlayer } from "./use-gallery-player";
-import { setVoiceLang, useVoiceLang } from "./use-voice-lang";
+import { INDIC_FONT, LangTabs } from "./LangTabs";
+import { ClipError, FOCUS, PlayerRow } from "./PlayerRow";
+import { useVoiceLang } from "./use-voice-lang";
 import {
   AUDIO,
   type Audio,
-  assistantVoice,
   CALLS,
   type Call,
+  callVoices,
   type Lang,
+  speakerLabel,
   type TagKind,
-  voiceNumber,
   type Who,
 } from "./voice-calls";
+import { callClip, pickLang, voiceDomId } from "./voice-clips";
+import { showVoice } from "./voice-nav";
+import { play, usePlayer } from "./voice-player";
 
 const GRID_ID = "voice-grid";
 
@@ -26,201 +30,297 @@ const TAG_ICON: Record<TagKind, "check" | "phone-incoming" | "phone-forwarded"> 
   hand: "phone-forwarded",
 };
 
-const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, "0")}`;
-
 /** Index of the line being spoken at time t: the last seg that has started, so gaps keep the previous line. */
-const lineAt = (segs: readonly (readonly [Who, number, number])[], t: number) =>
+export const lineAt = (segs: Audio["segs"], t: number) =>
   Math.max(
     0,
     segs.findLastIndex((s) => t >= s[1]),
   );
 
-/** Each bar takes its speaker from the seg at the bar's centre time (assistant = purple, anyone else neutral). */
-const barIsAssistant = (segs: readonly (readonly [Who, number, number])[], dur: number, k: number, n: number) => {
-  const at = ((k + 0.5) / n) * dur;
-  return segs.find((s) => at >= s[1] && at <= s[2])?.[0] === "r";
-};
-
-function Caption({ c, who, text }: { c: Call; who: Who; text: string }) {
-  if (who === "e") return <>{text}</>;
-  const name = who === "r" ? "Assistant" : who === "c" ? c.caller : c.human;
+/** The voices of a call as links to their tiles in the library: on this page they focus the tile, elsewhere they open it. */
+export function VoiceLinks({ c, lang }: { c: Call; lang: Lang }) {
   return (
-    <>
-      <b className={cn("font-semibold", who === "r" ? "text-ai" : "text-foreground")}>{name}</b> {text}
-    </>
+    <ul className="flex list-none flex-wrap gap-x-4">
+      {callVoices(c, lang).map(({ role, code, name }) => {
+        const label = `${role} ${name}, go to this voice in the library`;
+        const cls = cn(
+          "inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center px-0.5 text-[14px] font-bold text-accent underline underline-offset-[3px]",
+          FOCUS,
+        );
+        return (
+          <li key={role} className="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground">
+            <span>{role}</span>
+            <Link
+              href={`/platform/erix-voice/voices#${voiceDomId(code)}`}
+              aria-label={label}
+              onClick={(e) => {
+                if (showVoice(code)) e.preventDefault();
+              }}
+              className={cls}
+            >
+              {name}
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 
+export function CallMeta({ c, playing }: { c: Call; playing: boolean }) {
+  return (
+    <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
+      {playing && (
+        <span aria-hidden="true" className="inline-flex h-3.5 items-end gap-0.5">
+          {[0, 1, 2].map((i) => (
+            <i
+              key={i}
+              style={{ animationDelay: `${-i * 0.3}s` }}
+              className="h-full w-[3px] origin-bottom rounded-[1px] bg-accent motion-safe:animate-pulse"
+            />
+          ))}
+        </span>
+      )}
+      <span className="text-[15px] font-bold text-foreground">{c.ind}</span>
+      <span aria-hidden="true">·</span>
+      <span>{c.dir}</span>
+      <span
+        className={cn(
+          "ml-auto inline-flex items-center gap-1.5 rounded-full px-3 py-0.5 font-semibold whitespace-nowrap",
+          c.tag[0] === "book" ? "bg-accent-muted text-accent" : "bg-background text-foreground",
+        )}
+      >
+        <Icon name={TAG_ICON[c.tag[0]]} size={14} variant="line" />
+        {c.tag[1]}
+      </span>
+    </div>
+  );
+}
+
+/** Top of a card: trade, call kind and outcome. The equalizer keeps its space while idle so playing moves nothing. */
+function CardMeta({ c, playing }: { c: Call; playing: boolean }) {
+  return (
+    <div className="flex items-start justify-between gap-2">
+      <div className="min-w-0">
+        <p className="text-[15px] leading-tight font-bold text-foreground">{c.ind}</p>
+        <p className="mt-1 flex h-4 items-center gap-2 text-[13px] text-muted-foreground">
+          {c.dir}
+          <span aria-hidden="true" className={cn("inline-flex h-3.5 items-end gap-0.5", !playing && "invisible")}>
+            {[0, 1, 2].map((i) => (
+              <i
+                key={i}
+                style={{ animationDelay: `${-i * 0.3}s` }}
+                className="h-full w-[3px] origin-bottom rounded-[1px] bg-accent motion-safe:animate-pulse"
+              />
+            ))}
+          </span>
+        </p>
+      </div>
+      <span
+        className={cn(
+          "inline-flex flex-none items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[13px] font-semibold whitespace-nowrap",
+          c.tag[0] === "book" ? "bg-accent-muted text-accent" : "bg-background text-foreground",
+        )}
+      >
+        <Icon name={TAG_ICON[c.tag[0]]} size={14} variant="line" />
+        {c.tag[1]}
+      </span>
+    </div>
+  );
+}
+
+/** A compact card: the title takes the spare height, so players line up along a row whatever the title or voices need. */
 function CallCard({
   c,
   lang,
   audio,
-  view,
-  onPlay,
+  open,
+  onToggle,
 }: {
   c: Call;
   lang: Lang;
   audio: Audio;
-  view: PlayerView | null;
-  onPlay: () => void;
+  open: boolean;
+  onToggle: () => void;
 }) {
-  const [open, setOpen] = useState(false);
-  const lines = c.lines[lang];
-  const t = view?.t ?? 0;
-  const playing = !!view?.playing;
-  const started = !!view;
-  const lit = started ? Math.round((t / audio.dur) * audio.peaks.length) : 0;
-  const cur = started ? lineAt(audio.segs, t) : 0;
-  const voice = assistantVoice(c, lang);
-  const [capWho, capText] = lines[cur];
-  const label = `${playing ? "Pause" : "Play"}: ${c.title}`;
+  const clip = callClip(c.id, lang);
+  const st = usePlayer(clip.id);
+  const playing = !!st?.playing;
 
   return (
     <article
+      id={clip.domId}
       className={cn(
-        "flex flex-col gap-3.5 rounded-xl border bg-surface px-5 pt-5 pb-4 transition-[border-color] duration-300 motion-reduce:transition-none",
-        playing ? "border-ai/45" : "border-border",
+        "flex min-w-0 scroll-mt-24 flex-col rounded-2xl border bg-surface p-4",
+        playing ? "border-accent outline outline-1 -outline-offset-2 outline-accent" : "border-border",
       )}
     >
-      <div className="flex justify-between gap-3 text-[13px] font-semibold text-subtle">
-        <span>{c.ind}</span>
-        <span className="font-medium tabular-nums">{fmt(started ? Math.max(0, audio.dur - t) : audio.dur)}</span>
-      </div>
-      <h3 className="-mt-1.5 min-h-[2.6em] font-display text-[18px] leading-[1.3] font-semibold tracking-[-0.01em] text-balance">
+      <CardMeta c={c} playing={playing} />
+      <h3 className="mt-3 mb-3 font-display text-[18px] leading-snug font-bold tracking-[-0.01em] text-balance">
         {c.title}
       </h3>
-      <div className="flex min-w-0 items-center gap-2.5 text-[14px]">
-        <span
-          aria-hidden="true"
-          className="grid size-7 flex-none place-items-center rounded-full bg-ai-subtle font-display text-[12px] leading-none font-semibold text-ai"
-        >
-          {voiceNumber(voice)}
-        </span>
-        <span className="min-w-0 leading-tight">
-          <b className="font-semibold">Assistant</b> <span className="text-subtle">· {voice}</span>
-          <span className="block truncate text-[13px] text-subtle">{c.dir}</span>
-        </span>
-      </div>
-      <div className="flex items-center gap-3.5">
-        <button
-          type="button"
-          aria-label={label}
-          onClick={onPlay}
-          className="grid size-[46px] flex-none cursor-pointer place-items-center rounded-full bg-accent text-accent-foreground transition-transform duration-150 hover:scale-105 hover:bg-accent-hover active:scale-95 motion-reduce:transition-none motion-reduce:hover:scale-100"
-        >
-          <Icon name={playing ? "pause" : "play"} size={16} variant="solid" />
-        </button>
-        <div
-          aria-hidden="true"
-          data-idle={started ? undefined : ""}
-          className="mk-wave flex h-10 min-w-0 flex-1 items-center justify-between gap-px"
-        >
-          {audio.peaks.map((h, i) => (
-            <i
-              // biome-ignore lint/suspicious/noArrayIndexKey: fixed-length decorative bars
-              key={i}
-              style={{ height: `${Math.round(h * 100)}%`, "--i": i % 24 } as React.CSSProperties}
-              className={cn(
-                "min-w-px max-w-1 flex-1 rounded-sm transition-colors duration-150 motion-reduce:transition-none",
-                barIsAssistant(audio.segs, audio.dur, i, audio.peaks.length)
-                  ? i < lit
-                    ? "bg-ai"
-                    : "bg-ai/35"
-                  : i < lit
-                    ? "bg-muted-foreground"
-                    : "bg-foreground/20",
-              )}
-            />
-          ))}
+      <div className="mt-auto">
+        <div className="mb-2">
+          <VoiceLinks c={c} lang={lang} />
         </div>
-      </div>
-      <p
-        lang={lang}
-        style={lang === "en" ? undefined : INDIC_FONT}
-        className={cn("min-h-[2.9em] text-[14px] leading-[1.45]", started ? "text-muted-foreground" : "text-subtle")}
-      >
-        <Caption c={c} who={capWho} text={capText} />
-      </p>
-      <div className="flex items-center justify-between gap-3 border-t border-border pt-3 text-[13px]">
+        <PlayerRow clip={clip} peaks={audio.peaks} idPrefix={`play-${c.id}`} compact />
+        <ClipError id={clip.id} />
         <button
           type="button"
           aria-expanded={open}
-          aria-controls={`tr-${c.id}`}
-          onClick={() => setOpen((o) => !o)}
-          className="inline-flex cursor-pointer items-center gap-1.5 py-1 max-sm:min-h-10 font-semibold text-muted-foreground"
-        >
-          Transcript
-          <Icon
-            name="chevron-down"
-            size={14}
-            variant="line"
-            className={cn("transition-transform duration-200 motion-reduce:transition-none", open && "rotate-180")}
-          />
-        </button>
-        <span
+          aria-controls={open ? `tr-${c.id}` : undefined}
+          onClick={onToggle}
           className={cn(
-            "inline-flex h-7 items-center gap-1.5 rounded-full border px-2.5 text-[12.5px] font-semibold whitespace-nowrap",
-            c.tag[0] === "book"
-              ? "border-transparent bg-accent-muted text-accent on-dark:text-on-navy-link"
-              : "border-border text-muted-foreground",
+            "mt-1 -mb-1 inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-lg px-1 text-[15px] font-semibold text-accent",
+            FOCUS,
           )}
         >
-          <Icon name={TAG_ICON[c.tag[0]]} size={14} variant="line" />
-          {c.tag[1]}
-        </span>
+          {open ? "Hide transcript" : "Show transcript"}
+          <Icon name="chevron-down" size={14} variant="line" className={cn(open && "rotate-180")} />
+        </button>
       </div>
-      <ol
-        id={`tr-${c.id}`}
-        lang={lang}
-        hidden={!open}
-        style={lang === "en" ? undefined : INDIC_FONT}
-        className="grid gap-2 text-[14px] leading-[1.45] text-muted-foreground"
-      >
-        {lines.map(([who, text], i) => (
-          <li
-            // biome-ignore lint/suspicious/noArrayIndexKey: static transcript, order never changes
-            key={i}
-            className={cn(who === "e" && "text-[12.5px] text-subtle", started && cur === i && "text-foreground")}
-          >
-            <Caption c={c} who={who} text={text} />
-          </li>
-        ))}
-      </ol>
     </article>
   );
 }
 
-/** Language tabs plus the call cards (`limit` for a teaser), on the page's shared player. */
-export function VoiceGallery({ limit = CALLS.length }: { limit?: number }) {
-  const lang = useVoiceLang();
-  const { view, play, stop } = useGalleryPlayer();
-  // Any language change (here or in the voice library) stops the playing clip.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: `lang` is the trigger
-  useEffect(stop, [lang, stop]);
+/** The opened transcript: a full-width panel under the card's row, so its lines never get squeezed into a narrow card or stretch the cards beside it. */
+function Transcript({ c, lang, audio, onClose }: { c: Call; lang: Lang; audio: Audio; onClose: () => void }) {
+  const clip = callClip(c.id, lang);
+  const st = usePlayer(clip.id);
+  const cur = st && !st.error ? lineAt(audio.segs, st.t) : -1;
+  return (
+    <section
+      id={`tr-${c.id}`}
+      aria-labelledby={`tr-${c.id}-h`}
+      lang={lang}
+      className="col-span-full rounded-2xl border border-border bg-surface p-4 min-[900px]:p-5"
+    >
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-x-4">
+        <h3 id={`tr-${c.id}-h`} lang="en" className="text-[15px] font-bold">
+          {c.ind}: {c.title}
+        </h3>
+        <button
+          type="button"
+          onClick={onClose}
+          className={cn(
+            "inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-lg px-1 text-[15px] font-semibold text-accent",
+            FOCUS,
+          )}
+        >
+          Hide transcript
+          <Icon name="chevron-down" size={14} variant="line" className="rotate-180" />
+        </button>
+      </div>
+      <ol className="grid max-w-3xl list-none gap-0.5" style={lang === "en" ? undefined : INDIC_FONT}>
+        <li lang="en" className="px-3 text-[13px] text-muted-foreground">
+          Press a line to jump to it.
+        </li>
+        {c.lines[lang].map(([who, text], i) => (
+          <TranscriptLine
+            key={`${who}-${text}`}
+            who={who}
+            text={text}
+            now={cur === i}
+            onJump={() => play(clip, audio.segs[i]?.[1] ?? 0)}
+          />
+        ))}
+      </ol>
+    </section>
+  );
+}
 
+function TranscriptLine({ who, text, now, onJump }: { who: Who; text: string; now: boolean; onJump: () => void }) {
+  return (
+    <li>
+      <button
+        type="button"
+        onClick={onJump}
+        aria-current={now ? "true" : undefined}
+        className={cn(
+          "w-full cursor-pointer rounded-md border-l-[3px] px-3 py-2 text-left text-[17px] leading-[1.7] [overflow-wrap:anywhere] max-[420px]:block min-[421px]:grid min-[421px]:grid-cols-[80px_minmax(0,1fr)] min-[421px]:gap-2 min-h-11",
+          who === "r"
+            ? "border-l-ai"
+            : who === "e"
+              ? "border-l-accent/40 text-[15px] leading-normal text-muted-foreground"
+              : "border-l-transparent",
+          now && "bg-accent-muted",
+          FOCUS,
+        )}
+      >
+        {who !== "e" && (
+          <span
+            lang="en"
+            className={cn(
+              "block pt-1.5 font-sans text-[13px] font-bold max-[420px]:pt-0",
+              who === "r" ? "text-ai" : "text-muted-foreground",
+            )}
+          >
+            {speakerLabel(who)}
+          </span>
+        )}
+        <span>{text}</span>
+      </button>
+    </li>
+  );
+}
+
+/** Columns the grid shows right now, read from CSS so the breakpoints live in one place (the class below). */
+function useColumns(ref: RefObject<HTMLElement | null>) {
+  const [cols, setCols] = useState(1);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const read = () => setCols(getComputedStyle(el).gridTemplateColumns.split(" ").length || 1);
+    read();
+    const ro = new ResizeObserver(read);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [ref]);
+  return cols;
+}
+
+/** The call cards (`limit` for a teaser) on the page's one player; `tabs` adds its own language tabs for pages without the switch bar. */
+export function VoiceGallery({ limit = CALLS.length, tabs = true }: { limit?: number; tabs?: boolean }) {
+  const lang = useVoiceLang();
+  const grid = useRef<HTMLDivElement>(null);
+  const cols = useColumns(grid);
+  // Open transcripts, kept here (not per card) so a panel can sit under the end of its card's row.
+  const [open, setOpen] = useState<Record<string, boolean>>({});
+  const flip = (id: string) => setOpen((o) => ({ ...o, [id]: !o[id] }));
+  const calls = CALLS.slice(0, limit);
   return (
     <>
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2.5">
-        <LangTabs lang={lang} onPick={setVoiceLang} label="Call language" prefix="tab" controls={GRID_ID} />
-        <ComingSoon />
-      </div>
+      {tabs && <LangTabs lang={lang} onPick={pickLang} label="Call language" prefix="tab" controls={GRID_ID} />}
       <div
+        ref={grid}
         id={GRID_ID}
-        role="tabpanel"
-        aria-labelledby={`tab-${lang}`}
-        className="mt-6 grid grid-cols-1 gap-4 min-[600px]:grid-cols-2 min-[900px]:grid-cols-3 min-[1120px]:grid-cols-4"
+        {...(tabs ? { role: "tabpanel", "aria-labelledby": `tab-${lang}` } : {})}
+        className={cn(
+          "grid grid-cols-1 gap-3 min-[600px]:grid-cols-2 min-[1200px]:grid-cols-4",
+          // A teaser of four stays 2 + 2 in between, so no card sits alone on a row.
+          limit > 4 && "min-[900px]:grid-cols-3",
+          tabs && "mt-6",
+        )}
       >
-        {CALLS.slice(0, limit).map((c) => {
-          const a = AUDIO[c.id][lang];
+        {calls.map((c, i) => {
+          const endOfRow = (i + 1) % cols === 0 || i === calls.length - 1;
           return (
-            <CallCard
-              key={`${lang}-${c.id}`}
-              c={c}
-              lang={lang}
-              audio={a}
-              view={view?.id === c.id ? view : null}
-              onPlay={() => play(c.id, a.src, a.dur)}
-            />
+            <Fragment key={c.id}>
+              <CallCard c={c} lang={lang} audio={AUDIO[c.id][lang]} open={!!open[c.id]} onToggle={() => flip(c.id)} />
+              {endOfRow &&
+                calls
+                  .slice(i - (i % cols), i + 1)
+                  .filter((r) => open[r.id])
+                  .map((r) => (
+                    <Transcript
+                      key={`tr-${r.id}`}
+                      c={r}
+                      lang={lang}
+                      audio={AUDIO[r.id][lang]}
+                      onClose={() => flip(r.id)}
+                    />
+                  ))}
+            </Fragment>
           );
         })}
       </div>

@@ -1,5 +1,6 @@
 {
-  "_about": "PRIVATE render config: ERIX voice code -> provider speaker (Sarvam bulbul:v3). Read only by scripts/voice-samples.py; never imported by the site, so provider names stay out of the pages.",
+  "_about": "PRIVATE render config: ERIX voice code -> provider speaker. Read by scripts/voice-samples.py. The first names (key ids, capitalised) are public since 25 Nov 2026 and shown on the site through src/components/platform/voice/voice-names.ts; the provider is never named on the pages.",
+  "model": "bulbul:v3",
   "ids": {
     "Voice 01": "aayan",
     "Voice 02": "aditya",

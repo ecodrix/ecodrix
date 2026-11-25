@@ -68,13 +68,3 @@ export function LangTabs({
     </div>
   );
 }
-
-/** The not-yet-live languages, as one quiet line that wraps below the tabs as a unit. */
-export function ComingSoon() {
-  return (
-    <p className="text-[13px] whitespace-nowrap text-subtle" style={INDIC_FONT}>
-      More samples soon: <span lang="ta">தமிழ்</span> · <span lang="kn">ಕನ್ನಡ</span> · <span lang="ml">മലയാളം</span> + 5
-      more
-    </p>
-  );
-}

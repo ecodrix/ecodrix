@@ -1,5 +1,6 @@
 import audioJson from "./voice-calls.audio.json";
 import callsJson from "./voice-calls.json";
+import { voiceName } from "./voice-names";
 
 /** Types over the two JSON files: voice-calls.json (transcripts, voices) and voice-calls.audio.json (rendered by scripts/voice-samples.py). */
 export type Lang = "en" | "hi" | "te";
@@ -16,7 +17,7 @@ export type Call = {
   tag: readonly [TagKind, string];
   caller: string;
   human?: string;
-  voices: { r: Record<Lang, string> };
+  voices: Partial<Record<"r" | "c" | "h", Record<Lang, string>>>;
   lines: Record<Lang, readonly Turn[]>;
 };
 export type Audio = {
@@ -35,6 +36,13 @@ export const LANGS: readonly { id: Lang; label: string }[] = (callsJson.langs as
   label: NATIVE[id],
 }));
 
-/** The assistant is shown by its ERIX voice code ("Voice 09"); the avatar shows the number. */
-export const assistantVoice = (c: Call, lang: Lang) => c.voices.r[lang];
-export const voiceNumber = (voice: string) => voice.replace(/^\D+/, "");
+const ROLE = { r: "Assistant", c: "Caller", h: "Team" } as const;
+/** Speaker label for a transcript line. */
+export const speakerLabel = (who: Exclude<Who, "e">) => ROLE[who];
+
+/** Who voices a call in this language, by first name: assistant, caller and (when the call has one) the team. */
+export const callVoices = (c: Call, lang: Lang) =>
+  (["r", "c", "h"] as const).flatMap((k) => {
+    const code = c.voices[k]?.[lang];
+    return code ? [{ role: ROLE[k], code, name: voiceName(code) }] : [];
+  });

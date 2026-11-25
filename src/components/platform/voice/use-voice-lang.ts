@@ -17,6 +17,8 @@ if (typeof window !== "undefined") {
   }
 }
 
+export const getVoiceLang = () => lang;
+
 export function setVoiceLang(next: Lang) {
   if (next === lang) return;
   lang = next;
