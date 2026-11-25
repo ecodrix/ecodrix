@@ -102,7 +102,7 @@ export function Pill({
   );
 }
 
-/** A chat bubble: customer on the left, business (or its AI agent) on the right. */
+/** A chat bubble: customer on the left, business (or its AI employee) on the right. */
 export function Bubble({
   side = "in",
   ai,
@@ -138,7 +138,7 @@ export function Bubble({
     >
       {ai && (
         <span className="mb-1 flex items-center gap-1 text-[11px] font-semibold text-ai">
-          <Sparkles aria-hidden="true" className="size-3" /> AI agent
+          <Sparkles aria-hidden="true" className="size-3" /> AI reply
         </span>
       )}
       <p className="text-foreground">{children}</p>
@@ -157,7 +157,7 @@ export function Bubble({
   );
 }
 
-/** "AI agent is typing" with bouncing dots. */
+/** "AI employee is typing" with bouncing dots. */
 export function Typing({ show, className }: { show: CSSProperties; className?: string }) {
   return (
     <div
@@ -167,7 +167,7 @@ export function Typing({ show, className }: { show: CSSProperties; className?: s
         className,
       )}
     >
-      <Sparkles aria-hidden="true" className="size-3" /> AI agent is typing
+      <Sparkles aria-hidden="true" className="size-3" /> AI employee is typing
       <span className="inline-flex items-center gap-[3px] text-ai">
         <i className="size-1.5 animate-dot rounded-[9999px] bg-current" />
         <i className="size-1.5 animate-dot rounded-[9999px] bg-current [animation-delay:0.15s]" />

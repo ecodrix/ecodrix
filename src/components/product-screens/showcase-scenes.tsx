@@ -3,14 +3,22 @@
  * -connect, -flow): server components driven by the Scene stepper, so each
  * plays only while on screen, pauses off it, and the server HTML (no JS,
  * reduced motion) is the finished frame. Redrawn from the SaaS: the CRM
- * contact timeline and invoice, the Flow canvas (FlowNode run states: done,
+ * contact timeline and appointments, the Flow canvas (FlowNode run states: done,
  * running, needs approval, skipped), Analytics (only the two live charts:
  * new contacts over time, open deal value by stage), a hosted form, Flow
  * templates and the website chat widget. Example data only.
  */
 
 import type { ReactNode } from "react";
-import { CheckCircle2, Clock, type IconComponent, Link2, MessageCircle, Sparkles, Workflow } from "@/components/icons";
+import {
+  CalendarDays,
+  CheckCircle2,
+  Clock,
+  type IconComponent,
+  MessageCircle,
+  Sparkles,
+  Workflow,
+} from "@/components/icons";
 import { Scene } from "@/components/motion/scene";
 import { LiveDot } from "@/components/motion/surface";
 import { AppFrame, Avatar, at, Bubble, Channel, Pill, Ticks, Typing } from "@/components/product-screens/parts";
@@ -30,22 +38,22 @@ const swap = (a: ReactNode, b: ReactNode, step: number, end?: number) => (
   </span>
 );
 
-/* ── CRM: pipeline → contact timeline → proposal, GST invoice, paid ──── */
+/* ── CRM: pipeline → contact timeline → appointment ──── */
 
 const crmEvents: { icon: IconComponent; ai?: boolean; text: string; time: string; step: number }[] = [
   { icon: MessageCircle, text: "WhatsApp: “Is the 3BHK at Baner still available?”", time: "Fri, 9:42 pm", step: 3 },
-  { icon: Sparkles, ai: true, text: "AI agent answered from the Baner listing", time: "Fri, 9:42 pm", step: 4 },
+  { icon: Sparkles, ai: true, text: "AI employee answered from the Baner listing", time: "Fri, 9:42 pm", step: 4 },
   { icon: CheckCircle2, text: "Site visit booked for Sat, 11:30 am", time: "Fri, 9:44 pm", step: 5 },
-  { icon: CheckCircle2, text: "Proposal PRO-0018 accepted on a phone", time: "Mon, 11:20 am", step: 6 },
+  { icon: CheckCircle2, text: "Moved to Site visit booked", time: "Fri, 9:44 pm", step: 6 },
 ];
 
 export function CrmScreen() {
   return (
     <Scene
-      steps={8}
-      timing={[0, 1000, 1200, 900, 900, 900, 1200, 1100, 1300]}
+      steps={7}
+      timing={[0, 1000, 1200, 900, 900, 900, 1200, 1300]}
       hold={3600}
-      label="ERIX CRM: Rohan Mehta's deal moves from Enquiry to Site visit booked on the pipeline; his contact timeline fills with the WhatsApp enquiry, the AI agent's answer, the booked visit and the accepted proposal; then a GST invoice for ₹29,500 gets a Razorpay payment link and turns Paid."
+      label="ERIX CRM: Rohan Mehta's deal moves from Enquiry to Site visit booked on the pipeline; his contact timeline fills with the WhatsApp enquiry, the AI employee's answer, the booked visit and the stage move; then the visit shows under Appointments as Scheduled."
     >
       <AppFrame title="CRM / Contacts / Rohan Mehta" nav="crm" className="h-[25rem]">
         <div className="flex h-full flex-col gap-2.5 overflow-hidden p-3">
@@ -115,40 +123,21 @@ export function CrmScreen() {
               </ol>
             </div>
             <div style={at(6)} className={cn(box, "scene-in hidden min-h-0 flex-col p-2.5 text-[11px] md:flex")}>
-              <div className="flex items-center justify-between gap-2">
-                <p className="font-mono text-[11px] text-muted-foreground">INV/26-27/0042</p>
+              <p className="flex items-center gap-1.5 text-[11.5px] font-semibold text-foreground">
+                <CalendarDays aria-hidden="true" className="size-3.5 text-accent" /> Appointments
+              </p>
+              <div className="mt-2 flex items-start justify-between gap-2">
+                <div className="min-w-0">
+                  <p className="text-[12px] font-semibold text-foreground">Rohan Mehta</p>
+                  <p className="text-muted-foreground">Sat, 11:30 am · 30 min · In person</p>
+                </div>
                 <span className="inline-grid *:[grid-area:1/1] justify-items-end">
-                  <Pill className="scene-in" style={at(0, 7)}>
-                    Draft
-                  </Pill>
-                  <Pill tone="primary" icon={Link2} className="scene-in" style={at(7, 8)}>
-                    Link sent
-                  </Pill>
-                  <Pill tone="success" icon={CheckCircle2} className="scene-in scene-pop" style={at(8)}>
-                    Paid
+                  <Pill tone="success" className="scene-in scene-pop" style={at(7)}>
+                    Scheduled
                   </Pill>
                 </span>
               </div>
-              <p className="mt-1 text-[11px] font-semibold text-foreground">Booking advance · from PRO-0018</p>
-              <dl className="mt-1.5 space-y-0.5 text-muted-foreground">
-                {[
-                  ["Subtotal", "₹25,000"],
-                  ["CGST 9%", "₹2,250"],
-                  ["SGST 9%", "₹2,250"],
-                ].map(([k, v]) => (
-                  <div key={k} className="flex justify-between">
-                    <dt>{k}</dt>
-                    <dd className="tabular-nums">{v}</dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="mt-1.5 flex justify-between border-t border-border pt-1.5 text-[11.5px] font-semibold text-foreground">
-                <span>Total</span>
-                <span className="tabular-nums">₹29,500</span>
-              </p>
-              <p className="mt-auto flex items-center gap-1 pt-1.5 text-accent">
-                <Link2 aria-hidden="true" className="size-3" /> Razorpay payment link
-              </p>
+              <p className="mt-auto pt-1.5 text-subtle">Bookings with this contact show up here.</p>
             </div>
           </div>
         </div>
@@ -322,7 +311,7 @@ const templates = [
   { name: "Nudge when nobody replies", how: "Wait for a reply → follow-up", icon: Workflow },
   {
     name: "Sales agent: qualify a new enquiry",
-    how: "New contact → AI agent, with approval",
+    how: "New contact → AI employee, with approval",
     icon: Sparkles,
     ai: true,
   },

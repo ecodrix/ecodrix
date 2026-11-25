@@ -7,13 +7,15 @@
  */
 
 import type { CSSProperties, ReactNode } from "react";
-import { CheckCircle2, Clock, Icon, Link2, MessageCircle, Send, Sparkles } from "@/components/icons";
+import { CheckCircle2, Clock, Link2, MessageCircle, Send, Sparkles } from "@/components/icons";
 import { Scene } from "@/components/motion/scene";
 import { FlowEditorDemo } from "@/components/product-screens/flow-editor-demo";
 import { InboxDemo } from "@/components/product-screens/inbox-demo";
+import { CoachingInbox, LocalBrandInbox } from "@/components/product-screens/inbox-variants";
 import { AppFrame, at, Pill } from "@/components/product-screens/parts";
 import { PipelineDemo } from "@/components/product-screens/pipeline-demo";
 import { CrmScreen } from "@/components/product-screens/showcase-scenes";
+import { VoiceCallScreen } from "@/components/product-screens/voice-scene";
 import type { ScreenKey } from "@/lib/platform/product-pages";
 import { cn } from "@/lib/utils";
 
@@ -37,7 +39,7 @@ export function AiScreen() {
     <Scene
       steps={5}
       timing={[0, 1300, 1300, 1500, 900]}
-      label="ERIX AI: a new knowledge source is read and becomes ready, the latest draft shows the source it came from, and on the Approvals page the sales agent's request to create a ₹5,000 draft proposal is approved by a person. Nothing is sent to the customer."
+      label="ERIX AI: a new knowledge source is read and becomes ready, the latest draft shows the source it came from, and on the Approvals page the sales agent's request to book an appointment waits for a person and is approved."
     >
       <AppFrame title="Approvals" nav="approvals" className="h-[25rem]">
         <div className="grid h-full gap-3 overflow-hidden p-3 sm:p-4 md:grid-cols-[1fr_1.5fr]">
@@ -105,14 +107,13 @@ export function AiScreen() {
               <p className="mt-0.5 text-[11px] text-muted-foreground">Contact: Meera Iyer</p>
               <div className="mt-2 rounded-[10px] border border-[var(--purple-500)] bg-ai-subtle p-2.5 text-[11px]">
                 <p className="flex items-center gap-1 font-semibold text-foreground">
-                  <Sparkles aria-hidden="true" className="size-3 text-ai" /> The AI agent wants to: Create proposal
-                  (draft)
+                  <Sparkles aria-hidden="true" className="size-3 text-ai" /> The assistant wants to: Book appointment
                 </p>
                 <dl className="mt-1.5 grid grid-cols-[auto_1fr] gap-x-4 gap-y-0.5 text-muted-foreground">
-                  <dt>Title</dt>
-                  <dd className="text-foreground">Legal document check</dd>
-                  <dt>Amount</dt>
-                  <dd className="text-foreground">₹5,000</dd>
+                  <dt>Day</dt>
+                  <dd className="text-foreground">Saturday</dd>
+                  <dt>Time</dt>
+                  <dd className="text-foreground">11:30 am</dd>
                 </dl>
               </div>
               <div className="inline-grid *:[grid-area:1/1] mt-3 w-full">
@@ -126,7 +127,7 @@ export function AiScreen() {
                   </span>
                 </span>
                 <p style={at(5)} className="scene-in text-right text-[11px] text-accent">
-                  Proposal drafted. Nothing was sent to the customer.
+                  Appointment booked.
                 </p>
               </div>
             </div>
@@ -233,26 +234,45 @@ export function InvoiceScreen() {
 /* ── Booking page (what the customer sees) ─────────────────────────────── */
 
 const days = [
-  ["Tue", "27"],
-  ["Wed", "28"],
-  ["Thu", "29"],
-  ["Fri", "30"],
-  ["Sat", "31"],
+  ["Thu", "26"],
+  ["Fri", "27"],
+  ["Sat", "28"],
+  ["Sun", "29"],
+  ["Mon", "30"],
 ] as const;
 const slots = ["10:00 am", "10:45 am", "11:30 am", "12:15 pm"];
 
-export function BookingScreen() {
+const SALES = {
+  biz: "Sharma Realty",
+  title: "Book a site visit",
+  where: "30 minutes · at the project site",
+  what: "Site visit",
+  prev: "Meera Iyer",
+  who: "Rohan Mehta",
+};
+const CLINIC = {
+  biz: "Rao Dental Clinic",
+  title: "Book a check-up",
+  where: "30 minutes · at the clinic",
+  what: "Check-up",
+  prev: "Arjun Rao",
+  who: "Sneha Rao",
+};
+
+export const ClinicBookingScreen = () => <BookingScreen {...CLINIC} />;
+
+export function BookingScreen({ biz, title, where, what, prev, who }: Partial<typeof SALES> = SALES) {
   return (
     <Scene
       steps={3}
       timing={[0, 1200, 1300, 1500]}
-      label="An ERIX booking page: the visitor picks Saturday 31 October and the 11:30 am slot in India Standard Time; 12:15 pm is already taken. The booking is confirmed, a WhatsApp reminder will follow, and it appears in the owner's upcoming appointments."
+      label="An ERIX booking page: the visitor picks Saturday 28 November and the 11:30 am slot in India Standard Time; 12:15 pm is already taken. The booking is confirmed and appears in the owner's upcoming appointments."
     >
       <div className="surface-light grid h-[25rem] overflow-hidden rounded-[12px] bg-background text-foreground shadow-[var(--shadow-lg)] md:grid-cols-[1.35fr_1fr]">
         <div className="flex min-w-0 flex-col bg-surface p-4">
-          <p className="text-[11px] text-subtle">Sharma Realty</p>
-          <p className="font-display text-[17px] font-bold text-foreground">Book a site visit</p>
-          <p className="text-[11px] text-muted-foreground">30 minutes · at the project site</p>
+          <p className="text-[11px] text-subtle">{biz}</p>
+          <p className="font-display text-[17px] font-bold text-foreground">{title}</p>
+          <p className="text-[11px] text-muted-foreground">{where}</p>
           <div className="mt-3 grid grid-cols-5 gap-1.5">
             {days.map(([d, n]) => (
               <span
@@ -261,7 +281,7 @@ export function BookingScreen() {
               >
                 {d}
                 <span className="block text-[13px] font-semibold text-foreground">{n}</span>
-                {n === "31" && (
+                {n === "28" && (
                   <span
                     aria-hidden="true"
                     style={at(1)}
@@ -303,8 +323,7 @@ export function BookingScreen() {
             >
               <CheckCircle2 aria-hidden="true" className="mt-px size-3.5 shrink-0 text-success" />
               <span>
-                <span className="font-semibold">Booked: Sat 31 Oct, 11:30 am IST.</span> We&apos;ll send a WhatsApp
-                reminder before your visit.
+                <span className="font-semibold">Booked: Sat 28 Nov, 11:30 am IST.</span>
               </span>
             </p>
           </div>
@@ -313,17 +332,14 @@ export function BookingScreen() {
           <p className="text-[12px] font-semibold text-foreground">Appointments · Upcoming</p>
           <ul className="mt-2 space-y-2 text-[11px]">
             <li className={cn(box, "p-2")}>
-              <p className="font-semibold text-foreground">Meera Iyer</p>
-              <p className="text-muted-foreground">Site visit · Fri 30 Oct, 10:00 am</p>
+              <p className="font-semibold text-foreground">{prev}</p>
+              <p className="text-muted-foreground">{what} · Fri 27 Nov, 10:00 am</p>
             </li>
             <li style={at(3)} className={cn(box, "scene-in scene-x border-accent-border p-2")}>
               <p className="flex items-center justify-between gap-1 font-semibold text-foreground">
-                Rohan Mehta <Pill tone="success">Confirmed</Pill>
+                {who} <Pill tone="success">Scheduled</Pill>
               </p>
-              <p className="text-muted-foreground">Site visit · Sat 31 Oct, 11:30 am</p>
-              <p className="mt-1 flex items-center gap-1 text-[11px] text-muted-foreground">
-                <Icon name="googlecalendar" size={11} /> On your Google Calendar
-              </p>
+              <p className="text-muted-foreground">{what} · Sat 28 Nov, 11:30 am</p>
             </li>
           </ul>
         </div>
@@ -492,4 +508,9 @@ export const SCREENS: Record<ScreenKey, () => ReactNode> = {
   documents: DocumentsScreen,
   crm: CrmScreen,
   flowCanvas: FlowEditorDemo,
+  voiceCall: VoiceCallScreen,
+  clinicBooking: ClinicBookingScreen,
+  coachingInbox: CoachingInbox,
+  localBrandInbox: LocalBrandInbox,
+  broadcast: BroadcastScreen,
 };

@@ -10,7 +10,7 @@ const events: { tool: string; icon: IconComponent; tone: "primary" | "ai"; text:
     text: "WhatsApp: “Is the 3BHK at Baner still available?”",
     time: "9:42 pm",
   },
-  { tool: "AI agent", icon: Sparkles, tone: "ai", text: "Answered from the Baner listing", time: "9:42 pm" },
+  { tool: "AI employee", icon: Sparkles, tone: "ai", text: "Answered from the Baner listing", time: "9:42 pm" },
   { tool: "CRM", icon: KanbanSquare, tone: "primary", text: "Site visit booked for Saturday, 4 pm", time: "9:44 pm" },
   { tool: "Flow", icon: Workflow, tone: "ai", text: "Reminder sent on WhatsApp", time: "Fri, 10:00 am" },
   { tool: "CRM", icon: KanbanSquare, tone: "primary", text: "Moved to Site visit done", time: "Sat, 5:10 pm" },
@@ -24,7 +24,7 @@ export function TimelineScene() {
       steps={events.length}
       timing={1100}
       hold={3800}
-      label="One contact record for Rohan Mehta. Events from every ERIX tool land on the same timeline: a WhatsApp enquiry, the AI agent's answer, a booked site visit, an automated reminder, a stage move and a follow-up on WhatsApp."
+      label="One contact record for Rohan Mehta. Events from every ERIX tool land on the same timeline: a WhatsApp enquiry, the AI employee's answer, a booked site visit, an automated reminder, a stage move and a follow-up on WhatsApp."
       className="motion-safe:animate-rise motion-safe:[animation-delay:var(--d,200ms)] mx-auto w-full max-w-[34rem] lg:max-w-none"
     >
       <div className="surface-light overflow-hidden rounded-[12px] bg-surface shadow-[var(--shadow-lg)]">

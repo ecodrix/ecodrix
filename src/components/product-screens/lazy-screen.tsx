@@ -11,22 +11,43 @@ import { useEffect, useRef, useState } from "react";
 const screens = {
   inbox: dynamic(() => import("@/components/product-screens/inbox-demo").then((m) => m.InboxDemo), { ssr: false }),
   ai: dynamic(() => import("@/components/product-screens/screens").then((m) => m.AiScreen), { ssr: false }),
-  pipeline: dynamic(() => import("@/components/product-screens/pipeline-demo").then((m) => m.PipelineDemo), { ssr: false }),
+  pipeline: dynamic(() => import("@/components/product-screens/pipeline-demo").then((m) => m.PipelineDemo), {
+    ssr: false,
+  }),
   booking: dynamic(() => import("@/components/product-screens/screens").then((m) => m.BookingScreen), { ssr: false }),
   invoice: dynamic(() => import("@/components/product-screens/screens").then((m) => m.InvoiceScreen), { ssr: false }),
-  flow: dynamic(() => import("@/components/product-screens/flow-editor-demo").then((m) => m.FlowEditorDemo), { ssr: false }),
-  documents: dynamic(() => import("@/components/product-screens/screens").then((m) => m.DocumentsScreen), { ssr: false }),
-  overview: dynamic(() => import("@/components/product-screens/story-scenes").then((m) => m.OverviewScreen), { ssr: false }),
-  broadcast: dynamic(() => import("@/components/product-screens/screens").then((m) => m.BroadcastScreen), { ssr: false }),
+  flow: dynamic(() => import("@/components/product-screens/flow-editor-demo").then((m) => m.FlowEditorDemo), {
+    ssr: false,
+  }),
+  documents: dynamic(() => import("@/components/product-screens/screens").then((m) => m.DocumentsScreen), {
+    ssr: false,
+  }),
+  overview: dynamic(() => import("@/components/product-screens/story-scenes").then((m) => m.OverviewScreen), {
+    ssr: false,
+  }),
+  broadcast: dynamic(() => import("@/components/product-screens/screens").then((m) => m.BroadcastScreen), {
+    ssr: false,
+  }),
   crm: dynamic(() => import("@/components/product-screens/showcase-scenes").then((m) => m.CrmScreen), { ssr: false }),
   flowCanvas: dynamic(() => import("@/components/product-screens/flow-editor-demo").then((m) => m.FlowEditorDemo), {
     ssr: false,
   }),
-  analytics: dynamic(() => import("@/components/product-screens/showcase-scenes").then((m) => m.AnalyticsScreen), { ssr: false }),
+  analytics: dynamic(() => import("@/components/product-screens/showcase-scenes").then((m) => m.AnalyticsScreen), {
+    ssr: false,
+  }),
   form: dynamic(() => import("@/components/product-screens/showcase-scenes").then((m) => m.FormScreen), { ssr: false }),
-  templates: dynamic(() => import("@/components/product-screens/showcase-scenes").then((m) => m.TemplatesScreen), { ssr: false }),
-  widget: dynamic(() => import("@/components/product-screens/showcase-scenes").then((m) => m.WidgetScreen), { ssr: false }),
-  agents: dynamic(() => import("@/components/product-screens/agents-screen").then((m) => m.AgentsScreen), { ssr: false }),
+  templates: dynamic(() => import("@/components/product-screens/showcase-scenes").then((m) => m.TemplatesScreen), {
+    ssr: false,
+  }),
+  widget: dynamic(() => import("@/components/product-screens/showcase-scenes").then((m) => m.WidgetScreen), {
+    ssr: false,
+  }),
+  voiceCall: dynamic(() => import("@/components/product-screens/voice-scene").then((m) => m.VoiceCallScreen), {
+    ssr: false,
+  }),
+  agents: dynamic(() => import("@/components/product-screens/agents-screen").then((m) => m.AgentsScreen), {
+    ssr: false,
+  }),
 };
 
 export type LazyScreenName = keyof typeof screens;

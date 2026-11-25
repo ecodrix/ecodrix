@@ -19,7 +19,12 @@ export type ScreenKey =
   | "ai"
   | "documents"
   | "crm"
-  | "flowCanvas";
+  | "flowCanvas"
+  | "voiceCall"
+  | "broadcast"
+  | "clinicBooking"
+  | "coachingInbox"
+  | "localBrandInbox";
 
 export interface SubPage {
   slug: string;
@@ -267,6 +272,7 @@ export const CRM_PAGES: SubPage[] = [
     description:
       "Automations that start on CRM events, such as a new lead, a stage change, a won deal or a booking, are built in ERIX Flow. Here is how they meet your pipeline.",
     type: "capability",
+    screen: "flow",
     lead: "Automations that react to your pipeline live in ERIX Flow. They start when something happens in your CRM and act on the same contact.",
     sections: [
       {
@@ -353,7 +359,7 @@ export const CRM_PAGES: SubPage[] = [
       "For clinics: enquiry forms with consent, appointments in IST with no double bookings, WhatsApp reminders, and medical questions always routed to your own team.",
     type: "use-case",
     lead: "Patients ask on WhatsApp, book from a link and expect a reminder. ERIX handles the routine and leaves anything medical to your team.",
-    screen: "booking",
+    screen: "clinicBooking",
     sections: [
       {
         heading: "Enquiries with consent recorded",
@@ -455,7 +461,7 @@ export const CRM_PAGES: SubPage[] = [
       "For coaching institutes: admission forms, counselling bookings, AI answers on batch timings and fees, and WhatsApp follow-ups.",
     type: "use-case",
     lead: "Parents enquire at night and decide over a week. ERIX answers the routine questions, books the counselling session and keeps the follow-up going.",
-    screen: "inbox",
+    screen: "coachingInbox",
     sections: [
       {
         heading: "A week from enquiry to admission",
@@ -515,7 +521,7 @@ export const CRM_PAGES: SubPage[] = [
       "For D2C and local brands: one inbox for order questions, WhatsApp broadcasts with approved templates, and AI answers from your price list.",
     type: "use-case",
     lead: "Answer order questions from one inbox, send offers on WhatsApp with templates WhatsApp has approved, and follow up with every enquiry.",
-    screen: "inbox",
+    screen: "localBrandInbox",
     notice:
       "ERIX doesn't connect to Shopify or a store catalogue today, and storefront checkout is planned for later. Orders come in as chats.",
     sections: [
@@ -1148,6 +1154,7 @@ export const CONNECT_PAGES: SubPage[] = [
     description:
       "How many WhatsApp messages you can broadcast: Meta's daily limit on new conversations, what moves it, and how broadcasts work in ERIX with approved templates.",
     type: "guide",
+    screen: "broadcast",
     lead: "Meta sets the limits on WhatsApp broadcasts. Here is how they work, and what ERIX does around them.",
     sections: [
       {

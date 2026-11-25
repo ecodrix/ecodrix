@@ -23,7 +23,7 @@ const HERO_SCREEN: Record<string, ScreenKey> = {
   "erix-crm": "crm",
   "erix-connect": "inbox",
   "erix-flow": "flowCanvas",
-  "erix-voice": "inbox",
+  "erix-voice": "voiceCall",
 };
 
 export const TYPE_LABEL = {
