@@ -6,10 +6,13 @@ its speaker, joins the turns into one call per language and writes:
   public/audio/voice-agent/calls/<call>-<lang>.mp3
   src/components/platform/voice/voice-calls.audio.json   (duration, line timings, 48 loudness bars)
 
-  python3 scripts/voice-samples.py --plan            # characters and cost, calls nothing
-  python3 scripts/voice-samples.py --assemble        # rebuild the audio from cached lines; free, calls nothing
+Run it with the voice runtime's Python (PY=../voice-runtime/.venv/bin/python): every line goes through the
+live product's own speaking rules first, so "2BHK", "6:30 pm" and "₹2,500" are said the way a real call says them.
+
+  $PY scripts/voice-samples.py --plan            # characters and cost, calls nothing
+  $PY scripts/voice-samples.py --assemble        # rebuild the audio from cached lines; free, calls nothing
   ERIX_PAID_EVAL=1 bash ../voice-runtime/scripts/with_local_env.sh \
-    python3 scripts/voice-samples.py --render        # needs SARVAM_API_KEY in the local voice env
+    $PY scripts/voice-samples.py --render        # needs SARVAM_API_KEY in the local voice env
   add --set library for the voice library (one self-introduction per voice and language)
 
 A call is assembled to sound like a call, not like glued clips: each line loses the engine's edge
@@ -77,6 +80,15 @@ def provider(code: str) -> str:
     return v
 
 
+def spoken_form(text: str, lang: str) -> str:
+    """What the live product hands the voice engine for this line. The transcript keeps the written text."""
+    try:
+        from voice_runtime.orchestration.pronounce import map_for, speak_text
+    except ImportError:
+        raise SystemExit("Run with the voice runtime's Python: ../voice-runtime/.venv/bin/python scripts/voice-samples.py")
+    return speak_text(text, lang, map_for("", None))
+
+
 def load() -> dict:
     data = json.loads(CALLS.read_text(encoding="utf-8"))
     for c in data["calls"]:  # self-check: every spoken line has a known voice and fits Sarvam's limit
@@ -94,7 +106,7 @@ def spoken(data: dict):
         for lang in data["langs"]:
             for who, text in c["lines"][lang]:
                 if who != "e":
-                    yield c, lang, who, text, provider(c["voices"][who][lang])
+                    yield c, lang, who, spoken_form(text, lang), provider(c["voices"][who][lang])
 
 
 def speak(key: str, model: str, voice: str, lang: str, text: str, cache: Path) -> bytes:
@@ -239,7 +251,7 @@ def library_lines(lib: dict):
 def render_library(key: str, lib: dict, cache: Path) -> None:
     manifest: dict = {}
     for v, lang, text in library_lines(lib):
-        pcm = silence(0.15) + shape(speak(key, render_model(), provider(v), lang, text, cache)) + silence(0.25)
+        pcm = silence(0.15) + shape(speak(key, render_model(), provider(v), lang, spoken_form(text, lang), cache)) + silence(0.25)
         name = f"{v.lower().replace(' ', '-')}-{lang}.mp3"
         mp3(pcm, LIB_AUDIO / name)
         manifest.setdefault(v, {})[lang] = {"src": f"/audio/voice-agent/voices/{name}",
@@ -260,7 +272,7 @@ def main() -> int:
     selfcheck()
     if a.set == "library":
         lib = json.loads(LIB.read_text(encoding="utf-8"))
-        lines = [(None, lang, None, text, provider(v)) for v, lang, text in library_lines(lib)]
+        lines = [(None, lang, None, spoken_form(text, lang), provider(v)) for v, lang, text in library_lines(lib)]
         model = render_model()
     else:
         data = load()
@@ -292,7 +304,7 @@ def main() -> int:
     for c in data["calls"]:
         for lang in data["langs"]:
             ours, caller, segs = call_tracks(
-                c, lang, lambda who, text: speak(key, model, provider(c["voices"][who][lang]), lang, text, a.cache))
+                c, lang, lambda who, text: speak(key, model, provider(c["voices"][who][lang]), lang, spoken_form(text, lang), a.cache))
             pcm = mix(ours, caller)
             t = len(pcm) / 2 / RATE
             assert abs(len(pcm) - len(ours)) <= 2 * FRAME, "the mix must keep the call's length"
