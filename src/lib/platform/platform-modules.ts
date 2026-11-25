@@ -9,7 +9,7 @@
  * Copy follows the design system's product page (what is live in v1.0 and
  * what comes in which version) and ECOD/docs/VERSION_PLAN.md. Anything not
  * live carries its status word. Status matches PLATFORM_NAV in lib/site.ts
- * (Voice is open by request; its claims come from ECOD/docs/voice/):
+ * (Voice's claims come from ECOD/docs/voice/):
  * Store is coming soon. LAIE is private (founder, 3 Nov 2026), so it isn't here.
  */
 
@@ -99,9 +99,9 @@ export const PLATFORM_MODULES: PlatformModule[] = [
     category: "infrastructure",
     status: "live",
     description:
-      "ERIX Connect puts the official WhatsApp Business API and phone calls in one live inbox. Meta bills you directly, with no ERIX markup. Instagram DMs and email land in the same inbox. Website chat is coming soon.",
+      "ERIX Connect puts the official WhatsApp Business API and phone calls in one live inbox. Meta bills you directly, with no ERIX markup. Instagram, email and website chat are coming soon.",
     longDescription:
-      "Connect your own WhatsApp Business account through Meta's signup. Every chat and call arrives live in one inbox, on the right contact, on your computer and your phone. Instagram DMs and email land in the same inbox. Website chat is coming soon.",
+      "Connect your own WhatsApp Business account through Meta's signup. Every chat and call arrives live in one inbox, on the right contact, on your computer and your phone. Instagram, email and website chat are coming soon.",
     features: [
       {
         title: "Your own WhatsApp account",
@@ -113,7 +113,7 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       },
       {
         title: "More channels",
-        body: "Instagram DMs and email from your own domain land in the same inbox. Website chat is coming soon.",
+        body: "Instagram DMs, email and website chat are coming soon.",
       },
       {
         title: "An inbox that shows what needs you",
@@ -223,12 +223,12 @@ export const PLATFORM_MODULES: PlatformModule[] = [
     title: "ERIX Voice: an AI assistant for your calls",
     tagline: "Every call answered, even when you can't pick up",
     category: "product",
-    status: "invite",
+    status: "live",
     ai: true,
     description:
       "ERIX Voice answers calls on your own Indian number in 11 Indian languages, books appointments, takes messages and puts every call in your inbox.",
     longDescription:
-      "The assistant picks up on your own business number, tells the caller it is an AI assistant, and gets on with the job: booking a visit, taking a message or a callback request, or passing the call to your team during business hours. Every call lands in your Inbox with a transcript and a summary. ERIX Voice is open by request.",
+      "The assistant picks up on your own business number, tells the caller it is an AI assistant, and gets on with the job: booking a visit, taking a message or a callback request, or passing the call to your team during business hours. Every call lands in your Inbox with a transcript and a summary.",
     features: [
       {
         title: "Answers on your own number",
@@ -260,8 +260,7 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       },
     ],
     steps: [
-      "Request access and tell us about your business and your calls.",
-      "We switch ERIX Voice on for your workspace.",
+      "Request early access and tell us about your business and your calls.",
       "Set your number, language, greeting, business hours and where to hand over.",
       "Make a test call to your own phone, then switch the assistant on.",
     ],

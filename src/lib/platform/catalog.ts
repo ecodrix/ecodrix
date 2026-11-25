@@ -65,12 +65,30 @@ export function itemStatus(
   return hit ? view(hit, now).status : null;
 }
 
+/**
+ * Resolve desks (or any list with a catalog id) against the catalog. An entry without
+ * `catalogId` keeps its hand-set status; with one, the catalog decides and Hidden drops it.
+ * A failed read uses each entry's own status as the fallback; a null fallback stays out.
+ */
+export function resolveByCatalog<T extends { catalogId?: string; status?: ModuleStatus | null }>(
+  list: readonly T[],
+  items: readonly CatalogItem[] | null,
+  now = Date.now(),
+): (T & { status: ModuleStatus })[] {
+  return list.flatMap((d) => {
+    const own = d.status === undefined ? "live" : d.status;
+    const status = d.catalogId ? itemStatus(items, d.catalogId, own, now) : own;
+    return status ? [{ ...d, status }] : [];
+  });
+}
+
 /** Platform menu key → catalog item id (Connect's card is the Inbox item). */
 const ITEM_OF: Record<string, string> = {
   crm: "crm",
   connect: "inbox",
   agents: "agents",
   flow: "flow",
+  voice: "connect.voice",
 };
 
 /**

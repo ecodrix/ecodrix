@@ -51,7 +51,7 @@ export const STATUS_LABEL: Record<ModuleStatus, string> = {
  * The Platform menu. `ai` marks AI/automation (purple, brand rule). Status
  * follows ECOD/docs/VERSION_PLAN.md: v1.0 is live, ERIX Store is coming
  * soon. LAIE stays private until it proves itself (founder, 3 Nov 2026), so
- * it isn't here. Voice is open by request only ("invite"): staff switch it on.
+ * it isn't here. Voice follows the catalog like the rest (founder, 24 Nov 2026).
  */
 export const PLATFORM_NAV = [
   {
@@ -75,7 +75,7 @@ export const PLATFORM_NAV = [
     status: "live",
     card: {
       headline: "WhatsApp and calls in one inbox, on the right contact.",
-      text: "The official WhatsApp API on your own number, plus phone calls, Instagram DMs and email. Website chat is coming soon.",
+      text: "The official WhatsApp API on your own number, plus phone calls. Instagram DMs, email and website chat are coming soon.",
     },
   },
   {
@@ -97,7 +97,7 @@ export const PLATFORM_NAV = [
     name: "ERIX Voice",
     href: "/platform/erix-voice",
     summary: "An AI assistant that answers your business calls.",
-    status: "invite",
+    status: "live",
     card: {
       headline: "Calls answered, even after hours.",
       text: "Answers on your own number in 11 Indian languages, books the visit and puts the transcript in your inbox.",
@@ -200,7 +200,7 @@ export const RESOURCE_NAV = [
     summary: "Step-by-step setup for every channel.",
     card: {
       headline: "Set up ERIX one step at a time.",
-      text: "WhatsApp, website chat, email on your domain, Google Meet and Razorpay, in plain steps.",
+      text: "WhatsApp and Google Meet in plain steps. Website chat, email and payment guides are coming soon.",
       cta: "See all guides",
     },
   },

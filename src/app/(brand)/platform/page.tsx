@@ -44,7 +44,7 @@ export const metadata = {
 const PLATFORM_FAQS = [
   {
     q: "What does ERIX include today?",
-    a: "ERIX 1.0 is live with four parts on one customer record. ERIX CRM: contacts, pipeline, forms and appointments. ERIX Connect: the WhatsApp, Instagram and email inbox and phone calls, with Google Calendar and Meet for bookings. ERIX Flow: automations, templates, approvals, Wait for a reply and AI reply. AI Employee: answers from your own business details and hands the rest to your team. Website chat, GST invoices and payment links are coming soon.",
+    a: "ERIX 1.0 is live with four parts on one customer record. ERIX CRM: contacts, pipeline, forms and appointments. ERIX Connect: the WhatsApp inbox and phone calls, with Google Calendar and Meet for bookings. ERIX Flow: automations, templates, approvals, Wait for a reply and AI reply. AI Employee: answers from your own business details and hands the rest to your team. Instagram DMs, email, website chat, GST invoices and payment links are coming soon.",
   },
   {
     q: "Is there a public ERIX API?",
@@ -70,7 +70,7 @@ const chapters: Chapter[] = [
     module: "ERIX Connect",
     icon: "inbox",
     title: "Every channel lands in one inbox",
-    body: "WhatsApp chats, Instagram DMs, email and phone calls arrive in one list, live, each on the right contact. Website chat is coming soon.",
+    body: "WhatsApp chats and phone calls arrive in one list, live, each on the right contact. Instagram DMs, email and website chat are coming soon.",
     points: [
       "Official WhatsApp Business API on your own account: Meta bills you, no ERIX markup",
       "Templates, broadcasts and the 24-hour window handled",
@@ -149,7 +149,6 @@ const INCLUDED: { icon: GlyphName; title: string; ai?: boolean; items: string[] 
     items: [
       "The WhatsApp Business API on your own number, with approved templates",
       "Phone calls on the same contact",
-      "Instagram DMs and email in the same inbox",
       "One inbox with sent, delivered and read ticks, on the right contact",
       "Broadcasts to a segment, paced, with quiet hours from 9 pm to 9 am",
       "WhatsApp opt-in, the 24-hour window and STOP replies handled for you",
@@ -197,7 +196,7 @@ const INCLUDED: { icon: GlyphName; title: string; ai?: boolean; items: string[] 
 
 /** Built or planned but not in 1.0 for every workspace (VERSION_PLAN). */
 const LATER = [
-  { label: "Website chat", when: "Coming soon" },
+  { label: "Instagram DMs, email and website chat", when: "Coming soon" },
   { label: "GST invoices, payment links and proposals", when: "Coming soon" },
   { label: "Projects, e-sign and the client portal", when: "Coming soon" },
   { label: "Messenger and Telegram inboxes", when: "Version 1.2" },
@@ -207,8 +206,7 @@ const LATER = [
 ];
 
 const moreCopy: Record<string, string> = {
-  voice:
-    "An AI assistant that answers your calls, books appointments and puts each call in your inbox. Open by request.",
+  voice: "An AI assistant that answers your calls, books appointments and puts each call in your inbox.",
 };
 
 // Which modules are listed (and which are Coming soon) follows admin › Catalog.

@@ -1012,7 +1012,7 @@ export const CONNECT_PAGES: SubPage[] = [
     slug: "channels",
     title: "Channels in ERIX Connect: what's live today",
     description:
-      "WhatsApp Business API, Instagram DMs, email, phone calls and Google Calendar and Meet: what ERIX Connect supports today, and what's coming soon.",
+      "WhatsApp Business API, phone calls and Google Calendar and Meet: what ERIX Connect supports today, and what's coming soon.",
     type: "capability",
     lead: "Every channel lands in the same inbox and on the same contact, so your team answers from one place.",
     screen: "inbox",
@@ -1022,10 +1022,6 @@ export const CONNECT_PAGES: SubPage[] = [
         body: [
           "Connect your own WhatsApp Business account with Meta's Embedded Signup. Meta bills you directly, and ERIX adds no markup. Incoming messages arrive in the inbox live and are linked to the contact by phone number, creating one if needed. Each message shows its ticks: sent, delivered, read.",
         ],
-      },
-      {
-        heading: "Instagram and email",
-        body: ["Instagram DMs and email from your own domain land in the same inbox."],
       },
       {
         heading: "One inbox for all of it",
@@ -1041,7 +1037,7 @@ export const CONNECT_PAGES: SubPage[] = [
       },
       {
         heading: "Coming soon",
-        body: ["Website chat is coming soon. Facebook Messenger and Telegram inboxes arrive in version 1.2."],
+        body: ["Instagram DMs, email and website chat are coming soon."],
       },
     ],
     faqs: [

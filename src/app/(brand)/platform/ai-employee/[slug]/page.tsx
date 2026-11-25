@@ -6,6 +6,9 @@ type Props = { params: Promise<{ slug: string }> };
 
 export const dynamicParams = false;
 
+// Desk states follow the catalog, which the fetch caches for 300 s.
+export const revalidate = 300;
+
 export const generateStaticParams = employeeParams;
 
 export async function generateMetadata({ params }: Props) {

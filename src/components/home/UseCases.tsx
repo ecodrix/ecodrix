@@ -93,7 +93,7 @@ const verticals: {
       {
         icon: "inbox",
         title: "Every DM in one inbox",
-        text: "WhatsApp messages, Instagram DMs and calls, each on the right customer. Website chat: coming soon.",
+        text: "WhatsApp messages and calls, each on the right customer. Instagram, email and website chat: coming soon.",
       },
       {
         icon: "megaphone",

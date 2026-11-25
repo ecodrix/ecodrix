@@ -1,10 +1,14 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Icon } from "@/components/icons";
 import { BrowserFrame, CtaBand, EmailCta, Faq, MkHero, MkSection, PrimaryCta, Steps } from "@/components/marketing/kit";
-import { AgentScene } from "@/components/product-screens/agent-scene";
+import { DoesNot, ExampleChat, NeedsList, Path, RowList } from "@/components/platform/ai-employee/EmployeeBlocks";
+import { EmployeeBuild } from "@/components/platform/ai-employee/EmployeeBuild";
 import { LazyScreen } from "@/components/product-screens/lazy-screen";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { StatusBadge } from "@/components/ui/status-badge";
+import { fetchCatalog } from "@/lib/api";
+import { resolveByCatalog } from "@/lib/platform/catalog";
 import {
   DESKS,
   EMPLOYEE_PAGES,
@@ -12,6 +16,7 @@ import {
   HANDOFF_COMMON,
   HIRE_STEPS,
   HUB,
+  notLiveLine,
 } from "@/lib/platform/employee-pages";
 import { getBreadcrumbSchema, getFAQSchema } from "@/lib/seo/jsonld";
 import { pageMetadata } from "@/lib/seo/seo";
@@ -23,12 +28,19 @@ export const employeeMetadata = (p?: EmployeePageData) =>
     ? pageMetadata({ title: p.title, description: p.description, path: `${BASE}/${p.slug}` })
     : pageMetadata({ title: HUB.title, description: HUB.description, path: BASE });
 
-const Cards = ({ items }: { items: { title: string; text: string }[] }) => (
-  <ul className="grid list-none gap-4 sm:grid-cols-2 lg:grid-cols-3">
+const Cards = ({ items }: { items: { title: string; text: string; example?: string }[] }) => (
+  // Three columns only when the cards fill the last row; otherwise two, so no cell stays empty.
+  <ul className={`grid list-none gap-4 sm:grid-cols-2 ${items.length % 3 === 0 ? "lg:grid-cols-3" : ""}`}>
     {items.map((it) => (
-      <li key={it.title} className="rounded-xl border border-border-soft bg-surface p-6">
+      <li key={it.title} className="rounded-xl border border-border-soft bg-surface p-5 sm:p-6">
         <h3 className="font-sans text-[17px] font-semibold">{it.title}</h3>
         <p className="mt-2 text-[15px]/[1.6] text-muted-foreground">{it.text}</p>
+        {it.example && (
+          <p className="mt-3 border-t border-border-soft pt-3 text-[14px]/[1.55] text-muted-foreground">
+            <span className="font-semibold text-foreground">For example: </span>
+            {it.example}
+          </p>
+        )}
       </li>
     ))}
   </ul>
@@ -38,12 +50,9 @@ const Cards = ({ items }: { items: { title: string; text: string }[] }) => (
 const HandoffList = ({ items }: { items: { title: string; text: string }[] }) => (
   <ul className="grid list-none gap-x-10 md:grid-cols-2">
     {items.map((it) => (
-      <li key={it.title} className="grid grid-cols-[28px_1fr] gap-3 border-t border-border-soft py-5">
-        <Icon name="hand" size={20} variant="line" className="mt-0.5 text-accent" />
-        <div>
-          <h3 className="font-sans text-[17px] font-semibold">{it.title}</h3>
-          <p className="mt-1 text-[15px]/[1.6] text-muted-foreground">{it.text}</p>
-        </div>
+      <li key={it.title} className="border-t border-border-soft py-4">
+        <h3 className="font-sans text-[16.5px] font-semibold">{it.title}</h3>
+        <p className="mt-1 text-[15px]/[1.6] text-muted-foreground">{it.text}</p>
       </li>
     ))}
   </ul>
@@ -63,8 +72,12 @@ const Closing = () => (
 );
 
 /** The hub and every channel page: one parent, content from lib/platform/employee-pages.ts. */
-export function EmployeePage({ page }: { page?: EmployeePageData }) {
+export async function EmployeePage({ page }: { page?: EmployeePageData }) {
   const hub = !page;
+  const desks = resolveByCatalog(DESKS, await fetchCatalog());
+  const status = page ? desks.find((d) => d.name === page.name)?.status : undefined;
+  // Staff hid this desk in the catalog: its page goes too.
+  if (page && !status) notFound();
   const faqs = page ? page.faqs : HUB.faqs;
   const crumbs = [
     { name: "Home", url: "/" },
@@ -73,7 +86,7 @@ export function EmployeePage({ page }: { page?: EmployeePageData }) {
     ...(page ? [{ name: page.name, url: `${BASE}/${page.slug}` }] : []),
   ];
   const hero = page ? page.hero : HUB.hero;
-  const steps = page ? [{ ...HIRE_STEPS[0] }, { ...HIRE_STEPS[1] }, { ...HIRE_STEPS[2] }] : HIRE_STEPS;
+  const notLive = !!status && status !== "live";
 
   return (
     <div className="w-full">
@@ -83,14 +96,24 @@ export function EmployeePage({ page }: { page?: EmployeePageData }) {
       <MkHero
         top={
           // No visible breadcrumbs in navy heroes (founder); the BreadcrumbList JSON-LD above stays.
-          page?.status && page.status !== "live" ? (
+          status && status !== "live" ? (
             <div className="mb-6">
-              <StatusBadge status={page.status} />
+              <StatusBadge status={status} />
             </div>
           ) : undefined
         }
         title={hero.title}
-        lead={hero.lead}
+        lead={
+          notLive && page ? (
+            <>
+              {hero.lead}
+              <span className="mt-3 block font-medium text-white">{notLiveLine(page.name)}</span>
+            </>
+          ) : (
+            hero.lead
+          )
+        }
+        facts={page?.heroFacts}
         actions={
           <>
             <PrimaryCta lg />
@@ -98,11 +121,13 @@ export function EmployeePage({ page }: { page?: EmployeePageData }) {
           </>
         }
         visual={
-          <BrowserFrame url={page?.visual === "widget" ? "yourwebsite.com" : undefined}>
-            {page?.visual === "outcomes" ? (
-              <AgentScene />
+          <BrowserFrame url={page?.slug === "website-chat" ? "yourwebsite.com" : undefined}>
+            {page ? (
+              <div className="p-4">
+                <ExampleChat example={page.example} compact={page.heroTurns} />
+              </div>
             ) : (
-              <LazyScreen name={page ? (page.visual as "inbox") : "agents"} />
+              <LazyScreen name="agents" />
             )}
           </BrowserFrame>
         }
@@ -110,13 +135,14 @@ export function EmployeePage({ page }: { page?: EmployeePageData }) {
 
       {hub ? (
         <>
+          <EmployeeBuild />
           <MkSection
             id="desks"
             title="Pick a desk"
             lead="One AI employee, set up on each channel where customers reach you."
           >
             <ul className="grid list-none gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {DESKS.map((d) => {
+              {desks.map((d) => {
                 const body = (
                   <>
                     <span className="flex items-center justify-between gap-2">
@@ -159,42 +185,76 @@ export function EmployeePage({ page }: { page?: EmployeePageData }) {
           </MkSection>
         </>
       ) : (
-        <MkSection id="does" title={`What your AI employee does`}>
-          <Cards items={page.jobs} />
-        </MkSection>
+        <>
+          <MkSection id="example" title={page.example.title} lead={page.example.lead}>
+            <ExampleChat example={page.example} />
+          </MkSection>
+          <MkSection id="path" tone="subtle" title="What happens to one message" lead={page.pathLead}>
+            <Path steps={page.path} />
+          </MkSection>
+          <MkSection id="does" title={`What your AI employee does on ${page.name}`}>
+            <Cards items={page.jobs} />
+          </MkSection>
+          <MkSection id="does-not" tone="subtle" title="What it does not do">
+            <DoesNot items={page.doesNot} />
+          </MkSection>
+          <MkSection id="needs" title="What you need before you start" lead={page.needsLead}>
+            <NeedsList items={page.needs} />
+          </MkSection>
+        </>
       )}
 
-      <MkSection id="handoff" tone={hub ? "plain" : "subtle"} title="When it hands to you" lead={HUB.handoffLead}>
+      {page && (
+        <>
+          <MkSection id="steps" tone="subtle" title="Set up in three steps">
+            <Steps items={page.setup} />
+          </MkSection>
+          <MkSection id="controls" title="What you control">
+            <RowList items={page.controls} />
+          </MkSection>
+          <MkSection id="rules" tone="subtle" title={`${page.name}'s own rules, in plain words`}>
+            <RowList items={page.rules} icon="shield" />
+          </MkSection>
+        </>
+      )}
+
+      <MkSection id="handoff" tone="plain" title="When it hands over to you" lead={HUB.handoffLead}>
         <HandoffList items={page ? page.handoff : HANDOFF_COMMON} />
-        <HandoffList items={HUB.handoffAfter} />
-        {page?.handoffNote && (
-          <p className="mt-6 max-w-[68ch] text-[15.5px]/[1.65] text-muted-foreground">{page.handoffNote}</p>
+        {hub && <HandoffList items={HUB.handoffAfter} />}
+        {page && (
+          <p className="mt-6 max-w-[68ch] rounded-xl bg-sunken px-5 py-4 text-[15px]/[1.65] text-muted-foreground">
+            <span className="font-semibold text-foreground">What the customer sees. </span>
+            {page.handoffNote}
+          </p>
         )}
       </MkSection>
 
-      <MkSection id="steps" tone={hub ? "subtle" : "plain"} title="Set up in three steps">
-        <Steps items={steps} />
-        {page && <p className="mt-8 text-[15px] text-muted-foreground">Before step 1: {page.needs}</p>}
-      </MkSection>
+      {hub && (
+        <MkSection id="steps" tone="subtle" title="Set up in three steps">
+          <Steps items={HIRE_STEPS} />
+        </MkSection>
+      )}
 
       {page && (
         <MkSection id="more" tone="subtle" title="The same employee on other desks">
           <ul className="flex list-none flex-wrap gap-2.5">
-            {DESKS.filter((d) => d.href && d.name !== page.name).map((d) => (
-              <li key={d.name}>
-                <Link
-                  href={d.href as string}
-                  className="inline-flex items-center gap-2 rounded-full border border-border-soft bg-surface px-4 py-2 text-[15px] font-medium hover:bg-hover"
-                >
-                  <Icon name={d.icon} size={16} />
-                  {d.name}
-                </Link>
-              </li>
-            ))}
+            {desks
+              .filter((d) => d.href && d.name !== page.name)
+              .map((d) => (
+                <li key={d.name}>
+                  <Link
+                    href={d.href as string}
+                    className="inline-flex min-h-11 items-center gap-2 rounded-full border border-border-soft bg-surface px-4 py-2 text-[15px] font-medium hover:bg-hover"
+                  >
+                    <Icon name={d.icon} size={16} />
+                    {d.name}
+                  </Link>
+                </li>
+              ))}
             <li>
               <Link
                 href={BASE}
-                className="inline-flex items-center gap-2 px-3 py-2 text-[15px] font-semibold text-accent"
+                className="inline-flex min-h-11 items-center gap-2 px-3 py-2 text-[15px] font-semibold text-accent"
               >
                 All AI Employee desks <Icon name="arrow-right" size={14} variant="line" />
               </Link>
