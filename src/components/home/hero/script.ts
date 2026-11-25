@@ -1,7 +1,7 @@
 // The demo's data: seed conversations and the 27.6 s looping script. The script is plain data
 // (time in ms, actions); state.ts applies the actions, so the clock hook only has to fire them.
 
-export type Channel = "wa" | "web" | "ig" | "ph";
+export type Channel = "wa" | "ph";
 export type ConvState = "ai" | "need" | "you" | "done";
 export type Msg = { f: "in" | "ai" | "you"; t: string } | { f: "ev"; t: string; k?: "hand" };
 export type Conv = {
@@ -58,8 +58,8 @@ export const seed = () => ({
       id: "ar",
       name: "Ananya Reddy",
       ini: "AR",
-      ch: "web",
-      ph: "+91 55501 00117",
+      ch: "wa",
+      ph: "+91 55501 00151",
       state: "ai",
       time: "9:12 pm",
       stage: "Interested",
@@ -77,8 +77,8 @@ export const seed = () => ({
       id: "ps",
       name: "Priya S",
       ini: "PS",
-      ch: "ig",
-      ph: "@priya.s",
+      ch: "wa",
+      ph: "+91 55501 00163",
       state: "ai",
       time: "9:08 pm",
       stage: "New",
@@ -87,7 +87,7 @@ export const seed = () => ({
         { f: "in", t: "Is cleaning painful?" },
         { f: "ai", t: "Not at all, it takes about 30 minutes and most people feel nothing. Want a slot this week?" },
       ],
-      tl: ["Messaged from your reel"],
+      tl: ["Messaged your WhatsApp number"],
     },
     {
       id: "mi",
@@ -154,9 +154,9 @@ export const SCRIPT: [number, Act[]][] = [
       { t: "select", id: "ar" },
       {
         t: "doing",
-        text: "Answering Ananya on website chat",
+        text: "Answering Ananya on WhatsApp",
         k: "answer",
-        cap: "Riya is answering Ananya on your website chat",
+        cap: "Riya is answering Ananya on your WhatsApp",
         id: "ar",
       },
     ],
@@ -279,9 +279,9 @@ export const SCRIPT: [number, Act[]][] = [
       },
       {
         t: "doing",
-        text: "Booked Priya Sat 10:30 am from Instagram",
+        text: "Booked Priya Sat 10:30 am on WhatsApp",
         k: "book",
-        cap: "Riya booked Priya for Sat 10:30 am from Instagram",
+        cap: "Riya booked Priya for Sat 10:30 am on WhatsApp",
       },
       click,
       { t: "view", view: "cal" },

@@ -1,9 +1,9 @@
-import { Icon, MessageCircle, Phone } from "@/components/icons";
+import { Icon, Phone } from "@/components/icons";
 import { useTween } from "./motion";
 import type { Channel } from "./script";
 import type { DemoState } from "./state";
 
-export const CH: Record<Channel, string> = { wa: "WhatsApp", web: "Website chat", ig: "Instagram", ph: "Phone" };
+export const CH: Record<Channel, string> = { wa: "WhatsApp", ph: "Phone" };
 export const inr = (n: number) => `₹${n.toLocaleString("en-IN")}`;
 
 export function Count({ n, fmt = String }: { n: number; fmt?: (n: number) => string }) {
@@ -25,19 +25,7 @@ export function Avatar({
   return (
     <span className={`hx-av ${ring ? "ring " : ""}${className}`}>
       {ini}
-      {ch && (
-        <span className="hx-mk">
-          {ch === "wa" ? (
-            <Icon name="whatsapp" size={11} />
-          ) : ch === "ig" ? (
-            <Icon name="instagram" size={11} />
-          ) : ch === "ph" ? (
-            <Phone size={11} />
-          ) : (
-            <MessageCircle size={11} />
-          )}
-        </span>
-      )}
+      {ch && <span className="hx-mk">{ch === "wa" ? <Icon name="whatsapp" size={11} /> : <Phone size={11} />}</span>}
     </span>
   );
 }
