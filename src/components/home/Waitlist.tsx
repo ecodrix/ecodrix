@@ -10,7 +10,6 @@ import { StyledPhoneInput } from "@/components/ui/phone-input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CONSOLE_URL } from "@/lib/docs/docs";
 import { analyticsConsented } from "@/lib/legal/consent";
-import { PRIMARY_CTA } from "@/lib/site";
 import { getLanding, getVisitorId, trackEvent } from "@/lib/track";
 import { cn } from "@/lib/utils";
 
@@ -247,7 +246,7 @@ export function WaitlistForm({ job }: { job?: { note: string; lang: string; inte
           )}
           <button type="submit" disabled={state === "sending"} className={cn(buttonVariants(), "w-full")}>
             {state === "sending" && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
-            {state === "sending" ? "Sending…" : PRIMARY_CTA.label}
+            {state === "sending" ? "Sending…" : "Request early access"}
           </button>
           <p className="text-center text-xs text-muted-foreground">
             We only use your details to contact you about early access. See our{" "}
