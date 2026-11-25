@@ -244,11 +244,7 @@ export function WaitlistForm({ job }: { job?: { note: string; lang: string; inte
               {error}
             </p>
           )}
-          <button
-            type="submit"
-            disabled={state === "sending"}
-            className={cn(buttonVariants(), "w-full disabled:cursor-not-allowed disabled:opacity-60")}
-          >
+          <button type="submit" disabled={state === "sending"} className={cn(buttonVariants(), "w-full")}>
             {state === "sending" && <Loader2 aria-hidden="true" className="size-4 animate-spin" />}
             {state === "sending" ? "Sending…" : "Request early access"}
           </button>

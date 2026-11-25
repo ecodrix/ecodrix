@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ChevronDown, Menu } from "@/components/icons";
-import { buttonVariants } from "@/components/ui/button";
+import { ARROW_NUDGE, buttonVariants } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { CONTACT_CTA } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -165,13 +165,14 @@ export function Navbar() {
           <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
             <Link
               href={CONTACT_CTA.href}
-              className={cn(buttonVariants({ size: "sm" }), "group px-3.5 sm:px-4 justify-center items-center flex")}
+              // Touch: a 2px transparent border (kept out of the fill by bg-clip-padding) lifts the hit area to 44px without growing the 40px pill.
+              className={cn(
+                buttonVariants({ size: "sm" }),
+                "group max-sm:px-3.5 pointer-coarse:border-y-2 pointer-coarse:border-transparent pointer-coarse:bg-clip-padding pointer-coarse:min-h-11",
+              )}
             >
               {CONTACT_CTA.label}
-              <ArrowRight
-                aria-hidden="true"
-                className="hidden size-4 sm:block group-hover:translate-x-1 transition-transform transform ease-in-out duration-150"
-              />
+              <ArrowRight aria-hidden="true" className={cn("hidden sm:block", ARROW_NUDGE)} />
             </Link>
             <button
               ref={menuButton}
@@ -186,13 +187,16 @@ export function Navbar() {
                 setMenuWanted(true);
                 setMenuOpen(true);
               }}
-              className="js-only flex size-11 items-center justify-center rounded-full text-foreground hover:bg-hover lg:hidden"
+              className={cn(
+                buttonVariants({ variant: "plain", size: "icon" }),
+                "js-only flex text-foreground lg:hidden",
+              )}
             >
-              <Menu aria-hidden="true" className="size-5" />
+              <Menu aria-hidden="true" />
             </button>
             <Link
               href="#site-map"
-              className="nojs-sm hidden size-11 items-center justify-center rounded-full text-foreground"
+              className={cn(buttonVariants({ variant: "plain", size: "icon" }), "nojs-sm hidden text-foreground")}
             >
               <Menu aria-hidden="true" className="size-5" />
               <span className="sr-only">Site map</span>
