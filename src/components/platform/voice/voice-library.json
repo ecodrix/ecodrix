@@ -1,6 +1,5 @@
 {
   "_about": "The ERIX voice library: every voice a customer can pick, by its ERIX code. Provider speaker names live only in scripts/voice-ids.json. Every voice says the same line; the Hindi line avoids gendered verbs. Rendered by scripts/voice-samples.py --set library.",
-  "model": "bulbul:v3",
   "langs": [
     "en",
     "hi",

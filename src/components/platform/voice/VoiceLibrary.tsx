@@ -1,84 +1,93 @@
 "use client";
 
-import { useEffect } from "react";
 import { Icon } from "@/components/icons";
 import { cn } from "@/lib/utils";
-import { LangTabs } from "./LangTabs";
-import { useGalleryPlayer } from "./use-gallery-player";
-import { setVoiceLang, useVoiceLang } from "./use-voice-lang";
-import type { Lang } from "./voice-calls";
-import audioJson from "./voice-library.audio.json";
+import { INDIC_FONT, LangTabs } from "./LangTabs";
+import { FOCUS, fmt } from "./PlayerRow";
+import { useVoiceLang } from "./use-voice-lang";
+import { type LANG_NAME, pickLang, voiceClip, voiceDomId } from "./voice-clips";
 import libraryJson from "./voice-library.json";
+import { voiceName } from "./voice-names";
+import { toggle, usePlayer } from "./voice-player";
 
-type Clip = { src: string; dur: number; peaks: readonly number[] };
-const VOICES = libraryJson.voices as string[];
-const CLIPS = audioJson as unknown as Record<string, Record<Lang, Clip>>;
 const GRID_ID = "voice-library-grid";
+/** Tiles are ordered by the name people see, not by code. */
+const VOICES = [...(libraryJson.voices as string[])].sort((a, b) => voiceName(a).localeCompare(voiceName(b)));
 
-const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, "0")}`;
+function Tile({ code, lang }: { code: string; lang: keyof typeof LANG_NAME }) {
+  const clip = voiceClip(code, lang);
+  const st = usePlayer(clip.id);
+  const playing = !!st?.playing;
+  const err = !!st?.error;
+  return (
+    <li>
+      <button
+        type="button"
+        id={voiceDomId(code)}
+        aria-label={
+          err
+            ? `Play ${clip.label}. It could not load, press to try again`
+            : `${playing ? "Pause" : "Play"} ${clip.label}`
+        }
+        onClick={() => toggle(clip)}
+        className={cn(
+          "relative flex min-h-16 w-full scroll-mt-32 cursor-pointer items-center gap-2.5 overflow-hidden rounded-xl border bg-surface px-2.5 py-2 text-left text-foreground",
+          "data-[mark]:outline-2 data-[mark]:outline-offset-2 data-[mark]:outline-accent",
+          playing ? "border-accent bg-accent-muted" : err ? "border-error" : "border-border",
+          FOCUS,
+        )}
+      >
+        <span
+          aria-hidden="true"
+          className="grid size-11 flex-none place-items-center rounded-full bg-accent text-accent-foreground"
+        >
+          {st?.loading ? (
+            <span className="size-[18px] animate-spin rounded-full border-[3px] border-current border-t-transparent" />
+          ) : (
+            <Icon name={playing ? "pause" : "play"} size={18} variant="solid" />
+          )}
+        </span>
+        <span className="min-w-0">
+          <span className="block text-[15px] leading-tight font-semibold">{voiceName(code)}</span>
+          <span
+            className={cn(
+              "block text-[13px] leading-tight",
+              err ? "font-semibold text-error" : "text-muted-foreground tabular-nums",
+            )}
+          >
+            {err ? "Could not load" : fmt(st ? clip.dur - st.t : clip.dur)}
+          </span>
+        </span>
+        <span
+          aria-hidden="true"
+          className="absolute bottom-0 left-0 h-[3px] bg-accent"
+          style={{ width: `${st ? Math.min(100, (st.t / clip.dur) * 100) : 0}%` }}
+        />
+      </button>
+    </li>
+  );
+}
 
-/** Every selectable voice in one language, each playable on the page's shared player. */
-export function VoiceLibrary() {
+/** The sentence every voice says, and one tile per voice: the page's shared player plays them. `tabs` adds language tabs for pages without the switch bar. */
+export function VoiceLibrary({ tabs }: { tabs?: boolean }) {
   const lang = useVoiceLang();
-  const { view, play, stop } = useGalleryPlayer();
-  // Any language change (here or in the calls gallery) stops the playing clip.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: `lang` is the trigger
-  useEffect(stop, [lang, stop]);
-
   return (
     <>
-      <LangTabs lang={lang} onPick={setVoiceLang} label="Sample language" prefix="vtab" controls={GRID_ID} />
+      {tabs && <LangTabs lang={lang} onPick={pickLang} label="Sample language" prefix="vtab" controls={GRID_ID} />}
+      <p
+        lang={lang}
+        style={lang === "en" ? undefined : INDIC_FONT}
+        className="mb-4 rounded-xl border border-l-[3px] border-border border-l-ai bg-surface px-4 py-3 text-[17px] leading-[1.7] [overflow-wrap:anywhere]"
+      >
+        {libraryJson.lines[lang]}
+      </p>
       <ul
         id={GRID_ID}
-        role="tabpanel"
-        aria-labelledby={`vtab-${lang}`}
-        className="mt-6 grid grid-cols-2 gap-3 min-[640px]:grid-cols-3 min-[1024px]:grid-cols-4 min-[1280px]:grid-cols-6"
+        className="grid list-none grid-cols-2 gap-2 min-[600px]:grid-cols-3 min-[900px]:grid-cols-4 min-[1200px]:grid-cols-6"
       >
-        {VOICES.map((v) => {
-          const clip = CLIPS[v][lang];
-          const own = view?.id === v ? view : null;
-          const playing = !!own?.playing;
-          const lit = own ? Math.round((own.t / clip.dur) * clip.peaks.length) : 0;
-          return (
-            <li
-              key={`${lang}-${v}`}
-              className={cn(
-                "flex flex-col gap-3 rounded-xl border bg-surface p-3.5 transition-[border-color] duration-300 motion-reduce:transition-none",
-                playing ? "border-ai/45" : "border-border",
-              )}
-            >
-              <div className="flex items-baseline justify-between gap-2">
-                <h3 className="font-display text-[16px] leading-tight font-semibold">{v}</h3>
-                <span className="text-[13px] font-medium text-subtle tabular-nums">
-                  {fmt(own ? Math.max(0, clip.dur - own.t) : clip.dur)}
-                </span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <button
-                  type="button"
-                  aria-label={`${playing ? "Pause" : "Play"} ${v}`}
-                  onClick={() => play(v, clip.src, clip.dur)}
-                  className="grid size-9 flex-none cursor-pointer place-items-center rounded-full bg-accent text-accent-foreground transition-transform duration-150 hover:scale-105 hover:bg-accent-hover active:scale-95 motion-reduce:transition-none motion-reduce:hover:scale-100"
-                >
-                  <Icon name={playing ? "pause" : "play"} size={14} variant="solid" />
-                </button>
-                <div aria-hidden="true" className="flex h-8 min-w-0 flex-1 items-center justify-between gap-px">
-                  {clip.peaks.map((h, i) => (
-                    <i
-                      // biome-ignore lint/suspicious/noArrayIndexKey: fixed-length decorative bars
-                      key={i}
-                      style={{ height: `${Math.round(h * 100)}%` }}
-                      className={cn(
-                        "min-w-px max-w-1 flex-1 rounded-sm transition-colors duration-150 motion-reduce:transition-none",
-                        i < lit ? "bg-ai" : "bg-ai/35",
-                      )}
-                    />
-                  ))}
-                </div>
-              </div>
-            </li>
-          );
-        })}
+        {VOICES.map((v) => (
+          <Tile key={`${lang}-${v}`} code={v} lang={lang} />
+        ))}
       </ul>
     </>
   );

@@ -51,6 +51,11 @@ V3_SPEAKERS = set(
 )
 
 
+def render_model() -> str:
+    """The render model lives in the private id file, so it never ships in the site's JSON."""
+    return json.loads(IDS.read_text(encoding="utf-8"))["model"]
+
+
 def provider(code: str) -> str:
     v = json.loads(IDS.read_text(encoding="utf-8"))["ids"][code]
     assert v in V3_SPEAKERS, f"{code}: unknown bulbul:v3 voice {v!r}"
@@ -144,7 +149,7 @@ def library_lines(lib: dict):
 def render_library(key: str, lib: dict, cache: Path) -> None:
     manifest: dict = {}
     for v, lang, text in library_lines(lib):
-        pcm = silence(0.15) + speak(key, lib["model"], provider(v), lang, text, cache) + silence(0.25)
+        pcm = silence(0.15) + speak(key, render_model(), provider(v), lang, text, cache) + silence(0.25)
         name = f"{v.lower().replace(' ', '-')}-{lang}.mp3"
         mp3(pcm, LIB_AUDIO / name)
         manifest.setdefault(v, {})[lang] = {"src": f"/audio/voice-agent/voices/{name}",
@@ -164,10 +169,10 @@ def main() -> int:
     if a.set == "library":
         lib = json.loads(LIB.read_text(encoding="utf-8"))
         lines = [(None, lang, None, text, provider(v)) for v, lang, text in library_lines(lib)]
-        model = lib["model"]
+        model = render_model()
     else:
         data = load()
-        model = data["model"]
+        model = render_model()
         lines = list(spoken(data))
     todo = [x for x in lines
             if not (a.cache / f"{hashlib.sha1(f'{model}|{x[4]}|{x[1]}|{x[3]}'.encode()).hexdigest()[:16]}.pcm").exists()]

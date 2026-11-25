@@ -1,6 +1,5 @@
 {
  "_about": "Sample calls for the ERIX Voice page. Single source for the transcripts, the voices used and the audio render (scripts/voice-samples.py). who: r = the assistant, c = the caller, h = a person on the business's team, e = what happened (not spoken). Voices are ERIX voice codes (provider names only in scripts/voice-ids.json).",
- "model": "bulbul:v3",
  "langs": [
   "en",
   "hi",
