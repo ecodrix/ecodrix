@@ -41,7 +41,7 @@ const fieldError = "mt-1.5 text-sm text-error";
  * already on the list, or already has an account (sign in); either way the
  * details go to that inbox, never onto this page.
  */
-export function WaitlistForm() {
+export function WaitlistForm({ job }: { job?: { note: string; lang: string; interest: string } }) {
   const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
   const [outcome, setOutcome] = useState<"joined" | "waitlisted" | "account">("joined");
   const [error, setError] = useState<string | null>(null);
@@ -66,7 +66,9 @@ export function WaitlistForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...data,
-          source: "ecodrix_website",
+          // From the AI Employee build box: the job text and language travel with the request.
+          ...(job ? { note: job.note.trim().slice(0, 500), lang: job.lang, interest: job.interest } : {}),
+          source: job ? "ecodrix_website:ai_employee" : "ecodrix_website",
           // An invite link lands here as ?ref=CODE.
           referral: new URLSearchParams(window.location.search).get("ref") || undefined,
           // First-touch attribution, only with analytics consent.
@@ -87,7 +89,7 @@ export function WaitlistForm() {
       setState("sent");
       // A new entry (201, not "already on the list"): GA4 `generate_lead` +
       // the first-party form_submit action, both consent-gated in trackEvent.
-      if (res.status === 201) trackEvent("generate_lead", "form_submit", { form: "waitlist" });
+      if (res.status === 201) trackEvent("generate_lead", "form_submit", { form: job ? "ai_employee" : "waitlist" });
       setPosition(result.data?.position ?? null);
       setReferralCode(result.data?.referralCode ?? null);
       reset();
@@ -214,27 +216,29 @@ export function WaitlistForm() {
               />
             </div>
           </div>
-          <div>
-            <Label htmlFor="wl-interest">What do you want to use first?</Label>
-            <Controller
-              name="interest"
-              control={control}
-              render={({ field }) => (
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger id="wl-interest" className="mt-1.5 w-full">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {interests.map((i) => (
-                      <SelectItem key={i.value} value={i.value}>
-                        {i.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              )}
-            />
-          </div>
+          {!job && (
+            <div>
+              <Label htmlFor="wl-interest">What do you want to use first?</Label>
+              <Controller
+                name="interest"
+                control={control}
+                render={({ field }) => (
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <SelectTrigger id="wl-interest" className="mt-1.5 w-full">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {interests.map((i) => (
+                        <SelectItem key={i.value} value={i.value}>
+                          {i.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </div>
+          )}
           {error && (
             <p role="alert" className="rounded-md bg-error-subtle px-3 py-2 text-sm text-error">
               {error}
