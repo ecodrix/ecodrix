@@ -14,7 +14,7 @@ import type { IconName } from "@/components/icons";
  *   { label: "Start free", href: "https://console.ecodrix.com/auth/register" }
  */
 export const PRIMARY_CTA = {
-  label: "Request early access",
+  label: "Access",
   href: "/#contact",
 } as const;
 

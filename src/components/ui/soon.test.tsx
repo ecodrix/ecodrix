@@ -36,8 +36,8 @@ describe("Coming-soon module page CTAs", () => {
       <EmailCta lg disabled />
     </>,
   );
-  it("keeps Request early access enabled, a link to the form", () => {
-    assert.match(html, /<a [^>]*href="\/#contact"[^>]*>Request early access/);
+  it("keeps the main CTA enabled, a link to the form", () => {
+    assert.match(html, /<a [^>]*href="\/#contact"[^>]*>Access/);
   });
   it("keeps the other CTA disabled", () => {
     // The label comes from site.ts, so a rename there cannot leave this test stale again.
@@ -51,7 +51,7 @@ describe("no visible waitlist wording", () => {
     const { PRIMARY_CTA } = await import("@/lib/site");
     const { privacyDoc } = await import("@/lib/legal/docs/privacy");
     const { COMPARISONS } = await import("@/lib/resources/comparisons");
-    assert.equal(PRIMARY_CTA.label, "Request early access");
+    assert.equal(PRIMARY_CTA.label, "Access");
     assert.doesNotMatch(JSON.stringify(privacyDoc) + JSON.stringify(COMPARISONS), /wait ?list/i);
   });
 });
