@@ -10,7 +10,7 @@ import { helpMetadata } from "@/lib/help/meta";
 export const metadata = helpMetadata({
   title: "ERIX API docs",
   description:
-    "Build on ERIX: authentication, the TypeScript SDK, leads and pipelines, events and flows, the unified inbox, WhatsApp templates, Google Meet, storage and realtime.",
+    "Build on ERIX: authentication, the TypeScript SDK, leads and pipelines, events and flows, the unified inbox, WhatsApp templates, storage and realtime.",
   path: "/api",
   site: "ERIX API docs",
 });

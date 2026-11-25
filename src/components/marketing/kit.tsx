@@ -23,7 +23,7 @@ import { Reveal } from "@/components/motion/motion";
 import { Spotlight } from "@/components/motion/spotlight";
 import { Marquee } from "@/components/motion/surface";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { buttonVariants } from "@/components/ui/button";
+import { ARROW_NUDGE, buttonVariants } from "@/components/ui/button";
 import { SOON_BUTTON, SoonControl } from "@/components/ui/soon";
 import { EMAIL_CTA, PRIMARY_CTA } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -46,13 +46,7 @@ export function PrimaryCta({ lg, className, disabled }: { lg?: boolean; classNam
   return (
     <Link href={PRIMARY_CTA.href} className={cn(buttonVariants({ size: lg ? "lg" : "default" }), "group", className)}>
       {PRIMARY_CTA.label}
-      <Icon
-        name="arrow-right"
-        role="presentation"
-        variant="line"
-        size={16}
-        className="group-hover:translate-x-1 ease-in-out duration-150 transition-transform transform"
-      />
+      <Icon name="arrow-right" role="presentation" variant="line" size={16} className={ARROW_NUDGE} />
     </Link>
   );
 }

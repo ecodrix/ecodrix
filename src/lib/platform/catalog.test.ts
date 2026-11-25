@@ -1,7 +1,16 @@
 /** Run: npx tsx --test src/lib/platform/catalog.test.ts (no test runner is installed in this repo). */
 import assert from "node:assert/strict";
 import { afterEach, describe, it } from "node:test";
-import { applyCatalog, type CatalogItem, getModuleView, getPlatformNav, isNewBadge, NEW_BADGE_DAYS } from "@/lib/platform/catalog";
+import {
+  applyCatalog,
+  type CatalogItem,
+  getModuleView,
+  getPlatformNav,
+  isNewBadge,
+  NEW_BADGE_DAYS,
+  resolveByCatalog,
+} from "@/lib/platform/catalog";
+import { DESKS } from "@/lib/platform/employee-pages";
 import { PLATFORM_NAV } from "@/lib/site";
 
 const item = (id: string, status: "listed" | "soon"): CatalogItem => ({
@@ -29,10 +38,16 @@ describe("applyCatalog", () => {
       [
         ["crm", "live"],
         ["connect", "live"],
-        ["voice", "invite"],
         ["flow", "soon"],
       ],
     );
+  });
+
+  it("Voice follows the catalog like the rest: live when Listed, Coming soon when its version is not live", () => {
+    const voice = (items: CatalogItem[]) => applyCatalog(PLATFORM_NAV, items).find((m) => m.key === "voice")?.status;
+    assert.equal(voice([item("connect.voice", "listed")]), "live");
+    assert.equal(voice([{ ...item("connect.voice", "listed"), live: false }]), "soon");
+    assert.equal(voice([item("crm", "listed")]), undefined);
   });
 });
 
@@ -48,7 +63,6 @@ describe("live flag", () => {
       [
         ["crm", "soon"],
         ["agents", "live"],
-        ["voice", "invite"],
         ["flow", "soon"],
       ].sort((a, b) => out.findIndex((m) => m.key === a[0]) - out.findIndex((m) => m.key === b[0])),
     );
@@ -74,10 +88,7 @@ describe("getPlatformNav fallback", () => {
     const nav = await getPlatformNav();
     assert.deepEqual(
       nav.map((m) => [m.key, m.status]),
-      [
-        ["agents", "soon"],
-        ["voice", "invite"],
-      ],
+      [["agents", "soon"]],
     );
   });
 });
@@ -154,5 +165,42 @@ describe("getModuleView", () => {
       throw new Error("down");
     }) as typeof fetch;
     assert.deepEqual(await getModuleView("erix-crm", "live"), { status: "live", isNew: false, marketing: null });
+  });
+});
+
+describe("resolveByCatalog (AI Employee desks)", () => {
+  const live = (id: string): CatalogItem => ({ ...item(id, "listed"), live: true });
+  const notLive = (id: string): CatalogItem => ({ ...item(id, "listed"), live: false });
+  const states = (items: CatalogItem[] | null) =>
+    Object.fromEntries(resolveByCatalog(DESKS, items).map((d) => [d.name, d.status]));
+
+  it("uses the fallbacks when the catalog cannot be read", () => {
+    const want = {
+      WhatsApp: "live",
+      "Website chat": "soon",
+      Instagram: "soon",
+      Email: "soon",
+      "Phone calls": "live",
+    };
+    assert.deepEqual(states(null), want);
+    assert.deepEqual(states([]), want);
+  });
+
+  it("listed and live is live; listed but not live is soon; hidden is left out; Phone follows it too", () => {
+    const out = states([
+      live("connect.whatsapp"),
+      notLive("connect.instagram"),
+      live("connect.email"),
+      live("connect.voice"),
+      live("connect.facebook"),
+    ]);
+    assert.deepEqual(out, {
+      WhatsApp: "live",
+      Instagram: "soon",
+      Email: "live",
+      "Phone calls": "live",
+      Messenger: "live",
+    });
+    assert.equal(states([notLive("connect.voice")])["Phone calls"], "soon");
   });
 });

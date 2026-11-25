@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { type ReactNode, useCallback, useEffect, useState, useSyncExternalStore } from "react";
+import { buttonVariants } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import {
   CONSENT_CHANGED_EVENT as CHANGED,
   CONSENT_VERSION,
   CONSENT_STORAGE_KEY as STORAGE_KEY,
 } from "@/lib/legal/consent";
+import { cn } from "@/lib/utils";
 
 /* ──────────────────────────────────────────────────────────────────────
    CookieConsent — GDPR/DPDP-friendly consent banner wired to Google
@@ -169,6 +171,7 @@ export function CookieConsent({
             <div className="flex items-center justify-between gap-4 mb-2">
               <h2 className="text-foreground font-bold text-base">We value your privacy</h2>
               <button
+                type="button"
                 onClick={rejectNonEssential}
                 aria-label="Reject non-essential cookies and close"
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -216,29 +219,32 @@ export function CookieConsent({
 
             {/* Actions */}
             <div className="mt-4 flex flex-wrap gap-2 items-center">
-              <button
-                onClick={acceptAll}
-                className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-accent px-4 text-sm font-semibold text-white hover:bg-accent-hover"
-              >
+              <button type="button" onClick={acceptAll} className={buttonVariants({ size: "sm" })}>
                 {icons.check} Accept all
               </button>
               <button
+                type="button"
                 onClick={rejectNonEssential}
-                className="inline-flex min-h-10 items-center justify-center rounded-full border border-border-strong px-4 text-sm font-semibold text-foreground hover:border-accent hover:text-accent"
+                className={buttonVariants({ variant: "ghost", size: "sm" })}
               >
                 Reject non-essential
               </button>
               {showPrefs ? (
                 <button
+                  type="button"
                   onClick={savePreferences}
-                  className="inline-flex min-h-10 items-center justify-center gap-2 px-3 text-sm font-semibold text-accent hover:text-accent-hover"
+                  className={cn(
+                    buttonVariants({ variant: "plain", size: "sm" }),
+                    "text-accent hover:text-accent-hover",
+                  )}
                 >
                   {icons.shield} Save preferences
                 </button>
               ) : (
                 <button
+                  type="button"
                   onClick={() => setShowPrefs(true)}
-                  className="inline-flex min-h-10 items-center justify-center px-3 text-sm font-semibold text-muted-foreground hover:text-foreground"
+                  className={buttonVariants({ variant: "plain", size: "sm" })}
                 >
                   Manage preferences
                 </button>

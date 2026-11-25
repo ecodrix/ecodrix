@@ -1,14 +1,15 @@
-// The demo's data: seed conversations and the 30 s looping script. The script is plain data
+// The demo's data: seed conversations and the 27.6 s looping script. The script is plain data
 // (time in ms, actions); state.ts applies the actions, so the clock hook only has to fire them.
 
-export type Channel = "wa" | "web" | "ig" | "ph";
+export type Channel = "wa" | "ph";
 export type ConvState = "ai" | "need" | "you" | "done";
-export type Msg = { f: "in" | "ai" | "you"; t: string } | { f: "ev"; t: string; k?: "hand" | "paid" };
+export type Msg = { f: "in" | "ai" | "you"; t: string } | { f: "ev"; t: string; k?: "hand" };
 export type Conv = {
   id: string;
   name: string;
   ini: string;
   ch: Channel;
+  // Phone numbers here are +91 55501 00xxx: not a valid Indian mobile or landline, so the demo can never show a real person's number.
   ph: string;
   state: ConvState;
   time: string;
@@ -18,9 +19,9 @@ export type Conv = {
   tl: string[];
 };
 export type Flow = { id: string; name: string; when: string; runs: number };
-export type View = "inbox" | "board" | "cal" | "pay" | "flow";
+export type View = "inbox" | "board" | "cal" | "flow";
 /** Which words of the subline light up (`you` = urgent, drawn crimson). */
-export type VerbKey = "answer" | "book" | "follow" | "pay" | "you";
+export type VerbKey = "answer" | "book" | "follow" | "you";
 export type ToastGo = { view: View; id?: string };
 export type CallPatch = {
   start?: boolean;
@@ -44,13 +45,12 @@ export type Act =
   | { t: "flow"; id: string }
   | { t: "typing"; id: string | null }
   | { t: "add"; conv: Conv }
-  | { t: "unseen"; k: "inbox" | "cal" | "pay" | "flow" }
-  | { t: "paid"; id: string; amt: number; what: string }
+  | { t: "unseen"; k: "inbox" | "cal" | "flow" }
   | { t: "toast"; text: string; color: string; go: ToastGo }
   | { t: "call"; p: CallPatch }
   | { t: "reset" };
 
-export const STAGES = ["New", "Interested", "Booked", "Paid"];
+export const STAGES = ["New", "Interested", "Booked", "Visited"];
 
 export const seed = () => ({
   convs: [
@@ -58,8 +58,8 @@ export const seed = () => ({
       id: "ar",
       name: "Ananya Reddy",
       ini: "AR",
-      ch: "web",
-      ph: "+91 98480 22117",
+      ch: "wa",
+      ph: "+91 55501 00151",
       state: "ai",
       time: "9:12 pm",
       stage: "Interested",
@@ -77,8 +77,8 @@ export const seed = () => ({
       id: "ps",
       name: "Priya S",
       ini: "PS",
-      ch: "ig",
-      ph: "@priya.s",
+      ch: "wa",
+      ph: "+91 55501 00163",
       state: "ai",
       time: "9:08 pm",
       stage: "New",
@@ -87,14 +87,14 @@ export const seed = () => ({
         { f: "in", t: "Is cleaning painful?" },
         { f: "ai", t: "Not at all, it takes about 30 minutes and most people feel nothing. Want a slot this week?" },
       ],
-      tl: ["Messaged from your reel"],
+      tl: ["Messaged your WhatsApp number"],
     },
     {
       id: "mi",
       name: "Mohammed Irfan",
       ini: "MI",
       ch: "ph",
-      ph: "+91 99490 11872",
+      ph: "+91 55501 00172",
       state: "need",
       time: "8:40 pm",
       stage: "New",
@@ -107,16 +107,16 @@ export const seed = () => ({
       name: "Keerthi T",
       ini: "KT",
       ch: "wa",
-      ph: "+91 90000 33019",
+      ph: "+91 55501 00119",
       state: "done",
       time: "6:10 pm",
-      stage: "Paid",
+      stage: "Visited",
       value: 2400,
       msgs: [
         { f: "ai", t: "Your check-up is done. Next cleaning reminder in 6 months." },
         { f: "in", t: "ధన్యవాదాలు డాక్టర్ గారు" },
       ],
-      tl: ["Paid ₹2,400 · UPI"],
+      tl: ["Check-up done"],
     },
   ] as Conv[],
   booked: 4,
@@ -124,10 +124,8 @@ export const seed = () => ({
     "Mon 25 Nov": { "10:00 am": "Lakshmi N", "11:00 am": null, "12:30 pm": null },
     "Sat 29 Nov": { "9:30 am": "Venkat G", "10:30 am": null, "12:00 pm": null },
   } as Record<string, Record<string, string | null>>,
-  txns: [{ name: "Keerthi T", amt: 2400, what: "Check-up and cleaning" }],
   flows: [
     { id: "remind", name: "Visit reminder", when: "The day before every booking", runs: 12 },
-    { id: "paylink", name: "Payment link after booking", when: "Sends a UPI link when a visit is booked", runs: 9 },
     {
       id: "alert",
       name: "Alert the team",
@@ -136,12 +134,11 @@ export const seed = () => ({
     },
     { id: "follow", name: "Follow up quiet leads", when: "No reply in 2 days: one friendly nudge", runs: 21 },
   ] as Flow[],
-  unseen: { inbox: 0, cal: 0, pay: 0, flow: 0 },
+  unseen: { inbox: 0, cal: 0, flow: 0 },
 });
 export type Seed = ReturnType<typeof seed>;
 
 const remind: Act = { t: "flow", id: "remind" };
-const paylink: Act = { t: "flow", id: "paylink" };
 const click: Act = { t: "click" };
 
 /**
@@ -157,9 +154,9 @@ export const SCRIPT: [number, Act[]][] = [
       { t: "select", id: "ar" },
       {
         t: "doing",
-        text: "Answering Ananya on website chat",
+        text: "Answering Ananya on WhatsApp",
         k: "answer",
-        cap: "Riya is answering Ananya on your website chat",
+        cap: "Riya is answering Ananya on your WhatsApp",
         id: "ar",
       },
     ],
@@ -190,7 +187,6 @@ export const SCRIPT: [number, Act[]][] = [
         also: [
           { t: "say", id: "ar", msg: { f: "ev", t: "Booked Mon 11 am · Dr. Rao" }, tl: "Booked Mon 11 am" },
           remind,
-          paylink,
         ],
       },
       {
@@ -209,9 +205,9 @@ export const SCRIPT: [number, Act[]][] = [
     [
       {
         t: "doing",
-        text: "Started automations: reminder and payment link",
+        text: "Started the visit reminder",
         k: "follow",
-        cap: "Reminder and payment link are set to go on their own",
+        cap: "The visit reminder is set to go on its own",
       },
     ],
   ],
@@ -226,7 +222,7 @@ export const SCRIPT: [number, Act[]][] = [
           name: "Ravi Kumar",
           ini: "RK",
           ch: "wa",
-          ph: "+91 98660 41377",
+          ph: "+91 55501 00137",
           state: "ai",
           time: "9:15 pm",
           stage: "New",
@@ -279,17 +275,13 @@ export const SCRIPT: [number, Act[]][] = [
         t: "say",
         id: "ps",
         msg: { f: "ai", t: "Saturday 10:30 am is free. Booked, see you then." },
-        also: [
-          { t: "say", id: "ps", msg: { f: "ev", t: "Booked Sat 10:30 am" }, tl: "Booked Sat 10:30 am" },
-          remind,
-          paylink,
-        ],
+        also: [{ t: "say", id: "ps", msg: { f: "ev", t: "Booked Sat 10:30 am" }, tl: "Booked Sat 10:30 am" }, remind],
       },
       {
         t: "doing",
-        text: "Booked Priya Sat 10:30 am from Instagram",
+        text: "Booked Priya Sat 10:30 am on WhatsApp",
         k: "book",
-        cap: "Riya booked Priya for Sat 10:30 am from Instagram",
+        cap: "Riya booked Priya for Sat 10:30 am on WhatsApp",
       },
       click,
       { t: "view", view: "cal" },
@@ -298,26 +290,9 @@ export const SCRIPT: [number, Act[]][] = [
   [13100, [{ t: "book", id: "ps", day: "Sat 29 Nov", time: "10:30 am" }]],
   [13900, [{ t: "cur", to: "tab:inbox" }]],
   [14600, [click, { t: "view", view: "inbox" }]],
-  [14800, [{ t: "cur", to: "tab:pay" }]],
-  [15500, [click, { t: "view", view: "pay" }]],
-  [
-    15600,
-    [
-      { t: "paid", id: "ar", amt: 35000, what: "Braces, first instalment" },
-      { t: "toast", text: "Paid · ₹35,000 by Ananya", color: "var(--hx-ok)", go: { view: "pay" } },
-      {
-        t: "doing",
-        text: "Payment received · CRM stage set to Paid",
-        k: "pay",
-        cap: "₹35,000 collected from Ananya by UPI",
-      },
-    ],
-  ],
-  [16300, [{ t: "cur", to: "tab:inbox" }]],
-  [17000, [click, { t: "view", view: "inbox" }]],
   // Phone call: Riya picks up, books on the call, and the summary lands in the inbox
   [
-    17500,
+    15100,
     [
       {
         t: "add",
@@ -326,7 +301,7 @@ export const SCRIPT: [number, Act[]][] = [
           name: "Suresh K",
           ini: "SK",
           ch: "ph",
-          ph: "+91 97010 55214",
+          ph: "+91 55501 00114",
           state: "ai",
           time: "9:20 pm",
           stage: "New",
@@ -345,9 +320,9 @@ export const SCRIPT: [number, Act[]][] = [
       },
     ],
   ],
-  [17900, [{ t: "cur", to: "call" }]],
+  [15500, [{ t: "cur", to: "call" }]],
   [
-    18300,
+    15900,
     [
       {
         t: "call",
@@ -360,7 +335,7 @@ export const SCRIPT: [number, Act[]][] = [
     ],
   ],
   [
-    19900,
+    17500,
     [
       {
         t: "call",
@@ -373,11 +348,11 @@ export const SCRIPT: [number, Act[]][] = [
     ],
   ],
   [
-    21500,
+    19100,
     [{ t: "call", p: { who: "in", st: "On call · Riya is listening", line: ["Suresh", "Yes, please book it."] } }],
   ],
   [
-    22500,
+    20100,
     [
       {
         t: "call",
@@ -394,7 +369,7 @@ export const SCRIPT: [number, Act[]][] = [
     ],
   ],
   [
-    23900,
+    21500,
     [
       { t: "call", p: { end: true, st: "Call ended · summary saved" } },
       { t: "say", id: "sk", msg: { f: "ev", t: "Call · {dur} · booked Sat 12 pm" } },
@@ -417,10 +392,10 @@ export const SCRIPT: [number, Act[]][] = [
       },
     ],
   ],
-  [25300, [{ t: "call", p: { hide: true } }]],
-  [25800, [{ t: "cur", to: "tab:flow" }]],
+  [22900, [{ t: "call", p: { hide: true } }]],
+  [23400, [{ t: "cur", to: "tab:flow" }]],
   [
-    26300,
+    23900,
     [
       { t: "flow", id: "follow" },
       {
@@ -431,9 +406,9 @@ export const SCRIPT: [number, Act[]][] = [
       },
     ],
   ],
-  [26500, [click, { t: "view", view: "flow" }]],
-  [28000, [{ t: "cur", to: "tab:inbox" }]],
-  [28700, [click, { t: "view", view: "inbox" }]],
-  [29300, [{ t: "cur", to: null }]],
-  [30000, [{ t: "reset" }]],
+  [24100, [click, { t: "view", view: "flow" }]],
+  [25600, [{ t: "cur", to: "tab:inbox" }]],
+  [26300, [click, { t: "view", view: "inbox" }]],
+  [26900, [{ t: "cur", to: null }]],
+  [27600, [{ t: "reset" }]],
 ];

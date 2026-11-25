@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { renderToStaticMarkup } from "react-dom/server";
 import { EmailCta, PrimaryCta } from "@/components/marketing/kit";
+import { EMAIL_CTA } from "@/lib/site";
 import { StatusBadge } from "./status-badge";
 
 describe("disabled CTA for a not-available item", () => {
@@ -35,11 +36,12 @@ describe("Coming-soon module page CTAs", () => {
       <EmailCta lg disabled />
     </>,
   );
-  it("keeps Request early access enabled, a link to the form", () => {
-    assert.match(html, /<a [^>]*href="\/#contact"[^>]*>Request early access/);
+  it("keeps the main CTA enabled, a link to the form", () => {
+    assert.match(html, /<a [^>]*href="\/#contact"[^>]*>Access/);
   });
   it("keeps the other CTA disabled", () => {
-    assert.match(html, /aria-disabled="true"[^>]*>.*Email us/);
+    // The label comes from site.ts, so a rename there cannot leave this test stale again.
+    assert.match(html, new RegExp(`aria-disabled="true"[^>]*>.*${EMAIL_CTA.label}`));
     assert.equal((html.match(/aria-disabled/g) ?? []).length, 1);
   });
 });
@@ -49,7 +51,7 @@ describe("no visible waitlist wording", () => {
     const { PRIMARY_CTA } = await import("@/lib/site");
     const { privacyDoc } = await import("@/lib/legal/docs/privacy");
     const { COMPARISONS } = await import("@/lib/resources/comparisons");
-    assert.equal(PRIMARY_CTA.label, "Request early access");
+    assert.equal(PRIMARY_CTA.label, "Access");
     assert.doesNotMatch(JSON.stringify(privacyDoc) + JSON.stringify(COMPARISONS), /wait ?list/i);
   });
 });

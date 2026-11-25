@@ -24,14 +24,14 @@ export function AgentsScreen() {
       steps={7}
       timing={[1200, 1000, 900, 700, 700, 1200, 1300]}
       hold={4200}
-      label="Building an AI agent by chatting: the owner writes 'Answer WhatsApp messages about our courses and book a demo call' and taps Plan it. ERIX shows the plan first: an agent that answers from the course list, books demo calls and hands refunds to the team, with one question. Build agent saves it as a draft at Suggest with no channels, so nothing goes live until it is published."
+      label="Building an AI employee by chatting: the owner writes 'Answer WhatsApp messages about our courses and book a demo call' and taps Plan it. ERIX shows the plan first: an agent that answers from the course list, books demo calls and hands refunds to the team, with one question. Build agent saves it as a draft at Suggest with no channels, so nothing goes live until it is published."
       className="w-full"
     >
       <AppFrame title="AI / Agents" nav="ai" className="h-[25rem]">
         <div className="flex h-full flex-col gap-3 overflow-hidden p-3.5 @2xl:p-4">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <p className="font-display text-[17px] leading-6 font-bold text-foreground">AI agents</p>
+              <p className="font-display text-[17px] leading-6 font-bold text-foreground">Front desk</p>
               <p className="hidden text-[11px] leading-4 text-muted-foreground @2xl:block">
                 You decide how much each may do on its own.{" "}
                 <span className="font-semibold text-foreground">Money and customer messages always wait for you.</span>

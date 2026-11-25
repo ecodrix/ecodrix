@@ -12,7 +12,7 @@ import { TimelineScene } from "@/components/product-screens/timeline-scene";
 export const MODULE_TOURS: Record<string, { title: string; lead: string; chapters: Chapter[] }> = {
   "erix-connect": {
     title: "Every chat and call, and what each one does for you",
-    lead: "One inbox for WhatsApp and phone calls, plus the calendar the conversation leads to. Instagram, email and website chat are coming soon.",
+    lead: "One inbox for WhatsApp and phone calls, plus the bookings they lead to. Instagram, email and website chat are coming soon.",
     chapters: [
       {
         id: "inbox",
@@ -41,15 +41,6 @@ export const MODULE_TOURS: Record<string, { title: string; lead: string; chapter
           "Ticks you know: ✓ sent, ✓✓ delivered, blue ✓✓ read",
         ],
         visual: <LazyScreen name="broadcast" />,
-      },
-      {
-        id: "calendar",
-        marker: "Google Calendar",
-        module: "ERIX Connect",
-        icon: "calendar-check",
-        title: "Google Calendar and Meet",
-        body: "Bookings from your booking page, and the ones the agent makes, land on your Google Calendar. Online meetings get a Meet link, and a reminder goes out before.",
-        visual: <LazyScreen name="booking" />,
       },
     ],
   },
@@ -91,7 +82,7 @@ export const MODULE_TOURS: Record<string, { title: string; lead: string; chapter
         module: "ERIX CRM",
         icon: "calendar-check",
         title: "Bookings in IST, never double-booked",
-        body: "Appointment types, open slots and a public booking page, with Google Calendar and Meet links and reminders. The AI agent can offer slots and book too.",
+        body: "Appointment types, open slots and a public booking page, with reminders. Google Calendar and Meet are coming soon. The AI employee can offer slots and book too.",
         visual: <LazyScreen name="booking" />,
       },
       {

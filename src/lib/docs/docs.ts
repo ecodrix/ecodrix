@@ -1248,13 +1248,13 @@ export const DOC_SECTIONS: DocSection[] = [
   {
     id: "meet",
     group: "Platform",
-    title: "Google Meet",
+    title: "Google Meet (coming soon)",
     eyebrow: "Platform",
     ai: false,
     blocks: [
       {
         kind: "p",
-        text: "Book meetings against a lead; online meetings get a Meet link from your connected Google account. Flows can react to the meeting-created and meeting-rescheduled events, for reminders for example.",
+        text: "Coming soon in the app. Book meetings against a lead; online meetings get a Meet link from your connected Google account. Flows can react to the meeting-created and meeting-rescheduled events, for reminders for example.",
       },
       {
         kind: "endpoint",

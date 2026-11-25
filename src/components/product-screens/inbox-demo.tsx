@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 
 type Ch = "whatsapp";
 
-interface Draft {
+export interface Draft {
   text: string;
   source: string;
   confidence: number;
@@ -18,7 +18,7 @@ interface Draft {
 }
 
 /** One conversation: what's been said, then each turn's AI draft and the customer's next message. */
-interface Thread {
+export interface Thread {
   id: string;
   name: string;
   ch: Ch;
@@ -26,7 +26,7 @@ interface Thread {
   turns: { draft: Draft; next: string }[];
 }
 
-const THREADS: Thread[] = [
+export const THREADS: Thread[] = [
   {
     id: "rohan",
     name: "Rohan Mehta",
@@ -125,9 +125,9 @@ interface State {
   unread: number;
 }
 
-const initial = (): Record<string, State> =>
+const initial = (list: Thread[]): Record<string, State> =>
   Object.fromEntries(
-    THREADS.map((t, i) => [
+    list.map((t, i) => [
       t.id,
       { messages: t.history, turn: 0, draft: t.turns[0]?.draft ?? null, unread: i === 0 || !t.turns.length ? 0 : 1 },
     ]),
@@ -138,23 +138,29 @@ const initial = (): Record<string, State> =>
  * drafts each answer; you send it, edit it, write your own, or let the AI
  * reply on its own. The customer answers back, so it plays out like a real chat.
  */
-export function InboxDemo() {
-  const [threads, setThreads] = useState(initial);
-  const [open, setOpen] = useState(THREADS[0].id);
+export function InboxDemo({
+  list = THREADS,
+  placeholder = "Message via WhatsApp…",
+}: {
+  list?: Thread[];
+  placeholder?: string;
+} = {}) {
+  const [threads, setThreads] = useState(() => initial(list));
+  const [open, setOpen] = useState(list[0].id);
   const [auto, setAuto] = useState(false);
   const [text, setText] = useState("");
   const [busy, setBusy] = useState<string | null>(null);
   const [typing, setTyping] = useState<Record<string, string | null>>({});
   const alive = useRef(true);
 
-  const t = THREADS.find((x) => x.id === open) as Thread;
+  const t = list.find((x) => x.id === open) as Thread;
   const st = threads[open];
   const update = (id: string, f: (s: State) => Partial<State>) =>
     setThreads((all) => ({ ...all, [id]: { ...all[id], ...f(all[id]) } }));
 
   /** Our message goes out, ticks go blue, then the customer replies and the AI drafts the next answer. */
   async function reply(id: string, out: ChatMsg) {
-    const thread = THREADS.find((x) => x.id === id) as Thread;
+    const thread = list.find((x) => x.id === id) as Thread;
     const fast = reducedMotion();
     setBusy(id);
     update(id, (s) => ({ messages: [...s.messages, out], draft: null }));
@@ -178,7 +184,7 @@ export function InboxDemo() {
       unread: open === id ? 0 : s.unread + 1,
     }));
     if (after) {
-      setTyping((m) => ({ ...m, [id]: "AI agent" }));
+      setTyping((m) => ({ ...m, [id]: "AI employee" }));
       await sleep(fast ? 0 : 1200);
       setTyping((m) => ({ ...m, [id]: null }));
       if (auto) {
@@ -250,7 +256,7 @@ export function InboxDemo() {
             className="hidden w-[38%] shrink-0 overflow-y-auto border-r border-border bg-surface md:block"
             data-lenis-prevent
           >
-            {THREADS.map((x) => {
+            {list.map((x) => {
               const s = threads[x.id];
               const tail = s.messages[s.messages.length - 1];
               return (
@@ -299,7 +305,7 @@ export function InboxDemo() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {THREADS.map((x) => (
+                    {list.map((x) => (
                       <SelectItem key={x.id} value={x.id}>
                         {x.name}
                       </SelectItem>
@@ -356,7 +362,7 @@ export function InboxDemo() {
 
             <div className="border-t border-border bg-surface p-2.5">
               <Composer
-                placeholder="Message via WhatsApp…"
+                placeholder={placeholder}
                 value={text}
                 onChange={setText}
                 disabled={busy === open}

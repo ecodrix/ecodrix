@@ -74,7 +74,7 @@ export default async function Image() {
             Every message and call answered, booked and followed up.
           </div>
           <div style={{ marginTop: "24px", fontSize: "26px", lineHeight: 1.45, color: "rgba(255,255,255,0.8)" }}>
-            WhatsApp and phone calls in one inbox, an AI agent, a pipeline and automatic follow-ups.
+            WhatsApp and phone calls in one inbox, an AI employee, a pipeline and automatic follow-ups.
           </div>
         </div>
         <div style={{ fontSize: "22px", fontWeight: 600, color: "rgba(255,255,255,0.8)" }}>ecodrix.com</div>

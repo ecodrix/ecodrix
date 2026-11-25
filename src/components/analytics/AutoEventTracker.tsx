@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { PRIMARY_CTA } from "@/lib/site";
 import { trackEvent } from "@/lib/track";
 
 /**
@@ -60,6 +61,8 @@ export function AutoEventTracker() {
       if (
         label.includes("waitlist") ||
         label.includes("early access") ||
+        // The main button is one word now ("Access"), so match it whole, not as a part of other words.
+        label.trim() === PRIMARY_CTA.label.toLowerCase() ||
         label.includes("get started") ||
         label.includes("join")
       ) {

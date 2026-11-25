@@ -19,7 +19,12 @@ export type ScreenKey =
   | "ai"
   | "documents"
   | "crm"
-  | "flowCanvas";
+  | "flowCanvas"
+  | "voiceCall"
+  | "broadcast"
+  | "clinicBooking"
+  | "coachingInbox"
+  | "localBrandInbox";
 
 export interface SubPage {
   slug: string;
@@ -267,6 +272,7 @@ export const CRM_PAGES: SubPage[] = [
     description:
       "Automations that start on CRM events, such as a new lead, a stage change, a won deal or a booking, are built in ERIX Flow. Here is how they meet your pipeline.",
     type: "capability",
+    screen: "flow",
     lead: "Automations that react to your pipeline live in ERIX Flow. They start when something happens in your CRM and act on the same contact.",
     sections: [
       {
@@ -289,7 +295,7 @@ export const CRM_PAGES: SubPage[] = [
     slug: "real-estate",
     title: "ERIX for real estate agents and builders",
     description:
-      "For property consultants: portal and ad leads in one pipeline, site visits in IST, WhatsApp follow-ups and an agent that knows your listings.",
+      "For property consultants: portal and ad leads in one pipeline, site visits in IST, WhatsApp follow-ups and an AI employee that knows your listings.",
     type: "use-case",
     lead: "Built for how property is sold in India: enquiries at night, site visits at the weekend, follow-ups on WhatsApp and a token amount at the end.",
     screen: "pipeline",
@@ -319,9 +325,9 @@ export const CRM_PAGES: SubPage[] = [
         ],
       },
       {
-        heading: "An agent that sticks to your listings",
+        heading: "An AI employee that sticks to your listings",
         body: [
-          "Add your project details and price list to AI knowledge, and the agent answers buyers from that information. It sends an answer on its own only when the answer is grounded and it's sure; anything else becomes a draft for your team. Money questions such as discounts always go to a person, so nobody gets a promise you didn't make.",
+          "Add your project details and price list to AI knowledge, and the AI employee answers buyers from that information. It sends an answer on its own only when the answer is grounded and it's sure; anything else becomes a draft for your team. Money questions such as discounts always go to a person, so nobody gets a promise you didn't make.",
         ],
       },
       {
@@ -353,7 +359,7 @@ export const CRM_PAGES: SubPage[] = [
       "For clinics: enquiry forms with consent, appointments in IST with no double bookings, WhatsApp reminders, and medical questions always routed to your own team.",
     type: "use-case",
     lead: "Patients ask on WhatsApp, book from a link and expect a reminder. ERIX handles the routine and leaves anything medical to your team.",
-    screen: "booking",
+    screen: "clinicBooking",
     sections: [
       {
         heading: "Enquiries with consent recorded",
@@ -364,7 +370,7 @@ export const CRM_PAGES: SubPage[] = [
       {
         heading: "Appointments the front desk doesn't juggle",
         body: [
-          "Set your hours, appointment length and the gap between patients. Each appointment type has its own length and place: in person, a phone call or Google Meet. A patient booking from Dubai sees your times clearly labelled in India Standard Time. Two people can never take the same slot, and you can confirm each booking yourself or let them confirm automatically.",
+          "Set your hours, appointment length and the gap between patients. Each appointment type has its own length and place: in person or a phone call. A patient booking from Dubai sees your times clearly labelled in India Standard Time. Two people can never take the same slot, and you can confirm each booking yourself or let them confirm automatically.",
         ],
       },
       {
@@ -383,7 +389,7 @@ export const CRM_PAGES: SubPage[] = [
     faqs: [
       {
         q: "Can patients book a teleconsultation?",
-        a: "Yes. Set the appointment type's place to Google Meet. With Google connected, each booking gets a Meet link; without it, bookings still come in, just without a link.",
+        a: "Not yet. Google Meet links for bookings are coming soon. Until then, patients can book a phone call or an in-person visit.",
       },
       {
         q: "Will the AI give medical advice?",
@@ -455,7 +461,7 @@ export const CRM_PAGES: SubPage[] = [
       "For coaching institutes: admission forms, counselling bookings, AI answers on batch timings and fees, and WhatsApp follow-ups.",
     type: "use-case",
     lead: "Parents enquire at night and decide over a week. ERIX answers the routine questions, books the counselling session and keeps the follow-up going.",
-    screen: "inbox",
+    screen: "coachingInbox",
     sections: [
       {
         heading: "A week from enquiry to admission",
@@ -477,7 +483,7 @@ export const CRM_PAGES: SubPage[] = [
       {
         heading: "Your institute's tone",
         body: [
-          "Give the agent a persona, such as a friendly counsellor who always asks which class the student is in. It replies in the language the parent writes in, whether that's Telugu, Hindi or English. Start with replies as drafts your counsellors send, and check its answers in Answer review before you let it reply on its own.",
+          "Give the AI employee a persona, such as a friendly counsellor who always asks which class the student is in. It replies in the language the parent writes in, whether that's Telugu, Hindi or English. Start with replies as drafts your counsellors send, and check its answers in Answer review before you let it reply on its own.",
         ],
       },
       {
@@ -496,7 +502,7 @@ export const CRM_PAGES: SubPage[] = [
     faqs: [
       {
         q: "Can the AI reply in Telugu or Hindi?",
-        a: "Yes. The agent replies in the language the parent writes in, including Telugu or Hindi mixed with English. Refunds, complaints and medical questions still go to a person.",
+        a: "Yes. The AI employee replies in the language the parent writes in, including Telugu or Hindi mixed with English. Refunds, complaints and medical questions still go to a person.",
       },
       {
         q: "Can parents pay the course fee online?",
@@ -515,7 +521,7 @@ export const CRM_PAGES: SubPage[] = [
       "For D2C and local brands: one inbox for order questions, WhatsApp broadcasts with approved templates, and AI answers from your price list.",
     type: "use-case",
     lead: "Answer order questions from one inbox, send offers on WhatsApp with templates WhatsApp has approved, and follow up with every enquiry.",
-    screen: "inbox",
+    screen: "localBrandInbox",
     notice:
       "ERIX doesn't connect to Shopify or a store catalogue today, and storefront checkout is planned for later. Orders come in as chats.",
     sections: [
@@ -528,7 +534,7 @@ export const CRM_PAGES: SubPage[] = [
       {
         heading: "Answers from your price list",
         body: [
-          "Add your price list, sizes and delivery areas to AI knowledge. When someone asks “Kurta sets kitne ke hain?”, the agent answers from your price list in the customer's language. Anything it isn't sure of becomes a draft, and refunds and complaints always go to your team.",
+          "Add your price list, sizes and delivery areas to AI knowledge. When someone asks “Kurta sets kitne ke hain?”, the AI employee answers from your price list in the customer's language. Anything it isn't sure of becomes a draft, and refunds and complaints always go to your team.",
         ],
       },
       {
@@ -551,7 +557,7 @@ export const CRM_PAGES: SubPage[] = [
       },
       {
         q: "Can the AI reply in Hinglish?",
-        a: "Yes. The agent replies in the language the customer writes in, including Hindi mixed with English.",
+        a: "Yes. The AI employee replies in the language the customer writes in, including Hindi mixed with English.",
       },
       {
         q: "Does ERIX connect to Shopify?",
@@ -590,7 +596,7 @@ export const CRM_PAGES: SubPage[] = [
       {
         heading: "Questions a bot shouldn't answer",
         body: [
-          "If you use the AI agent for office hours and document checklists, keep it in Suggest mode: it drafts and your team sends. Refunds and complaints always go to a person, and anything the agent isn't sure of becomes a draft instead of an answer.",
+          "If you use the AI employee for office hours and document checklists, keep it in Suggest mode: it drafts and your team sends. Refunds and complaints always go to a person, and anything the AI employee isn't sure of becomes a draft instead of an answer.",
         ],
       },
       {
@@ -613,6 +619,7 @@ export const CRM_PAGES: SubPage[] = [
   },
   {
     slug: "google-meet-guide",
+    soon: true,
     title: "Google Calendar and Meet bookings",
     description:
       "Connect Google to ERIX so bookings land on your calendar with a Meet link: sign in, create appointment types, set your hours, then share your booking page.",
@@ -760,7 +767,7 @@ export const FLOW_PAGES: SubPage[] = [
       {
         heading: "AI reply",
         body: [
-          "Let the AI agent write the reply from your knowledge: documents, price lists, FAQs and website pages. Like the agent in the inbox, it drafts for a person by default, and refunds, complaints and medical questions always go to your team.",
+          "Let the AI employee write the reply from your knowledge: documents, price lists, FAQs and website pages. Like the AI employee in the inbox, it drafts for a person by default, and refunds, complaints and medical questions always go to your team.",
         ],
       },
       {
@@ -1011,8 +1018,7 @@ export const CONNECT_PAGES: SubPage[] = [
   {
     slug: "channels",
     title: "Channels in ERIX Connect: what's live today",
-    description:
-      "WhatsApp Business API, phone calls and Google Calendar and Meet: what ERIX Connect supports today, and what's coming soon.",
+    description: "WhatsApp Business API and phone calls: what ERIX Connect supports today, and what's coming soon.",
     type: "capability",
     lead: "Every channel lands in the same inbox and on the same contact, so your team answers from one place.",
     screen: "inbox",
@@ -1030,16 +1036,8 @@ export const CONNECT_PAGES: SubPage[] = [
         ],
       },
       {
-        heading: "Google Calendar and Meet",
-        body: [
-          "Connect Google once and bookings get Meet links. Bookings still work without Google, just without a meeting link.",
-        ],
-      },
-      {
         heading: "Coming soon",
-        body: [
-          "Instagram DMs, email and website chat are coming soon. Facebook Messenger and Telegram inboxes arrive in version 1.2.",
-        ],
+        body: ["Instagram DMs, email, website chat, and Google Calendar and Meet for bookings are coming soon."],
       },
     ],
     faqs: [
@@ -1106,7 +1104,7 @@ export const CONNECT_PAGES: SubPage[] = [
       {
         heading: "Replies with AI, checked by you",
         body: [
-          "Turn on AI replies under AI → Assistant and the agent drafts answers from your knowledge, showing the source of each. Until you switch on Auto-reply, every draft waits for a person to send it; even then, only answers it is confident about go out on their own. Refunds, complaints, medical and legal questions are set to go to your team by default.",
+          "Turn on AI replies under AI → Assistant and the AI employee drafts answers from your knowledge, showing the source of each. Until you switch on Auto-reply, every draft waits for a person to send it; even then, only answers it is confident about go out on their own. Refunds, complaints, medical and legal questions are set to go to your team by default.",
         ],
       },
       {
@@ -1150,6 +1148,7 @@ export const CONNECT_PAGES: SubPage[] = [
     description:
       "How many WhatsApp messages you can broadcast: Meta's daily limit on new conversations, what moves it, and how broadcasts work in ERIX with approved templates.",
     type: "guide",
+    screen: "broadcast",
     lead: "Meta sets the limits on WhatsApp broadcasts. Here is how they work, and what ERIX does around them.",
     sections: [
       {

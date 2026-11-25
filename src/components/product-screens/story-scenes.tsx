@@ -36,7 +36,7 @@ export function ArrivalScene() {
       steps={3}
       timing={[0, 1300, 1500, 1300]}
       hold={3600}
-      label="The ERIX inbox on the owner's phone at night: a WhatsApp message from Rohan Mehta about a 3BHK at Baner arrives at 9:42 pm, then a phone call about 2BHKs near Wakad that the agent answers, each with an unread count, live without a refresh."
+      label="The ERIX inbox on the owner's phone at night: a WhatsApp message from Rohan Mehta about a 3BHK at Baner arrives at 9:42 pm, then a phone call about 2BHKs near Wakad that the assistant answers, each with an unread count, live without a refresh."
       className="mx-auto w-fit"
     >
       <PhoneFrame

@@ -4,11 +4,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { BookOpen, Check, CheckCheck, FileText, Send, Sparkles, UserRound } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
-/* ── A scripted AI agent for the marketing demos (no network, example data) ── */
+/* ── A scripted AI employee for the marketing demos (no network, example data) ── */
 
 export interface ChatMsg {
   id: number;
-  /** customer = the person enquiring; ai = the AI agent; you = the business; team = a teammate. */
+  /** customer = the person enquiring; ai = the AI employee; you = the business; team = a teammate. */
   from: "customer" | "ai" | "you" | "team";
   text: string;
   time: string;
@@ -129,7 +129,7 @@ export function MessageBubble({ m }: { m: ChatMsg }) {
     >
       {m.from === "ai" && (
         <span className="mb-0.5 flex items-center gap-1 text-[11px] font-semibold text-ai">
-          <Sparkles aria-hidden="true" className="size-3" /> AI agent
+          <Sparkles aria-hidden="true" className="size-3" /> AI reply
         </span>
       )}
       {m.from === "team" && (
@@ -156,7 +156,7 @@ export function MessageBubble({ m }: { m: ChatMsg }) {
   );
 }
 
-export function TypingDots({ who = "AI agent" }: { who?: string }) {
+export function TypingDots({ who = "AI employee" }: { who?: string }) {
   return (
     <li className="ml-auto flex w-fit items-center gap-2 rounded-[10px] border border-accent-border bg-accent-muted px-2.5 py-1.5 text-[11px] font-semibold text-ai">
       <Sparkles aria-hidden="true" className="size-3" /> {who} is typing
@@ -319,7 +319,7 @@ export function useAgentChat(initial: ChatMsg[] = []) {
         void deliver(m.id);
         return;
       }
-      setTyping("AI agent");
+      setTyping("AI employee");
       await sleep(fast ? 0 : 900 + Math.min(900, a.text.length * 12));
       if (!alive.current) return;
       setTyping(null);

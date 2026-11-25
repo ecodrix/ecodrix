@@ -56,11 +56,11 @@ export function Heart() {
               },
               {
                 title: "We set ERIX up with you",
-                text: "We connect your WhatsApp number and phone line, shape the pipeline, teach the agent your price list and hours, and switch on the follow-ups you send by hand today.",
+                text: "We connect your WhatsApp number and phone line, shape the pipeline, teach the AI employee your price list and hours, and switch on the follow-ups you send by hand today.",
               },
               {
                 title: "You run it, we stay close",
-                text: "The agent starts in Suggest, so nothing goes out without you. Your feedback decides what we build next, and terms are agreed with each pilot.",
+                text: "The AI employee starts in Suggest, so nothing goes out without you. Your feedback decides what we build next, and terms are agreed with each pilot.",
               },
             ].map((s, i) => (
               <li key={s.title} className="grid grid-cols-[36px_1fr] gap-4">

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ChevronDown, Menu } from "@/components/icons";
-import { buttonVariants } from "@/components/ui/button";
+import { ARROW_NUDGE, buttonVariants } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { CONTACT_CTA } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -31,8 +31,6 @@ const DesktopNav = dynamic(() => import("./DesktopNav"), { ssr: false });
  */
 export function Navbar() {
   const path = usePathname();
-  // false until the desktop menu is wanted; a section key when a placeholder
-  // had keyboard focus (focus moves to the real trigger).
   const [desktop, setDesktop] = useState<boolean | NavSection>(false);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -40,7 +38,6 @@ export function Navbar() {
   const sentinel = useRef<HTMLDivElement>(null);
   const menuButton = useRef<HTMLButtonElement>(null);
   const closedByNav = useRef(false);
-  // The phone menu (sheet) only exists below 1024px. Hooks run on every render, never inside JSX.
   const isMobile = useIsMobile(1024);
   const current = sectionOf(path);
 
@@ -101,7 +98,9 @@ export function Navbar() {
         <div
           className={cn(
             "relative mx-auto flex h-13 w-full max-w-[1180px] items-center gap-3 rounded-[32px] border border-border bg-surface pr-2.5 pl-5 lg:gap-6 lg:pl-6",
-            "has-[[data-slot=navigation-menu-trigger][data-state=open]]:rounded-[28px_28px_0_0]",
+            // Open: flat card, the bar's bottom border is the only separator (no shadow falls on the panel).
+            // Keyed on the panel being in the DOM, not on the trigger: the corners stay square until it has closed fully.
+            "has-[[data-slot=navigation-menu-viewport]]:rounded-[28px_28px_0_0] has-[[data-slot=navigation-menu-viewport]]:shadow-none has-[[data-slot=navigation-menu-viewport]]:duration-100",
             // Deep navy tint reads on both light pages and the navy hero band.
             "shadow-[0_6px_18px_-10px_rgba(4,13,66,0.16),0_1px_3px_-1px_rgba(4,13,66,0.06)]",
             "group-data-[scrolled]:shadow-[0_8px_22px_-12px_rgba(4,13,66,0.22),0_1px_4px_-1px_rgba(4,13,66,0.08)]",
@@ -164,12 +163,16 @@ export function Navbar() {
           </nav>
 
           <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
-            <Link href={CONTACT_CTA.href} className={cn(buttonVariants({ size: "sm" }), "group px-3.5 sm:px-4")}>
+            <Link
+              href={CONTACT_CTA.href}
+              // Touch: a 2px transparent border (kept out of the fill by bg-clip-padding) lifts the hit area to 44px without growing the 40px pill.
+              className={cn(
+                buttonVariants({ size: "sm" }),
+                "group max-sm:px-3.5 pointer-coarse:border-y-2 pointer-coarse:border-transparent pointer-coarse:bg-clip-padding pointer-coarse:min-h-11",
+              )}
+            >
               {CONTACT_CTA.label}
-              <ArrowRight
-                aria-hidden="true"
-                className="hidden size-4 sm:block group-hover:translate-x-1 transition-transform transform ease-in-out duration-150"
-              />
+              <ArrowRight aria-hidden="true" className={cn("hidden sm:block", ARROW_NUDGE)} />
             </Link>
             <button
               ref={menuButton}
@@ -184,13 +187,16 @@ export function Navbar() {
                 setMenuWanted(true);
                 setMenuOpen(true);
               }}
-              className="js-only flex size-11 items-center justify-center rounded-full text-foreground hover:bg-hover lg:hidden"
+              className={cn(
+                buttonVariants({ variant: "plain", size: "icon" }),
+                "js-only flex text-foreground lg:hidden",
+              )}
             >
-              <Menu aria-hidden="true" className="size-5" />
+              <Menu aria-hidden="true" />
             </button>
             <Link
               href="#site-map"
-              className="nojs-sm hidden size-11 items-center justify-center rounded-full text-foreground"
+              className={cn(buttonVariants({ variant: "plain", size: "icon" }), "nojs-sm hidden text-foreground")}
             >
               <Menu aria-hidden="true" className="size-5" />
               <span className="sr-only">Site map</span>

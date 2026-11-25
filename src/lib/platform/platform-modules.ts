@@ -9,7 +9,7 @@
  * Copy follows the design system's product page (what is live in v1.0 and
  * what comes in which version) and ECOD/docs/VERSION_PLAN.md. Anything not
  * live carries its status word. Status matches PLATFORM_NAV in lib/site.ts
- * (Voice is open by request; its claims come from ECOD/docs/voice/):
+ * (Voice's claims come from ECOD/docs/voice/):
  * Store is coming soon. LAIE is private (founder, 3 Nov 2026), so it isn't here.
  */
 
@@ -48,9 +48,9 @@ export const PLATFORM_MODULES: PlatformModule[] = [
     category: "product",
     status: "live",
     description:
-      "ERIX CRM keeps every enquiry on one board: contacts, pipeline, forms, bookings, GST invoices and payment links, priced in INR.",
+      "ERIX CRM keeps every enquiry on one board: contacts, pipeline, forms and bookings, priced in INR. GST invoices and payment links are coming soon.",
     longDescription:
-      "Enquiries from your form links, booking page and chats land in your pipeline. Move deals in one drag, book appointments in Indian time, and send GST invoices with a payment link through your own Razorpay or Stripe account.",
+      "Enquiries from your form links, booking page and chats land in your pipeline. Move deals in one drag and book appointments in Indian time. Proposals, GST invoices and payment links are coming soon.",
     features: [
       {
         title: "A pipeline for your trade",
@@ -66,7 +66,7 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       },
       {
         title: "Invoices and payment links",
-        body: "GST invoices with a PDF and a payment link through your own Razorpay or Stripe account. Recurring invoices and overdue reminders run on their own.",
+        body: "Coming soon: GST invoices and payment links through your own Razorpay.",
       },
     ],
     steps: [
@@ -81,7 +81,7 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       },
       {
         q: "Does ERIX send GST invoices?",
-        a: "Yes. ERIX makes GST invoices with a PDF and a payment link through your own Razorpay or Stripe account.",
+        a: "Not yet. GST invoices and Razorpay payment links are coming soon.",
       },
       {
         q: "Can my staff use it on a phone?",
@@ -113,15 +113,11 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       },
       {
         title: "More channels",
-        body: "Instagram DMs and email from your own domain land in the same inbox. Website chat is coming soon.",
+        body: "Instagram DMs, email and website chat are coming soon.",
       },
       {
         title: "An inbox that shows what needs you",
         body: "Unread counts, a Needs you list for handed-over chats, and AI drafts that show where the answer came from.",
-      },
-      {
-        title: "Calendar",
-        body: "Google Calendar and Meet for bookings.",
       },
     ],
     steps: [
@@ -173,7 +169,7 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       },
       {
         title: "AI reply",
-        body: "Let the AI agent answer inside an automation, from your own knowledge. It drafts for a person by default.",
+        body: "Let the AI employee answer inside an automation, from your own knowledge. It drafts for a person by default.",
       },
       {
         title: "Approvals before it acts",
@@ -223,12 +219,12 @@ export const PLATFORM_MODULES: PlatformModule[] = [
     title: "ERIX Voice: an AI assistant for your calls",
     tagline: "Every call answered, even when you can't pick up",
     category: "product",
-    status: "invite",
+    status: "live",
     ai: true,
     description:
       "ERIX Voice answers calls on your own Indian number in 11 Indian languages, books appointments, takes messages and puts every call in your inbox.",
     longDescription:
-      "The assistant picks up on your own business number, tells the caller it is an AI assistant, and gets on with the job: booking a visit, taking a message or a callback request, or passing the call to your team during business hours. Every call lands in your Inbox with a transcript and a summary. ERIX Voice is open by request.",
+      "The assistant picks up on your own business number, tells the caller it is an AI assistant, and gets on with the job: booking a visit, taking a message or a callback request, or passing the call to your team during business hours. Every call lands in your Inbox with a transcript and a summary.",
     features: [
       {
         title: "Answers on your own number",
@@ -260,8 +256,7 @@ export const PLATFORM_MODULES: PlatformModule[] = [
       },
     ],
     steps: [
-      "Request access and tell us about your business and your calls.",
-      "We switch ERIX Voice on for your workspace.",
+      "Request early access and tell us about your business and your calls.",
       "Set your number, language, greeting, business hours and where to hand over.",
       "Make a test call to your own phone, then switch the assistant on.",
     ],

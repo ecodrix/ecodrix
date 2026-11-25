@@ -126,14 +126,10 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
               ,{" "}
               <span className="vb" data-k="book">
                 books visits
-              </span>
-              ,{" "}
-              <span className="vb" data-k="follow">
-                follows up
               </span>{" "}
               and{" "}
-              <span className="vb" data-k="pay">
-                sends payment links
+              <span className="vb" data-k="follow">
+                follows up
               </span>{" "}
               inside ERIX.{" "}
               <span className="vb" data-k="you">

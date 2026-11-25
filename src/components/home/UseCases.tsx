@@ -43,7 +43,7 @@ const verticals: {
     day: [
       {
         time: "8:40 pm",
-        text: "A patient asks for a Thursday slot on WhatsApp. The agent offers the free times.",
+        text: "A patient asks for a Thursday slot on WhatsApp. The AI employee offers the free times.",
         ai: true,
       },
       { time: "8:41 pm", text: "She books 11:30 am from your booking page. No double booking." },
@@ -75,7 +75,7 @@ const verticals: {
       { time: "10:05 pm", text: "A buyer's enquiry lands in the pipeline with the chat attached." },
       {
         time: "10:06 pm",
-        text: "The agent answers from the listing: parking, possession date, visit slots.",
+        text: "The AI employee answers from the listing: parking, possession date, visit slots.",
         ai: true,
       },
       { time: "Sat, 11:00 am", text: "Site visit on the calendar, reminder already sent." },
@@ -93,7 +93,7 @@ const verticals: {
       {
         icon: "inbox",
         title: "Every DM in one inbox",
-        text: "WhatsApp messages and calls, each on the right customer. Instagram and website chat: coming soon.",
+        text: "WhatsApp messages and calls, each on the right customer. Instagram, email and website chat: coming soon.",
       },
       {
         icon: "megaphone",
@@ -104,7 +104,7 @@ const verticals: {
     ],
     day: [
       { time: "9:15 pm", text: "A WhatsApp question and a missed call land on the same customer." },
-      { time: "9:16 pm", text: "The agent answers from your price list.", ai: true },
+      { time: "9:16 pm", text: "The AI employee answers from your price list.", ai: true },
       { time: "Fri, 11:00 am", text: "A festive offer goes to customers tagged diwali, on an approved template." },
       { time: "Sat, 2:40 pm", text: "A bulk-order enquiry moves to the next stage and the team is told." },
     ],

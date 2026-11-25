@@ -73,14 +73,14 @@ const parts: {
     icon: "sparkles",
     ai: true,
     screen: "agents",
-    title: "Build an agent by describing it",
+    title: "Build an AI employee by describing it",
     points: [
       "Say what it should do. ERIX shows the plan before it builds anything",
       "It starts as a draft that only suggests, with no channels",
       "You choose how much it may do. Money and messages wait for you",
     ],
     href: "/platform/ai-employee",
-    link: "See AI agents",
+    link: "See AI employees",
   },
   {
     id: "analytics",

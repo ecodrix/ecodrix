@@ -6,7 +6,6 @@ import {
   Clock,
   createIcon,
   type IconComponent,
-  Mail,
   MessageCircle,
   Play,
   Plus,
@@ -27,7 +26,7 @@ const CircleDashed = createIcon("circle-dashed");
 
 /* ── The step catalogue: what each kind of step is called and can be set to ── */
 
-type Kind = "trigger" | "wait" | "whatsapp" | "waitReply" | "update" | "approval" | "ai" | "email";
+type Kind = "trigger" | "wait" | "whatsapp" | "waitReply" | "update" | "approval" | "ai";
 
 const KINDS: Record<
   Kind,
@@ -36,7 +35,7 @@ const KINDS: Record<
   trigger: {
     kicker: "When something happens",
     icon: Zap,
-    options: ["New enquiry", "Form submitted", "Stage changed", "Payment received"],
+    options: ["New enquiry", "Form submitted", "Stage changed"],
   },
   wait: { kicker: "Wait", icon: Clock, options: ["5 minutes", "1 hour", "1 day"], title: (v) => `Wait ${v}` },
   whatsapp: { kicker: "Send WhatsApp", icon: MessageCircle, options: ["Welcome message", "Brochure", "Price list"] },
@@ -53,7 +52,6 @@ const KINDS: Record<
     ai: true,
     options: ["Draft a friendly follow-up", "Draft a formal follow-up", "Answer from the price list"],
   },
-  email: { kicker: "Send email", icon: Mail, options: ["Brochure by email", "Thank-you email"] },
 };
 
 /** What a WhatsApp template says, for the preview (the contact's name filled in). */
@@ -64,7 +62,7 @@ const TEMPLATE: Record<string, string> = {
 };
 
 /** Steps a person can add at the end of a path. */
-const ADDABLE: Kind[] = ["wait", "whatsapp", "email", "update"];
+const ADDABLE: Kind[] = ["wait", "whatsapp", "update"];
 
 interface Step {
   id: string;

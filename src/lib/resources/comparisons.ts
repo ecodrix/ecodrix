@@ -88,7 +88,7 @@ export const COMPARISONS: Comparison[] = [
     competitor: "Wati",
     description:
       "ECODrIx (ERIX) vs Wati for Indian SMBs: both use the official WhatsApp API. Wati leads on AI agents and calling; ERIX builds in the CRM, bookings and automation.",
-    tldr: "Wati (by Clare.ai) is a mature WhatsApp Business API platform: a shared team inbox, broadcasts and drip campaigns, no-code chatbots, its Astra AI agent across chat and voice, WhatsApp Business Calling, and Instagram, Messenger and TikTok in the same inbox. For deals and pipeline it syncs with HubSpot, Zoho CRM or Salesforce. ERIX matches the official-API messaging and builds in the system around it: a pipeline, bookings, automations and an AI agent that answers from your own information, in one platform priced in rupees.",
+    tldr: "Wati (by Clare.ai) is a mature WhatsApp Business API platform: a shared team inbox, broadcasts and drip campaigns, no-code chatbots, its Astra AI agent across chat and voice, WhatsApp Business Calling, and Instagram, Messenger and TikTok in the same inbox. For deals and pipeline it syncs with HubSpot, Zoho CRM or Salesforce. ERIX matches the official-API messaging and builds in the system around it: a pipeline, bookings, automations and an AI employee that answers from your own information, in one platform priced in rupees.",
     competitorBestFor:
       "Teams that want the broadest WhatsApp toolkit (AI agents across chat and voice, WhatsApp calling, Instagram and TikTok in one inbox) and already run a CRM such as HubSpot, Zoho or Salesforce.",
     ecodrixBestFor:
@@ -131,7 +131,7 @@ export const COMPARISONS: Comparison[] = [
     faqs: [
       {
         q: "Is ECODrIx a good Wati alternative in India?",
-        a: `ERIX uses the same official Meta WhatsApp platform as Wati, and adds a pipeline, bookings, automations and an AI agent that answers from your own information. ${ERIX_PRICING}`,
+        a: `ERIX uses the same official Meta WhatsApp platform as Wati, and adds a pipeline, bookings, automations and an AI employee that answers from your own information. ${ERIX_PRICING}`,
       },
       {
         q: "Does Wati have a built-in CRM?",
@@ -221,7 +221,7 @@ export const COMPARISONS: Comparison[] = [
     faqs: [
       {
         q: "Is ECODrIx an AiSensy alternative?",
-        a: `Both run on Meta's official WhatsApp platform. AiSensy is marketing and broadcast-led, while ERIX adds a pipeline, bookings, automations and an AI agent on your chats. ${ERIX_PRICING}`,
+        a: `Both run on Meta's official WhatsApp platform. AiSensy is marketing and broadcast-led, while ERIX adds a pipeline, bookings, automations and an AI employee on your chats. ${ERIX_PRICING}`,
       },
       {
         q: "What does ERIX cost?",

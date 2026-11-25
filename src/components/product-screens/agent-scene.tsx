@@ -22,7 +22,7 @@ export function AgentScene() {
       steps={6}
       timing={[0, 1200, 1800, 1200, 2200, 1200]}
       hold={4000}
-      label="Three customer questions. The AI agent answers the parking question from the business's listing and sends it. It isn't sure about a discount, so it writes a draft that waits for the owner. A refund request goes to the team, marked Needs you."
+      label="Three customer questions. The AI assistant answers the parking question from the business's listing and sends it. It isn't sure about a discount, so it writes a draft that waits for the owner. A refund request goes to the team, marked Needs you."
       className="w-full"
     >
       <AppFrame

@@ -142,7 +142,6 @@ export function getSoftwareApplicationSchema() {
       "CRM: contacts, pipeline, forms and bookings",
       "Automations with approvals, Wait for a reply and AI replies",
       "An AI employee that answers from your own knowledge and hands off to your team",
-      "Bookings with Google Calendar and Meet",
       "Analytics for pipeline and lead sources",
     ],
     screenshot: `${BASE_URL}/logo.png`,

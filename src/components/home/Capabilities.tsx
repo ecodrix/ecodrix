@@ -34,7 +34,7 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
       {
         icon: "calendar-check",
         title: "Appointments",
-        text: "Booking pages in IST, Google Calendar and Meet, reminders, no double bookings.",
+        text: "Booking pages in IST, reminders, no double bookings.",
       },
       {
         icon: "receipt",
@@ -57,12 +57,12 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
       {
         icon: "image",
         title: "More channels",
-        text: "Instagram DMs and email in the same inbox. Website chat is coming soon.",
+        text: "Coming soon: Instagram DMs, email and website chat.",
       },
       {
         icon: "calendar",
         title: "Google Calendar and Meet",
-        text: "Bookings land on your calendar, with a Meet link for online calls.",
+        text: "Coming soon.",
       },
     ],
   },
@@ -141,7 +141,11 @@ const groups: { name: string; href: string; icon: GlyphName; ai?: boolean; items
         text: "Fixes the appointment or leaves a callback request.",
       },
       { icon: "inbox", title: "Every call in your inbox", text: "A transcript and a summary on the contact." },
-      { icon: "shield-check", title: "Open by request", text: "Tell us about your calls and we switch it on for you." },
+      {
+        icon: "shield-check",
+        title: "Says it is an AI",
+        text: "Every caller hears that first. It cannot be switched off.",
+      },
     ],
   },
 ];
@@ -151,7 +155,7 @@ export function Capabilities() {
     <MkSection
       id="everything"
       title="Everything in ERIX 1.0, in plain words"
-      lead="Four parts, one customer record, all live today. The voice assistant is open by request."
+      lead="Five parts, one customer record, all live today."
     >
       <div className="grid gap-4 md:grid-cols-2">
         {groups.map((g) => (

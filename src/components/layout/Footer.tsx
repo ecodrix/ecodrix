@@ -3,7 +3,7 @@ import { type GlyphName, Icon } from "@/components/icons";
 import { LogoMark } from "@/components/layout/LogoMark";
 import { Wordmark } from "@/components/layout/wordmark";
 import { CookiePrefsButton } from "@/components/legal/CookiePrefsButton";
-import { buttonVariants } from "@/components/ui/button";
+import { ARROW_NUDGE, buttonVariants } from "@/components/ui/button";
 import {
   COMPANY_NAV,
   CONTACT_EMAIL,
@@ -104,20 +104,12 @@ export async function Footer() {
               employee for the routine replies.
             </p>
             <div className="mt-6 flex flex-wrap gap-2.5">
-              <Link href={PRIMARY_CTA.href} className={cn(buttonVariants(), "group min-h-10! px-4! text-[14px]")}>
+              <Link href={PRIMARY_CTA.href} className={cn(buttonVariants({ size: "sm" }), "group")}>
                 {PRIMARY_CTA.label}
-                <Icon
-                  name="arrow-right"
-                  size={15}
-                  variant="line"
-                  className="group-hover:translate-x-1 ease-in-out duration-300 transform transition-transform"
-                />
+                <Icon name="arrow-right" size={16} variant="line" className={ARROW_NUDGE} />
               </Link>
-              <a
-                href={EMAIL_CTA.href}
-                className={cn(buttonVariants({ variant: "ghost" }), "min-h-10! px-4! text-[14px]")}
-              >
-                <Icon name="mail" size={15} variant="line" />
+              <a href={EMAIL_CTA.href} className={buttonVariants({ variant: "ghost", size: "sm" })}>
+                <Icon name="mail" size={16} variant="line" />
                 {EMAIL_CTA.label}
               </a>
             </div>

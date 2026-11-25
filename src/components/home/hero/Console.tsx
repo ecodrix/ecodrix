@@ -1,16 +1,15 @@
 import type { Dispatch } from "react";
-import { Calendar, Inbox as InboxIcon, IndianRupee, Phone, Users, Workflow } from "@/components/icons";
+import { Calendar, Inbox as InboxIcon, Phone, Users, Workflow } from "@/components/icons";
 import { Inbox } from "./Inbox";
 import { Count, spotProps } from "./parts";
 import type { View } from "./script";
 import type { Action, DemoState } from "./state";
-import { Board, Calendar as CalendarView, Flows, Payments } from "./Views";
+import { Board, Calendar as CalendarView, Flows } from "./Views";
 
-const TABS: { view: View; label: string; Icon: typeof Users; badge?: "inbox" | "cal" | "pay" | "flow" }[] = [
+const TABS: { view: View; label: string; Icon: typeof Users; badge?: "inbox" | "cal" | "flow" }[] = [
   { view: "inbox", label: "Inbox", Icon: InboxIcon, badge: "inbox" },
   { view: "board", label: "Customers", Icon: Users },
   { view: "cal", label: "Calendar", Icon: Calendar, badge: "cal" },
-  { view: "pay", label: "Payments", Icon: IndianRupee, badge: "pay" },
   { view: "flow", label: "Automations", Icon: Workflow, badge: "flow" },
 ];
 const WAVE = Array.from({ length: 16 }, (_, i) => i);
@@ -90,7 +89,6 @@ export function Console({
               ["inbox", <Inbox key="i" s={s} dispatch={dispatch} />],
               ["board", <Board key="b" s={s} />],
               ["cal", <CalendarView key="c" s={s} />],
-              ["pay", <Payments key="p" s={s} />],
               ["flow", <Flows key="f" s={s} />],
             ] as [View, React.ReactNode][]
           ).map(([v, node]) => (

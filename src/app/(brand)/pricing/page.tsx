@@ -68,7 +68,7 @@ export default async function PricingPage() {
       a: "Yes. Upgrades take effect straight away, and the difference may be prorated for the rest of your billing cycle. The pricing policy covers downgrades.",
     },
     {
-      q: "Which plans include the AI agent?",
+      q: "Which plans include the AI employee?",
       a: "Every plan. Plans differ in how many AI requests a month they include, shown on each plan above.",
     },
     ...(trial ? [{ q: "Is there a trial?", a: trial }] : []),
