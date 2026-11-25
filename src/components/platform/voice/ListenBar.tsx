@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Icon } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import { INDIC_FONT } from "./LangTabs";
@@ -10,20 +11,51 @@ import { pickLang } from "./voice-clips";
 import { scrollToId } from "./voice-nav";
 import { toggle, usePlayer } from "./voice-player";
 
-/** Now-playing strip: pinned to the bottom on phones, under the switch bar from 720px. */
-function NowBar() {
+const INLINE_ID = "listen-inline";
+
+/** The three language buttons: one switch for every clip on the page, the hero call included. */
+function LangButtons({ className }: { className?: string }) {
+  const lang = useVoiceLang();
+  return (
+    <div className={cn("grid grid-cols-3 gap-0.5", className)}>
+      {LANGS.map((l) => (
+        <button
+          key={l.id}
+          type="button"
+          lang={l.id}
+          aria-pressed={l.id === lang}
+          onClick={() => pickLang(l.id)}
+          style={l.id === "en" ? undefined : INDIC_FONT}
+          className={cn(
+            "min-h-11 min-w-11 cursor-pointer rounded-full px-3.5 py-1.5 text-[16px] font-semibold whitespace-nowrap min-[420px]:px-4",
+            l.id === lang ? "bg-accent text-accent-foreground" : "text-foreground hover:bg-sunken",
+            FOCUS,
+          )}
+        >
+          {l.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/** Now-playing row of the dock: what plays, its time, a way back to it and pause. */
+function NowRow() {
   const st = usePlayer();
   if (!st || st.error) return null;
   return (
-    <div className="fixed inset-x-2 bottom-2 z-40 flex min-h-14 items-center gap-2 rounded-2xl border border-white/25 bg-blue-800 py-1.5 pr-1.5 pl-4 text-white min-[720px]:absolute min-[720px]:inset-x-0 min-[720px]:top-[calc(100%+8px)] min-[720px]:bottom-auto">
+    <div className="flex min-h-12 min-w-0 items-center gap-2 border-t border-border pl-4 min-[720px]:max-w-[420px] min-[720px]:border-t-0 min-[720px]:border-l">
       <span className="min-w-0 flex-1 truncate text-[15px] font-bold">{st.label}</span>
-      <span className="text-[13px] whitespace-nowrap text-on-navy-link tabular-nums max-[419px]:hidden">
+      <span className="text-[13px] whitespace-nowrap text-muted-foreground tabular-nums max-[419px]:hidden">
         {fmt(st.t)} / {fmt(st.dur)}
       </span>
       <button
         type="button"
         onClick={() => scrollToId(st.domId, "center")}
-        className="min-h-11 cursor-pointer px-2 text-[14px] font-semibold underline underline-offset-[3px] focus-visible:outline-2 focus-visible:outline-white"
+        className={cn(
+          "min-h-11 cursor-pointer rounded-full px-2 text-[14px] font-semibold text-accent underline underline-offset-[3px]",
+          FOCUS,
+        )}
       >
         Go to it
       </button>
@@ -31,7 +63,10 @@ function NowBar() {
         type="button"
         aria-label={`${st.playing ? "Pause" : "Play"} ${st.label}`}
         onClick={() => toggle(st)}
-        className="grid size-11 flex-none cursor-pointer place-items-center rounded-full bg-white text-blue-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        className={cn(
+          "grid size-11 flex-none cursor-pointer place-items-center rounded-full bg-accent text-accent-foreground hover:bg-accent-hover",
+          FOCUS,
+        )}
       >
         <Icon name={st.playing ? "pause" : "play"} size={18} variant="solid" />
       </button>
@@ -39,47 +74,76 @@ function NowBar() {
   );
 }
 
-/** Keeps the last card clear of the phone strip while a clip is active. */
-export function NowSpacer() {
-  const st = usePlayer();
-  return st && !st.error ? <div aria-hidden="true" className="h-[72px] min-[720px]:hidden" /> : null;
-}
-
-/** "Hear it in" language switch, sticky under the site header, with the now-playing strip. */
+/** The switch at rest: a pill straddling the edge where the navy hero meets the content, so the hero runs into the page with no band between. */
 export function ListenBar() {
-  const lang = useVoiceLang();
   return (
-    <div className="sticky top-[var(--header-h)] z-40 border-b border-border bg-background px-gutter">
-      <div className="relative mx-auto flex min-h-14 w-full max-w-wrap items-center gap-3">
-        <span id="hear-in" className="text-[15px] font-semibold text-muted-foreground max-[399px]:hidden">
-          Hear it in
-        </span>
+    <div
+      id={INLINE_ID}
+      // Transparent over the hero half, page colour under it, so the content colour starts at the hero's edge.
+      className="relative z-10 -mt-[26px] bg-[linear-gradient(to_bottom,transparent_26px,var(--background)_26px)] px-gutter"
+    >
+      <div className="mx-auto w-full max-w-wrap">
         {/* biome-ignore lint/a11y/useSemanticElements: a fieldset adds a legend box the pill switch cannot style away */}
         <div
           role="group"
-          aria-labelledby="hear-in"
-          className="grid w-fit max-w-full grid-cols-3 gap-1 rounded-full border border-border-strong bg-surface p-1"
+          aria-label="Hear it in"
+          className="flex w-full items-center rounded-full border border-border-strong bg-surface p-1 min-[420px]:w-fit min-[420px]:pl-5"
         >
-          {LANGS.map((l) => (
-            <button
-              key={l.id}
-              type="button"
-              lang={l.id}
-              aria-pressed={l.id === lang}
-              onClick={() => pickLang(l.id)}
-              style={l.id === "en" ? undefined : INDIC_FONT}
-              className={cn(
-                "min-h-11 min-w-11 cursor-pointer rounded-full px-4 py-1.5 text-[16px] font-semibold whitespace-nowrap",
-                l.id === lang ? "bg-accent text-accent-foreground" : "text-foreground hover:bg-sunken",
-                FOCUS,
-              )}
-            >
-              {l.label}
-            </button>
-          ))}
+          <span aria-hidden="true" className="mr-3 text-[15px] font-semibold text-muted-foreground max-[419px]:hidden">
+            Hear it in
+          </span>
+          <LangButtons className="max-[419px]:w-full" />
         </div>
-        <NowBar />
       </div>
     </div>
+  );
+}
+
+/** Floating pill at the bottom edge: the switch once the hero has scrolled away, and the now-playing row while a clip is active. Clear of the top header. */
+export function ListenDock() {
+  const st = usePlayer();
+  const [away, setAway] = useState(false);
+  const [end, setEnd] = useState(false);
+  useEffect(() => {
+    const watch = (id: string, on: (e: IntersectionObserverEntry) => void, margin = "0px") => {
+      const el = document.getElementById(id);
+      if (!el) return undefined;
+      const io = new IntersectionObserver(([e]) => on(e), { rootMargin: margin });
+      io.observe(el);
+      return io;
+    };
+    // The resting switch counts as gone once it slides under the 66px header. Past the voice library nothing plays by language, so the switch leaves.
+    const a = watch(INLINE_ID, (e) => setAway(!e.isIntersecting && e.boundingClientRect.top < 72), "-72px 0px 0px 0px");
+    const b = watch("options", (e) => setEnd(e.isIntersecting || e.boundingClientRect.top < 0));
+    return () => {
+      a?.disconnect();
+      b?.disconnect();
+    };
+  }, []);
+  const now = !!st && !st.error;
+  const showLang = away && !end;
+  if (!now && !showLang) return null;
+  return (
+    <>
+      <div className="pointer-events-none fixed inset-x-2 bottom-2 z-40 flex justify-center">
+        <div
+          className={cn(
+            "pointer-events-auto flex max-w-full flex-col items-stretch rounded-[28px] border border-border bg-surface p-1 min-[720px]:flex-row min-[720px]:items-center",
+            "shadow-[0_6px_18px_-10px_rgba(4,13,66,0.16),0_1px_3px_-1px_rgba(4,13,66,0.06)]",
+            now && "w-full min-[720px]:w-auto",
+          )}
+        >
+          {showLang && (
+            // biome-ignore lint/a11y/useSemanticElements: same pill switch as the one at rest
+            <div role="group" aria-label="Hear it in">
+              <LangButtons />
+            </div>
+          )}
+          <NowRow />
+        </div>
+      </div>
+      {/* Keeps the end of the page clear of the now-playing row. */}
+      {now && <div aria-hidden="true" className="h-[72px] max-[719px]:h-[132px]" />}
+    </>
   );
 }

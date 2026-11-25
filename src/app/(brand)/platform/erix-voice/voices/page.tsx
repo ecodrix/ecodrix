@@ -3,7 +3,7 @@ import type { GlyphName } from "@/components/icons";
 import { Icon } from "@/components/icons";
 import { BrowserFrame, CtaBand, HeroMotif, MkSection, PrimaryCta } from "@/components/marketing/kit";
 import { HeroCall } from "@/components/platform/voice/HeroCall";
-import { ListenBar, NowSpacer } from "@/components/platform/voice/ListenBar";
+import { ListenBar, ListenDock } from "@/components/platform/voice/ListenBar";
 import { VoiceGallery } from "@/components/platform/voice/VoiceGallery";
 import { VoiceHeroHead } from "@/components/platform/voice/VoiceHeroHead";
 import { VoiceLibrary } from "@/components/platform/voice/VoiceLibrary";
@@ -24,26 +24,31 @@ function SectionHead({
   title,
   jump,
   jumpLabel,
+  down,
   children,
 }: {
   id: string;
   title: string;
   jump: string;
   jumpLabel: string;
+  down?: boolean;
   children: string;
 }) {
   return (
-    <div className="mb-3 flex flex-wrap items-baseline gap-x-3 min-[600px]:gap-x-6">
-      <h2 id={id} className="scroll-mt-36 font-display text-[24px] leading-tight font-bold tracking-[-0.01em]">
-        {title}
-      </h2>
-      <a
-        href={jump}
-        className="inline-flex min-h-11 items-center text-[15px] font-semibold text-accent underline underline-offset-[3px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent max-[599px]:ml-auto"
-      >
-        {jumpLabel}
-      </a>
-      <p className="max-w-[60ch] flex-[1_1_100%] text-[15px] text-muted-foreground">{children}</p>
+    <div className="mb-4">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6">
+        <h2 id={id} className="scroll-mt-36 font-display text-[24px] leading-tight font-bold tracking-[-0.01em]">
+          {title}
+        </h2>
+        <a
+          href={jump}
+          className="inline-flex min-h-11 items-center gap-1.5 text-[15px] font-semibold text-accent underline underline-offset-[3px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        >
+          {jumpLabel}
+          <Icon name={down ? "arrow-down" : "arrow-up"} size={16} variant="line" />
+        </a>
+      </div>
+      <p className="max-w-[60ch] text-[15px] text-muted-foreground">{children}</p>
     </div>
   );
 }
@@ -135,15 +140,15 @@ export default function Page() {
 
       <ListenBar />
 
-      <div className="bg-background px-gutter pt-6 pb-[clamp(32px,5vw,56px)]">
+      <div className="bg-background px-gutter pt-[clamp(32px,5vw,48px)] pb-[clamp(40px,6vw,64px)]">
         <div className="mx-auto w-full max-w-wrap">
           <section aria-labelledby="h-calls">
-            <SectionHead id="h-calls" title="Recorded calls" jump="#h-lib" jumpLabel="Hear the voices by name">
+            <SectionHead id="h-calls" title="Recorded calls" jump="#h-lib" jumpLabel="Hear the voices by name" down>
               Whole calls: hear an assistant handle a caller from hello to goodbye.
             </SectionHead>
             <VoiceGallery tabs={false} />
           </section>
-          <section aria-labelledby="h-lib" className="pt-8">
+          <section aria-labelledby="h-lib" className="pt-[clamp(40px,6vw,56px)]">
             <SectionHead id="h-lib" title="Voice library" jump="#h-calls" jumpLabel="Back to the calls">
               One voice at a time, all saying the same sentence, so you can compare.
             </SectionHead>
@@ -180,7 +185,7 @@ export default function Page() {
           </>
         }
       />
-      <NowSpacer />
+      <ListenDock />
     </div>
   );
 }

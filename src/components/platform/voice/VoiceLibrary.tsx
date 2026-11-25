@@ -20,7 +20,7 @@ function Tile({ code, lang }: { code: string; lang: keyof typeof LANG_NAME }) {
   const playing = !!st?.playing;
   const err = !!st?.error;
   return (
-    <li>
+    <li className="flex">
       <button
         type="button"
         id={voiceDomId(code)}
@@ -31,9 +31,13 @@ function Tile({ code, lang }: { code: string; lang: keyof typeof LANG_NAME }) {
         }
         onClick={() => toggle(clip)}
         className={cn(
-          "relative flex min-h-16 w-full scroll-mt-32 cursor-pointer items-center gap-2.5 overflow-hidden rounded-xl border bg-surface px-2.5 py-2 text-left text-foreground",
+          "relative flex min-h-[72px] w-full scroll-mt-32 cursor-pointer items-center gap-2.5 overflow-hidden rounded-2xl border bg-surface px-3 py-2 text-left text-foreground",
           "data-[mark]:outline-2 data-[mark]:outline-offset-2 data-[mark]:outline-accent",
-          playing ? "border-accent bg-accent-muted" : err ? "border-error" : "border-border",
+          playing
+            ? "border-accent bg-accent-muted outline outline-1 -outline-offset-2 outline-accent"
+            : err
+              ? "border-error"
+              : "border-border",
           FOCUS,
         )}
       >
@@ -47,16 +51,32 @@ function Tile({ code, lang }: { code: string; lang: keyof typeof LANG_NAME }) {
             <Icon name={playing ? "pause" : "play"} size={18} variant="solid" />
           )}
         </span>
-        <span className="min-w-0">
+        <span className="min-w-0 flex-1">
           <span className="block text-[15px] leading-tight font-semibold">{voiceName(code)}</span>
           <span
             className={cn(
               "block text-[13px] leading-tight",
-              err ? "font-semibold text-error" : "text-muted-foreground tabular-nums",
+              err
+                ? "font-semibold text-error"
+                : playing
+                  ? "font-semibold text-accent tabular-nums"
+                  : "text-muted-foreground tabular-nums",
             )}
           >
             {err ? "Could not load" : fmt(st ? clip.dur - st.t : clip.dur)}
           </span>
+        </span>
+        <span
+          aria-hidden="true"
+          className={cn("absolute top-2.5 right-2.5 inline-flex h-3.5 items-end gap-0.5", !playing && "invisible")}
+        >
+          {[0, 1, 2].map((i) => (
+            <i
+              key={i}
+              style={{ animationDelay: `${-i * 0.3}s` }}
+              className="h-full w-[3px] origin-bottom rounded-[1px] bg-accent motion-safe:animate-pulse"
+            />
+          ))}
         </span>
         <span
           aria-hidden="true"
@@ -77,13 +97,13 @@ export function VoiceLibrary({ tabs }: { tabs?: boolean }) {
       <p
         lang={lang}
         style={lang === "en" ? undefined : INDIC_FONT}
-        className="mb-4 rounded-xl border border-l-[3px] border-border border-l-ai bg-surface px-4 py-3 text-[17px] leading-[1.7] [overflow-wrap:anywhere]"
+        className="mb-3 rounded-2xl border border-l-[3px] border-border border-l-ai bg-surface px-4 py-3 text-[17px] leading-[1.7] [overflow-wrap:anywhere]"
       >
         {libraryJson.lines[lang]}
       </p>
       <ul
         id={GRID_ID}
-        className="grid list-none grid-cols-2 gap-2 min-[600px]:grid-cols-3 min-[900px]:grid-cols-4 min-[1200px]:grid-cols-6"
+        className="grid list-none grid-cols-2 gap-3 min-[600px]:grid-cols-3 min-[900px]:grid-cols-4 min-[1200px]:grid-cols-6"
       >
         {VOICES.map((v) => (
           <Tile key={`${lang}-${v}`} code={v} lang={lang} />

@@ -13,7 +13,17 @@ export const fmt = (s: number) => {
 export const FOCUS = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 
 /** Play button, seekable waveform (a slider: arrows 5 s, Page keys 15 s, Home, End, Space) and elapsed time. `idPrefix` keeps ids unique when a clip has two views. */
-export function PlayerRow({ clip, peaks, idPrefix }: { clip: Clip; peaks: readonly number[]; idPrefix: string }) {
+export function PlayerRow({
+  clip,
+  peaks,
+  idPrefix,
+  compact,
+}: {
+  clip: Clip;
+  peaks: readonly number[];
+  idPrefix: string;
+  compact?: boolean;
+}) {
   const st = usePlayer(clip.id);
   const drag = useRef(false);
   const playing = !!st?.playing;
@@ -46,14 +56,15 @@ export function PlayerRow({ clip, peaks, idPrefix }: { clip: Clip; peaks: readon
     }
   };
   return (
-    <div className="flex items-center gap-3 rounded-xl bg-background p-3">
+    <div className={cn("flex items-center rounded-xl bg-background", compact ? "gap-2.5 p-2.5" : "gap-3 p-3")}>
       <button
         type="button"
         id={`${idPrefix}-play`}
         aria-label={`${playing ? "Pause" : "Play"} ${clip.label}`}
         onClick={() => toggle(clip)}
         className={cn(
-          "grid size-14 flex-none cursor-pointer place-items-center rounded-full bg-accent text-accent-foreground hover:bg-accent-hover",
+          "grid flex-none cursor-pointer place-items-center rounded-full bg-accent text-accent-foreground hover:bg-accent-hover",
+          compact ? "size-11" : "size-14",
           FOCUS,
         )}
       >
@@ -66,7 +77,8 @@ export function PlayerRow({ clip, peaks, idPrefix }: { clip: Clip; peaks: readon
           <Icon name={playing ? "pause" : "play"} size={20} variant="solid" />
         )}
       </button>
-      <div className="min-w-0 flex-1">
+      {/* Container query: a narrow waveform drops every other bar so the rest stay wide enough to see. */}
+      <div className="@container min-w-0 flex-1">
         <div
           role="slider"
           tabIndex={0}
@@ -95,7 +107,10 @@ export function PlayerRow({ clip, peaks, idPrefix }: { clip: Clip; peaks: readon
               // biome-ignore lint/suspicious/noArrayIndexKey: fixed-length decorative bars
               key={i}
               style={{ height: `${Math.round(8 + h * 92)}%` }}
-              className={cn("min-w-px flex-1 rounded-sm", i < lit ? "bg-accent" : "bg-accent/35")}
+              className={cn(
+                "min-w-px flex-1 rounded-sm @max-[310px]:even:hidden",
+                i < lit ? "bg-accent" : "bg-accent/35",
+              )}
             />
           ))}
         </div>
