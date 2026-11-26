@@ -32,7 +32,7 @@ export function useTween(to: number): number {
 const EASE = "cubic-bezier(.2,.7,.2,1)";
 
 /**
- * FLIP for keyed children (`data-key`): after each commit, rows that moved glide from their old
+ * FLIP for keyed children (`data-key`): after each commit, rows that moved fade in at their new
  * spot and new rows fade in. offsetLeft/Top (not client rects) so view transforms do not skew it.
  */
 export function useFlip(ref: RefObject<HTMLElement | null>, selector: string) {
@@ -57,8 +57,13 @@ export function useFlip(ref: RefObject<HTMLElement | null>, selector: string) {
         );
       } else if (a[0] !== el.offsetLeft || a[1] !== el.offsetTop) {
         el.animate(
-          [{ transform: `translate(${a[0] - el.offsetLeft}px, ${a[1] - el.offsetTop}px)` }, { transform: "none" }],
-          { duration: 520, easing: EASE },
+          // A moved row fades in at its new spot instead of travelling from the old one: travelling rows
+          // drew their text over their neighbours for half a second on a narrow list.
+          [
+            { opacity: 0.25, transform: "translateY(-6px)" },
+            { opacity: 1, transform: "none" },
+          ],
+          { duration: 450, easing: EASE },
         );
       }
     }

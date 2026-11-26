@@ -340,35 +340,35 @@ export function FlowEditorDemo() {
         }
       >
         <div className="flex h-full">
-          <div
-            data-lenis-prevent
-            className="flex min-w-0 flex-1 flex-col overflow-y-auto bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:14px_14px] p-3"
-          >
-            <div className="mx-auto flex w-full max-w-[19rem] flex-col">
-              {paths.main.map((s, i) => (
-                <div key={s.id} className="flex flex-col">
-                  {i > 0 && <span aria-hidden="true" className={wire} />}
-                  {node(s)}
-                </div>
-              ))}
+          <div className="flex min-w-0 flex-1 flex-col bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:14px_14px]">
+            <div data-lenis-prevent className="flex min-h-0 flex-1 flex-col overflow-y-auto p-3 pb-1">
+              <div className="mx-auto flex w-full max-w-[19rem] flex-col">
+                {paths.main.map((s, i) => (
+                  <div key={s.id} className="flex flex-col">
+                    {i > 0 && <span aria-hidden="true" className={wire} />}
+                    {node(s)}
+                  </div>
+                ))}
+              </div>
+              <div className="mx-auto mt-1 grid w-full max-w-[24rem] grid-cols-2 gap-2">
+                {(["replied", "noReply"] as const).map((path) => (
+                  <div key={path} className="flex min-w-0 flex-col">
+                    <p className="pb-1 text-center text-[11px] font-semibold text-subtle">
+                      {path === "replied" ? "Replied" : "No reply"}
+                    </p>
+                    {paths[path].map((s, i) => (
+                      <div key={s.id} className="flex flex-col">
+                        {i > 0 && <span aria-hidden="true" className={wire} />}
+                        {node(s, true)}
+                      </div>
+                    ))}
+                    {addButton(path)}
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="mx-auto mt-1 grid w-full max-w-[24rem] grid-cols-2 gap-2">
-              {(["replied", "noReply"] as const).map((path) => (
-                <div key={path} className="flex min-w-0 flex-col">
-                  <p className="pb-1 text-center text-[11px] font-semibold text-subtle">
-                    {path === "replied" ? "Replied" : "No reply"}
-                  </p>
-                  {paths[path].map((s, i) => (
-                    <div key={s.id} className="flex flex-col">
-                      {i > 0 && <span aria-hidden="true" className={wire} />}
-                      {node(s, true)}
-                    </div>
-                  ))}
-                  {addButton(path)}
-                </div>
-              ))}
-            </div>
-            <div className="mt-auto flex flex-wrap items-center justify-between gap-2 rounded-[10px] bg-surface px-2.5 py-2 text-[11px] shadow-[var(--shadow-card)]">
+            {/* The run bar sits outside the scroll area so the main action is never scrolled out of reach. */}
+            <div className="m-3 mt-1 flex flex-wrap items-center justify-between gap-2 rounded-[10px] bg-surface px-2.5 py-2 text-[11px] shadow-[var(--shadow-card)]">
               {run ? (
                 <span className="text-foreground">
                   Run · <span className="font-semibold">Rohan Mehta</span>

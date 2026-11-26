@@ -464,10 +464,7 @@
   opacity: 0;
   visibility: hidden;
   transform: translateY(8px);
-  transition:
-    opacity 0.35s var(--hx-ease),
-    transform 0.35s var(--hx-ease),
-    visibility 0s 0.35s;
+  transition: none;
 }
 .hx-view.on {
   opacity: 1;
@@ -485,12 +482,76 @@
   grid-template-columns: 290px minmax(0, 1fr) 250px;
   height: 100%;
 }
+/* The call card and toasts never sit on content: they dock under the views as in-flow bars. Up to 860px
+   the call is one compact bar (icon, name, state, timer); wider frames keep the waveform and live line. */
+.hx-main {
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+}
+.hx-main .hx-call {
+  position: static;
+  grid-row: 3;
+  width: auto;
+  padding: 8px 14px;
+  border-width: 1px 0 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.hx-main .hx-toasts {
+  position: static;
+  grid-row: 4;
+  align-items: stretch;
+  gap: 0;
+  right: auto;
+  bottom: auto;
+}
+.hx-main .hx-toast {
+  max-width: none;
+  border-radius: 0;
+}
+/* Root cause of the 840px overlap: the plain .hx-side { display: flex } below used to beat the old
+   ".hx-side { display: none }" in this query (same specificity, later wins), so the customer card
+   became a stray third grid item drawn under the chat. Selectors here are stronger on purpose.
+   data-pane picks the view: wide = all three; <=860 = list + (chat | card); <=640 = one at a time. */
 @container (max-width: 860px) {
+  .hx-main .hx-call {
+    gap: 0;
+  }
+  .hx-main .hx-call .wave,
+  .hx-main .hx-call .call-line {
+    display: none;
+  }
   .hx-inbox {
     grid-template-columns: 250px minmax(0, 1fr);
   }
-  .hx-side {
+  .hx-inbox .hx-side {
     display: none;
+    border-left: 0;
+  }
+  .hx-inbox[data-pane="card"] .hx-thread {
+    display: none;
+  }
+  .hx-inbox[data-pane="card"] .hx-side {
+    display: flex;
+  }
+  .hx-main .hx-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@container (max-width: 640px) {
+  .hx-inbox {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+  .hx-inbox[data-pane="list"] .hx-thread,
+  .hx-inbox:not([data-pane="list"]) .hx-list {
+    display: none;
+  }
+  .hx-list {
+    border-right: 0;
+  }
+  .hx-main .hx-board {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
   }
 }
 @container (max-width: 760px) {
@@ -1408,20 +1469,9 @@
   .hx-tab .tip {
     display: none;
   }
-  .hx-inbox {
-    grid-template-columns: 1fr;
-    grid-template-rows: 190px minmax(0, 1fr);
-  }
-  .hx-list {
-    border-right: 0;
-    border-bottom: 1px solid var(--hx-line);
-  }
   .hx-thead .hx-av,
   .hx-thead .hx-pill {
     display: none;
-  }
-  .hx-board {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .hx-cal {
     grid-template-columns: 1fr;
@@ -1606,5 +1656,15 @@
 @media (max-width: 680px) {
   .hx-cursor {
     display: none;
+  }
+}
+
+/* Touch: every control in the console is at least 44px tall. */
+@media (pointer: coarse) {
+  .hx-small {
+    min-height: 44px;
+  }
+  .hx-row {
+    min-height: 44px;
   }
 }

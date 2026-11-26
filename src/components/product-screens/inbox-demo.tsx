@@ -1,11 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { BookOpen, Send, Sparkles } from "@/components/icons";
+import { useEffect, useRef, useState } from "react";
+import { BookOpen, ChevronLeft, Send, Sparkles } from "@/components/icons";
 import { LiveDot } from "@/components/motion/surface";
 import { type ChatMsg, Composer, MessageList, msg, reducedMotion, sleep } from "@/components/product-screens/chat";
 import { AppFrame, Avatar, Channel, Pill } from "@/components/product-screens/parts";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
 type Ch = "whatsapp";
@@ -152,6 +151,17 @@ export function InboxDemo({
   const [busy, setBusy] = useState<string | null>(null);
   const [typing, setTyping] = useState<Record<string, string | null>>({});
   const alive = useRef(true);
+  // Frames narrower than @2xl show one pane at a time: the list, or the open chat with a Back button.
+  const [pane, setPane] = useState<"list" | "chat">("list");
+  const listRef = useRef<HTMLUListElement>(null);
+  const backRef = useRef<HTMLButtonElement>(null);
+  const moved = useRef(false);
+  useEffect(() => {
+    // Hand focus to the pane that just appeared; hidden (wide-frame) targets ignore focus().
+    if (!moved.current) return;
+    if (pane === "list") listRef.current?.querySelector<HTMLElement>("[aria-current]")?.focus();
+    else backRef.current?.focus();
+  }, [pane]);
 
   const t = list.find((x) => x.id === open) as Thread;
   const st = threads[open];
@@ -213,7 +223,9 @@ export function InboxDemo({
     );
 
   const choose = (id: string) => {
+    moved.current = true;
     setOpen(id);
+    setPane("chat");
     setText("");
     update(id, () => ({ unread: 0 }));
   };
@@ -252,8 +264,12 @@ export function InboxDemo({
       >
         <div className="flex h-full">
           <ul
+            ref={listRef}
             aria-label="Conversations"
-            className="hidden w-[38%] shrink-0 overflow-y-auto border-r border-border bg-surface md:block"
+            className={cn(
+              "w-full shrink-0 overflow-y-auto border-r border-border bg-surface @2xl:block @2xl:w-[38%]",
+              pane === "chat" ? "hidden" : "block",
+            )}
             data-lenis-prevent
           >
             {list.map((x) => {
@@ -290,31 +306,24 @@ export function InboxDemo({
             })}
           </ul>
 
-          <div className="flex min-w-0 flex-1 flex-col">
+          <div className={cn("min-w-0 flex-1 flex-col @2xl:flex", pane === "list" ? "hidden" : "flex")}>
             <div className="flex items-center gap-2 border-b border-border bg-surface px-3 py-2">
+              <button
+                type="button"
+                ref={backRef}
+                aria-label="Back to conversations"
+                onClick={() => setPane("list")}
+                className="-ml-2 inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-[6px] text-muted-foreground hover:bg-sunken focus-visible:outline-2 focus-visible:outline-accent @2xl:hidden"
+              >
+                <ChevronLeft aria-hidden="true" className="size-4" />
+              </button>
               <Avatar name={t.name} className="size-7" />
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-[12px] font-semibold text-foreground">{t.name}</span>
                 <Channel name={t.ch} />
               </span>
-              {/* Phones: the list is hidden, so switch conversations here. */}
-              <label className="md:hidden">
-                <span className="sr-only">Conversation</span>
-                <Select value={open} onValueChange={choose}>
-                  <SelectTrigger size="sm">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {list.map((x) => (
-                      <SelectItem key={x.id} value={x.id}>
-                        {x.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </label>
               {busy !== open && last && (
-                <span className="hidden items-center gap-1 text-[11px] text-subtle sm:flex">
+                <span className="hidden items-center gap-1 text-[11px] text-subtle @xl:flex">
                   <LiveDot /> Live
                 </span>
               )}

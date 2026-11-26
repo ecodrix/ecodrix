@@ -1,3 +1,4 @@
+import { ChevronLeft } from "@/components/icons";
 import { type Dispatch, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useFlip } from "./motion";
 import { Avatar, CH, inr, spotProps } from "./parts";
@@ -73,6 +74,8 @@ function Compose({ s, dispatch }: { s: DemoState; dispatch: Dispatch<Action> }) 
 export function Inbox({ s, dispatch }: { s: DemoState; dispatch: Dispatch<Action> }) {
   const list = useRef<HTMLDivElement>(null);
   const msgs = useRef<HTMLDivElement>(null);
+  const chatBack = useRef<HTMLButtonElement>(null);
+  const cardBack = useRef<HTMLButtonElement>(null);
   useFlip(list, ".hx-row");
   const v = s.convs.find((c) => c.id === s.sel) ?? s.convs[0];
   const st = STATE[v.state];
@@ -82,8 +85,21 @@ export function Inbox({ s, dispatch }: { s: DemoState; dispatch: Dispatch<Action
     if (msgs.current) msgs.current.scrollTop = msgs.current.scrollHeight;
   }, [v.id, v.msgs.length, typing]);
 
+  // A tap that hides the focused control would drop focus to the page; hand it to the new pane instead.
+  const first = useRef(true);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: only a pane change the visitor made moves focus
+  useEffect(() => {
+    if (first.current) {
+      first.current = false;
+      return;
+    }
+    if (!s.visitor) return;
+    if (s.pane === "list") list.current?.querySelector<HTMLElement>('[aria-selected="true"]')?.focus();
+    else (s.pane === "chat" ? chatBack : cardBack).current?.focus();
+  }, [s.pane]);
+
   return (
-    <div className="hx-inbox">
+    <div className="hx-inbox" data-pane={s.pane}>
       <div className="hx-list" ref={list} role="listbox" aria-label="Conversations">
         {s.convs.map((c, idx) => {
           const cs = STATE[c.state];
@@ -120,6 +136,15 @@ export function Inbox({ s, dispatch }: { s: DemoState; dispatch: Dispatch<Action
       <div className="hx-thread">
         <div className="hx-strip" style={{ "--strip": st.color } as React.CSSProperties} />
         <div className="hx-thead" {...spotProps(s, "thread", v.id)}>
+          <button
+            type="button"
+            ref={chatBack}
+            aria-label="Back to conversations"
+            className="hx-small hidden min-h-11 min-w-11 shrink-0 items-center justify-center @max-[640px]:inline-flex"
+            onClick={() => dispatch({ type: "pane", pane: "list" })}
+          >
+            <ChevronLeft size={18} />
+          </button>
           <Avatar ini={v.ini} ch={v.ch} ring={v.state === "ai"} />
           <span className="who">
             <b>{v.name}</b>
@@ -138,6 +163,13 @@ export function Inbox({ s, dispatch }: { s: DemoState; dispatch: Dispatch<Action
               Hand back to Riya
             </button>
           )}
+          <button
+            type="button"
+            className="hx-small hidden @max-[860px]:inline-flex items-center"
+            onClick={() => dispatch({ type: "pane", pane: "card" })}
+          >
+            Customer
+          </button>
         </div>
         <div className="hx-msgs" ref={msgs} aria-live="polite">
           {v.msgs.map((m, i) => {
@@ -167,6 +199,15 @@ export function Inbox({ s, dispatch }: { s: DemoState; dispatch: Dispatch<Action
         <Compose key={v.id} s={s} dispatch={dispatch} />
       </div>
       <aside className="hx-side" aria-label="Customer">
+        <button
+          type="button"
+          ref={cardBack}
+          className="hx-small hidden min-h-11 min-w-11 items-center justify-center self-start @max-[860px]:inline-flex"
+          aria-label="Back to conversation"
+          onClick={() => dispatch({ type: "pane", pane: "chat" })}
+        >
+          <ChevronLeft size={18} />
+        </button>
         <span className="big-av">{v.ini}</span>
         <h3>{v.name}</h3>
         <span className="ph">{v.ph}</span>

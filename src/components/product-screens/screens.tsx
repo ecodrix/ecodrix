@@ -42,8 +42,8 @@ export function AiScreen() {
       label="ERIX AI: a new knowledge source is read and becomes ready, the latest draft shows the source it came from, and on the Approvals page the sales agent's request to book an appointment waits for a person and is approved."
     >
       <AppFrame title="Approvals" nav="approvals" className="h-[25rem]">
-        <div className="grid h-full gap-3 overflow-hidden p-3 sm:p-4 md:grid-cols-[1fr_1.5fr]">
-          <div className={cn(box, "hidden p-3 md:block")}>
+        <div className="grid h-full gap-3 overflow-hidden p-3 sm:p-4 @2xl:grid-cols-[1fr_1.5fr]">
+          <div className={cn(box, "hidden p-3 @2xl:block")}>
             <p className="text-[12px] font-semibold text-foreground">AI knowledge</p>
             <ul className="mt-2 space-y-2 text-[11px]">
               <li className="flex items-center justify-between gap-2">
@@ -165,8 +165,8 @@ export function InvoiceScreen() {
           </span>
         }
       >
-        <div className="grid h-full gap-3 overflow-hidden p-3 sm:p-4 md:grid-cols-[1fr_1.25fr]">
-          <div className="hidden space-y-2.5 text-[11px] md:block">
+        <div className="grid h-full gap-3 overflow-hidden p-3 sm:p-4 @2xl:grid-cols-[1fr_1.25fr]">
+          <div className="hidden space-y-2.5 text-[11px] @2xl:block">
             <p className="flex items-center gap-1 rounded-[6px] bg-accent-muted px-2 py-1 text-accent">
               <CheckCircle2 aria-hidden="true" className="size-3" /> From proposal PRO-0018, accepted on a phone
             </p>
@@ -268,8 +268,8 @@ export function BookingScreen({ biz, title, where, what, prev, who }: Partial<ty
       timing={[0, 1200, 1300, 1500]}
       label="An ERIX booking page: the visitor picks Saturday 28 November and the 11:30 am slot in India Standard Time; 12:15 pm is already taken. The booking is confirmed and appears in the owner's upcoming appointments."
     >
-      <div className="surface-light grid h-[25rem] overflow-hidden rounded-[12px] bg-background text-foreground shadow-[var(--shadow-lg)] md:grid-cols-[1.35fr_1fr]">
-        <div className="flex min-w-0 flex-col bg-surface p-4">
+      <div className="surface-light @container flex h-[25rem] overflow-hidden rounded-[12px] bg-background text-foreground shadow-[var(--shadow-lg)]">
+        <div className="flex min-w-0 flex-[1.35_1_0%] flex-col bg-surface p-4">
           <p className="text-[11px] text-subtle">{biz}</p>
           <p className="font-display text-[17px] font-bold text-foreground">{title}</p>
           <p className="text-[11px] text-muted-foreground">{where}</p>
@@ -328,7 +328,7 @@ export function BookingScreen({ biz, title, where, what, prev, who }: Partial<ty
             </p>
           </div>
         </div>
-        <div className="hidden min-w-0 border-l border-border p-4 md:block">
+        <div className="hidden min-w-0 flex-[1_1_0%] border-l border-border p-4 @2xl:block">
           <p className="text-[12px] font-semibold text-foreground">Appointments · Upcoming</p>
           <ul className="mt-2 space-y-2 text-[11px]">
             <li className={cn(box, "p-2")}>
@@ -377,7 +377,7 @@ export function DocumentsScreen() {
         className="h-[25rem]"
         action={<Pill tone="success">Active</Pill>}
       >
-        <div className="grid h-full gap-3 overflow-hidden p-3 sm:p-4 md:grid-cols-[1.4fr_1fr]">
+        <div className="grid h-full gap-3 overflow-hidden p-3 sm:p-4 @2xl:grid-cols-[1.4fr_1fr]">
           <div className="min-w-0 space-y-2.5">
             <div className={cn(box, "p-3")}>
               <p className="flex justify-between text-[11px] text-muted-foreground">
@@ -416,7 +416,7 @@ export function DocumentsScreen() {
               </Pill>
             </div>
           </div>
-          <div className={cn(box, "hidden min-w-0 flex-col p-3 md:flex")}>
+          <div className={cn(box, "hidden min-w-0 flex-col p-3 @2xl:flex")}>
             <p className="text-[12px] font-semibold text-foreground">Client portal</p>
             <p className="mt-1 flex items-center justify-between gap-2 text-[11px] text-muted-foreground">
               Ananya Rao <Pill tone="success">Active</Pill>

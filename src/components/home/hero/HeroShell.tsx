@@ -11,6 +11,8 @@ import "./hero.css";
 
 // Cursor moves and the view switches they cause only make sense with the cursor on screen.
 const CURSOR_ACTS = new Set<Act["t"]>(["cur", "click", "view", "select"]);
+// Without the cursor (phones) the story still opens chats and switches tabs; only the pointer acts are dropped.
+const POINTER_ACTS = new Set<Act["t"]>(["cur", "click"]);
 const TITLE = "Every enquiry answered. Every visit booked.";
 
 const useMedia = (query: string) =>
@@ -76,7 +78,7 @@ export function HeroShell({ actions, motif }: { actions: ReactNode; motif: React
 
   const fire = useCallback(
     (a: Act, at: number) => {
-      if (!cursorOn && CURSOR_ACTS.has(a.t)) return;
+      if (!cursorOn && POINTER_ACTS.has(a.t)) return;
       dispatch({ type: "script", a, at });
     },
     [cursorOn],
