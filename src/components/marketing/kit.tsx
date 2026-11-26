@@ -401,9 +401,7 @@ export function FeatureSplit({
           </Link>
         )}
       </div>
-      <Reveal className="relative rounded-3xl bg-background p-[clamp(14px,3vw,32px)] shadow-[inset_0_0_0_1px_var(--border-soft)] in-data-[tone=subtle]:bg-surface">
-        {visual}
-      </Reveal>
+      <Reveal className="relative min-w-0">{visual}</Reveal>
     </div>
   );
 }
