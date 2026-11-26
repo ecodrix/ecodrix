@@ -137,7 +137,9 @@ function Kpi({
         {value}
         {unit && <span className="ml-0.5 text-[12px]">{unit}</span>}
       </p>
-      <p className={cn("mt-1 truncate text-[11px]", solid ? "text-white/85" : "text-subtle")}>{hint}</p>
+      <p className={cn("mt-1 hidden truncate text-[11px] @md:block", solid ? "text-white/85" : "text-subtle")}>
+        {hint}
+      </p>
     </div>
   );
 }
@@ -160,9 +162,9 @@ export function OverviewScreen() {
       <AppFrame title="Overview" nav="overview" className="h-[25rem]">
         <div className="flex h-full flex-col gap-2.5 overflow-hidden p-3 sm:p-4">
           <div>
-            <p className="text-[11px] text-subtle">Tuesday, 3 Nov</p>
+            <p className="hidden text-[11px] text-subtle @md:block">Tuesday, 3 Nov</p>
             <p className="font-display text-[17px] leading-tight font-bold text-foreground">Good morning, Priya</p>
-            <p className="mt-0.5 text-[11px] text-muted-foreground">
+            <p className="mt-0.5 hidden text-[11px] text-muted-foreground @md:block">
               You have <b className="font-semibold text-foreground">3 unread conversations</b> and{" "}
               <b className="font-semibold text-foreground">2 items</b> waiting for approval.
             </p>
@@ -191,7 +193,7 @@ export function OverviewScreen() {
             <p className="text-[12px] font-semibold text-foreground">Today</p>
             <ul className="mt-1.5 divide-y divide-border-soft">
               {agenda.map((a) => (
-                <li key={a.title} className="flex items-center gap-2.5 py-1.5">
+                <li key={a.title} className="flex items-center gap-2.5 py-1.5 @max-md:last:hidden">
                   <span className="w-12 shrink-0 text-[11px] text-subtle">{a.when}</span>
                   <span className="grid size-6 shrink-0 place-items-center rounded-[6px] bg-accent-muted text-accent">
                     <a.icon aria-hidden="true" className="size-3" />

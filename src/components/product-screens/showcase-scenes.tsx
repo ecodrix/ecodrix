@@ -73,7 +73,7 @@ export function CrmScreen() {
                   </span>
                 </p>
                 <div className="space-y-1.5">
-                  <div className={cn(box, "p-2")}>
+                  <div className={cn(box, "hidden p-2 @2xl:block")}>
                     <p className="text-[11.5px] font-semibold text-foreground">{i ? "Ravi Kumar" : "Meera Iyer"}</p>
                     <p className="text-[11px] text-muted-foreground">
                       {i ? "Plot, Hinjewadi · ₹1,25,000" : "2BHK, Wakad · ₹1,20,000"}
@@ -98,7 +98,7 @@ export function CrmScreen() {
               </div>
             ))}
           </div>
-          <div className="grid min-h-0 flex-1 gap-2.5 md:grid-cols-[1.15fr_1fr]">
+          <div className="grid min-h-0 flex-1 gap-2.5 @2xl:grid-cols-[1.15fr_1fr]">
             <div className={cn(box, "min-h-0 p-2.5")}>
               <p className="flex items-center gap-2 text-[11.5px] font-semibold text-foreground">
                 <Avatar name="Rohan Mehta" className="size-6 text-[11px]" /> Timeline
@@ -122,7 +122,7 @@ export function CrmScreen() {
                 ))}
               </ol>
             </div>
-            <div style={at(6)} className={cn(box, "scene-in hidden min-h-0 flex-col p-2.5 text-[11px] md:flex")}>
+            <div style={at(6)} className={cn(box, "scene-in hidden min-h-0 flex-col p-2.5 text-[11px] @2xl:flex")}>
               <p className="flex items-center gap-1.5 text-[11.5px] font-semibold text-foreground">
                 <CalendarDays aria-hidden="true" className="size-3.5 text-accent" /> Appointments
               </p>
@@ -179,7 +179,7 @@ export function AnalyticsScreen() {
           <span className="rounded-[6px] bg-sunken px-2 py-1 text-[11px] font-semibold text-foreground">30D</span>
         }
       >
-        <div className="grid h-full content-start gap-2.5 overflow-hidden p-3 md:grid-cols-[1.25fr_1fr]">
+        <div className="grid h-full content-start gap-2.5 overflow-hidden p-3 @2xl:grid-cols-[1.25fr_1fr]">
           <div className={cn(box, "p-3")}>
             <p className="text-[11px] text-muted-foreground">New contacts by day</p>
             <p className="font-display text-[22px] leading-tight font-bold tabular-nums text-foreground">142</p>
@@ -187,7 +187,7 @@ export function AnalyticsScreen() {
             <svg
               viewBox="0 0 100 40"
               preserveAspectRatio="none"
-              className="scene-in scene-wipe mt-2 h-28 w-full"
+              className="scene-in scene-wipe mt-2 hidden h-28 w-full @2xl:block"
               style={at(1)}
               aria-hidden="true"
             >
@@ -201,7 +201,7 @@ export function AnalyticsScreen() {
                 strokeLinejoin="round"
               />
             </svg>
-            <p className="mt-1 flex justify-between text-[11px] text-subtle">
+            <p className="mt-1 hidden justify-between text-[11px] text-subtle @2xl:flex">
               <span>28 Sep</span>
               <span>13 Oct</span>
               <span>27 Oct</span>
@@ -253,8 +253,8 @@ export function FormScreen() {
       hold={3600}
       label="An ERIX hosted form, shared as a link: Kavya Nair fills in her name, WhatsApp number, budget and area and sends it; she appears in the owner's contacts at once, from the site visit form, and lands in the Enquiry stage."
     >
-      <div className="surface-light grid h-[25rem] overflow-hidden rounded-[12px] bg-background text-foreground shadow-[var(--shadow-lg)] md:grid-cols-[1.2fr_1fr]">
-        <div className="flex min-w-0 flex-col bg-surface p-4">
+      <div className="surface-light @container flex h-[25rem] overflow-hidden rounded-[12px] bg-background text-foreground shadow-[var(--shadow-lg)]">
+        <div className="flex min-w-0 flex-[1.2_1_0%] flex-col bg-surface p-4">
           <p className="text-[11px] text-subtle">Sharma Realty</p>
           <p className="font-display text-[17px] font-bold text-foreground">Book a free site visit</p>
           <div className="mt-3 space-y-2">
@@ -276,7 +276,7 @@ export function FormScreen() {
             />
           </span>
         </div>
-        <div className="hidden min-w-0 flex-col border-l border-border p-4 md:flex">
+        <div className="hidden min-w-0 flex-[1_1_0%] flex-col border-l border-border p-4 @2xl:flex">
           <p className="text-[12px] font-semibold text-foreground">Contacts · New</p>
           <ul className="mt-2 space-y-2 text-[11px]">
             <li style={at(2)} className={cn(box, "scene-in scene-x p-2 ring-1 ring-accent-border")}>
@@ -326,7 +326,7 @@ export function TemplatesScreen() {
       label="ERIX Flow templates: welcome new enquiries, appointment reminders, a nudge when nobody replies, and the sales agent qualifying a new enquiry. The owner picks Appointment reminders and switches it on."
     >
       <AppFrame title="Connect / WhatsApp / Templates" nav="connect" className="h-[25rem]">
-        <div className="grid h-full content-start gap-2.5 overflow-hidden p-3 sm:grid-cols-2">
+        <div className="grid h-full content-start gap-2.5 overflow-hidden p-3 grid-cols-2">
           {templates.map((t, i) => (
             <div key={t.name} className={cn(box, "relative flex flex-col p-3")}>
               <span
@@ -338,7 +338,7 @@ export function TemplatesScreen() {
                 <t.icon aria-hidden="true" className="size-3.5" />
               </span>
               <p className="mt-2 text-[12px] font-semibold text-foreground">{t.name}</p>
-              <p className="mt-0.5 text-[11px] text-muted-foreground">{t.how}</p>
+              <p className="mt-0.5 hidden text-[11px] text-muted-foreground @md:block">{t.how}</p>
               <span className="mt-2.5">
                 {i === 1 ? (
                   swap(

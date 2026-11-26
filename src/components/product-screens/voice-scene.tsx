@@ -66,7 +66,7 @@ export function VoiceCallScreen() {
               <p className="text-[11.5px] leading-snug text-foreground">
                 Asked for a teeth cleaning this week. Booked Thursday, 11 am with Dr. Rao.
               </p>
-              <div className="flex items-center gap-2">
+              <div className="hidden items-center gap-2 @md:flex">
                 <span className="flex shrink-0 items-center gap-1 rounded-[6px] border border-border-strong bg-surface px-2 py-1 text-[11px] font-semibold text-foreground">
                   <Play aria-hidden="true" className="size-3" /> Play the whole call
                 </span>
@@ -80,7 +80,10 @@ export function VoiceCallScreen() {
                 <li
                   key={l.text}
                   style={at(l.step)}
-                  className={cn("scene-in flex items-center gap-1.5", l.who === "a" && "flex-row-reverse")}
+                  className={cn(
+                    "scene-in flex items-center gap-1.5 @max-md:first:hidden",
+                    l.who === "a" && "flex-row-reverse",
+                  )}
                 >
                   <p
                     className={cn(

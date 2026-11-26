@@ -96,7 +96,8 @@ export function PipelineDemo() {
         </p>
         <div
           data-lenis-prevent
-          className="flex h-full items-start gap-2.5 overflow-x-auto overscroll-x-contain p-3 sm:p-4"
+          // Stages stack (1 column, then 2) until the frame can show all four side by side: no header is ever cut off.
+          className="grid h-full grid-cols-1 content-start items-start gap-2.5 overflow-y-auto overscroll-contain p-3 sm:p-4 @xl:grid-cols-2 @5xl:flex @5xl:overflow-x-auto @5xl:overflow-y-hidden"
         >
           {STAGES.map((stage, si) => {
             const list = deals.filter((d) => d.stage === stage.id);
@@ -117,7 +118,7 @@ export function PipelineDemo() {
                   setDragging(null);
                 }}
                 className={cn(
-                  "flex max-h-full w-[160px] shrink-0 flex-col rounded-[12px] bg-sunken p-1.5 transition-shadow sm:w-[172px]",
+                  "flex w-full flex-col rounded-[12px] bg-sunken p-1.5 transition-shadow @5xl:max-h-full @5xl:w-[172px] @5xl:shrink-0",
                   over === stage.id && dragging && "shadow-[inset_0_0_0_2px_var(--accent)]",
                 )}
               >

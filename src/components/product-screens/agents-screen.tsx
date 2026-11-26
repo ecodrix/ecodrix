@@ -93,7 +93,7 @@ export function AgentsScreen() {
                   </li>
                 ))}
               </ol>
-              <div style={at(5)} className="scene-in rounded-[8px] bg-sunken px-2 py-1.5">
+              <div style={at(5)} className="scene-in hidden rounded-[8px] bg-sunken px-2 py-1.5 @4xl:block">
                 <p className="text-[11px] font-semibold text-muted-foreground">
                   A few things that change what gets built (optional)
                 </p>

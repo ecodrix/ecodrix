@@ -11,8 +11,11 @@ export type CallState = {
   ended: boolean;
 };
 export type ToastItem = { id: number; text: string; color: string; go: ToastGo; at: number; out: boolean };
+export type Pane = "list" | "chat" | "card";
 export type DemoState = Seed & {
   sel: string;
+  /** Small frames show one of these at a time; wide frames show them all and ignore it. */
+  pane: Pane;
   view: View;
   typingFor: string | null;
   /** Message keys (`conv:index`) that animate in; cleared when the user changes thread. */
@@ -37,6 +40,7 @@ export type Action =
   | { type: "tick"; at: number }
   | { type: "view"; view: View }
   | { type: "select"; id: string }
+  | { type: "pane"; pane: Pane }
   | { type: "take" }
   | { type: "back" }
   | { type: "send"; text: string }
@@ -50,6 +54,7 @@ const TOAST_OUT_MS = 360;
 export const initialState = (): DemoState => ({
   ...seed(),
   sel: "ar",
+  pane: "list",
   view: "inbox",
   typingFor: null,
   newKeys: [],
@@ -101,6 +106,7 @@ function apply(s: DemoState, a: Act, at: number, quiet: boolean): void {
     case "select":
       if (s.visitor) return;
       s.sel = a.id;
+      s.pane = "chat";
       s.newKeys = [];
       return;
     case "cur":
@@ -218,7 +224,11 @@ export function reduce(state: DemoState, action: Action): DemoState {
       break;
     case "select":
       s.sel = action.id;
+      s.pane = "chat";
       s.newKeys = [];
+      break;
+    case "pane":
+      s.pane = action.pane;
       break;
     case "take": {
       const c = conv(s, s.sel);
