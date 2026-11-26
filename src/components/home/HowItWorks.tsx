@@ -126,9 +126,10 @@ export function BuiltForIndia() {
                       </div>
                     ))}
                   </dl>
-                  <p className="mt-auto flex justify-between border-t border-border pt-3 text-xl font-bold text-foreground">
-                    <span>{c.foot[0]}</span>
-                    <span>{c.foot[1]}</span>
+                  {/* Label above the value: side by side, "Reminder" and "Mon, 10:00 am" ran together in the two-column card. */}
+                  <p className="mt-auto border-t border-border pt-3">
+                    <span className="block text-sm text-muted-foreground">{c.foot[0]}</span>
+                    <span className="block text-xl font-bold tabular-nums text-foreground">{c.foot[1]}</span>
                   </p>
                 </div>
               ))}
