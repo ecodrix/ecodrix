@@ -22,7 +22,7 @@ export const privacyDoc: LegalDoc = {
   description:
     "What personal data ECODrIx collects for ERIX and LAIE, why, where it is stored, how long we keep it, and how to use your rights under India's DPDP Act.",
   intro: `This Privacy Policy explains how ${LEGAL.entity} ("${LEGAL.brand}", "we", "us") handles personal data on ecodrix.com, in the ERIX console (${LEGAL.appUrl}) and in our products: ERIX (CRM, Connect messaging, Flow automations and AI agents) and LAIE (invite-only lead discovery). It follows India's Digital Personal Data Protection Act, 2023 (DPDP Act) and the Information Technology Act, 2000.`,
-  effectiveDate: "31 October 2026",
+  effectiveDate: "27 November 2026",
   sections: [
     {
       id: "roles",
@@ -263,14 +263,14 @@ export const privacyDoc: LegalDoc = {
       title: "Instagram Data and How to Delete It",
       icon: Share2,
       body: [
-        "When a workspace connects its Instagram professional account, ERIX receives from Meta: the account's ID, username, profile picture and list of posts; the direct messages people send to that account and the replies sent from ERIX; and the comments on that account's posts and the replies sent from ERIX.",
+        "When a workspace connects its Instagram professional account, ERIX receives from Meta: the account's ID, username, profile picture and list of posts; the direct messages people send to that account and the replies sent from ERIX; the comments on that account's posts and the replies sent from ERIX; and, for each person who messages that account, their name, username and profile picture. Meta's picture links expire, so we keep a copy of the picture to show next to their conversation and refresh it while they keep messaging.",
         "We use this only to show the workspace its conversations and comments in ERIX and to send the replies and automations the workspace sets up. We do not sell it and we do not use it for advertising. If the workspace switches on an AI agent, messages are handled as “AI Features” above describes.",
         "Instagram messages and comments stay in the workspace until the workspace deletes them or the workspace is deleted (see “How Long We Keep It”).",
         {
           list: [
             "Disconnect: a workspace can disconnect Instagram at any time in the console under Channels → Instagram → Accounts → Disconnect. We delete our access to the account.",
             "Remove our app in Instagram: open Settings → Apps and websites in Instagram and remove the app. We delete our access to the account.",
-            "Ask for deletion: when you ask Meta to delete the data ERIX holds (Instagram offers this for a removed app), we delete the access token, the account details and that workspace's Instagram conversations and their messages. Meta shows you a confirmation code and a link to a page with the status of your request.",
+            "Ask for deletion: when you ask Meta to delete the data ERIX holds (Instagram offers this for a removed app), we delete the access token, the account details, that workspace's Instagram conversations and their messages, and the profile pictures we copied. Meta shows you a confirmation code and a link to a page with the status of your request.",
             `Anything else: email ${LEGAL.emails.privacy}.`,
           ],
         },
