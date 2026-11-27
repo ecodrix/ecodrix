@@ -120,12 +120,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 0.9,
     },
-    ...posts.map((post) => ({
-      url: `${BASE_URL}/blog/${post.slug}`,
-      lastModified: post.updatedAt ? new Date(post.updatedAt) : now,
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    })),
+    ...posts
+      .filter((post) => !post.noindex)
+      .map((post) => ({
+        url: `${BASE_URL}/blog/${post.slug}`,
+        lastModified: post.updatedAt ? new Date(post.updatedAt) : now,
+        changeFrequency: "weekly" as const,
+        priority: 0.8,
+      })),
   ];
 
   return [
