@@ -8,12 +8,16 @@ import { pageMetadata } from "@/lib/seo/seo";
 // The API call times out after 5 s, so a build never hangs on it.
 export const revalidate = 60;
 
-export const metadata = pageMetadata({
+const base = pageMetadata({
   title: "ERIX blog: WhatsApp, CRM and automation tips",
   description:
     "Practical notes on selling over WhatsApp, running a pipeline, GST invoicing and automation for Indian SMBs, from the team building ERIX at ECODrIx.",
   path: "/blog",
 });
+export const metadata = {
+  ...base,
+  alternates: { ...base.alternates, types: { "application/rss+xml": "/blog/rss.xml" } },
+};
 
 export default async function BlogListPage() {
   return <BlogPage posts={await blogs.fetchPublishedPosts()} />;

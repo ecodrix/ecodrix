@@ -10,6 +10,8 @@ declare global {
       id?: string | null;
       name?: string | null;
       avatar?: string | null;
+      url?: string | null;
+      bio?: string | null;
     } | null;
     publishDate: string | null;
     /** Pinned in admin: the lead post on /blog. */
@@ -20,6 +22,11 @@ declare global {
     wordCount: number | null;
     createdAt: string | null;
     updatedAt: string | null;
+    // Optional SEO fields: absent on an API that predates them.
+    noindex?: boolean;
+    searchDescription?: string | null;
+    socialImage?: { url: string; altText: string } | null;
+    callToAction?: Array<{ heading: string; text?: string | null; label: string; href: string }>;
   }
 
   /** One live post (`GET /public/blogs/:slug`), with its body. */

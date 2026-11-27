@@ -12,6 +12,8 @@ import { PostToc } from "@/components/resources/blog/PostToc";
 import { SubscribeForm } from "@/components/resources/blog/SubscribeForm";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { blogs } from "@/lib/api";
+import { AuthorBox, MidCta } from "@/components/resources/blog/PostExtras";
+import { absUrl, isoDate, isUpdatedLater, safeHref, splitForCta } from "@/lib/resources/blog-seo";
 import { categoryLabel, fmtDate, relatedPosts, shareLinks } from "@/lib/resources/blog";
 import { getBreadcrumbSchema, SEO_CONSTANTS } from "@/lib/seo/jsonld";
 
@@ -41,28 +43,36 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   };
   const canonical = post.canonicalUrl && sameSite(post.canonicalUrl) ? post.canonicalUrl : url;
+  const description = post.searchDescription || post.metaDescription || undefined;
+  const title = post.metaTitle || post.title || undefined;
+  const social = post.socialImage?.url
+    ? { url: post.socialImage.url, alt: post.socialImage.altText || post.title || "" }
+    : post.featuredImage?.url
+      ? { url: post.featuredImage.url, alt: post.featuredImage.altText || post.title || "" }
+      : null;
   return {
-    // The root template adds " | ECODrIx".
-    title: post.metaTitle || post.title,
-    description: post.metaDescription || undefined,
-    keywords: post.metaKeywords?.length ? post.metaKeywords : undefined,
-    alternates: { canonical },
+    // The root template adds " | ECODrIx". Google ignores the keywords meta, so none is emitted.
+    title,
+    description,
+    robots: post.noindex ? { index: false, follow: true } : undefined,
+    alternates: { canonical, types: { "application/rss+xml": "/blog/rss.xml" } },
     openGraph: {
-      title: post.metaTitle || post.title || undefined,
-      description: post.metaDescription || undefined,
+      title,
+      description,
       url,
       type: "article",
-      publishedTime: post.publishDate || undefined,
+      publishedTime: isoDate(post.publishDate),
+      modifiedTime: isoDate(post.updatedAt),
+      section: post.category ? categoryLabel(post.category) : undefined,
+      tags: post.tags?.length ? post.tags : undefined,
       authors: post.author?.name ? [post.author.name] : undefined,
-      images: post.featuredImage?.url
-        ? [{ url: post.featuredImage.url, alt: post.featuredImage.altText || post.title || "" }]
-        : ["/opengraph-image"],
+      images: social ? [social] : ["/opengraph-image"],
     },
     twitter: {
       card: "summary_large_image",
-      title: post.metaTitle || post.title || undefined,
-      description: post.metaDescription || undefined,
-      images: post.featuredImage?.url ? [post.featuredImage.url] : undefined,
+      title,
+      description,
+      images: social ? [{ url: social.url, alt: social.alt }] : ["/opengraph-image"],
     },
   };
 }
@@ -73,19 +83,33 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
 
   const url = `${SEO_CONSTANTS.BASE_URL}/blog/${post.slug}`;
+  const authorUrl = safeHref(post.author?.url);
+  const images = [
+    ...new Set(
+      [post.socialImage?.url, post.featuredImage?.url].map((u) => absUrl(SEO_CONSTANTS.BASE_URL, u)).filter(Boolean),
+    ),
+  ];
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: post.title,
-    description: post.metaDescription,
-    image: post.featuredImage?.url,
-    datePublished: post.publishDate,
-    dateModified: post.updatedAt || post.publishDate,
-    author: { "@type": "Person", name: post.author?.name || "ECODrIx Team" },
-    publisher: { "@type": "Organization", name: "ECODrIx", url: SEO_CONSTANTS.BASE_URL },
+    description: post.searchDescription || post.metaDescription || undefined,
+    image: images.length ? images : undefined,
+    datePublished: isoDate(post.publishDate),
+    dateModified: isoDate(post.updatedAt) || isoDate(post.publishDate),
+    author: {
+      "@type": "Person",
+      name: post.author?.name || "ECODrIx Team",
+      ...(authorUrl && { url: authorUrl, sameAs: [authorUrl] }),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "ECODrIx",
+      url: SEO_CONSTANTS.BASE_URL,
+      logo: { "@type": "ImageObject", url: `${SEO_CONSTANTS.BASE_URL}/logo.png` },
+    },
     mainEntityOfPage: url,
     wordCount: post.wordCount,
-    keywords: post.metaKeywords?.join(", "),
   };
   const crumbSchema = getBreadcrumbSchema([
     { name: "Home", url: "/" },
@@ -94,6 +118,7 @@ export default async function BlogPostPage({ params }: Props) {
   ]);
 
   const article = prepareArticle(post.body || "");
+  const split = splitForCta(article.html);
   // Same category first, then the newest (the cached list, no bodies).
   const related = relatedPosts(await blogs.fetchPublishedPosts(), post);
   const share = shareLinks(post.title ?? "", url);
@@ -138,6 +163,11 @@ export default async function BlogPostPage({ params }: Props) {
                     </span>
                   )}
                   {post.publishDate && <time dateTime={post.publishDate}>{fmtDate(post.publishDate)}</time>}
+                  {isUpdatedLater(post.publishDate, post.updatedAt) && post.updatedAt && (
+                    <span>
+                      Updated <time dateTime={isoDate(post.updatedAt)}>{fmtDate(post.updatedAt)}</time>
+                    </span>
+                  )}
                   {post.readTime ? <span>{post.readTime} min read</span> : null}
                 </p>
               </header>
@@ -160,8 +190,18 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
 
               <div className="mt-8">
-                <BlogContent html={article.html} />
+                {split ? (
+                  <>
+                    <BlogContent html={split[0]} />
+                    <MidCta cta={post.callToAction?.[0]} />
+                    <BlogContent html={split[1]} />
+                  </>
+                ) : (
+                  <BlogContent html={article.html} />
+                )}
               </div>
+
+              {post.author && <AuthorBox author={post.author} />}
 
               {post.tags?.length > 0 && (
                 <div className="mt-12 border-t border-border-soft pt-6">
